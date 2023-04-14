@@ -25,6 +25,8 @@ char	*get_cmd(char *buffer, char *line)
 		free(buffer);
 		buffer = NULL;
 	}
+	if (!access(line, F_OK))
+		return (ft_strdup(line));
 	buffer = test_file(LOCBIN, line);
 	if (buffer)
 		return (buffer);
