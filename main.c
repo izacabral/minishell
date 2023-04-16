@@ -1,14 +1,13 @@
 #include "minishell.h"
-#include "libft.h"
 
 int	main(void)
 {
 	char	*line;
-	char	*cmd;
+	t_data	*data;
 
 	setup_signals();
 	line = NULL;
-	cmd = NULL;
+	data = NULL;
 	while (1)
 	{
 		line = rl_gets(line);
@@ -19,11 +18,7 @@ int	main(void)
 			free(line);
 			break ;
 		}
-		cmd = get_cmd(cmd, line);
-		if (cmd)
-			ft_putendl_fd(cmd, 1);
-		else
-			ft_putendl_fd("Not cmd", 1);
+		parser_line(&data, line);
 		if (*line)
 			add_history(line);
 	}
