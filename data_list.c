@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include <stdlib.h>
 
 t_data	*data_find_last(t_data *lst)
 {

@@ -1,8 +1,4 @@
-#include "defines.h"
-#include "libft.h"
 #include "minishell.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 static char	*check_acess(char *path, char *cmd)
 {
