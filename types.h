@@ -5,7 +5,7 @@ typedef enum e_token
 {
 	ERROR,
 	CMD,
-	FILE,
+	FILE_TK,
 	PIPE,
 	REDR,
 	HDOC,

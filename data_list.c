@@ -45,6 +45,6 @@ void	data_clear(t_data **lst, void (*del)(void **))
 		del((void **)tmp->cmd);
 		tmp->cmd = NULL;
 		free(tmp);
+		tmp = NULL;
 	}
-	*lst = NULL;
 }
