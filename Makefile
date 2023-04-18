@@ -57,8 +57,10 @@ RLFLAG		= 	-lreadline
 
 ifeq ($(WHICH_OS), Linux)
  RLFLAGS	=	$(CFLAGS) $(INC)
+ CO_LINE	=   $(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
 else
  RLFLAGS	=	$(CFLAGS) $(INCRLMAC) $(BIBRLMAC) $(INC)
+ CO_LINE	=   $(CC) $(CFLAGS) $(INC) $(INCRLMAC) -c $< -o $(<:.c=.o)
 endif
 
 # **************************************************************************** #
@@ -66,7 +68,7 @@ endif
 # **************************************************************************** #
 
 .c.o:
-			$(CC) $(CFLAGS) $(INC) $(INCRLMAC) -c $< -o $(<:.c=.o)
+			$(CO_LINE)
 
 all:		$(NAME)
 
