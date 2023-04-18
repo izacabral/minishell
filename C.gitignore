@@ -1,3 +1,8 @@
+## arquivo criado a partir do template C do github: https://github.com/github/gitignore
+## juntei aqui o template do VIM e do Visual Studio Code
+## No final do arquivo tem um campo PROJECT STUFFS para serem acrescentados qualquer
+## outro arquivo referente ao projeto
+
 # Prerequisites
 *.d
 
@@ -51,5 +56,42 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# project stuff
-minishel
+## Vim.gitignore
+# Swap
+[._]*.s[a-v][a-z]
+!*.svg  # comment out if you don't need vector files
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+Sessionx.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
+
+## VisualStudioCode.gitignore
+##
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.DS_store
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+## PROJECT STUFFS
+minishell
