@@ -10,21 +10,20 @@ WHICH_OS	= 	$(shell uname)
 #    INCLUDES                                                                  #
 # **************************************************************************** #
 
-INC	=	-I libft/ -I libft/ft_printf/ -I inc/
+INC	=	-I ./libft/ -I ./libft/ft_printf/ -I ./inc/
 
 # **************************************************************************** #
 #    SOURCES AND OBJECTS                                                       #
 # **************************************************************************** #
 
-SRCS		= 	srcs/parser/ft_isspace.c \
-				srcs/parser/get_cmd.c \
+SRCS		=	srcs/parser/get_cmd.c \
 				srcs/parser/parse_line.c \
 				srcs/prompt/data_list.c \
 				srcs/prompt/free_datacmd.c \
 				srcs/prompt/int_handler.c \
 				srcs/prompt/main.c \
 				srcs/prompt/read_line.c \
-				srsc/prompt/setup_signals.c \
+				srcs/prompt/setup_signals.c \
 
 OBJS		=	$(SRCS:.c=.o)
 
@@ -46,15 +45,13 @@ FCLIBFT		=	make -C libft fclean
 
 CC			=	cc
 
-LIBC		=	ar rc
-
 RM			= 	rm -f
 
 CFLAGS		=	-Wall -Wextra -Werror -g
 
-INCRLMAC	=	-I/usr/local/opt/readline/include/
+INCRLMAC	=	-I ~/.brew/opt/readline/include/
 
-BIBRLMAC	=	-L/usr/local/opt/readline/lib/
+BIBRLMAC	=	-L ~/.brew/opt/readline/lib/
 
 RLFLAG		= 	-lreadline
 
@@ -69,7 +66,7 @@ endif
 # **************************************************************************** #
 
 .c.o:
-			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+			$(CC) $(CFLAGS) $(INC) $(INCRLMAC) -c $< -o $(<:.c=.o)
 
 all:		$(NAME)
 
@@ -77,7 +74,7 @@ $(LIBFT):
 			$(MLIBFT)
 
 $(NAME):	$(LIBFT) $(OBJS)
-			$(CC) $(LIBC) $(RLFLAGS) $(OBJS) $(LIBFT) $(RLFLAG) -o $(NAME)
+			$(CC) $(OBJS) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o $(NAME)
 
 clean:
 			$(RM) $(OBJS)
