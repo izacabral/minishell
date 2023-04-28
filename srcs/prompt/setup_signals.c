@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include <signal.h>
 
 //After a call to execve() the signals action are reset to default.
 //SIGQUIT is set to be ignored here, but this might need to be changed,
