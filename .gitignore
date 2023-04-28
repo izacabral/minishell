@@ -3,6 +3,9 @@
 ## No final do arquivo tem um campo PROJECT STUFFS para serem acrescentados qualquer
 ## outro arquivo referente ao projeto
 
+## PROJECT STUFFS
+minishell
+
 # Prerequisites
 *.d
 
@@ -93,5 +96,4 @@ tags
 # Built Visual Studio Code Extensions
 *.vsix
 
-## PROJECT STUFFS
-minishell
+
