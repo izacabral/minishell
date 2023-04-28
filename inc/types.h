@@ -38,7 +38,7 @@ typedef struct s_cmd
 {
 	int			token;
 	t_string	*cmd;
-	int			cat;
+	int			cat; // cat = 1, caso >>; se não, cat = 0;
 	t_file		*output;
 	t_file		*input;
 	t_file		*hdoc;
@@ -60,6 +60,7 @@ void		ft_strsetlast(t_string *lst, t_string *laststr);
 int			ft_strsize(t_string *lst);
 void		ft_strdelone(t_string *lst, void (*del)(void *));
 void		ft_strclear(t_string **lst, void (*del)(void *));
+// freetab() não está sendo usada, mas deixei caso seja necessária
 void		freetab(void **ptr);
 
 #endif

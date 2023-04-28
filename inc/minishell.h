@@ -2,7 +2,6 @@
 # define MINISHELL_H
 
 # include "libft.h"
-# include "ft_printf.h"
 # include "defines.h"
 # include "types.h"
 # include <stdio.h>
@@ -19,6 +18,6 @@ char	*rl_gets(char *line);
 
 // srcs/parser/
 int		get_cmd(t_data **data, char *line);
-void	parser_line(t_data **data, char *line);
+void	parse_line(t_data **data, char *line);
 
 #endif

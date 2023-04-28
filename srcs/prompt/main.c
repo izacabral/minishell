@@ -18,7 +18,7 @@ int	main(void)
 			free(line);
 			break ;
 		}
-		parser_line(&data, line);
+		parse_line(&data, line);
 		if (*line)
 			add_history(line);
 	}

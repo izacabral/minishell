@@ -10,7 +10,7 @@ static int	get_token(t_data **data, char *line)
 }
 
 // Recursividade precisa ser implementada para leitura de vários tokens.
-void	parser_line(t_data **data, char *line)
+void	parse_line(t_data **data, char *line)
 {
 	t_data	*tmp;
 
