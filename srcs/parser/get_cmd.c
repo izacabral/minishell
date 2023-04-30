@@ -34,7 +34,7 @@ static char	*test_cmd(char *cmd)
 		return (buffer);
 	return (NULL);
 }
-
+/*
 static t_string	*make_strlst(char *cmd, char *args)
 {
 	t_string	*lst;
@@ -62,12 +62,12 @@ static t_string	*make_strlst(char *cmd, char *args)
 	}
 	return (lst);
 }
-
-int	get_cmd(t_data **data, char *line)
+*/
+int	get_cmd(t_token **data, char *line)
 {
 	char	*tmp;
 	char	*buffer;
-	t_cmd	*cmd;
+	t_token	*cmd;
 	int		i;
 
 	i = 0;
@@ -81,7 +81,8 @@ int	get_cmd(t_data **data, char *line)
 	free(tmp);
 	if (!buffer)
 		return (0);
-	cmd = new_cmd(make_strlst(buffer, &line[i]));
-	data_addback(data, new_data((void *)cmd, CMD));
+	cmd = *data;
+	addback_token(&cmd, new_token(buffer, WORD));
+	addback_token(&cmd, new_token(&line[i], WORD));
 	return (1);
 }

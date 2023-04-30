@@ -16,17 +16,8 @@ INC	=	-I ./libft/ -I ./libft/ft_printf/ -I ./inc/
 #    SOURCES AND OBJECTS                                                       #
 # **************************************************************************** #
 
-SRCS		=	srcs/data_types/cmd_tools.c \
-				srcs/data_types/file_tools.c \
-				srcs/data_types/free_tab.c \
-				srcs/data_types/ft_stradd_back.c \
-				srcs/data_types/ft_stradd_front.c \
-				srcs/data_types/ft_strclear.c \
-				srcs/data_types/ft_strdelone.c \
-				srcs/data_types/ft_strnew.c \
-				srcs/data_types/ft_strsetlast.c \
-				srcs/data_types/ft_strsize.c \
-				srcs/data_types/t_data_tools.c \
+SRCS		=	srcs/data_types/free_tab.c \
+				srcs/data_types/t_token.c \
 				srcs/parser/get_cmd.c \
 				srcs/parser/parse_line.c \
 				srcs/parser/debug_print.c \
@@ -60,8 +51,10 @@ RM			= 	rm -f
 CFLAGS		=	-Wall -Wextra -Werror -g
 
 INCRLMAC	=	-I ~/.brew/opt/readline/include/
+#INCRLMAC	+=	-I /opt/homebrew/Cellar/readline/8.2.1/include/
 
 BIBRLMAC	=	-L ~/.brew/opt/readline/lib/
+#BIBRLMAC	+=	-I /opt/homebrew/Cellar/readline/8.2.1/lib/
 
 RLFLAG		= 	-lreadline
 

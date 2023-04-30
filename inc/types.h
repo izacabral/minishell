@@ -1,65 +1,46 @@
 #ifndef TYPES_H
 # define TYPES_H
-# include <stdlib.h>
 
-typedef struct s_string
-{
-	size_t			length;
-	char			*content;
-	struct s_string	*last;
-	struct s_string	*next;
-}					t_string;
-
-typedef enum e_token
+typedef enum e_tkn
 {
 	ERROR,
-	CMD,
-	FILE_TK,
+	WORD,
 	PIPE,
 	IN,
 	OUT,
 	HDOC,
-}	t_token;
+	APPEND
+}	t_tkn;
 
-typedef struct s_data
+//s_env | t_env
+
+typedef struct s_token
 {
-	int				token;
-	void			*word;
-	struct s_data	*next;
-}					t_data;
+	int					tkn;
+	char				*word;
+	struct s_token		*next;
+}						t_token;
 
-typedef struct s_file
+// s_sentence | t_sentence
+
+typedef struct s_shell
 {
-	int		fd;
-	char	*file_name;
-}			t_file;
+	char				*line;
+	//t_env				**lst_env;
+	t_token				*lst_token;
+	int					sentence_count;
+	//t_sentence		*lst_sentence;
+	int					pipe_count;
+	int					redirect_count;
+	int					*pipes;
+	int					*reds;
+}						t_shell;
 
-typedef struct s_cmd
-{
-	int			token;
-	t_string	*cmd;
-	int			cat; // cat = 1, caso >>; se não, cat = 0;
-	t_file		*output;
-	t_file		*input;
-	t_file		*hdoc;
-}				t_cmd;
-
-t_data		*new_data(void *ptr, t_token t);
-void		data_addback(t_data **lst, t_data *new);
-t_data		*data_find_last(t_data *lst);
-void		data_clear(t_data **lst);
-t_cmd		*new_cmd(t_string *cmd);
-void		cmd_redirect(t_cmd *cmd, t_file *f, t_token t, int	cat);
-void		free_cmd(t_cmd *cmd);
-t_file		*new_file(char *path, t_token t, int append);
-void		free_file(t_file *f);
-t_string	*ft_strnew(char *str, size_t length);
-void		ft_stradd_front(t_string **lst, t_string *new);
-void		ft_stradd_back(t_string **lst, t_string *new);
-void		ft_strsetlast(t_string *lst, t_string *laststr);
-int			ft_strsize(t_string *lst);
-void		ft_strdelone(t_string *lst, void (*del)(void *));
-void		ft_strclear(t_string **lst, void (*del)(void *));
+/* T_TOKEN  */
+t_token		*new_token(char *ptr, t_tkn t);
+void		addback_token(t_token **lst, t_token *new);
+t_token		*find_last_token(t_token *lst);
+void		clear_token(t_token **lst);
 // freetab() não está sendo usada, mas deixei caso seja necessária
 void		freetab(void **ptr);
 

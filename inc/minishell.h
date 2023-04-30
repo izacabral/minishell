@@ -17,7 +17,7 @@ void	int_handler(int signum);
 char	*rl_gets(char *line);
 
 // srcs/parser/
-int		get_cmd(t_data **data, char *line);
-void	parse_line(t_data **data, char *line);
+int		get_cmd(t_token **data, char *line);
+void	parse_line(t_shell *data, char *line);
 
 #endif
