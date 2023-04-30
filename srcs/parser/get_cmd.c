@@ -1,4 +1,7 @@
+#include "libft.h"
 #include "minishell.h"
+#include "types.h"
+#include <stdlib.h>
 
 static char	*check_acess(char *path, char *cmd)
 {
@@ -31,39 +34,40 @@ static char	*test_cmd(char *cmd)
 		return (buffer);
 	return (NULL);
 }
-
-static char	**make_tab(char *cmd, char *args)
+/*
+static t_string	*make_strlst(char *cmd, char *args)
 {
-	char	**tab;
-	char	*buffer;
+	t_string	*lst;
+	char		*buffer;
+	int			i;
 
+	lst = ft_strnew(cmd, ft_strlen(cmd));
 	while (ft_isspace(*args))
 		args++;
-	if (!*args)
+	if (*args)
 	{
-		tab = malloc(2 * sizeof(*tab));
-		if (!tab)
-			return (NULL);
-		tab[0] = cmd;
-		tab[1] = NULL;
+		while (*args)
+		{
+			i = 0;
+			while (args[i] && !ft_isspace(args[i]))
+				i++;
+			buffer = malloc((i + 1) * sizeof(*buffer));
+			ft_strlcpy(buffer, args, i + 1);
+			ft_stradd_back(&lst, ft_strnew(buffer, i));
+			buffer = NULL;
+			while (ft_isspace(args[i]))
+				i++;
+			args = &args[i];
+		}
 	}
-	else
-	{
-		buffer = ft_strdup(args);
-		tab = malloc(3 * sizeof(*tab));
-		if (!(tab && buffer))
-			return (NULL);
-		tab[0] = cmd;
-		tab[1] = buffer;
-		tab[2] = NULL;
-	}
-	return (tab);
+	return (lst);
 }
-
-int	get_cmd(t_data **data, char *line)
+*/
+int	get_cmd(t_token **data, char *line)
 {
 	char	*tmp;
 	char	*buffer;
+	t_token	*cmd;
 	int		i;
 
 	i = 0;
@@ -77,6 +81,8 @@ int	get_cmd(t_data **data, char *line)
 	free(tmp);
 	if (!buffer)
 		return (0);
-	data_addback(data, new_data(CMD, make_tab(buffer, &line[i])));
+	cmd = *data;
+	addback_token(&cmd, new_token(buffer, WORD));
+	addback_token(&cmd, new_token(&line[i], WORD));
 	return (1);
 }

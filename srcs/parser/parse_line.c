@@ -1,6 +1,8 @@
 #include "minishell.h"
+// Apenas para debug
+#include "testing.h"
 
-static int	get_token(t_data **data, char *line)
+static int	get_token(t_token **data, char *line)
 {
 	if (get_cmd(data, line))
 		return (1);
@@ -8,22 +10,24 @@ static int	get_token(t_data **data, char *line)
 }
 
 // Recursividade precisa ser implementada para leitura de vários tokens.
-void	parser_line(t_data **data, char *line)
+void	parse_line(t_shell *data, char *line)
 {
-	int	i;
+	t_token	*tmp;
 
 	while (ft_isspace(*line))
 		line++;
 	if (!*line)
 		return ;
-	if (get_token(data, line))
+	if (get_token(&data->lst_token, line))
 	{
 		// Apenas para debug
-		i = -1;
-		ft_printf("token = %i\n", (*data)->token);
-		while ((*data)->cmd[++i])
-			ft_printf("%s\n", (*data)->cmd[i]);
+		tmp = data->lst_token;
+		while (tmp)
+		{
+			print_data(tmp->word, tmp->tkn);
+			tmp = tmp->next;
+		}
 	}
-	if (*data)
-		data_clear(data, freetab);
+	if (data->lst_token)
+		clear_token(&data->lst_token);
 }
