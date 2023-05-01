@@ -21,13 +21,11 @@ OBJS		=	$(SRCS:.c=.o)
 #    LIBFT                                                                     #
 # **************************************************************************** #
 
-LIBFT		= 	libft/libft.a
+LFT			=	libft
 
-MLIBFT		=	make -C libft
+CLFT		=	$(MFLAG) $(LFT)
 
-RMLIBFT		=	make -C libft clean
-
-FCLIBFT		=	make -C libft fclean
+LIBFT		= 	$(LFT)/$(LFT).a
 
 # **************************************************************************** #
 #    COMPILER AND FLAGS                                                        #
@@ -40,6 +38,8 @@ RM			= 	rm -f
 CFLAGS		=	-Wall -Wextra -Werror -g
 
 RLFLAG		= 	-lreadline
+
+MFLAG		=	-C
 
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
@@ -80,19 +80,21 @@ endif
 all:		$(NAME)
 
 $(LIBFT):
-			${AT} $(MLIBFT) ${BLK}
+			${AT} $(MAKE) $(CLFT) ${BLK}
+			${COMPILE}
 
 $(NAME):	$(LIBFT) $(OBJS)
 			${AT} $(CC) $(OBJS) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o $(NAME) ${BLK}
-
+			${COMPILE}
 clean:
 			${AT} $(RM) $(OBJS) ${BLK}
-			${AT} $(RM) $(LIBFT) ${BLK}
-			${AT} $(RMLIBFT) ${BLK}
+			${AT} $(MAKE) $@ $(CLFT) ${BLK}
+			$(DELOBJS)
 
 fclean:		clean
 			${AT} $(RM) $(NAME) ${BLK}
-			${AT} $(FCLIBFT) ${BLK}
+			${AT} $(MAKE) $@ $(CLFT) ${BLK}
+			$(DELLIBS)
 
 re:			fclean all
 
@@ -127,3 +129,32 @@ else ifeq (${VERBOSE}, 4)
 	MAKEFLAGS += --debug=v
 endif
 
+# **************************************************************************** #
+#                           Visuals and Messages
+# **************************************************************************** #
+
+ok:=✓
+ko:=✗
+ck:=・
+
+s:=\033[0
+red:=$s31m
+grn:=$s32m
+yel:=$s33m
+blu:=$s34m
+pnk:=$s35m
+cya:=$s36m
+wht:=$s37m
+rst:=$s00m
+ora:=$s38;2;255;153;0m
+
+PRT := echo
+_OK := $(grn)$(ok)	Compiled		$(rst)
+_CK := $(ora)$(ck)	Creating		$(rst)
+_KO := $(red)$(ko)	Removing		$(rst)
+
+COMPILE = ${AT} ${PRT} "${_OK}${grn}${@F}${rst}" ${BLK}
+DELOBJS = ${AT} ${PRT} "$(_KO)$(red)objects$(rst)" ${BLK}
+DELLIBS = ${AT} ${PRT} "$(_KO)$(red)${LFT}.a$(rst)" ${BLK}
+
+# **************************************************************************** #
