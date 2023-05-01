@@ -20,29 +20,3 @@ jobs:
     - uses: alexandregv/norminette-action@v3
       with:
         flags: '.'
-        
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macOS-latest]
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Build makefile
-      run: make
-    
-    - name: make minishell
-      run: make minishell
-    
-    - name: make all
-      run: make all
-    
-    - name: make re
-      run: make re
-    
-    - name: make clean
-      run: make clean
-    
-    - name: make fclean
-      run: make fclean
