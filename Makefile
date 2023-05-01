@@ -8,14 +8,14 @@ NAME		= 	minishell
 #    INCLUDES                                                                  #
 # **************************************************************************** #
 
-INC	=	-I ./libft/ -I ./libft/ft_printf/ -I ./inc/
+INC			=	-I ./libft/ -I ./libft/ft_printf/ -I ./inc/
 
 # **************************************************************************** #
 #    SOURCES AND OBJECTS                                                       #
 # **************************************************************************** #
 
-SRCS	=	$(shell find srcs ! -path srcs -type f | grep -E ".+\.c")
-OBJS	=	$(SRCS:.c=.o)
+SRCS		=	$(shell find srcs ! -path srcs -type f | grep -E ".+\.c")
+OBJS		=	$(SRCS:.c=.o)
 
 # **************************************************************************** #
 #    LIBFT                                                                     #
@@ -71,37 +71,59 @@ else
 endif
 
 # **************************************************************************** #
-#    RULES                                                                     #
+#    Mandatory rules                                                           #
 # **************************************************************************** #
 
 .c.o:
-			$(CO_LINE)
+			${AT} $(CO_LINE) ${BLK}
 
 all:		$(NAME)
 
 $(LIBFT):
-			$(MLIBFT)
+			${AT} $(MLIBFT) ${BLK}
 
 $(NAME):	$(LIBFT) $(OBJS)
-			$(CC) $(OBJS) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o $(NAME)
+			${AT} $(CC) $(OBJS) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o $(NAME) ${BLK}
 
 clean:
-			$(RM) $(OBJS)
-			$(RM) $(LIBFT)
-			$(RMLIBFT)
-
-list:
-	@echo "*** SRC_ROOT: $(SRC_ROOT)"
-	@echo "*** SRCS:  $(SRCS)"
+			${AT} $(RM) $(OBJS) ${BLK}
+			${AT} $(RM) $(LIBFT) ${BLK}
+			${AT} $(RMLIBFT) ${BLK}
 
 fclean:		clean
-			$(RM) $(NAME)
-			$(FCLIBFT)
+			${AT} $(RM) $(NAME) ${BLK}
+			${AT} $(FCLIBFT) ${BLK}
 
 re:			fclean all
 
 
 .PHONY:		all clean fclean re
 
+# **************************************************************************** #
+#                          Verbose Check
+# **************************************************************************** #
 
+# Verbose levels
+# 0: Make will be totaly silenced
+# 1: Make will print echos and printf
+# 2: Make will not be silenced but target commands will not be printed
+# 3: Make will print each command
+# 4: Make will print all debug info
+#
+# If no value is specified or an incorrect value is given make will print only
+# echoes like if VERBOSE was set to 1.
+
+VERBOSE		:= 1
+
+ifeq (${VERBOSE}, 0)
+	MAKEFLAGS += --silent
+	BLK := >/dev/null
+else ifeq (${VERBOSE}, 1)
+	MAKEFLAGS += --silent
+	AT := @
+else ifeq (${VERBOSE}, 2)
+	AT := @
+else ifeq (${VERBOSE}, 4)
+	MAKEFLAGS += --debug=v
+endif
 
