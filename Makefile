@@ -48,22 +48,15 @@ MFLAG		=	-C
 #    READLINE SUPPORT                                                          #
 # **************************************************************************** #
 
+BREW_CELLAR =	/usr/local /opt
+
 detected_OS	=	$(shell uname -s)
-RL_PATH     =	$(shell find $(HOMEBREW_CELLAR) -type d -name readline|head -1)
+RL_PATH     =	$(shell find $(BREW_CELLAR) -type d -name readline|head -1)
 RL_INC      =	$(shell find $(RL_PATH) -type d -name include | head -1)
 RL_LIB      =	$(shell find $(RL_PATH) -type d -name lib | head -1)
 
 INC_RL_MAC  =	-I $(RL_INC)
 LIB_RL_MAC  =	-L $(RL_LIB)
-
-#detect_arch =	$(shell uname -m)
-#ifeq ($(detect_arch), i386)
-# INC_RLMAC	=	-I ~/.brew/opt/readline/include/
-# LIB_RLMAC	=	-L ~/.brew/opt/readline/lib/
-#else
-# INCRLMAC	=	-I $(RL_INC)
-# BIBRLMAC	=	-L $(RL_LIB)
-#endif
 
 ifeq ($(detected_OS), Linux)
  RLFLAGS	=	$(CFLAGS) $(INC)
