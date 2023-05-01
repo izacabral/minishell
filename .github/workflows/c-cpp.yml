@@ -1,0 +1,42 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches:
+    - main
+    - develop/*
+	
+  pull_request:
+    branches:
+    - main
+    - develop/*
+
+jobs:
+  norminette_job:
+    runs-on: ubuntu-latest
+    name: norminette
+    steps:
+    - uses: actions/checkout@v2
+    - uses: alexandregv/norminette-action@v3
+      with:
+        flags: '.'
+        
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
+    steps:
+    - uses: actions/checkout@v3
+    - name: [Makefile] Build without params
+      run: make
+    - name: [Makefile] make minishell
+      run: make minishell
+    - name: [Makefile] make all
+      run: make all
+    - name: [Makefile] make re
+      run: make re
+    - name: [Makefile] make clean
+      run: make clean
+    - name: [Makefile] make fclean
+      run: make fclean
