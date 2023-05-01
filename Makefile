@@ -4,7 +4,6 @@
 
 NAME		= 	minishell
 
-WHICH_OS	= 	$(shell uname)
 
 # **************************************************************************** #
 #    INCLUDES                                                                  #
@@ -50,19 +49,24 @@ RM			= 	rm -f
 
 CFLAGS		=	-Wall -Wextra -Werror -g
 
-INCRLMAC	=	-I ~/.brew/opt/readline/include/
-#INCRLMAC	+=	-I /opt/homebrew/Cellar/readline/8.2.1/include/
-
-BIBRLMAC	=	-L ~/.brew/opt/readline/lib/
-#BIBRLMAC	+=	-I /opt/homebrew/Cellar/readline/8.2.1/lib/
-
 RLFLAG		= 	-lreadline
 
-ifeq ($(WHICH_OS), Linux)
+detected_OS	= 	$(shell uname -s)
+detect_arch = 	$(shell uname -m)
+
+ifeq ($(detect_arch), i386)
+ INCRLMAC	=	-I ~/.brew/opt/readline/include/
+ BIBRLMAC	=	-L ~/.brew/opt/readline/lib/
+else
+ INCRLMAC	=	-I /opt/homebrew/Cellar/readline/8.2.1/include/
+ BIBRLMAC	=	-L /opt/homebrew/Cellar/readline/8.2.1/lib/
+endif
+
+ifeq ($(detected_OS), Linux)
  RLFLAGS	=	$(CFLAGS) $(INC)
  CO_LINE	=   $(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
 else
- RLFLAGS	=	$(CFLAGS) $(INCRLMAC) $(BIBRLMAC) $(INC)
+ RLFLAGS	+=	$(CFLAGS) $(INCRLMAC) $(BIBRLMAC) $(INC)
  CO_LINE	=   $(CC) $(CFLAGS) $(INC) $(INCRLMAC) -c $< -o $(<:.c=.o)
 endif
 
