@@ -19,5 +19,9 @@ char	*rl_gets(char *line);
 // srcs/parser/
 int		get_cmd(t_token **data, char *line);
 void	parse_line(t_shell *data, char *line);
+int		isquotes(char c);
+int		isdelim(char c);
+t_tkn	which_delim(char *delim);
+int		scan_line(t_token **lst, char *line);
 
 #endif
