@@ -4,7 +4,6 @@
 
 NAME		= 	minishell
 
-
 # **************************************************************************** #
 #    INCLUDES                                                                  #
 # **************************************************************************** #
@@ -51,23 +50,33 @@ CFLAGS		=	-Wall -Wextra -Werror -g
 
 RLFLAG		= 	-lreadline
 
-detected_OS	= 	$(shell uname -s)
-detect_arch = 	$(shell uname -m)
+# **************************************************************************** #
+#    READLINE SUPPORT                                                          #
+# **************************************************************************** #
 
-ifeq ($(detect_arch), i386)
- INCRLMAC	=	-I ~/.brew/opt/readline/include/
- BIBRLMAC	=	-L ~/.brew/opt/readline/lib/
-else
- INCRLMAC	=	-I /opt/homebrew/Cellar/readline/8.2.1/include/
- BIBRLMAC	=	-L /opt/homebrew/Cellar/readline/8.2.1/lib/
-endif
+detected_OS	=	$(shell uname -s)
+#detect_arch =	$(shell uname -m)
+RL_PATH     =	$(shell find $(HOMEBREW_CELLAR) -type d -name readline|head -1)
+RL_INC      =	$(shell find $(RL_PATH) -type d -name include | head -1)
+RL_LIB      =	$(shell find $(RL_PATH) -type d -name lib | head -1)
+
+INC_RL_MAC  =	-I $(RL_INC)
+LIB_RL_MAC  =	-L $(RL_LIB)
+
+#ifeq ($(detect_arch), i386)
+# INC_RLMAC	=	-I ~/.brew/opt/readline/include/
+# LIB_RLMAC	=	-L ~/.brew/opt/readline/lib/
+#else
+# INCRLMAC	=	-I $(RL_INC)
+# BIBRLMAC	=	-L $(RL_LIB)
+#endif
 
 ifeq ($(detected_OS), Linux)
  RLFLAGS	=	$(CFLAGS) $(INC)
  CO_LINE	=   $(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
 else
- RLFLAGS	+=	$(CFLAGS) $(INCRLMAC) $(BIBRLMAC) $(INC)
- CO_LINE	=   $(CC) $(CFLAGS) $(INC) $(INCRLMAC) -c $< -o $(<:.c=.o)
+ RLFLAGS	=	$(CFLAGS) $(INC_RL_MAC) $(LIB_RL_MAC) $(INC)
+ CO_LINE	=   $(CC) $(CFLAGS) $(INC) $(INC_RL_MAC) -c $< -o $(<:.c=.o)
 endif
 
 # **************************************************************************** #
