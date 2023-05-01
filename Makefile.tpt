@@ -1,0 +1,217 @@
+# **************************************************************************** #
+#                                 Config
+# **************************************************************************** #
+
+NAME      := minishell
+
+SRC_ROOT  := ./srcs/
+INC_ROOT  := ./incs/
+LIB_ROOT  := ./libft/
+OBJ_ROOT  := ./obj/
+BIN_ROOT  := ./
+
+VERBOSE   := 1
+
+# **************************************************************************** #
+#                          Compiler and Flags
+# **************************************************************************** #
+
+CC        := cc
+CLIB      := ar -rcs
+
+CFLAGS    := -Wall -Wextra -Werror
+DFLAGS    := -g
+OFLAGS    := -O3
+FSANITIZE := -fsanitize=address
+
+# **************************************************************************** #
+#                           Content Folders
+# **************************************************************************** #
+
+SRC_DIRS_LIST := ${SRC_ROOT}
+SRC_DIRS_LIST := $(foreach dl,${SRC_DIRS_LIST},$(subst :,:${SRC_ROOT},${dl}))
+
+SRC_DIRS = $(subst :,${SPACE},${SRC_DIRS_LIST})
+OBJ_DIRS = $(subst ${SRC_ROOT},${OBJ_ROOT},${SRC_DIRS})
+
+INC_DIRS = ${INC_ROOT}
+
+# **************************************************************************** #
+#                                Files
+# **************************************************************************** #
+
+SRCS_LIST = $(foreach dl,${SRC_DIRS_LIST},$(subst ${SPACE},:,$(strip $(foreach\
+	dir,$(subst :,${SPACE},${dl}),$(addprefix $(SRC_ROOT), $(shell ls ${dir}| \
+	   grep -E ".+\.c"))))))
+OBJS_LIST = $(subst ${SRC_ROOT},${OBJ_ROOT},$(subst .c,.o,${SRCS_LIST}))
+
+SRCS = $(foreach dir,${SRC_DIRS},$(addprefix $(SRC_ROOT), $(shell ls ${dir} | \
+	   grep -E ".+\.c")))
+OBJS = $(subst ${SRC_ROOT},${OBJ_ROOT},${SRCS:.c=.o})
+
+INCS := ${addprefix -I,${INC_DIRS}}
+INCS += -I${LIB_ROOT}libft
+
+# **************************************************************************** #
+#                               VPATHS
+# **************************************************************************** #
+
+vpath %.o ${OBJ_ROOT}
+vpath %.h ${INC_ROOT}
+vpath %.c ${SRC_DIRS}
+
+# **************************************************************************** #
+#                             OS Check
+# **************************************************************************** #
+
+detected_OS := $(shell uname)
+
+ifeq ($(detected_OS), Linux)
+	MLX = mlx_linux
+	MLX_FLAGS = -lbsd -L${LIB_ROOT}${MLX} -lmlx -lXext -lX11 -lm
+	CFLAGS += -DOS=1
+else ifeq ($(detected_OS), Darwin)
+	MLX = mlx_darwin
+	MLX_FLAGS = -I${LIB_ROOT}${MLX} -L${LIB_ROOT}${MLX} -lm -lmlx -framework \
+				OpenGL -framework AppKit
+	CFLAGS += -DOS=2
+endif
+
+# **************************************************************************** #
+#                         Mandatory Targets
+# **************************************************************************** #
+
+.PHONY: all
+all: ${NAME}
+
+${PROJ}: ${OBJS}
+	${AT} ${MAKE} -C ${LIB_ROOT} ${BLOCK}
+	${AT} ${CC} ${CFLAGS} ${OFLAGS} ${INCS}  ${OBJS}  \
+		${LIB_ROOT}/libft.a -o $@ ${BLOCK}
+	${AT}echo "${_OK}$(grn)${@F}$(rst)" ${BLOCK}
+
+# **************************************************************************** #
+#                         Clean Targets
+# **************************************************************************** #
+.PHONY: clean
+clean:
+	${AT}mkdir -p ${OBJ_ROOT} ${BLOCK}
+	${AT}rm -rf  ${OBJ_ROOT}  ${BLOCK}
+	${AT} ${MAKE} clean -C ${LIB_ROOT} ${BLOCK}
+	${AT}echo "$(_KO)$(red)${OBJ_ROOT}$(rst)" ${BLOCK}
+
+.PHONY: fclean
+fclean: clean
+	${AT} ${MAKE} fclean -C ${LIB_ROOT} ${BLOCK}
+	${AT}rm -rf ${NAME} ${BLOCK}
+	${AT}echo "$(_KO)$(red)${NAME}$(rst)" ${BLOCK}
+
+.PHONY: re
+re: fclean all
+
+# **************************************************************************** #
+#                   .gitignore, Help and Rainbow
+# **************************************************************************** #
+
+gig :
+	if [ -f '.gitignore' ]; \
+	then \
+		echo "$(grn)$(ok)	.gitignore		OK!$(ora)$(rst)" ; \
+	else \
+		echo "$(ora)$(ck)	Creating		.gitignore$(ora)" ; \
+		echo ".*" >> .gitignore ; \
+		echo "*.o" >> .gitignore ; \
+		echo "*.a" >> .gitignore ; \
+		echo "*.out" >> .gitignore ; \
+		echo "*.dSYM" >> .gitignore ; \
+		echo ".DS_Store" >> .gitignore ; \
+		cat -n .gitignore ; \
+	fi
+
+rainbow :
+	@echo "$(red)R$(grn)A$(yel)I$(blu)N$(pnk)B$(cya)O$(wht)W$(rst)"
+
+help:
+	@echo "msg de ajuda" 
+
+
+.PHONY : gig, rainbow, rainbow
+
+# **************************************************************************** #
+#                           Norminette
+# **************************************************************************** #
+
+.PHONY: norm
+norm:
+	${AT} echo "$(pnk)\c"; \
+	norminette ${SRCS} ${INC_ROOT} | grep "Error" || \
+	echo "$(grn)$(ok)	Norminette		OK!" ${BLOCK}
+
+# **************************************************************************** #
+#                        Target Templates
+# **************************************************************************** #
+
+define make_obj
+${1} : ${2}
+	$${AT}mkdir -p $${@D} $${BLOCK}
+	$${AT} $${CC} $${OFLAGS} $${CFLAGS} $${INCS} -I$${LIB_ROOT}$${MLX} \
+		-c $$< -o $$@ $${BLOCK}
+endef
+
+# **************************************************************************** #
+#                        Target Generator
+# **************************************************************************** #
+
+$(foreach src,${SRCS},$(eval\
+$(call make_obj,$(subst ${SRC_ROOT},${OBJ_ROOT},${src:.c=.o}),${src})))
+
+# **************************************************************************** #
+#                          Verbose Check
+# **************************************************************************** #
+
+# Verbose levels
+# 0: Make will be totaly silenced
+# 1: Make will print echos and printf
+# 2: Make will not be silenced but target commands will not be printed
+# 3: Make will print each command
+# 4: Make will print all debug info
+#
+# If no value is specified or an incorrect value is given make will print only
+# echoes like if VERBOSE was set to 1.
+
+ifeq (${VERBOSE}, 0)
+	MAKEFLAGS += --silent
+	BLOCK := >/dev/null
+else ifeq (${VERBOSE}, 1)
+	MAKEFLAGS += --silent
+	AT := @
+else ifeq (${VERBOSE}, 2)
+	AT := @
+else ifeq (${VERBOSE}, 4)
+	MAKEFLAGS += --debug=v
+endif
+
+# **************************************************************************** #
+#                           Visuals and Messages
+# **************************************************************************** #
+
+ok:=✓
+ko:=✗
+ck:=・
+
+s:=\033[0
+red:=$s31m
+grn:=$s32m
+yel:=$s33m
+blu:=$s34m
+pnk:=$s35m
+cya:=$s36m
+wht:=$s37m
+rst:=$s00m
+ora:=$s38;2;255;153;0m
+
+_OK := $(grn)$(ok)	Compiled		$(rst)
+_CK := $(ora)$(ck)	Creating		$(rst)
+_KO := $(red)$(ko)	Removing		$(rst)
+
+# **************************************************************************** #
