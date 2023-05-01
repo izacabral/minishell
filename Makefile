@@ -7,7 +7,6 @@ NAME		= 	minishell
 SRCD		=	srcs
 INCD		=	inc
 
-
 # **************************************************************************** #
 #    INCLUDES                                                                  #
 # **************************************************************************** #
@@ -93,12 +92,12 @@ $(NAME):	$(LIBFT) $(OBJS)
 clean:
 			${AT} $(RM) $(OBJS) ${BLK}
 			${AT} $(MAKE) $@ $(CLFT) ${BLK}
-			$(DELOBJS)
+			$(RM_OBJS)
 
 fclean:		clean
 			${AT} $(RM) $(NAME) ${BLK}
 			${AT} $(MAKE) $@ $(CLFT) ${BLK}
-			$(DELLIBS)
+			$(RM_LIBS)
 
 re:			fclean all
 
@@ -115,6 +114,23 @@ norm:
 	norminette ${SRCS} ${INCD} | grep "Error" || \
 	echo "$(grn)$(ok)	Norminette		OK!" ${BLK}
 
+# **************************************************************************** #
+#                           Helper
+# **************************************************************************** #
+
+.PHONY: help
+help:
+	@$(PRT) "$(wht) make \c"
+	@$(PRT) "$(wht) [all | clean | fclean | re | \c"
+	@$(PRT) "$(pnk) norm $(rst)] \c"
+	@$(PRT) "$(cya) [VERBOSE=0..4]"
+	@$(PRT) "$(wht) "
+	@$(PRT) "$(cya) Verbose levels"
+	@$(PRT) "$(wht) # 0: Make will be totaly silenced"
+	@$(PRT) "$(grn) # 1: Make will print echos"
+	@$(PRT) "$(yel) # 2: Make will not print target commands"
+	@$(PRT) "$(ora) # 3: Make will print each command"
+	@$(PRT) "$(red) # 4: Make will print all debug info $(rst)"
 
 # **************************************************************************** #
 #                          Verbose Check
@@ -169,7 +185,7 @@ _CK := $(ora)$(ck)	Creating		$(rst)
 _KO := $(red)$(ko)	Removing		$(rst)
 
 COMPILE = ${AT} ${PRT} "${_OK}${grn}${@F}${rst}" ${BLK}
-DELOBJS = ${AT} ${PRT} "$(_KO)$(red)objects$(rst)" ${BLK}
-DELLIBS = ${AT} ${PRT} "$(_KO)$(red)${LFT}.a$(rst)" ${BLK}
+RM_OBJS = ${AT} ${PRT} "$(_KO)$(red)objects$(rst)" ${BLK}
+RM_LIBS = ${AT} ${PRT} "$(_KO)$(red)${LFT}.a$(rst)" ${BLK}
 
 # **************************************************************************** #
