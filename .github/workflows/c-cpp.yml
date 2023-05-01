@@ -27,16 +27,22 @@ jobs:
       matrix:
         os: [ubuntu-latest, macOS-latest]
     steps:
-    - uses: actions/checkout@v3
-    - name: [Makefile] Build without params
+    - uses: actions/checkout@v2
+    
+    - name: Build makefile
       run: make
-    - name: [Makefile] make minishell
+    
+    - name: make minishell
       run: make minishell
-    - name: [Makefile] make all
+    
+    - name: make all
       run: make all
-    - name: [Makefile] make re
+    
+    - name: make re
       run: make re
-    - name: [Makefile] make clean
+    
+    - name: make clean
       run: make clean
-    - name: [Makefile] make fclean
+    
+    - name: make fclean
       run: make fclean
