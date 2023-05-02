@@ -39,6 +39,7 @@ static int	delim_lenght(char *delim, char d)
 static int	token_lenght_quotes(char *token, char quote)
 {
 	int	len;
+	int	error;
 
 	len = 1;
 	while (token[len] && token[len] != quote)
@@ -46,7 +47,12 @@ static int	token_lenght_quotes(char *token, char quote)
 	if (!token[len])
 		return (-2);
 	if (!isspace(token[len + 1]) || !isdelim(token[len + 1]))
-		len += token_lenght(&token[len + 1]);
+	{
+		error = token_lenght(&token[len + 1]);
+		if (error < 0)
+			return (error);
+		len += error;
+	}
 	return (len + 1);
 }
 
@@ -65,7 +71,7 @@ static int	token_lenght(char *token)
 		{
 			error = token_lenght_quotes(&token[len], token[len]);
 			if (error < 0)
-				return (-2);
+				return (error);
 			len += error;
 		}
 		else
@@ -101,7 +107,7 @@ int	scan_line(t_token **lst, char *line)
 		else
 			i = token_lenght(start);
 		i = add_token(lst, start, i);
-		if (!*lst)
+		if (i >= 0 && !*lst)
 			i = -1;
 		if (i < 0)
 			return (i);
