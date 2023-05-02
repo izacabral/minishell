@@ -1,7 +1,11 @@
 #include "libft.h"
 #include "minishell.h"
 #include "types.h"
+#include <ctype.h>
 #include <stdlib.h>
+
+static int	token_lenght(char *token);
+static int	token_lenght_quotes(char *token, char quote);
 
 static int	add_token(t_token **lst, char *str, int lenght)
 {
@@ -41,6 +45,8 @@ static int	token_lenght_quotes(char *token, char quote)
 		len++;
 	if (!token[len])
 		return (-2);
+	if (!isspace(token[len + 1]) || !isdelim(token[len + 1]))
+		len += token_lenght(&token[len + 1]);
 	return (len + 1);
 }
 
