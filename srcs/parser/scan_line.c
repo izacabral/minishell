@@ -14,6 +14,8 @@ static int	add_token(t_token **lst, char *str, int lenght)
 
 	if (lenght < 0)
 		return (lenght);
+	if (!lenght)
+		return (-1);
 	value = malloc((lenght + 1) * sizeof(*value));
 	if (!value)
 		return (-1);
