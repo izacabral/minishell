@@ -15,10 +15,11 @@
 void	setup_signals(void);
 void	int_handler(int signum);
 char	*rl_gets(char *line);
+void	launch_prog(t_shell *data);
 
 // srcs/parser/
-int		get_cmd(t_token **data, char *line);
-void	parse_line(t_shell *data, char *line);
+int		get_cmd(t_token **data, char *line);	// remover
+void	parse_line(t_shell *data, char *line);	// remover
 int		isquotes(char c);
 int		isdelim(char c);
 t_tkn	which_delim(char *delim);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scan_line.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/03 11:15:02 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/03 11:29:57 by daolivei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "minishell.h"
 #include "types.h"
@@ -90,9 +102,9 @@ static int	token_lenght(char *token)
  * Input	: t_token **lst - endereço da lista de tokens
  *			: char * - linha de comando (retorno da readline())
  * Output	: int (0) - nenhum erro encontrado
- * Errors	: int (-1) - erro na alocação
+ * Errors	: int (-1) - lst_token não pôde ser alocada
  *			: int (-2) - erro de sintaxe (aspas de fechamento não encontradas)
- * Uses		: WIP
+ * Uses		: launch_prog()
  */
 int	scan_line(t_token **lst, char *line)
 {

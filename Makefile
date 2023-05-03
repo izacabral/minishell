@@ -18,10 +18,13 @@ INC	=	-I ./libft/ -I ./libft/ft_printf/ -I ./inc/
 
 SRCS		=	srcs/data_types/free_tab.c \
 				srcs/data_types/t_token.c \
-				srcs/parser/get_cmd.c \
-				srcs/parser/parse_line.c \
 				srcs/parser/debug_print.c \
+				srcs/parser/isdelim.c \
+				srcs/parser/isquotes.c \
+				srcs/parser/scan_line.c \
+				srcs/parser/which_delim.c \
 				srcs/prompt/int_handler.c \
+				srcs/prompt/launch_prog.c \
 				srcs/prompt/main.c \
 				srcs/prompt/read_line.c \
 				srcs/prompt/setup_signals.c \
