@@ -6,6 +6,7 @@ NAME		= 	minishell
 
 SRCD		=	srcs
 INCD		=	inc
+TSTD		=	tests
 
 # **************************************************************************** #
 #    INCLUDES                                                                  #
@@ -48,20 +49,24 @@ MFLAG		=	-C
 #    READLINE SUPPORT                                                          #
 # **************************************************************************** #
 
-BREW_CELLAR =	/usr/local /opt
+RL			=	readline
+BREWCELLAR  =	/usr/local
 
 detected_OS	=	$(shell uname -s)
-RL_PATH     =	$(shell find $(BREW_CELLAR) -type d -name readline|head -1)
+RL_PATH     =	$(shell find $(BREWCELLAR) -type d -name $(RL)| head -1)
 RL_INC      =	$(shell find $(RL_PATH) -type d -name include | head -1)
 RL_LIB      =	$(shell find $(RL_PATH) -type d -name lib | head -1)
+RL_TEST		=	if [ -z $(RL_PATH) ]; then $(RL_MSG) && false; else true ; fi
 
 INC_RL_MAC  =	-I $(RL_INC)
 LIB_RL_MAC  =	-L $(RL_LIB)
 
 ifeq ($(detected_OS), Linux)
+ BREWCELLAR +=	/usr
  RLFLAGS	=	$(CFLAGS) $(INC)
  CO_LINE	=   $(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
 else
+ BREWCELLAR +=	/opt
  RLFLAGS	=	$(CFLAGS) $(INC_RL_MAC) $(LIB_RL_MAC) $(INC)
  CO_LINE	=   $(CC) $(CFLAGS) $(INC) $(INC_RL_MAC) -c $< -o $(<:.c=.o)
 endif
@@ -79,7 +84,10 @@ $(LIBFT):
 			${AT} $(MAKE) $(CLFT) ${BLK}
 			${COMPILE}
 
-$(NAME):	$(LIBFT) $(OBJS)
+$(RL):
+			$(RL_TEST)
+
+$(NAME):	$(RL) $(LIBFT) $(OBJS)
 			${AT} $(CC) $(OBJS) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o $(NAME) ${BLK}
 			${COMPILE}
 clean:
@@ -108,14 +116,26 @@ norm:
 	echo "$(grn)$(ok)	Norminette		OK!" ${BLK}
 
 # **************************************************************************** #
+#                           Tests
+# **************************************************************************** #
+
+.PHONY: tests
+tests:
+	if [ -d $(TSTD) ]; then \
+		$(MAKE) $@ $(MFLAG) $(TSTD); \
+	else \
+		echo "$(wht) Testing environment is not set at folder $(ora)$(TSTD)/"; \
+	fi
+
+# **************************************************************************** #
 #                           Helper
 # **************************************************************************** #
 
 .PHONY: help
 help:
 	@$(PRT) "$(wht) make \c"
-	@$(PRT) "$(wht) [all | clean | fclean | re | \c"
-	@$(PRT) "$(pnk) norm $(rst)] \c"
+	@$(PRT) "$(wht) [all | clean | fclean | re | tests |\c"
+	@$(PRT) "$(pnk) norm$(rst)]\c"
 	@$(PRT) "$(cya) [VERBOSE=0..4]"
 	@$(PRT) "$(wht) "
 	@$(PRT) "$(cya) Verbose levels"
@@ -180,5 +200,6 @@ _KO := $(red)$(ko)	Removing		$(rst)
 COMPILE = ${AT} ${PRT} "${_OK}${grn}${@F}${rst}" ${BLK}
 RM_OBJS = ${AT} ${PRT} "$(_KO)$(red)objects$(rst)" ${BLK}
 RM_LIBS = ${AT} ${PRT} "$(_KO)$(red)${LFT}.a$(rst)" ${BLK}
+RL_MSG  = ${PRT} "$(ora)$(ck)	${RL}${wht} is not installed.${rst}"
 
 # **************************************************************************** #
