@@ -50,25 +50,25 @@ MFLAG		=	-C
 # **************************************************************************** #
 
 RL			=	readline
-BREWCELLAR  =	/usr/local
+RL_PATH		=	/usr/local
 
 detected_OS	=	$(shell uname -s)
-RL_PATH     =	$(shell find $(BREWCELLAR) -type d -name $(RL)| head -1)
-RL_INC      =	$(shell find $(RL_PATH) -type d -name include | head -1)
-RL_LIB      =	$(shell find $(RL_PATH) -type d -name lib | head -1)
-RL_TEST		=	if [ -z $(RL_PATH) ]; then $(RL_MSG) && false; else true ; fi
+RL_TEST		=	if [ -z $(RL_INC) ]; then $(RL_MSG) && false; else true ; fi
 
 INC_RL_MAC  =	-I $(RL_INC)
 LIB_RL_MAC  =	-L $(RL_LIB)
 
 ifeq ($(detected_OS), Linux)
- BREWCELLAR +=	/usr
+ RL_PATH	+=	/usr
+ RL_INC 	=	$(shell find $(RL_PATH) -type d -name $(RL) | grep "include")
  RLFLAGS	=	$(CFLAGS) $(INC)
- CO_LINE	=   $(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
+ CO_LINE	=	$(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
 else
- BREWCELLAR +=	/opt
+ RL_PATH	+=	/opt
+ RL_INC 	=	$(shell find $(RL_PATH) -type d -name include | grep $(RL))
+ RL_LIB 	=	$(shell find $(RL_PATH) -type d -name lib | grep $(RL))
  RLFLAGS	=	$(CFLAGS) $(INC_RL_MAC) $(LIB_RL_MAC) $(INC)
- CO_LINE	=   $(CC) $(CFLAGS) $(INC) $(INC_RL_MAC) -c $< -o $(<:.c=.o)
+ CO_LINE	=	$(CC) $(CFLAGS) $(INC) $(INC_RL_MAC) -c $< -o $(<:.c=.o)
 endif
 
 # **************************************************************************** #
