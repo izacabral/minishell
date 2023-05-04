@@ -124,8 +124,8 @@ tests:
 	if [ -d $(TSTD) ]; then \
 		$(MAKE) $@ $(MFLAG) $(TSTD); \
 	else \
-		echo "$(wht) Testing environment is not set at folder \c"; \
-		echo "$(ora)$(TSTD)/$(rst)"; \
+		echo "$(wht) Testing environment is not set \c"; \
+		echo "($(ora)$(TSTD)/)$(rst)"; \
 	fi
 
 # **************************************************************************** #
