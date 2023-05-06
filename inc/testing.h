@@ -3,6 +3,12 @@
 # include "minishell.h"
 # include <stdio.h>
 
-void	print_data(void *ptr, t_tkn t);
+typedef enum e_test
+{
+	UNDEFINED,
+	TOKEN,
+}	t_test;
+
+void	print_data(void *ptr, t_test t);
 
 #endif

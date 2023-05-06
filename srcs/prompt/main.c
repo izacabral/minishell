@@ -1,3 +1,4 @@
+#include "libft.h"
 #include "minishell.h"
 
 void	init_shell(t_shell *data)
@@ -16,24 +17,22 @@ void	init_shell(t_shell *data)
 int	main(void)
 {
 	t_shell	data; // Struct global (s_shell/t_shell)
-	char 	*line;
 
 	init_shell(&data);
-	line = data.line;
 	setup_signals();
 	while (1)
 	{
-		line = rl_gets(line);
-		if (!line)
+		data.line = rl_gets(data.line);
+		if (!data.line)
 			break ;
-		if (!ft_strncmp(line, "exit", 5))
+		if (!ft_strncmp(data.line, "exit", 5))
 		{
-			free(line);
+			free(data.line);
 			break ;
 		}
-		parse_line(&data, line);
-		if (*line)
-			add_history(line);
+		launch_prog(&data);
+		if (*data.line)
+			add_history(data.line);
 	}
 	return (0);
 }
