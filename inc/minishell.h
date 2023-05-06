@@ -18,8 +18,6 @@ char	*rl_gets(char *line);
 void	launch_prog(t_shell *data);
 
 // srcs/parser/
-int		get_cmd(t_token **data, char *line);	// remover
-void	parse_line(t_shell *data, char *line);	// remover
 int		isquotes(char c);
 int		isdelim(char c);
 t_tkn	which_delim(char *delim);
