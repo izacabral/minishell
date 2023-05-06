@@ -6,7 +6,7 @@
 
 // Funcção para testar scan_line().
 // Compilar com os arquivos:
-// srcs/parser/debug_print.c srcs/parser/isdelim.c srcs/parser/isquotes.c srcs/parser/scan_line.c srcs/parser/test_tokenization.c srcs/parser/which_delim.c srcs/data_types/t_token.c
+// tests/debug_print.c srcs/parser/isdelim.c srcs/parser/isquotes.c srcs/parser/scan_line.c tests/test_tokenization.c srcs/parser/which_delim.c srcs/data_types/t_token.c
 int	main(void)
 {
 	char	*buffer;
