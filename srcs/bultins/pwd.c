@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:13:30 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/05/09 14:55:27 by dmatavel         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:21:28 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,20 @@
 
 int	pwd(void)
 {
-	ft_printf("%s\n", getcwd(NULL, 0));
+	if (getcwd(NULL, 0) != NULL)
+		ft_printf("%s\n", getcwd(NULL, 0))
+	else
+		return (1);
+	return (0);
+	/*
+	char	*abs_path;
+	int		len;
+
+	len = ft_srlen(getcwd(NULL, 0));
+	abs_path = malloc(sizeof(char) * len + 1);
+	if (!abs_path)
+		return (1);
+	ft
+	getcwd(NULL, 0));
+	*/
 }
