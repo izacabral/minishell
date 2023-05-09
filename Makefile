@@ -53,10 +53,17 @@ RL			=	readline
 RL_PATH		=	/usr/local
 
 detected_OS	=	$(shell uname -s)
+detected_42 =	$(shell test -d $(HOME); echo $?)
+detected_21 =	$(shell if [ -d $(HOME)/.brew ]; then RL_PATH += $(HOME)/.brew; fi)
+
 RL_TEST		=	if [ -z $(RL_INC) ]; then $(RL_MSG) && false; else true ; fi
 
 INC_RL_MAC  =	-I $(RL_INC)
 LIB_RL_MAC  =	-L $(RL_LIB)
+
+#ifeq ($(detected_42), $)
+# RL_PATH	+=	$(HOME)/.brew
+#endif
 
 ifeq ($(detected_OS), Linux)
  RL_PATH	+=	/usr
@@ -64,9 +71,9 @@ ifeq ($(detected_OS), Linux)
  RLFLAGS	=	$(CFLAGS) $(INC)
  CO_LINE	=	$(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
 else
- RL_PATH	+=	/opt
- RL_INC 	=	$(shell find $(RL_PATH) -type d -name include | grep $(RL))
- RL_LIB 	=	$(shell find $(RL_PATH) -type d -name lib | grep $(RL))
+ RL_PATH	+=	$(HOME)/.brew /opt
+ RL_INC 	=	$(shell find $(RL_PATH) -type d -name include 2>/dev/null | grep $(RL))
+ RL_LIB 	=	$(shell find $(RL_PATH) -type d -name lib 2>/dev/null | grep $(RL))
  RLFLAGS	=	$(CFLAGS) $(INC_RL_MAC) $(LIB_RL_MAC) $(INC)
  CO_LINE	=	$(CC) $(CFLAGS) $(INC) $(INC_RL_MAC) -c $< -o $(<:.c=.o)
 endif
