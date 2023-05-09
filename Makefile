@@ -64,7 +64,7 @@ ifeq ($(detected_OS), Linux)
  RLFLAGS	=	$(CFLAGS) $(INC)
  CO_LINE	=	$(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
 else
- RL_PATH	+=	/opt
+ RL_PATH	+=	/opt $(HOME)/.brew
  RL_INC 	=	$(shell find $(RL_PATH) -type d -name include | grep $(RL))
  RL_LIB 	=	$(shell find $(RL_PATH) -type d -name lib | grep $(RL))
  RLFLAGS	=	$(CFLAGS) $(INC_RL_MAC) $(LIB_RL_MAC) $(INC)
