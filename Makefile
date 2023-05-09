@@ -77,6 +77,7 @@ endif
 # **************************************************************************** #
 
 .c.o:
+			$(RL_TEST)
 			${AT} $(CO_LINE) ${BLK}
 
 all:		$(NAME)
@@ -85,10 +86,8 @@ $(LIBFT):
 			${AT} $(MAKE) $(CLFT) ${BLK}
 			${COMPILE}
 
-$(RL):
-			$(RL_TEST)
 
-$(NAME):	$(RL) $(LIBFT) $(OBJS)
+$(NAME):	$(LIBFT) $(OBJS)
 			${AT} $(CC) $(OBJS) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o $(NAME) ${BLK}
 			${COMPILE}
 clean:
