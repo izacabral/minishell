@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 15:22:23 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/05/09 15:54:40 by dmatavel         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:55:52 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-int	pwd(char *cmd) // once we have an function thet eval the cmd's pwd() can be a void arg func
+int	pwd(char *cmd) // once we have a function thet eval the cmd's pwd() can be a void arg func
 {
 	if (ft_strncmp(cmd, "pwd", 3) != 0) // this if is not necessary in the final code
 		return (1);
