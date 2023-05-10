@@ -1,8 +1,5 @@
-#include <readline/readline.h>
-#include <stdio.h>
-#include "minishell.h"
 #include "testing.h"
-#include "types.h"
+
 
 // Funcção para testar scan_line().
 // Compilar com os arquivos:
