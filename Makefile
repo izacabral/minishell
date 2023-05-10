@@ -120,7 +120,7 @@ norm:
 # **************************************************************************** #
 
 .PHONY: tests
-tests:
+tests: all
 	if [ -d $(TSTD) ]; then \
 		$(MAKE) $@ $(MFLAG) $(TSTD); \
 	else \
