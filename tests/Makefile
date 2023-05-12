@@ -2,6 +2,8 @@ INC			=	-I ../libft/ -I ../libft/ft_printf/ -I ../inc/
 
 CC			=	cc
 
+RM			=	rm -f
+
 CFLAGS		=	-Wall -Wextra -Werror -g
 
 LFT			=	libft
@@ -10,9 +12,13 @@ CLFT		=	$(MFLAG) $(LFT)
 
 LIBFT		= 	../$(LFT)/$(LFT).a
 
-SRCS		=	debug_print.c test_tokenization.c ../srcs/parser/isdelim.c ../srcs/parser/isquotes.c ../srcs/parser/scan_line.c ../srcs/parser/which_delim.c ../srcs/data_types/t_token.c
+SRCS_TOKEN	=	debug_print.c test_tokenization.c ../srcs/parser/isdelim.c ../srcs/parser/isquotes.c ../srcs/parser/scan_line.c ../srcs/parser/which_delim.c ../srcs/data_types/t_token.c
 
-OBJS		=	$(SRCS:.c=.o)
+OBJS_TOKEN	=	$(SRCS_TOKEN:.c=.o)
+
+SRCS_LEXER	=	debug_print.c test_lexer.c ../srcs/parser/lexer.c ../srcs/parser/isdelim.c ../srcs/parser/isquotes.c ../srcs/parser/scan_line.c ../srcs/parser/which_delim.c ../srcs/data_types/t_token.c
+
+OBJS_LEXER	=	$(SRCS_LEXER:.c=.o)
 
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
@@ -43,8 +49,19 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: tests
+all: tokenization lexer
 
-tests: $(LIBFT) $(OBJS)
-# $(CC) $(CFLAGS) $(INC) $(LIBFT) $(SRCS)
-	$(CC) $(OBJS) $(LIBFT) $(RLFLAGS) $(RLFLAG)
+tokenization: $(LIBFT) $(OBJS_TOKEN)
+	$(CC) $(OBJS_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o tokenization
+
+lexer: $(LIBFT) $(OBJS_LEXER)
+	$(CC) $(OBJS_LEXER) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o lexer
+
+
+clean:
+		$(RM) $(OBJS_TOKEN)
+		$(RM) $(OBJS_LEXER)
+
+fclean: clean
+		$(RM) tokenization
+		$(RM) lexer

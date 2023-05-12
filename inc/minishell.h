@@ -22,5 +22,6 @@ int		isquotes(char c);
 int		isdelim(char c);
 t_tkn	which_delim(char *delim);
 int		scan_line(t_token **lst, char *line);
+int 	lexer(t_token *lst);
 
 #endif
