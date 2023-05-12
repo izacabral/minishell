@@ -1,7 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft.h"
+//# include "libft.h"
 # include "defines.h"
 # include "types.h"
 # include <stdio.h>
