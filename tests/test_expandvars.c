@@ -33,8 +33,20 @@ int	main(void)
 	tab[3] = str4;
 	tab[4] = NULL;
 	expandvars(tab, var1);
+	free(var1->key);
+	free(var1->value);
+	free(var2->key);
+	free(var2->value);
+	free(var1);
+	free(var2);
 	ft_putstr_fd(tab[0], 1);
 	ft_putstr_fd(tab[1], 1);
 	ft_putstr_fd(tab[2], 1);
+	ft_putstr_fd(tab[3], 1);
+	free(tab[0]);
+	free(tab[1]);
+	free(tab[2]);
+	free(tab[3]);
+	free(tab);
 	return (0);
 }
