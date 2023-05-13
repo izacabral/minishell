@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:45:24 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/11 17:45:30 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/05/13 11:33:59 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	main(void)
 	buffer[5] = "cat teste2 | < teste3";
 	buffer[6] = "cat teste2 |< teste3";
 	buffer[7] = "cat teste2 |";
+	buffer[8] = "cat main.c |> teste";
+
 
 	i = 0;
 

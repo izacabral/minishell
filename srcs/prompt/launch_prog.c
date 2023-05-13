@@ -17,6 +17,6 @@ void	launch_prog(t_shell *data)
 {
 	if (scan_line(&data->lst_token, data->line) == 0
 		&& lexer(data->lst_token) == 0)
-		ft_printf("scan_line and lexer ok\n");
+		ft_printf("scan_line and lexer ok. Next step create t_setence\n");
 	clear_token(&data->lst_token);
 }

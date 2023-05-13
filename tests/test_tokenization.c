@@ -12,6 +12,7 @@ int	main(void)
 
 	buffer = NULL;
 	lst = NULL;
+	ret = 0;
 	while (1)
 	{
 		buffer = readline("Press <Ctrl+D> to exit~ ");
@@ -22,5 +23,5 @@ int	main(void)
 		print_data((void *)lst, TOKEN);
 		clear_token(&lst);
 	}
-	return (0);
+	return (ret);
 }
