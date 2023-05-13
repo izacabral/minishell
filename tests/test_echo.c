@@ -18,19 +18,46 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
+static int check_n(char *str) {
+    int i = 0;
+
+    if (str[0] == '-' && strcmp(str + 1, "n") == 0) {
+        i = 1;
+        while (str[i] == 'n') {
+            i++;
+        }
+    }
+
+    return i;
+}
+
 int echo(char **arg)
 {
     int i;
+	int control;
+	control = 0;
     i = 1;
+
+	if(arg[1] == NULL)
+	{
+		printf("\n");
+		return 0;
+	}
+	
+	if(strcmp(arg[1],"-n") == 0)
+		{
+			control = 1;
+			i++;
+		}
 
     while(arg[i])
     {
         printf("%s",arg[i]);
         i++;
 		if(arg[i])
-			printf(" ");
+			printf(" ");	
+		if(control == 0)
 			printf("\n");
-				
     }
 }
 
