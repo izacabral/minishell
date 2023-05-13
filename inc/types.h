@@ -13,7 +13,12 @@ typedef enum e_tkn
 	APPEND
 }	t_tkn;
 
-//s_env | t_env
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
 
 typedef struct s_token
 {
@@ -60,5 +65,7 @@ void		ft_stradd_back(t_string **lst, t_string *new);
 void		ft_strdelone(t_string *lst, void (*del)(void *));
 void		ft_strclear(t_string **lst, void (*del)(void *));
 int			ft_strsize(t_string *lst);
+size_t		ft_strtotallen(t_string *lst);
+char		*ft_lst_to_str(t_string *lst);
 
 #endif
