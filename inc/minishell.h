@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include "ft_printf.h"
 # include "defines.h"
 # include "types.h"
 # include <stdio.h>

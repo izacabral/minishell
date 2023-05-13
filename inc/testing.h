@@ -1,7 +1,6 @@
 #ifndef TESTING_H
 # define TESTING_H
 # include "minishell.h"
-# include <stdio.h>
 
 typedef enum e_test
 {

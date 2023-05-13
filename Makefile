@@ -56,8 +56,11 @@ detected_OS	=	$(shell uname -s)
 RL_TEST		=	if [ -z $(RL_INC) ]; then $(RL_MSG) && false; else true ; fi
 NL			=	2>/dev/null
 
-INC_RL_MAC  =	-I $(RL_INC)
-LIB_RL_MAC  =	-L $(RL_LIB)
+#INC_RL_MAC  =	-I $(RL_INC)
+INC_RL_MAC  =  -I ~/.brew/opt/readline/include/
+
+#LIB_RL_MAC  =	-L $(RL_LIB)
+LIB_RL_MAC  =	-L ~/.brew/opt/readline/lib/
 
 ifeq ($(detected_OS), Linux)
  RL_PATH	+=	/usr
