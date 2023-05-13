@@ -1,5 +1,6 @@
 #include "../inc/minishell.h"
-/*Realizando alteção no codigo, não esta funcionando*/
+#include "string.h"
+/*Realizando alteções no codigo*/
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
@@ -17,23 +18,24 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-int echo(char *argv)
+int echo(char **arg)
 {
-    if(ft_strncmp(argv[0],"",0))
-        printf("\n");
-    else
+    int i;
+    i = 1;
+
+    while(arg[i])
     {
-    while(*argv)
-        printf("%c",*argv++);
+        printf("%s",arg[i]);
+        i++;
+		if(arg[i])
+			printf(" ");
+			printf("\n");
+				
     }
-    if((ft_strncmp(argv[1],"-n",1)==1))
-        printf("\n");
-    return 1;
 }
 
-int main()
-{
-    char *test;
-    test = "Test";
-    echo(test);
+
+int main(int argc, char **argv)
+{ 
+    echo(argv);
 }
