@@ -23,4 +23,7 @@ int		isdelim(char c);
 t_tkn	which_delim(char *delim);
 int		scan_line(t_token **lst, char *line);
 
+//srcs/env/
+void	expandvars(char **sentences, t_env *env);
+
 #endif

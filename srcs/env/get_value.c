@@ -9,7 +9,7 @@ char	*get_value(char *var, int size, t_env *env)
 	char	*value;
 	char	*key;
 
-	key = set_format(var, size + 2);
+	key = set_format(var, size + 1);
 	value = search_value(key, size + 2, env);
 	free(key);
 	key = NULL;
@@ -20,7 +20,7 @@ static char	*set_format(char *var_name, int size)
 {
 	char	*output;
 
-	output = malloc(size * sizeof(*output));
+	output = malloc((size + 1) * sizeof(*output));
 	if (!output)
 	{
 		ft_putstr_fd("Malloc error on set_format()\n", 2);
@@ -28,7 +28,7 @@ static char	*set_format(char *var_name, int size)
 	}
 	output[size] = '\0';
 	output[size - 1] = '=';
-	ft_memcpy(output, var_name, size - 2);
+	ft_memcpy(output, var_name, size - 1);
 	return (output);
 }
 
