@@ -1,7 +1,4 @@
-#include "libft.h"
 #include "minishell.h"
-#include "env.h"
-#include "types.h"
 
 static int	sentence_lenght(char *sentence, t_quotes quote);
 static void	split_sentence(t_string **lst, t_repl *repl, t_env *env);

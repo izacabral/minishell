@@ -1,5 +1,4 @@
-#include "env.h"
-#include "libft.h"
+#include "minishell.h"
 
 static char	*set_format(char *, int size);
 static char	*search_value(char *key, int size, t_env *env);

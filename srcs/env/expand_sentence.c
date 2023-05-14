@@ -1,5 +1,4 @@
 #include "env.h"
-#include "types.h"
 
 /*
  * Fn		: expand_sentence(char **sentence, t_env *env)
