@@ -4,6 +4,7 @@
 # include "libft.h"
 # include "defines.h"
 # include "types.h"
+# include "env.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>

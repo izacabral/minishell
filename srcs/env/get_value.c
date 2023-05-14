@@ -4,6 +4,16 @@
 static char	*set_format(char *, int size);
 static char	*search_value(char *key, int size, t_env *env);
 
+/*
+ * Fn		: get_value(char *var, int size, t_env *env)
+ * Scope	: recupera o valor de uma variável de ambiente em uma string
+ * Input	: char * - o nome da variável, sem $
+ *			: int size - o número de caracters que compõem o nome da variável
+ *			: t_env * - lista com as variáveis de ambiente
+ * Output	: char * - string com o valor da variável
+ * Errors	: NULL - variável não encontrada ou sem valor
+ * Uses		: expvar() [by scan_sentence]
+ */
 char	*get_value(char *var, int size, t_env *env)
 {
 	char	*value;
