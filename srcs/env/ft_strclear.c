@@ -6,11 +6,11 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 00:25:23 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/10 17:19:41 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:56:10 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "types.h"
+#include "env.h"
 
 void	ft_strclear(t_string **lst, void (*del)(void *))
 {

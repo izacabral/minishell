@@ -3,7 +3,7 @@
 /*
  * Teste para a função de expansão de variáveis
  * Compilar com a libft e os arquivos:
- * tests/test_expandvars.c srcs/env/expand_sentence.c srcs/env/expandvars.c srcs/env/get_value.c srcs/env/scan_sentence.c srcs/env/which_quotes.c srcs/data_types/ft_strnew.c srcs/data_types/ft_stradd_back.c srcs/data_types/ft_strsize.c srcs/data_types/ft_strsetlast.c srcs/data_types/ft_lst_to_str.c srcs/data_types/ft_strclear.c srcs/data_types/ft_strdelone.c srcs/data_types/ft_strtotallen.c
+ * tests/test_expandvars.c srcs/env/expand_sentence.c srcs/env/expandvars.c srcs/env/get_value.c srcs/env/scan_sentence.c srcs/env/which_quotes.c srcs/env/ft_strnew.c srcs/env/ft_stradd_back.c srcs/env/ft_strsize.c srcs/env/ft_strsetlast.c srcs/env/ft_lst_to_str.c srcs/env/ft_strclear.c srcs/env/ft_strdelone.c srcs/env/ft_strtotallen.c
  */
 int	main(void)
 {

@@ -1,6 +1,4 @@
-#include "libft.h"
-#include "types.h"
-#include <stdlib.h>
+#include "minishell.h"
 
 char	*ft_lst_to_str(t_string *lst)
 {

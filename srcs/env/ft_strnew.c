@@ -6,11 +6,11 @@
 /*   By: daolivei <daolivei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:31:08 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/10 17:18:31 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:56:57 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "types.h"
+#include "env.h"
 
 t_string	*ft_strnew(char *str, size_t length)
 {

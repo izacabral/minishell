@@ -1,4 +1,4 @@
-#include "types.h"
+#include "env.h"
 
 size_t	ft_strtotallen(t_string *lst)
 {

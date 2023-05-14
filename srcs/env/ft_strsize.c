@@ -6,11 +6,11 @@
 /*   By: daolivei <daolivei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:30:46 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/10 17:20:26 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:57:42 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "types.h"
+#include "env.h"
 
 int	ft_strsize(t_string *lst)
 {
