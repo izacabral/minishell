@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_value.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/14 16:28:41 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/14 16:28:43 by daolivei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static char	*set_format(char *, int size);
+static char	*set_format(char *var_name, int size);
 static char	*search_value(char *key, int size, t_env *env);
 
 /*
