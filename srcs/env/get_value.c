@@ -9,8 +9,8 @@ char	*get_value(char *var, int size, t_env *env)
 	char	*value;
 	char	*key;
 
-	key = set_format(var, size + 1);
-	value = search_value(key, size + 2, env);
+	key = set_format(var, size);
+	value = search_value(key, size + 1, env);
 	free(key);
 	key = NULL;
 	return (value);
@@ -27,8 +27,7 @@ static char	*set_format(char *var_name, int size)
 		return (NULL);
 	}
 	output[size] = '\0';
-	output[size - 1] = '=';
-	ft_memcpy(output, var_name, size - 1);
+	ft_memcpy(output, var_name, size);
 	return (output);
 }
 

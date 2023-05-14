@@ -16,9 +16,9 @@ int	main(void)
 	var2 = malloc(sizeof(*var2));
 	if (!(var1 && var2))
 		return (1);
-	var1->key = ft_strdup("a=");
+	var1->key = ft_strdup("a");
 	var1->value = ft_strdup("var1");
-	var2->key = ft_strdup("b=");
+	var2->key = ft_strdup("b");
 	var2->value = NULL;
 	var1->next = var2;
 	var2->next = NULL;
