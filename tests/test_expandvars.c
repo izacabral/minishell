@@ -18,6 +18,7 @@ int	main(void)
 	char	*str6;
 	char	*str7;
 	char	*str8;
+	char	*str9;
 
 	var1 = malloc(sizeof(*var1));
 	var2 = malloc(sizeof(*var2));
@@ -29,15 +30,16 @@ int	main(void)
 	var2->value = NULL;
 	var1->next = var2;
 	var2->next = NULL;
-	tab = malloc(9 * sizeof(*tab));
+	tab = malloc(10 * sizeof(*tab));
 	str1 = ft_strdup("Test variable $a for expansion\n");
 	str2 = ft_strdup("Test $b for no value\n");
 	str3 = ft_strdup("Test variable \"$a some word\" inside quotes\n");
-	str4 = ft_strdup("Test \'$a\' no expansion\n");
-	str5 = ft_strdup("Test nothing to expand\n");
-	str6 = ft_strdup("Test $ alone\n");
-	str7 = ft_strdup("Test \'$\' in single quotes\n");
-	str8 = ft_strdup("Test \"$\" in double quotes\n");
+	str4 = ft_strdup("Test variable \" nested \'$a\' quotes \"\n");
+	str5 = ft_strdup("Test \'$a\' no expansion\n");
+	str6 = ft_strdup("Test nothing to expand\n");
+	str7 = ft_strdup("Test $ alone\n");
+	str8 = ft_strdup("Test \'$\' in single quotes\n");
+	str9 = ft_strdup("Test \"$\" in double quotes\n");
 	tab[0] = str1;
 	tab[1] = str2;
 	tab[2] = str3;
@@ -46,7 +48,8 @@ int	main(void)
 	tab[5] = str6;
 	tab[6] = str7;
 	tab[7] = str8;
-	tab[8] = NULL;
+	tab[8] = str9;
+	tab[9] = NULL;
 	expandvars(tab, var1);
 	free(var1->key);
 	free(var1->value);
@@ -62,6 +65,7 @@ int	main(void)
 	ft_putstr_fd(tab[5], 1);
 	ft_putstr_fd(tab[6], 1);
 	ft_putstr_fd(tab[7], 1);
+	ft_putstr_fd(tab[8], 1);
 	free(tab[0]);
 	free(tab[1]);
 	free(tab[2]);
@@ -70,6 +74,7 @@ int	main(void)
 	free(tab[5]);
 	free(tab[6]);
 	free(tab[7]);
+	free(tab[8]);
 	free(tab);
 	return (0);
 }
