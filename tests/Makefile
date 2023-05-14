@@ -16,6 +16,10 @@ SRCS_TOKEN	=	debug_print.c test_tokenization.c ../srcs/parser/isdelim.c ../srcs/
 
 OBJS_TOKEN	=	$(SRCS_TOKEN:.c=.o)
 
+SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../srcs/parser/isdelim.c ../srcs/parser/isquotes.c ../srcs/parser/scan_line.c ../srcs/parser/which_delim.c ../srcs/data_types/t_token.c
+
+OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
+
 SRCS_LEXER	=	debug_print.c test_lexer.c ../srcs/parser/lexer.c ../srcs/parser/isdelim.c ../srcs/parser/isquotes.c ../srcs/parser/scan_line.c ../srcs/parser/which_delim.c ../srcs/data_types/t_token.c
 
 OBJS_LEXER	=	$(SRCS_LEXER:.c=.o)
@@ -49,7 +53,10 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: tokenization lexer
+all: printtoken tokenization lexer
+
+printtoken: $(LIBFT) $(OBJS_P_TOKEN)
+	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
 
 tokenization: $(LIBFT) $(OBJS_TOKEN)
 	$(CC) $(OBJS_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o tokenization
@@ -59,9 +66,13 @@ lexer: $(LIBFT) $(OBJS_LEXER)
 
 
 clean:
+		$(RM) $(OBJS_P_TOKEN)
 		$(RM) $(OBJS_TOKEN)
 		$(RM) $(OBJS_LEXER)
 
 fclean: clean
+		$(RM) printtoken
 		$(RM) tokenization
 		$(RM) lexer
+
+re:			fclean all

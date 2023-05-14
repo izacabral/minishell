@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int	g_global = 0;
+
 void	init_shell(t_shell *data)
 {
 	data->line = NULL;

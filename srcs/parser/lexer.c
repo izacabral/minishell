@@ -27,6 +27,7 @@
 static void	print_syntax_error(char *word)
 {
 	ft_printf("minishell: syntax error near unexpected token '%s'\n", word);
+	g_global = 258;
 }
 
 /*

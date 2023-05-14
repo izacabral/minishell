@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define BUFFER_SIZE 42
+
 # define FT_INT_MAX 2147483647
 # define FT_INT_MIN -2147483648
 
@@ -79,5 +81,11 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 int		ft_lstsize(t_list *lst);
+
+//gnl
+char	*get_next_line(int fd);
+char	*get_file(int fd, char *strbuf);
+char	*get_line(char *strbuf);
+char	*rest_line(char *strbuf);
 
 #endif

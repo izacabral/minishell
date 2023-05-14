@@ -13,7 +13,6 @@
 #include "testing.h"
 
 //Função para testar o lexer
-
 int	main(void)
 {
 	char	*buffer[25];
@@ -23,16 +22,18 @@ int	main(void)
 	int 	ver;
 
 	lst = NULL;
-	ret = 0;
-	i = 0;
-	ver = 0;
+	ret = 0; // para armazenar retorno da lexer
+	ver = 0; // verificdor de retorno da função de teste
 
+	//setando strings para nulo
+	i = 0;
 	while (i < 25)
 	{
 		buffer[i] = NULL;
 		i++;
 	}
 
+	//strings que NÃO devem retornar erros, ou seja retorno de lexer precisa ser 0
 	buffer[0] = "cat teste > teste2";
 	buffer[1] = "cat teste > teste2 | wc";
 	buffer[2] = "cat teste | wc";
@@ -42,10 +43,12 @@ int	main(void)
 	buffer[6] = "cat teste2 |< teste3";
 	buffer[7] = "cat teste2 |";
 	buffer[8] = "cat main.c |> teste";
+	buffer[9] = "<< EOF";
 
 
+	// percorrer as strings acima criando a lista de tokens e verificando se o retorno de lexer é 0
+	// se lexer não for 0, retorna -1
 	i = 0;
-
 	while (buffer[i])
 	{
 		scan_line(&lst, buffer[i]);
@@ -66,6 +69,7 @@ int	main(void)
 		}
 	}
 
+	//setando strings para nulo
 	i = 0;
 	while (i < 25)
 	{
@@ -73,6 +77,7 @@ int	main(void)
 		i++;
 	}
 
+	//strings que DEVEM retornar erros de syntax, ou seja retorno de lexer precisa ser -2
 	buffer[0] = "| teste2";
 	buffer[1] = "|teste2";
 	buffer[2] = "< | teste3";
@@ -95,9 +100,9 @@ int	main(void)
 	buffer[19] = ">>";
 	buffer[20] = ">";
 
-
+	// percorrer as strings acima criando a lista de tokens e verificando se o retorno de lexer é -2
+	// se lexer não for -2, retorna -2
 	i = 0;
-
 	while (buffer[i])
 	{
 		scan_line(&lst, buffer[i]);
@@ -122,7 +127,7 @@ int	main(void)
 	if (ver == 0)
 		ft_printf ("\n\nlexer is ok\n");
 	else
-		ft_printf ("\n\nsomething is wrong ret =%i", ver);
+		ft_printf ("\n\nsomething is wrong ver = %i", ver);
 	return (ver);
 }
 
