@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   norma.c                                            :+:      :+:    :+:   */
+/*   test_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fpeixoto <fpeixoto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -22,7 +22,7 @@ static int	check_n(char *str)
 		i = 1;
 		while (str[i] == 'n' && str[i])
 			i++;
-		if (str[i - 1] != 'n')
+		if (str[i] != 'n' && str[i])
 			return (0);
 		else
 			return (1);
@@ -47,12 +47,18 @@ int	ft_echo(char **arg)
 		if (control == 1)
 			i++;
 	}
-	while (arg[i++])
+	while (arg[i])
 	{
 		ft_putstr_fd (arg[i], 1);
 		if (arg[i])
 			ft_putstr_fd(" ", 1);
+			i++;
 	}
 	if (control == 0)
 		ft_putstr_fd("\n", 1);
+}
+
+int main(int argc, char **argv)
+{ 
+    ft_echo(argv);
 }
