@@ -16,3 +16,19 @@ void	freetab(void **ptr)
 	}
 	free(ptr);
 }
+
+void	free_array(char **tab)
+{
+	size_t	i;
+	char *s;
+
+	i = 0;
+	while (tab[i])
+	{
+		s = tab[i];
+		free(s);
+		i++;
+	}
+	free(tab);
+	tab = NULL;
+}

@@ -1,0 +1,113 @@
+#include "minishell.h"
+
+/*
+ * Input			:
+ * Scope			:adding the key and value in a new node
+ * Output			:a new node with the data from env
+ */
+t_env	*new_env(char *key, char *value, int size)
+{
+	t_env	*node;
+
+	node = (t_env *)malloc(sizeof(t_env));
+	protect_malloc(node);
+	node->key = ft_strdup(key);
+	node->value = ft_strtrim(value, "'");
+	node->next = NULL;
+	node->size = size;
+	return (node);
+}
+
+/*
+ * Input			:t_env *env - envp list(head)
+ *					:t_env *next_env - next node in env list
+ * Scope			:swapping the position of the next node with the previous node
+ * Output			:none
+ */
+static void	swap_node(t_env *env, t_env *next_env)
+{
+	char	*key;
+	char	*value;
+
+	key = env->key;
+	value = env->value;
+	env->key = next_env->key;
+	env->value = next_env->value;
+	next_env->key = key;
+	next_env->value = value;
+}
+
+/*
+ * Input			:t_env *env - envp list(head)
+ * Output			:the sorted envp list
+ *
+ * Colocar a ft_strcmp*/
+static t_env	*sort_env(t_env *env)
+{
+	t_env	*new_node;
+
+	new_node = env;
+	while (new_node->next)
+	{
+		if (strcmp(new_node->key, new_node->next->key) > 0)
+		{
+			swap_node(new_node, new_node->next);
+			new_node = env;
+		}
+		else
+			new_node = new_node->next;
+	}
+	return (env);
+}
+
+/*
+ * Input			:t_env *env - envp list(head)
+ * Output			:the copy of the env list
+ */
+static t_env	*copy_env_list(t_env *env)
+{
+	t_env	*new_node;
+	t_env	*tmp_node;
+
+	new_node = new_env(env->key, env->value, 0);
+	tmp_node = new_node;
+	env = env->next;
+	while (env)
+	{
+		tmp_node->next = new_env(env->key, env->value, 0);
+		tmp_node = tmp_node->next;
+		env = env->next;
+	}
+	return (new_node);
+}
+
+/*
+ * Input			:t_env *env - envp list(head)
+ * Scope			:calling function to duplicate the envp list to be able to sort
+ * Output			:print environment variables in order with 'declare -x'
+ */
+void	print_export(t_env *env)
+{
+	t_env	*node;
+	t_env	*tmp;
+	t_env	*env_sorted;
+
+	tmp = copy_env_list(env);
+	env_sorted = sort_env(tmp);
+	node = env_sorted;
+	while (node)
+	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd(node->key , STDOUT_FILENO);
+		if (node->value)
+		{
+			ft_putstr_fd("=\"", STDOUT_FILENO);
+			ft_putstr_fd(node->value, STDOUT_FILENO);
+			ft_putstr_fd(node->value, STDOUT_FILENO);
+			ft_putchar_fd('"', STDOUT_FILENO);
+		}
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		node = node->next;
+	}
+	free_env(env_sorted);
+}
