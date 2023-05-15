@@ -8,13 +8,11 @@ static int check_n(char *str) {
 
     if (str[0] == '-' && str[1]=='n') {
         i = 1;
-        while (str[i] == 'n') {
-            i++;
-        }
-		if(str[i-1] == 'n' && str[i+1])
-			return 1;
-		else
+        while (str[i++] == 'n' && str[i]);
+		if(str[i-1] != 'n')
 			return 0;
+		else
+			return 1;
     }
 
 }
@@ -26,12 +24,16 @@ int ft_echo(char **arg)
 	i = 1;
 	control = 0;
 	if(arg[i] == NULL)
+	{
 		ft_putstr_fd("\n",1);
+		return 0;
+	}
 
 	else if(ft_strncmp(arg[i], "-n", 2) == 0)
 	{
 			control = check_n(arg[i]);
-			i++;
+			if(control == 1)
+				i++;
 	}
 
 	while(arg[i])
