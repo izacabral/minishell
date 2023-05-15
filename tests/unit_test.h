@@ -1,7 +1,7 @@
 #ifndef TESTING_H
 # define TESTING_H
 
-//# include "../inc/minishell.h"
+# include "../libft/libft.h"
 
 # include <unistd.h>
 # include <stdio.h>
