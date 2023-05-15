@@ -17,7 +17,7 @@ int	g_global = 0;
 //Função para testar o lexer
 int	main(void)
 {
-	char	*buffer[25];
+	char	*buffer[30];
 	int 	ret;
 	t_token	*lst;
 	int 	i;
@@ -29,7 +29,7 @@ int	main(void)
 
 	//setando strings para nulo
 	i = 0;
-	while (i < 25)
+	while (i < 30)
 	{
 		buffer[i] = NULL;
 		i++;
@@ -73,7 +73,7 @@ int	main(void)
 
 	//setando strings para nulo
 	i = 0;
-	while (i < 25)
+	while (i < 30)
 	{
 		buffer[i] = NULL;
 		i++;
@@ -101,6 +101,12 @@ int	main(void)
 	buffer[18] = "<<";
 	buffer[19] = ">>";
 	buffer[20] = ">";
+	buffer[21] = "cat teste || wc -l";
+	buffer[22] = "cat teste ||| wc -l";
+	buffer[23] = "cat teste | | wc -l";
+	buffer[24] = "cat teste | || wc -l";
+	buffer[25] = "cat teste || | wc -l";
+
 
 	// percorrer as strings acima criando a lista de tokens e verificando se o retorno de lexer é -2
 	// se lexer não for -2, retorna -2
