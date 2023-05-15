@@ -40,8 +40,7 @@ static void	swap_node(t_env *env, t_env *next_env)
 /*
  * Input			:t_env *env - envp list(head)
  * Output			:the sorted envp list
- *
- * Colocar a ft_strcmp*/
+ */
 static t_env	*sort_env(t_env *env)
 {
 	t_env	*new_node;
@@ -49,7 +48,7 @@ static t_env	*sort_env(t_env *env)
 	new_node = env;
 	while (new_node->next)
 	{
-		if (strcmp(new_node->key, new_node->next->key) > 0)
+		if (ft_strcmp(new_node->key, new_node->next->key) > 0)
 		{
 			swap_node(new_node, new_node->next);
 			new_node = env;

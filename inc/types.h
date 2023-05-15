@@ -75,5 +75,5 @@ void		free_array(char **tab);
 void		print_env(t_env *env);
 /*Function that manipulates the result of the command export. Include in path dataypes/export_builtins.c*/
 int			export_builtins(int size, char *str[], t_shell data);
-
+int			ft_strcmp(const char *s1, const char *s2);
 #endif
