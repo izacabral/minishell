@@ -54,6 +54,7 @@ RL_PATH		=	/usr/local
 
 detected_OS	=	$(shell uname -s)
 RL_TEST		=	if [ -z $(RL_INC) ]; then $(RL_MSG) && false; else true ; fi
+NL			=	2>/dev/null
 
 INC_RL_MAC  =	-I $(RL_INC)
 LIB_RL_MAC  =	-L $(RL_LIB)
@@ -65,8 +66,8 @@ ifeq ($(detected_OS), Linux)
  CO_LINE	=	$(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
 else
  RL_PATH	+=	/opt $(HOME)/.brew
- RL_INC 	=	$(shell find $(RL_PATH) -type d -name include | grep $(RL))
- RL_LIB 	=	$(shell find $(RL_PATH) -type d -name lib | grep $(RL))
+ RL_INC 	=	$(shell find $(RL_PATH) -type d -name include $(NL) |grep $(RL))
+ RL_LIB 	=	$(shell find $(RL_PATH) -type d -name lib $(NL) |grep $(RL))
  RLFLAGS	=	$(CFLAGS) $(INC_RL_MAC) $(LIB_RL_MAC) $(INC)
  CO_LINE	=	$(CC) $(CFLAGS) $(INC) $(INC_RL_MAC) -c $< -o $(<:.c=.o)
 endif
@@ -76,6 +77,7 @@ endif
 # **************************************************************************** #
 
 .c.o:
+			$(RL_TEST)
 			${AT} $(CO_LINE) ${BLK}
 
 all:		$(NAME)
@@ -84,10 +86,8 @@ $(LIBFT):
 			${AT} $(MAKE) $(CLFT) ${BLK}
 			${COMPILE}
 
-$(RL):
-			$(RL_TEST)
 
-$(NAME):	$(RL) $(LIBFT) $(OBJS)
+$(NAME):	$(LIBFT) $(OBJS)
 			${AT} $(CC) $(OBJS) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o $(NAME) ${BLK}
 			${COMPILE}
 clean:
