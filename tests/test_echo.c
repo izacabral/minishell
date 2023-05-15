@@ -1,68 +1,52 @@
 #include "../inc/minishell.h"
 #include "string.h"
 /*Realizando alteções no codigo*/
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	i;
 
-	i = 0;
-	while ((n > 0) && ((s1[i]) || (s2[i])))
-	{
-		if (s1[i] != s2[i])
-		{
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		}
-		i++;
-		n--;
-	}
-	return (0);
-}
-
+/*Esta função e para checar os n, se caso na sequencia de n estiver um caracter diferente retorna 1 e vai pular linha*/
 static int check_n(char *str) {
     int i = 0;
 
-    if (str[0] == '-' && strcmp(str + 1, "n") == 0) {
+    if (str[0] == '-' && str[1]=='n') {
         i = 1;
         while (str[i] == 'n') {
             i++;
         }
+		if(str[i-1] == 'n' && str[i+1])
+			return 1;
+		else
+			return 0;
     }
 
-    return i;
 }
 
-int echo(char **arg)
+int ft_echo(char **arg)
 {
-    int i;
 	int control;
+	int i;
+	i = 1;
 	control = 0;
-    i = 1;
+	if(arg[i] == NULL)
+		ft_putstr_fd("\n",1);
 
-	if(arg[1] == NULL)
+	else if(ft_strncmp(arg[i], "-n", 2) == 0)
 	{
-		printf("\n");
-		return 0;
-	}
-	
-	if(strcmp(arg[1],"-n") == 0)
-		{
-			control = 1;
+			control = check_n(arg[i]);
 			i++;
-		}
+	}
 
-    while(arg[i])
-    {
-        printf("%s",arg[i]);
-        i++;
+	while(arg[i])
+	{
+		ft_putstr_fd(arg[i],1);
+		i++;
 		if(arg[i])
-			printf(" ");	
-		if(control == 0)
-			printf("\n");
-    }
-}
+			 ft_putstr_fd(" ", 1);
+	}
+	if(control == 0)
+		ft_putstr_fd("\n", 1);
 
+}
 
 int main(int argc, char **argv)
 { 
-    echo(argv);
+    ft_echo(argv);
 }
