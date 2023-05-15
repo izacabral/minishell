@@ -6,11 +6,11 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:13:30 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/05/09 15:21:28 by dmatavel         ###   ########.fr       */
+/*   Updated: 2023/05/15 14:42:08 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishel.h"
+#include "../../inc/minishell.h"
 
 int	pwd(void)
 {
