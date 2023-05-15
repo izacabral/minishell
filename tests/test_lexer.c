@@ -12,6 +12,8 @@
 
 #include "testing.h"
 
+int	g_global = 0;
+
 //Função para testar o lexer
 int	main(void)
 {
