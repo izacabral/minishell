@@ -41,7 +41,8 @@ int	ft_echo(char **arg)
 		ft_putstr_fd("\n", 1);
 		return (0);
 	}
-	while ((ft_strncmp(arg[i], "-n", 2) == 0) && (check_n(arg[i]) == 1))
+	while (arg[i] && (ft_strncmp(arg[i], "-n", 2) == 0) 
+	&& (check_n(arg[i]) == 1))
 	{
 			control = 1;
 			i++;
@@ -53,6 +54,6 @@ int	ft_echo(char **arg)
 			ft_putstr_fd(" ", 1);
 			i++;
 	}
-	if (control == 0)
+	if (control == 0 )
 		ft_putstr_fd("\n", 1);
 }
