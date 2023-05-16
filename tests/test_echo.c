@@ -6,7 +6,7 @@
 /*   By: fpeixoto <fpeixoto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:49:57 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/05/15 20:50:40 by fpeixoto         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:57:09 by fpeixoto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ static int	check_n(char *str)
 			return (1);
 	}
 }
+static int 	jump_n(char **str)
+{
 
+}
 int	ft_echo(char **arg)
 {
 	int	control;
@@ -41,24 +44,18 @@ int	ft_echo(char **arg)
 		ft_putstr_fd("\n", 1);
 		return (0);
 	}
-	else if (ft_strncmp(arg[i], "-n", 2) == 0)
+	while((ft_strncmp(arg[i], "-n", 2) == 0) && (check_n(arg[i])==1))
 	{
-		control = check_n (arg[i]);
-		if (control == 1)
+			control = 1;
 			i++;
 	}
 	while (arg[i])
 	{
 		ft_putstr_fd (arg[i], 1);
-		if (arg[i])
+		if (arg[i] && arg[i+1])
 			ft_putstr_fd(" ", 1);
 			i++;
 	}
 	if (control == 0)
 		ft_putstr_fd("\n", 1);
-}
-
-int main(int argc, char **argv)
-{ 
-    ft_echo(argv);
 }
