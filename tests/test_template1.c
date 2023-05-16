@@ -3,10 +3,21 @@
 /*
 **		GUIDELINE TO UNIT TESTING
 **
-** 1.	Test file shall be named like test_feature.c i.e. test_parsing.c
-** 2.	It has a specific Header file: #include "unit_test.h"
-** 3.	Inside Main, should return (0) for no  errors or (1) in case of errors.
-** 4.	Everything printed out will be collected in a logfile (FD 1 or FD 2);
+** 1.	Test file shall be named like test_branch.c i.e. test_parsing.c;
+**
+** 2.	All coding for tests should run in this test_file.c only;
+**
+** 3.	It has a specific Header file: #include "unit_test.h";
+**
+** 4.	Main()  will return (0) for success or any positive int for failure;
+**
+** 5.	Everything printed out will be collected in a logfile (FD 1 or FD 2);
+**
+** 6.	Infinite loops requiring user intervention to quit must be avoided, as
+**		it will halt the Makefile and breaches the automated testing  purpose.
+**
+** 7.	Tests should print EXPECTED output vs ACTUAL output and, in case of
+**		mismatch, an error should be returned to terminal.
 **
 */
 

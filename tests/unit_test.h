@@ -1,14 +1,13 @@
-#ifndef TESTING_H
-# define TESTING_H
+#ifndef UNIT_TEST_H
+# define UNIT_TEST_H
 
-# include "../libft/libft.h"
-
+# include "minishell.h"
 # include <unistd.h>
 # include <stdio.h>
 
 void	prt(int i, char *s);
 
-void prt(int i, char *s)
+void	prt(int i, char *s)
 {
 	while (*s)
 		write(i, &*s++, 1);
