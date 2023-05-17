@@ -60,7 +60,7 @@ INC_RL_MAC  =	-I $(RL_INC)
 LIB_RL_MAC  =	-L $(RL_LIB)
 
 ifeq ($(detected_OS), Linux)
- RL_PATH	+=	/usr
+ RL_PATH	+=	/usr/local /usr
  RL_INC 	=	$(shell find $(RL_PATH) -type d -name $(RL) | grep "include")
  RLFLAGS	=	$(CFLAGS) $(INC)
  CO_LINE	=	$(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
