@@ -55,7 +55,8 @@ void		freetab(void **ptr);
 /*Function that duplicates the environment variable is in the path dataypes/get_env.c*/
 t_env		*get_env(char *environ[]);
 /*Function that give free in the env list is in the path dataypes/free_env.c*/
-void		free_env(t_env *env);
+void		del_lst(t_env *env);
+void		del_one(t_env *node);
 /*Function to compare if the key that was passed as an argument is equal
 to the key that is in the env list. Include in path dataypes/export_builtins.c*/
 t_env		*compare_key(t_env *env, char *key);
@@ -75,5 +76,10 @@ void		free_array(char **tab);
 void		print_env(t_env *env);
 /*Function that manipulates the result of the command export. Include in path dataypes/export_builtins.c*/
 int			export_builtins(int size, char *str[], t_shell data);
+/**/
 int			ft_strcmp(const char *s1, const char *s2);
+/*Function that add keys and values to the node*/
+t_env		*add_env(t_env *env, char *key, char *value);
+/*Function that checks that the key is in the correct format is in the path dataypes/check_unset.c*/
+int			check_unset(char *key);
 #endif

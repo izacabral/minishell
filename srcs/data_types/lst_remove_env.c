@@ -1,20 +1,25 @@
 #include "minishell.h"
 
+void	del_one(t_env *node)
+{
+	free(node->key);
+	free(node->value);
+	free(node);
+}
+
 /*
  * Input			:t_env - envp list
  * Scope			:clear env list
  * Output			:none
  */
-void	free_env(t_env *env)
+void	del_lst(t_env *env)
 {
 	t_env	*node;
 
 	while (env)
 	{
 		node = env->next;
-		free(env->key);
-		free(env->value);
-		free(env);
+		del_one(env);
 		env = node;
 	}
 }

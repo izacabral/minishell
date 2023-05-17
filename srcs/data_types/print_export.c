@@ -1,24 +1,6 @@
 #include "minishell.h"
 
 /*
- * Input			:
- * Scope			:adding the key and value in a new node
- * Output			:a new node with the data from env
- */
-t_env	*new_env(char *key, char *value, int size)
-{
-	t_env	*node;
-
-	node = (t_env *)malloc(sizeof(t_env));
-	protect_malloc(node);
-	node->key = ft_strdup(key);
-	node->value = ft_strtrim(value, "'");
-	node->next = NULL;
-	node->size = size;
-	return (node);
-}
-
-/*
  * Input			:t_env *env - envp list(head)
  *					:t_env *next_env - next node in env list
  * Scope			:swapping the position of the next node with the previous node
@@ -108,5 +90,5 @@ void	print_export(t_env *env)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		node = node->next;
 	}
-	free_env(env_sorted);
+	del_lst(env_sorted);
 }
