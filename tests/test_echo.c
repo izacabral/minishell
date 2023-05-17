@@ -50,7 +50,7 @@ int	ft_echo(char **arg)
 			ft_putstr_fd(" ", 1);
 		i++;
 	}
-	if (control == 0 || arg[i] == NULL)
+	if (arg[i - 1] == NULL || control == 0)
 		ft_putstr_fd("\n", 1);
 	return (0);
 }
