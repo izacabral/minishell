@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 15:26:25 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/09 18:06:33 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/05/17 06:28:09 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,18 @@ static int	lexer_iterate(t_token *tmp)
 {
 	while (tmp->next)
 	{
-		while ((tmp->tkn == WORD || tmp->tkn == PIPE) && tmp->next)
+		while (tmp->tkn == WORD && tmp->next)
 			tmp = tmp->next;
+		if (tmp->tkn == PIPE && tmp->next)
+		{
+			if (tmp->next->tkn == PIPE)
+			{
+				print_syntax_error(tmp->next->word);
+				return (-2);
+			}
+			else
+				tmp = tmp->next;
+		}
 		if ((tmp->tkn == IN || tmp->tkn == OUT
 				|| tmp->tkn == HDOC || tmp->tkn == APPEND))
 		{
@@ -59,7 +69,8 @@ static int	lexer_iterate(t_token *tmp)
 				print_syntax_error(tmp->next->word);
 				return (-2);
 			}
-			tmp = tmp->next;
+			else
+				tmp = tmp->next;
 		}
 	}
 	return (0);
