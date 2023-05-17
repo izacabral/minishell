@@ -1,10 +1,26 @@
-#include "testing.h"
+#include "minishell.h"
 
+typedef enum e_test
+{
+	UNDEFINED,
+	TOKEN,
+}	t_test;
+
+static void	print_token(t_token *cmd)
+{
+	while (cmd)
+	{
+		printf("Token = %i\n", cmd->tkn);
+		printf("Word = %s\n", cmd->word);
+		printf("\n");
+		cmd = cmd->next;
+	}
+	printf("\n");
+}
 
 // Funcção para testar scan_line().
 // Compilar com os arquivos:
 // tests/debug_print.c srcs/parser/isdelim.c srcs/parser/isquotes.c srcs/parser/scan_line.c tests/test_tokenization.c srcs/parser/which_delim.c srcs/data_types/t_token.c
-
 int	main(void)
 {
 	char	*buffer;

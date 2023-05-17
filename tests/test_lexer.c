@@ -6,11 +6,11 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:45:24 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/13 11:33:59 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:56:24 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "testing.h"
+#include "minishell.h"
 
 int	g_global = 0;
 
