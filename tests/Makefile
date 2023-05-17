@@ -11,7 +11,7 @@ _SRCS	=	$(shell find $(SRCD) ! -path $(SRCD) -type f | grep -E ".+\.c")
 _OBJS	=	$(_SRCS:.c=.o)
 
 
-SRCS 	=	$(shell find . -type f -iname "*.c" ! -path "*/exclude_test/*" | cut -c 3-)
+SRCS 	=	$(shell find . -type f -iname "*.c" ! -path "*/exclude_test/*" | cut -c 3- | sort)
 NAME	=	$(SRCS:.c=)
 OBJS	=	$(NAME)
 
@@ -65,8 +65,8 @@ $(OBJS): %: %.c
 	@$(CO_LINE)
 	@$(CC) $(CFLAG) $(RLFLAGS) $(RLFLAG) $(LIB) \
 		$(<:.c=.o) -o $@.out; ./$@.out > $@.log 2>&1   \
-		&& (echo "$(wht)$(ck)$@	$(grn)[OK]$(rst)")     \
-		|| (echo "$(wht)$(ck)$@	$(red)[KO]$(rst)" && touch .errl)
+		&& (echo "$(grn)[OK]	$(wht)$@$(rst)")       \
+		|| (echo "$(red)[KO]	$(wht)$@$(rst)" && touch .errl)
 	@rm -f $@.o $@.out
 
 init:
