@@ -1,78 +1,129 @@
-INC			=	-I ../libft/ -I ../libft/ft_printf/ -I ../inc/
+# **************************************************************************** #
+#                          Minishell Unity Testing
+# **************************************************************************** #
+
+# i.e. make tests
+# i.e. make
+
+SRCD	=	../srcs
+INCD	=	../inc
+_SRCS	=	$(shell find $(SRCD) ! -path $(SRCD) -type f | grep -E ".+\.c")
+_OBJS	=	$(_SRCS:.c=.o)
+
+
+SRCS 	=	$(shell find . -type f -iname "*.c" ! -path "*/exclude_test/*" | cut -c 3-)
+NAME	=	$(SRCS:.c=)
+OBJS	=	$(NAME)
+
+
+# **************************************************************************** #
+#    COMPILER AND FLAGS                                                        #
+# **************************************************************************** #
 
 CC			=	cc
+RM			= 	rm -f
+CFLAGS		=	-Wall -Wextra -Werror
+MFLAG		=	-C
 
-RM			=	rm -f
-
-CFLAGS		=	-Wall -Wextra -Werror -g
-
-LFT			=	libft
-
-CLFT		=	$(MFLAG) $(LFT)
-
-LIBFT		= 	../$(LFT)/$(LFT).a
-
-SRCS_TOKEN	=	debug_print.c test_tokenization.c ../srcs/parser/isdelim.c ../srcs/parser/isquotes.c ../srcs/parser/scan_line.c ../srcs/parser/which_delim.c ../srcs/data_types/t_token.c
-
-OBJS_TOKEN	=	$(SRCS_TOKEN:.c=.o)
-
-SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../srcs/parser/isdelim.c ../srcs/parser/isquotes.c ../srcs/parser/scan_line.c ../srcs/parser/which_delim.c ../srcs/data_types/t_token.c
-
-OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
-
-SRCS_LEXER	=	debug_print.c test_lexer.c ../srcs/parser/lexer.c ../srcs/parser/isdelim.c ../srcs/parser/isquotes.c ../srcs/parser/scan_line.c ../srcs/parser/which_delim.c ../srcs/data_types/t_token.c
-
-OBJS_LEXER	=	$(SRCS_LEXER:.c=.o)
-
+INC			=	-I ../libft/ -I ../libft/ft_printf/ -I ../inc/
+LIB			=	../libft/libft.a ../libft/ft_printf/libftprintf.a minishell.a
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
 # **************************************************************************** #
 
-CC			=	cc
-
-RM			= 	rm -f
-
-CFLAGS		=	-Wall -Wextra -Werror -g
-
-INCRLMAC	=	-I ~/.brew/opt/readline/include/
-#INCRLMAC	+=	-I /opt/homebrew/Cellar/readline/8.2.1/include/
-
-BIBRLMAC	=	-L ~/.brew/opt/readline/lib/
-#BIBRLMAC	+=	-I /opt/homebrew/Cellar/readline/8.2.1/lib/
-
+RL			=	readline
+RL_PATH		=	~/.brew
 RLFLAG		= 	-lreadline
 
-ifeq ($(WHICH_OS), Linux)
+detected_OS	=	$(shell uname -s)
+RL_TEST		=	if [[ -z $(RL_INC) ]]; then $(RL_MSG) && false; else true ; fi
+NL			=	2>/dev/null
+
+INC_RL_MAC  =	-I $(RL_INC)
+LIB_RL_MAC  =	-L $(RL_LIB)
+
+ifeq ($(detected_OS), Linux)
+ RL_PATH	+=	/usr/local /usr
+ RL_INC 	=	$(shell find $(RL_PATH) -type d -name $(RL) | grep "include")
  RLFLAGS	=	$(CFLAGS) $(INC)
- CO_LINE	=   $(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
+ CO_LINE	=	$(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
 else
- RLFLAGS	=	$(CFLAGS) $(INCRLMAC) $(BIBRLMAC) $(INC)
- CO_LINE	=   $(CC) $(CFLAGS) $(INC) $(INCRLMAC) -c $< -o $(<:.c=.o)
+ RL_PATH	+=	/opt /usr/local
+ RL_INC 	=	$(shell find $(RL_PATH) -type d -name include $(NL) |grep $(RL))
+ RL_LIB 	=	$(shell find $(RL_PATH) -type d -name lib $(NL) |grep $(RL))
+ RLFLAGS	=	$(CFLAGS) $(INC_RL_MAC) $(LIB_RL_MAC) $(INC)
+ CO_LINE	=	$(CC) $(CFLAGS) $(INC) $(INC_RL_MAC) -c $< -o $(<:.c=.o)
 endif
 
-.c.o:
-		$(CO_LINE)
+# **************************************************************************** #
+#              Rules                                                           #
+# **************************************************************************** #
 
-all: printtoken tokenization lexer
+all: init $(OBJS) test
 
-printtoken: $(LIBFT) $(OBJS_P_TOKEN)
-	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
+$(OBJS): %: %.c
+	@$(CO_LINE)
+	@$(CC) $(CFLAG) $(RLFLAGS) $(RLFLAG) $(LIB) \
+		$(<:.c=.o) -o $@.out; ./$@.out > $@.log 2>&1   \
+		&& (echo "$(wht)$(ck)$@	$(grn)[OK]$(rst)")     \
+		|| (echo "$(wht)$(ck)$@	$(red)[KO]$(rst)" && touch .errl)
+	@rm -f $@.o $@.out
 
-tokenization: $(LIBFT) $(OBJS_TOKEN)
-	$(CC) $(OBJS_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o tokenization
+init:
+	@$(CHK_ERR)
+	@echo && echo "$(ora) Minishell Unity Testing$(rst)" && echo
+	@make -C .. VERBOSE=0
+	@if [[ -f "minishell.a" ]]; then rm minishell.a; fi
+	@ar rcs minishell.a $(_OBJS)
 
-lexer: $(LIBFT) $(OBJS_LEXER)
-	$(CC) $(OBJS_LEXER) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o lexer
+test:
+	@echo && echo "$(ora) Log Files $(rst)" && echo
+	@for file in *.log; \
+		do echo "$(pnk)$$file:$(rst)" \
+		&& cat $$file && echo; \
+		done
+	@rm -rf logs minishell.a && mkdir -p logs && mv *.log logs/
+	@echo && if [[ -f ".errl" ]]; \
+		then rm .errl; echo "$(red)\c"; false; \
+		else echo "$(grn)make: *** [$@] SUCCESS! $(rst)"; fi
 
+tests: all
 
-clean:
-		$(RM) $(OBJS_P_TOKEN)
-		$(RM) $(OBJS_TOKEN)
-		$(RM) $(OBJS_LEXER)
+.PHONY: test, tests, init
 
-fclean: clean
-		$(RM) printtoken
-		$(RM) tokenization
-		$(RM) lexer
+CHK_ERR =	if [[ -f ".errl" ]]; then rm .errl; fi
 
-re:			fclean all
+# **************************************************************************** #
+#                           Visuals and Messages
+# **************************************************************************** #
+
+ok:=✓
+ko:=✗
+ck:=・
+
+s:=\033[0
+red:=$s31m
+grn:=$s32m
+yel:=$s33m
+blu:=$s34m
+pnk:=$s35m
+cya:=$s36m
+wht:=$s37m
+rst:=$s00m
+ora:=$s38;2;255;153;0m
+clr:=$s2K
+lup:=$s1A
+bld:=$s1m
+
+spin[0]="⠁"
+spin[1]="⠃"
+spin[2]="⠇"
+spin[3]="⠧"
+spin[4]="⠷"
+spin[5]="⠿"
+spin[6]="⠷"
+spin[7]="⠧"
+spin[8]="⠇"
+spin[9]="⠃"
+
+# **************************************************************************** #

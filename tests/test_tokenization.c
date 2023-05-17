@@ -6,7 +6,7 @@ typedef enum e_test
 	TOKEN,
 }	t_test;
 
-static void	print_token(t_token *cmd)
+/* static void	print_token(t_token *cmd)
 {
 	while (cmd)
 	{
@@ -16,7 +16,7 @@ static void	print_token(t_token *cmd)
 		cmd = cmd->next;
 	}
 	printf("\n");
-}
+} */
 
 // Funcção para testar scan_line().
 // Compilar com os arquivos:
