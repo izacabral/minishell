@@ -26,10 +26,8 @@ typedef struct s_token
 typedef struct s_shell
 {
 	char				*line;
-	//t_env				**lst_env;
 	t_token				*lst_token;
 	int					sentence_count;
-	//t_sentence		*lst_sentence;
 	int					pipe_count;
 	int					redirect_count;
 	int					*pipes;
