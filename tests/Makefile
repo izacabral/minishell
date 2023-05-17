@@ -11,7 +11,7 @@ _SRCS	=	$(shell find $(SRCD) ! -path $(SRCD) -type f | grep -E ".+\.c")
 _OBJS	=	$(_SRCS:.c=.o)
 
 
-SRCS 	=	$(shell find . -type f -iname "*.c"| cut -c 3-)
+SRCS 	=	$(shell find . -type f -iname "*.c" ! -path "*/exclude_test/*" | cut -c 3-)
 NAME	=	$(SRCS:.c=)
 OBJS	=	$(NAME)
 

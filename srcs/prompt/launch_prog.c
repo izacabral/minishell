@@ -11,14 +11,12 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "types.h"
 
 // Função para rodar as rotinas
 void	launch_prog(t_shell *data)
 {
-	int	error;
-
-	error = scan_line(&data->lst_token, data->line);
+	if (scan_line(&data->lst_token, data->line) == 0
+		&& lexer(data->lst_token) == 0)
+		ft_printf("scan_line and lexer ok. Next step create t_setence\n");
 	clear_token(&data->lst_token);
-	(void)error;
 }

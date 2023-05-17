@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   testing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 12:04:59 by izsoares          #+#    #+#             */
-/*   Updated: 2022/06/15 11:39:53 by izsoares         ###   ########.fr       */
+/*   Created: 2023/05/14 20:42:06 by izsoares          #+#    #+#             */
+/*   Updated: 2023/05/14 20:42:09 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef TESTING_H
+# define TESTING_H
+# include "minishell.h"
 
-char	*ft_strdup(const char *s1)
+typedef enum e_test
 {
-	char	*s1cpy;
-	char	*s2;
-	size_t	s1len;
-	size_t	index;
+	UNDEFINED,
+	TOKEN,
+}	t_test;
 
-	if (!s1)
-		return (NULL);
-	s1cpy = (char *)s1;
-	s1len = ft_strlen(s1cpy);
-	s2 = malloc((s1len + 1) * sizeof(char));
-	if (s2 == NULL)
-		return (NULL);
-	index = 0;
-	while (index < s1len)
-	{
-		s2[index] = s1cpy[index];
-		index++;
-	}
-	s2[index] = '\0';
-	return (s2);
-}
+void	print_data(void *ptr, t_test t);
+
+#endif
