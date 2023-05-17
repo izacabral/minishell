@@ -50,25 +50,22 @@ MFLAG		=	-C
 # **************************************************************************** #
 
 RL			=	readline
-RL_PATH		=	/usr/local
+RL_PATH		=	~/.brew
 
 detected_OS	=	$(shell uname -s)
-RL_TEST		=	if [ -z $(RL_INC) ]; then $(RL_MSG) && false; else true ; fi
+RL_TEST		=	if [[ -z $(RL_INC) ]]; then $(RL_MSG) && false; else true ; fi
 NL			=	2>/dev/null
 
-#INC_RL_MAC  =	-I $(RL_INC)
-INC_RL_MAC  =  -I ~/.brew/opt/readline/include/
-
-#LIB_RL_MAC  =	-L $(RL_LIB)
-LIB_RL_MAC  =	-L ~/.brew/opt/readline/lib/
+INC_RL_MAC  =	-I $(RL_INC)
+LIB_RL_MAC  =	-L $(RL_LIB)
 
 ifeq ($(detected_OS), Linux)
- RL_PATH	+=	/usr
+ RL_PATH	+=	/usr/local /usr
  RL_INC 	=	$(shell find $(RL_PATH) -type d -name $(RL) | grep "include")
  RLFLAGS	=	$(CFLAGS) $(INC)
  CO_LINE	=	$(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
 else
- RL_PATH	+=	/opt $(HOME)/.brew
+ RL_PATH	+=	/opt /usr/local
  RL_INC 	=	$(shell find $(RL_PATH) -type d -name include $(NL) |grep $(RL))
  RL_LIB 	=	$(shell find $(RL_PATH) -type d -name lib $(NL) |grep $(RL))
  RLFLAGS	=	$(CFLAGS) $(INC_RL_MAC) $(LIB_RL_MAC) $(INC)
@@ -80,6 +77,7 @@ endif
 # **************************************************************************** #
 
 .c.o:
+			$(RL_TEST)
 			${AT} $(CO_LINE) ${BLK}
 
 all:		$(NAME)
@@ -88,10 +86,8 @@ $(LIBFT):
 			${AT} $(MAKE) $(CLFT) ${BLK}
 			${COMPILE}
 
-$(RL):
-			$(RL_TEST)
 
-$(NAME):	$(RL) $(LIBFT) $(OBJS)
+$(NAME):	$(LIBFT) $(OBJS)
 			${AT} $(CC) $(OBJS) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o $(NAME) ${BLK}
 			${COMPILE}
 clean:
@@ -125,7 +121,7 @@ norm:
 
 .PHONY: tests
 tests:
-	if [ -d $(TSTD) ]; then \
+	if [[ -d $(TSTD) ]]; then \
 		$(MAKE) $@ $(MFLAG) $(TSTD); \
 	else \
 		echo "$(wht) Testing environment is not set \c"; \
