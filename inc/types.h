@@ -12,6 +12,7 @@
 
 #ifndef TYPES_H
 # define TYPES_H
+# include <stdlib.h>
 
 typedef enum e_tkn
 {
@@ -24,7 +25,12 @@ typedef enum e_tkn
 	APPEND
 }	t_tkn;
 
-//s_env | t_env
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
 
 typedef struct s_token
 {

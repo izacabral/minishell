@@ -17,6 +17,7 @@
 # include "ft_printf.h"
 # include "defines.h"
 # include "types.h"
+# include "env.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
@@ -39,5 +40,8 @@ int		isdelim(char c);
 t_tkn	which_delim(char *delim);
 int		scan_line(t_token **lst, char *line);
 int		lexer(t_token *lst);
+
+//srcs/env/
+void	expandvars(char **sentences, t_env *env);
 
 #endif
