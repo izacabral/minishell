@@ -126,6 +126,7 @@ tests:
 	else \
 		echo "$(wht) Testing environment is not set \c"; \
 		echo "$(ora)($(TSTD)/)$(rst)"; \
+		false; \
 	fi
 
 # **************************************************************************** #
