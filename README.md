@@ -1,4 +1,5 @@
 # minishell
+[![Norminette](https://github.com/izacabral/minishell/actions/workflows/norminette.yml/badge.svg)](https://github.com/izacabral/minishell/actions/workflows/norminette.yml)
 
 # instruções para manutenção do repositório
 
