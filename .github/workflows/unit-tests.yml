@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Unit Testing CI
 
 on:
   push:
@@ -16,4 +16,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: unit testing
-      run: make tests
+      run: cd tests && make tests
