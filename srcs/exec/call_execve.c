@@ -1,7 +1,4 @@
-#include "libft.h"
 #include "minishell.h"
-#include "types.h"
-#include <stdlib.h>
 
 static int	get_prog(char **prog, t_string *path_lst);
 static int	ispath(char *s);
