@@ -26,11 +26,10 @@ OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 # **************************************************************************** #
 
 RL			=	readline
-RL_PATH		=	~/.brew
 RLFLAG		= 	-lreadline
 
 detected_OS	=	$(shell uname -s)
-RL_TEST		=	if [[ -z $(RL_INC) ]]; then $(RL_MSG) && false; else true ; fi
+RL_TEST		=	if [ -z $(RL_INC) ]; then $(RL_MSG) && false; else true ; fi
 NL			=	2>/dev/null
 
 INC_RL_MAC  =	-I $(RL_INC)
@@ -42,7 +41,7 @@ ifeq ($(detected_OS), Linux)
  RLFLAGS	=	$(CFLAGS) $(INC)
  CO_LINE	=	$(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
 else
- RL_PATH	+=	/opt /usr/local
+ RL_PATH	+=	/opt ~/.brew /usr/local
  RL_INC 	=	$(shell find $(RL_PATH) -type d -name include $(NL) |grep $(RL))
  RL_LIB 	=	$(shell find $(RL_PATH) -type d -name lib $(NL) |grep $(RL))
  RLFLAGS	=	$(CFLAGS) $(INC_RL_MAC) $(LIB_RL_MAC) $(INC)
