@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prefix_slash.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/19 14:41:06 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/19 14:41:08 by daolivei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -15,7 +27,7 @@ char	*prefix_slash(char **str)
 
 	if (!*str)
 		return (NULL);
-	output = malloc((len + 2) *sizeof(*output));
+	output = malloc((len + 2) * sizeof(*output));
 	if (!output)
 		return (NULL);
 	*output = '/';

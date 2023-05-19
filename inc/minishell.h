@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/14 20:43:49 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:39:09 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,18 @@
 # include "defines.h"
 # include "types.h"
 # include "env.h"
+# include "exec.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <string.h>
+# include <errno.h>
 
 extern int	g_global;
 
@@ -43,5 +48,12 @@ int		lexer(t_token *lst);
 
 //srcs/env/
 void	expandvars(char **sentences, t_env *env);
+
+// srcs/env/
+t_string	*path_to_lst(char *path);
+
+// srcs/exec/
+int		call_execve(char **args, char *path);
+char	*prefix_slash(char **str);
 
 #endif

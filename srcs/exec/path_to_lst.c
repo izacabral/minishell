@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path_to_lst.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/19 14:42:58 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/19 14:43:01 by daolivei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void		copy_path(t_string **lst, char *path, size_t size);
@@ -8,7 +20,9 @@ static void		copy_path(t_string **lst, char *path, size_t size);
  * Input	: char * - variável PATH
  * Output	: t_string *
  * Errors	: NULL - erro durante a criação da lista, ou path é NULL
- * Uses		: call_execve (call_execve.c) [possibilidade de guardar a lista já na t_shell, para não ser necessário criá-la a cada chamada do execve]
+ * Uses		: call_execve (call_execve.c) [possibilidade de guardar
+ *			  a lista já na t_shell, para não ser necessário criá-la
+ *			  a cada chamada do execve]
  */
 t_string	*path_to_lst(char *path)
 {
