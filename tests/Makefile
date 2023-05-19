@@ -83,13 +83,17 @@ test:
 		&& cat $$file && echo; \
 		done
 	@rm -rf logs minishell.a && mkdir -p logs && mv *.log logs/
+	@make fclean -C .. VERBOSE=0
 	@echo && if [[ -f ".errl" ]]; \
 		then rm .errl; echo "$(red)\c"; false; \
 		else echo "$(grn)make: *** [$@] SUCCESS! $(rst)"; fi
 
 tests: all
 
-.PHONY: test, tests, init
+clean:
+	@rm -rf logs/
+
+.PHONY: test, tests, init, clean
 
 CHK_ERR =	if [[ -f ".errl" ]]; then rm .errl; fi
 
