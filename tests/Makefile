@@ -72,7 +72,7 @@ init:
 	@$(CHK_ERR)
 	@echo && echo "$(ora) Minishell Unity Testing$(rst)" && echo
 	@make -C .. VERBOSE=0
-	@if [[ -f "minishell.a" ]]; then rm minishell.a; fi
+	@if [ -f "minishell.a" ]; then rm minishell.a; fi
 	@ar rcs minishell.a $(_OBJS)
 
 test:
@@ -83,7 +83,7 @@ test:
 		done
 	@rm -rf logs minishell.a && mkdir -p logs && mv *.log logs/
 	@make fclean -C .. VERBOSE=0
-	@echo && if [[ -f ".errl" ]]; \
+	@echo && if [ -f ".errl" ]; \
 		then rm .errl; echo "$(red)\c"; false; \
 		else echo "$(grn)make: *** [$@] SUCCESS! $(rst)"; fi
 
@@ -94,7 +94,7 @@ clean:
 
 .PHONY: test, tests, init, clean
 
-CHK_ERR =	if [[ -f ".errl" ]]; then rm .errl; fi
+CHK_ERR =	if [ -f ".errl" ]; then rm .errl; fi
 
 # **************************************************************************** #
 #                           Visuals and Messages
