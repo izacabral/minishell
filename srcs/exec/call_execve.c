@@ -5,6 +5,15 @@ static int	ispath(char *s);
 static int	test_command(char **comm, t_string *path_lst);
 static int	test_acess(char *pathname);
 
+/*
+ * Fn		: call_execve(char **argsm char *path)
+ * Scope	: testa executável em args[0] e chama execve()
+ * Input	: char ** - comando e argumentos a serem executados
+ *			: char * - variável PATH
+ * Output	: int - 0 (sucesso)
+ * Errors	: int - 1: não é um comando executável ou arquivo não existe
+ * Uses		: [WIP] a ser integrado.
+ */
 int	call_execve(char **args, char *path)
 {
 	t_string	*path_lst;
@@ -20,6 +29,9 @@ int	call_execve(char **args, char *path)
 	return (0);
 }
 
+// testa args[0]
+// se argumento já contiver caminho, testa como foi passado,
+// caso contrário, testa segundo PATH
 static int	get_prog(char **prog, t_string *path_lst)
 {
 	if (ispath(*prog))
@@ -69,6 +81,8 @@ static int	test_command(char **comm, t_string *path_lst)
 	return (1);
 }
 
+// Testa se arquivo existe e se é executável
+// Pode integrar essa função depois com as mensagens de erro
 static int	test_acess(char *pathname)
 {
 	if (access(pathname, X_OK))

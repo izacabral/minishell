@@ -1,5 +1,13 @@
 #include "minishell.h"
 
+/*
+ * Fn		: launch_command(char **args)
+ * Scope	: cria um processo que chama execve()
+ * Input	: char ** - argumentos para execve()
+ * Output	: int - 0 (sucesso)
+ * Errors	: -1 - erro do execve()
+ * Uses		: call_execve (call_execve.c)
+ */
 int	launch_command(char **args)
 {
 	int	pid;
@@ -8,10 +16,7 @@ int	launch_command(char **args)
 	if (!pid)
 	{
 		if ((execve(*args, args, NULL)) < 0)
-		{
-			ft_putstr_fd("Failed to call execve\n", 1);
 			exit(-1);
-		}
 	}
 	else
 		waitpid(pid, NULL, 0);
