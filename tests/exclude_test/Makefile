@@ -63,7 +63,7 @@ all: printtoken
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
 
-test_execve: $(LIBFT) $(OBJS_EXECVE)
+execve: $(LIBFT) $(OBJS_EXECVE)
 	cc hello_world.c -o hello_world
 	$(CC) $(OBJS_EXECVE) $(LIBFT) -o test_execve
 
