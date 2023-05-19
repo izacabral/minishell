@@ -120,7 +120,7 @@ norm:
 
 .PHONY: tests
 tests:
-	if [[ -d $(TSTD) ]]; then \
+	if [ -f $(TSTD)/Makefile ]; then \
 		$(MAKE) $@ $(MFLAG) $(TSTD); \
 	else \
 		echo "$(wht) Testing environment is not set \c"; \
