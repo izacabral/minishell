@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   types.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
+/*   Updated: 2023/05/19 09:18:11 by bda-silv         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TYPES_H
 # define TYPES_H
 
@@ -23,13 +35,20 @@ typedef struct s_token
 
 // s_sentence | t_sentence
 
+/* typedef struct s_shell
+ *
+ * TODO:
+ * - Incluir:
+ * 	t_env			**lst_env;
+ * 	t_sentence		*lst_sentence;
+ *
+ * */
+
 typedef struct s_shell
 {
 	char				*line;
-	//t_env				**lst_env;
 	t_token				*lst_token;
 	int					sentence_count;
-	//t_sentence		*lst_sentence;
 	int					pipe_count;
 	int					redirect_count;
 	int					*pipes;

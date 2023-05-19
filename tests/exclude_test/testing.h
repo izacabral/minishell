@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   int_handler.c                                      :+:      :+:    :+:   */
+/*   testing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 09:44:17 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/19 09:44:20 by bda-silv         ###   ########.fr       */
+/*   Created: 2023/05/14 20:42:06 by izsoares          #+#    #+#             */
+/*   Updated: 2023/05/14 20:42:09 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef TESTING_H
+# define TESTING_H
+# include "minishell.h"
 
-void	int_handler(int signum)
+typedef enum e_test
 {
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	(void)signum;
-}
+	UNDEFINED,
+	TOKEN,
+}	t_test;
+
+void	print_data(void *ptr, t_test t);
+
+#endif
