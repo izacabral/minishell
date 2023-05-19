@@ -6,13 +6,13 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:41:43 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/19 14:41:45 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:02:18 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_prog(char **prog, t_string *path_lst);
+static int	get_comm(char **comm, t_string *path_lst);
 static int	ispath(char *s);
 static int	test_command(char **comm, t_string *path_lst);
 static int	test_acess(char *pathname);
@@ -31,7 +31,7 @@ int	call_execve(char **args, char *path)
 	t_string	*path_lst;
 
 	path_lst = path_to_lst(path);
-	if (get_prog(&args[0], path_lst))
+	if (get_comm(&args[0], path_lst))
 	{
 		ft_strclear(&path_lst, free);
 		return (1);
@@ -44,14 +44,14 @@ int	call_execve(char **args, char *path)
 // testa args[0]
 // se argumento já contiver caminho, testa como foi passado,
 // caso contrário, testa segundo PATH
-static int	get_prog(char **prog, t_string *path_lst)
+static int	get_comm(char **comm, t_string *path_lst)
 {
-	if (ispath(*prog))
+	if (ispath(*comm))
 	{
-		if (!test_acess(*prog))
+		if (!test_acess(*comm))
 			return (0);
 	}
-	if (!test_command(prog, path_lst))
+	if (!test_command(comm, path_lst))
 		return (0);
 	return (1);
 }
