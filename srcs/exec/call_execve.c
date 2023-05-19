@@ -18,6 +18,7 @@ int	call_execve(char **args, char *path)
 		ft_strclear(&path_lst, free);
 		return (1);
 	}
+	launch_command(args);
 	ft_strclear(&path_lst, free);
 	return (0);
 }
