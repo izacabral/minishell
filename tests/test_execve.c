@@ -10,7 +10,7 @@ static char	***create_tests2(void);
 /*
  * Teste para a função que chama o execve
  * Compilar com a libft e os arquivos:
- * tests/test_execve.c srcs/exec/call_execve.c srcs/exec/path_to_lst.c srcs/exec/prefix_slash.c srcs/exec/launch_command.c srcs/data_types/ft_stradd_back.c srcs/data_types/ft_strclear.c srcs/data_types/ft_strdelone.c srcs/data_types/ft_strsetlast.c srcs/data_types/ft_strnew.c srcs/data_types/freetab.c -Itests -Iinc -Ilibft -Ilibft/ft_printf -Llibft -lft
+ * tests/test_execve.c srcs/exec/call_execve.c srcs/exec/path_to_lst.c srcs/exec/prefix_slash.c srcs/exec/launch_command.c srcs/data_types/ft_stradd_back.c srcs/data_types/ft_strclear.c srcs/data_types/ft_strdelone.c srcs/data_types/ft_strsetlast.c srcs/data_types/ft_strnew.c srcs/data_types/free_tab.c -Itests -Iinc -Ilibft -Ilibft/ft_printf -Llibft -lft
  *
  * Criar um arquivo hello_world em separado:
  *

@@ -1,4 +1,4 @@
-INC			=	-I ../../libft/ -I ../../libft/ft_printf/ -I ../../inc/
+INC			=	-I ../../libft/ -I ../../libft/ft_printf/ -I ../../inc/ -I ../
 
 CC			=	cc
 
@@ -20,6 +20,9 @@ SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../../srcs/parser/isdelim
 
 OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 
+SRCS_EXECVE		=	../test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/path_to_lst.c ../../srcs/exec/prefix_slash.c ../../srcs/exec/launch_command.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_strnew.c ../../srcs/data_types/free_tab.c
+
+OBJS_EXECVE		=	$(SRCS_EXECVE:.c=.o)
 
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
@@ -60,6 +63,9 @@ all: printtoken
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
 
+test_execve: $(LIBFT) $(OBJS_EXECVE)
+	cc hello_world.c -o hello_world
+	$(CC) $(OBJS_EXECVE) $(LIBFT) -o test_execve
 
 clean:
 		$(RM) $(OBJS_P_TOKEN)
