@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/19 15:04:06 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/20 00:05:36 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		freetab(void **ptr);
 
 // T_STRING
 t_string	*ft_strnew(char *str, size_t length);
-void		ft_stradd_front(t_string **lst, t_string *);
+void		ft_stradd_front(t_string **lst, t_string *new);
 void		ft_strsetlast(t_string *lst, t_string *laststr);
 void		ft_stradd_back(t_string **lst, t_string *new);
 void		ft_strdelone(t_string *lst, void (*del)(void *));

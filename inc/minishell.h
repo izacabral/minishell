@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/19 23:47:57 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/20 00:04:58 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,26 @@
 extern int	g_global;
 
 // srcs/prompt/
-void	setup_signals(void);
-void	int_handler(int signum);
-char	*rl_gets(char *line);
-void	launch_prog(t_shell *data);
+void		setup_signals(void);
+void		int_handler(int signum);
+char		*rl_gets(char *line);
+void		launch_prog(t_shell *data);
 
 // srcs/parser/
-int		isquotes(char c);
-int		isdelim(char c);
-t_tkn	which_delim(char *delim);
-int		scan_line(t_token **lst, char *line);
-int		lexer(t_token *lst);
+int			isquotes(char c);
+int			isdelim(char c);
+t_tkn		which_delim(char *delim);
+int			scan_line(t_token **lst, char *line);
+int			lexer(t_token *lst);
 
 //srcs/env/
-void	expandvars(char **sentences, t_env *env);
+void		expandvars(char **sentences, t_env *env);
 
 // srcs/env/
 t_string	*path_to_lst(char *path);
 
 // srcs/exec/
-int		call_execve(char **args, t_string *path);
-char	*prefix_slash(char **str);
+int			call_execve(char **args, t_string *path);
+char		*prefix_slash(char **str);
 
 #endif
