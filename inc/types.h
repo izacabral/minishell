@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   types.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
+/*   Updated: 2023/05/19 09:18:11 by bda-silv         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TYPES_H
 # define TYPES_H
 
@@ -32,13 +44,21 @@ typedef struct s_token
 
 // s_sentence | t_sentence
 
+/* typedef struct s_shell
+ *
+ * TODO:
+ * - Incluir:
+ * 	t_env			**lst_env;
+ * 	t_sentence		*lst_sentence;
+ *
+ * */
+
 typedef struct s_shell
 {
 	char				*line;
 	t_env				*lst_env;
 	t_token				*lst_token;
 	int					sentence_count;
-	//t_sentence		*lst_sentence;
 	int					pipe_count;
 	int					redirect_count;
 	int					*pipes;
@@ -76,6 +96,8 @@ void		free_array(char **tab);
 void		print_env(t_env *env);
 /*Function that manipulates the result of the command export. Include in path dataypes/export_builtins.c*/
 int			export_builtins(int size, char *str[], t_shell data);
+
+int			unset_builtins(int size, char *str[], t_shell data);
 /**/
 int			ft_strcmp(const char *s1, const char *s2);
 /*Function that add keys and values to the node*/

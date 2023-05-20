@@ -5,6 +5,9 @@
 
 ## PROJECT STUFFS
 minishell
+printtoken
+tokenization
+lexer
 
 # Prerequisites
 *.d
