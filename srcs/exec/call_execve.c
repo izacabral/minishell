@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:41:43 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/19 17:02:18 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/19 23:59:52 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,18 @@ static int	test_acess(char *pathname);
  * Fn		: call_execve(char **argsm char *path)
  * Scope	: testa executável em args[0] e chama execve()
  * Input	: char ** - comando e argumentos a serem executados
- *			: char * - variável PATH
+ *			: t_string * - variável PATH convertida para uma lista
+ *			: conversão facilita leitura e manipulação
+ *			: alternativa possível à lista seria char **
  * Output	: int - 0 (sucesso)
  * Errors	: int - 1: não é um comando executável ou arquivo não existe
  * Uses		: [WIP] a ser integrado.
  */
-int	call_execve(char **args, char *path)
+int	call_execve(char **args, t_string *path)
 {
-	t_string	*path_lst;
-
-	path_lst = path_to_lst(path);
-	if (get_comm(&args[0], path_lst))
-	{
-		ft_strclear(&path_lst, free);
+	if (get_comm(&args[0], path))
 		return (1);
-	}
 	launch_command(args);
-	ft_strclear(&path_lst, free);
 	return (0);
 }
 

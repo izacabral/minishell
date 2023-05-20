@@ -1,10 +1,11 @@
+#include "minishell.h"
 #include "unit_test.h"
 #include <string.h>
 
 static char		*find_path(char **env);
-static int		test_exec1(char *path);
+static int		test_exec1(t_string *path);
 static char	***create_tests1(void);
-static int		test_exec2(char *path);
+static int		test_exec2(t_string *path);
 static char	***create_tests2(void);
 
 /*
@@ -24,10 +25,12 @@ static char	***create_tests2(void);
  */
 int	main(int argc, char **argv, char **envp)
 {
-	char	*path;
-	char	fail;
+	char		*p;
+	t_string	*path;
+	int			fail;
 
-	path = find_path(envp);
+	p = find_path(envp);
+	path = path_to_lst(p);
 	fail = 0;
 	if (test_exec1(path))
 		fail = 1;
@@ -56,7 +59,7 @@ static char		*find_path(char **env)
 	return (NULL);
 }
 
-static int	test_exec1(char *path)
+static int	test_exec1(t_string *path)
 {
 	char		***tests;
 	const int	size = 4;
@@ -124,7 +127,7 @@ static char	***create_tests1(void)
 	return (tests);
 }
 
-static int	test_exec2(char *path)
+static int	test_exec2(t_string *path)
 {
 	char	***tests;
 	const int	size = 2;
