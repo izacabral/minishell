@@ -68,9 +68,9 @@ execve: $(LIBFT) $(OBJS_EXECVE)
 	$(CC) $(OBJS_EXECVE) $(LIBFT) -o $@
 
 clean:
-		$(RM) $(OBJS_P_TOKEN)
+		$(RM) $(OBJS_P_TOKEN) $(OBJS_EXECVE)
 
 fclean: clean
-		$(RM) printtoken
+		$(RM) printtoken execve
 
 re:			fclean all
