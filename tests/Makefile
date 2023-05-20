@@ -7,7 +7,7 @@
 
 SRCD	=	../srcs
 INCD	=	../inc
-_SRCS	=	$(shell find $(SRCD) ! -path $(SRCD) -type f | grep -E ".+\.c")
+_SRCS	=	$(shell find $(SRCD) ! -iname "main.c" -type f | grep -E ".+\.c")
 _OBJS	=	$(_SRCS:.c=.o)
 
 
@@ -26,7 +26,7 @@ CFLAGS		=	-Wall -Wextra -Werror
 MFLAG		=	-C
 
 INC			=	-I ../libft/ -I ../libft/ft_printf/ -I ../inc/
-LIB			=	../libft/libft.a ../libft/ft_printf/libftprintf.a minishell.a
+LIB			=	../libft/libft.a minishell.a
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
 # **************************************************************************** #
@@ -62,7 +62,11 @@ all: init $(OBJS) test
 
 $(OBJS): %: %.c
 	@$(CO_LINE)
-	@$(CC) $(CFLAG) $(RLFLAGS) $(RLFLAG) $(LIB) \
+	@$(CC) $(CFLAGS) $(<:.c=.o) $(LIB) -L $(RL_INC) $(RLFLAG) \
+		-o $@.out; ./$@.out > $@.log 2>&1   \
+		&& (echo "$(grn)[OK]    $(wht)$@$(rst)")       \
+		|| (echo "$(red)[KO]    $(wht)$@$(rst)" && touch .errl)
+#	@$(CC) $(CFLAGS) $(RLFLAGS) $(RLFLAG) $(LIB) \
 		$(<:.c=.o) -o $@.out; ./$@.out > $@.log 2>&1   \
 		&& (echo "$(grn)[OK]	$(wht)$@$(rst)")       \
 		|| (echo "$(red)[KO]	$(wht)$@$(rst)" && touch .errl)
@@ -72,7 +76,8 @@ init:
 	@$(CHK_ERR)
 	@echo && echo "$(ora) Minishell Unity Testing$(rst)" && echo
 	@make -C .. VERBOSE=0
-	@if [ -f "minishell.a" ]; then rm minishell.a; fi
+	@rm -rf minishell.a
+	@cp ../libft/libft.a minishell.a
 	@ar rcs minishell.a $(_OBJS)
 
 test:
@@ -82,7 +87,6 @@ test:
 		&& cat $$file && echo; \
 		done
 	@rm -rf logs minishell.a && mkdir -p logs && mv *.log logs/
-	@make fclean -C .. VERBOSE=0
 	@echo && if [ -f ".errl" ]; \
 		then rm .errl; echo "$(red)\c"; false; \
 		else echo "$(grn)make: *** [$@] SUCCESS! $(rst)"; fi
