@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   int_handler.c                                      :+:      :+:    :+:   */
+/*   unit_test.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 09:44:17 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/19 09:44:20 by bda-silv         ###   ########.fr       */
+/*   Created: 2023/05/19 09:52:54 by bda-silv          #+#    #+#             */
+/*   Updated: 2023/05/19 09:53:00 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef UNIT_TEST_H
+# define UNIT_TEST_H
 
-void	int_handler(int signum)
+# include "minishell.h"
+# include <unistd.h>
+# include <stdio.h>
+
+void	prt(int i, char *s);
+
+void	prt(int i, char *s)
 {
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	(void)signum;
+	while (*s)
+		write(i, &*s++, 1);
+	write(i, "\n", 1);
 }
+
+#endif

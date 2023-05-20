@@ -6,19 +6,17 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/03 11:46:33 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/19 09:44:32 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "types.h"
 
 // Função para rodar as rotinas
 void	launch_prog(t_shell *data)
 {
-	int	error;
-
-	error = scan_line(&data->lst_token, data->line);
+	if (scan_line(&data->lst_token, data->line) == 0
+		&& lexer(data->lst_token) == 0)
+		ft_printf("scan_line and lexer ok. Next step create t_setence\n");
 	clear_token(&data->lst_token);
-	(void)error;
 }

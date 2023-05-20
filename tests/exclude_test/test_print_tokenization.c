@@ -1,12 +1,11 @@
-#include <readline/readline.h>
-#include <stdio.h>
-#include "minishell.h"
 #include "testing.h"
-#include "types.h"
 
-// Funcção para testar scan_line().
+
+// Funcção para testar scan_line() - printando resultado.
 // Compilar com os arquivos:
 // tests/debug_print.c srcs/parser/isdelim.c srcs/parser/isquotes.c srcs/parser/scan_line.c tests/test_tokenization.c srcs/parser/which_delim.c srcs/data_types/t_token.c
+
+
 int	main(void)
 {
 	char	*buffer;
@@ -15,6 +14,7 @@ int	main(void)
 
 	buffer = NULL;
 	lst = NULL;
+
 	while (1)
 	{
 		buffer = readline("Press <Ctrl+D> to exit~ ");

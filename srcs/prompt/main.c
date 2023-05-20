@@ -1,13 +1,26 @@
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/19 09:46:51 by bda-silv         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
+int	g_global = 0;
+
+//init **lst_env 
+//data->lst_sentence = NULL;
 void	init_shell(t_shell *data)
 {
 	data->line = NULL;
-	//init **lst_env
 	data->lst_token = NULL;
 	data->sentence_count = 0;
-	//data->lst_sentence = NULL;
 	data->pipe_count = 0;
 	data->redirect_count = 0;
 	data->pipes = NULL;
@@ -16,7 +29,7 @@ void	init_shell(t_shell *data)
 
 int	main(void)
 {
-	t_shell	data; // Struct global (s_shell/t_shell)
+	t_shell	data;
 
 	init_shell(&data);
 	setup_signals();

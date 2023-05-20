@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:15:02 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/03 11:29:57 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/19 09:24:57 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ static int	add_token(t_token **lst, char *str, int lenght)
 	return (lenght);
 }
 
+// return(2) -> É >> ou << ; reuturn(1); -> é > ou <
 static int	delim_lenght(char *delim, char d)
 {
 	if (d == '|')
 		return (1);
 	if (*(delim + 1) == d)
-		return (2);	// É >> OU <<
-	return (1);		// É > OU <
+		return (2);
+	return (1);
 }
 
 // Bloco começa com aspas (simples ou duplas)
@@ -106,10 +107,11 @@ static int	token_lenght(char *token)
  *			: int (-2) - erro de sintaxe (aspas de fechamento não encontradas)
  * Uses		: launch_prog()
  */
+
 int	scan_line(t_token **lst, char *line)
 {
-	char	*start;	// Início do bloco
-	int		i;		// Contador para a extensão do bloco
+	char	*start;
+	int		i;
 
 	start = line;
 	while (*start)
