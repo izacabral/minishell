@@ -20,6 +20,9 @@ SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../../srcs/parser/isdelim
 
 OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 
+SRCS_ECHO		=	test_echo.c ../../srcs/builtins/echo.c
+
+OBJS_ECHO		=	$(SRCS_ECHO:.c=.o)
 
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
@@ -60,6 +63,8 @@ all: printtoken
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
 
+echo:	$(LIBFT) $(OBJS_ECHO)
+	$(CC) $(OBJS_ECHO) $(LIBFT) -o $@
 
 clean:
 		$(RM) $(OBJS_P_TOKEN)
