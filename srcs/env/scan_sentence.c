@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/14 16:27:18 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:33:45 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	expvar(t_string **lst, char *var, t_env *env);
  * Scope	: divide uma string em blocos, aplicando as expansões
  * Input	: char *sentence - string a ser lida e expandida
  *			: t_env * - lista com as variáveis de ambiente
- * Output	: t_string * - lista de strings, com a string de entrada divida em blocos a serem reunidos posteriormente
+ * Output	: t_string * - lista de strings, com a string de entrada divida
+ *			  em blocos a serem reunidos posteriormente
  * Errors	: NULL - a string de entrada não tem expansões a serem feitas
  * Uses		: expand_sentence()
  */
@@ -49,7 +50,8 @@ t_string	*scan_sentence(char *sentence, t_env *env)
 
 // determina o escopo a ser lido
 // incrementa até encontrar uma aspas ou até o final da string
-// se estiver em um contexto de aspas, incrementa até encontrar a aspas de fechamento
+// se estiver em um contexto de aspas,
+// incrementa até encontrar a aspas de fechamento
 static int	sentence_lenght(char *sentence, t_quotes quote)
 {
 	int	len;
@@ -107,7 +109,8 @@ static void	stash_string(t_string **lst, char *sentence, int size)
 }
 
 // expande a variável
-// se o $ for seguido de espaço em branco ou de aspas, não faz expansão e guarda $
+// se o $ for seguido de espaço em branco ou de aspas,
+// não faz expansão e guarda $
 static int	expvar(t_string **lst, char *var, t_env *env)
 {
 	int		i;
