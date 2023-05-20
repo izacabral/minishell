@@ -58,7 +58,7 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken
+all: printtoken echo
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
@@ -67,9 +67,9 @@ echo:	$(LIBFT) $(OBJS_ECHO)
 	$(CC) $(OBJS_ECHO) $(LIBFT) -o $@
 
 clean:
-		$(RM) $(OBJS_P_TOKEN)
+		$(RM) $(OBJS_P_TOKEN) $(OBJS_ECHO)
 
 fclean: clean
-		$(RM) printtoken
+		$(RM) printtoken echo
 
 re:			fclean all
