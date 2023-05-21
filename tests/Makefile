@@ -35,7 +35,7 @@ RL			=	readline
 RLFLAG		= 	-lreadline
 
 detected_OS	=	$(shell uname -s)
-RL_TEST		=	if [ -z $(RL_INC) ]; then $(RL_MSG) && false; else true ; fi
+RL_TEST		=	if [ -z "$(RL_INC)" ]; then $(RL_MSG) && false; else true ; fi
 NL			=	2>/dev/null
 
 INC_RL_MAC  =	-I $(RL_INC)
@@ -66,10 +66,6 @@ $(OBJS): %: %.c
 		-o $@.out; ./$@.out > $@.log 2>&1   \
 		&& (echo "$(grn)[OK]    $(wht)$@$(rst)")       \
 		|| (echo "$(red)[KO]    $(wht)$@$(rst)" && touch .errl)
-#	@$(CC) $(CFLAGS) $(RLFLAGS) $(RLFLAG) $(LIB) \
-		$(<:.c=.o) -o $@.out; ./$@.out > $@.log 2>&1   \
-		&& (echo "$(grn)[OK]	$(wht)$@$(rst)")       \
-		|| (echo "$(red)[KO]	$(wht)$@$(rst)" && touch .errl)
 	@rm -f $@.o $@.out
 
 init:
