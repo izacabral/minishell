@@ -6,12 +6,12 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:15:02 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/20 17:39:25 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/05/21 02:19:54 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-//#include <ctype.h>
+#include <ctype.h>
 
 static int	token_lenght(char *token);
 static int	token_lenght_quotes(char *token, char quote);
