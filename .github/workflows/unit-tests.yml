@@ -19,5 +19,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: install readline
       run: brew install readline
+    - name: build minishell
+      run: make
     - name: unit testing
       run: make tests
