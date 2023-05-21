@@ -13,9 +13,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     name: Unit Testing
     steps:
     - uses: actions/checkout@v3
+    - name: install readline
+      run: brew install readline
     - name: unit testing
       run: make tests
