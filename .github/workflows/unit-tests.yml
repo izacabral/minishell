@@ -20,6 +20,6 @@ jobs:
     - name: install readline
       run: brew install readline
     - name: build minishell
-      run: make
+      run: make VERBOSE=3
     - name: unit testing
       run: make tests
