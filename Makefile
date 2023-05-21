@@ -52,7 +52,7 @@ MFLAG		=	-C
 RL			=	readline
 
 detected_OS	=	$(shell uname -s)
-RL_TEST		=	if [ -z $(RL_INC) ]; then $(RL_MSG) && false; else true ; fi
+RL_TEST		=	if [ -z "$(RL_INC)" ]; then $(RL_MSG) && false; else true ; fi
 NL			=	2>/dev/null
 
 INC_RL_MAC  =	-I $(RL_INC)
