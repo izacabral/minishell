@@ -7,7 +7,7 @@
 
 SRCD	=	../srcs
 INCD	=	../inc
-_SRCS	=	$(shell find $(SRCD) ! -path $(SRCD) -type f | grep -E ".+\.c")
+_SRCS	=	$(shell find $(SRCD) ! -iname "main.c" -type f | grep -E ".+\.c")
 _OBJS	=	$(_SRCS:.c=.o)
 
 
@@ -26,31 +26,32 @@ CFLAGS		=	-Wall -Wextra -Werror
 MFLAG		=	-C
 
 INC			=	-I ../libft/ -I ../libft/ft_printf/ -I ../inc/
-LIB			=	../libft/libft.a ../libft/ft_printf/libftprintf.a minishell.a
+LIB			=	minishell.a
+
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
 # **************************************************************************** #
 
 RL			=	readline
-RL_PATH		=	~/.brew
 RLFLAG		= 	-lreadline
 
 detected_OS	=	$(shell uname -s)
-RL_TEST		=	if [[ -z $(RL_INC) ]]; then $(RL_MSG) && false; else true ; fi
+RL_TEST		=	if [ -z "$(RL_INC)" ]; then $(RL_MSG) && false; else true ; fi
 NL			=	2>/dev/null
+TL			=	-type d -name
 
 INC_RL_MAC  =	-I $(RL_INC)
 LIB_RL_MAC  =	-L $(RL_LIB)
 
 ifeq ($(detected_OS), Linux)
  RL_PATH	+=	/usr/local /usr
- RL_INC 	=	$(shell find $(RL_PATH) -type d -name $(RL) | grep "include")
+ RL_INC 	=	$(shell find $(RL_PATH) $(TL) $(RL) | grep "include"| head -1)
  RLFLAGS	=	$(CFLAGS) $(INC)
  CO_LINE	=	$(CC) $(CFLAGS) $(INC) -c $< -o $(<:.c=.o)
 else
- RL_PATH	+=	/opt /usr/local
- RL_INC 	=	$(shell find $(RL_PATH) -type d -name include $(NL) |grep $(RL))
- RL_LIB 	=	$(shell find $(RL_PATH) -type d -name lib $(NL) |grep $(RL))
+ RL_PATH	+=	~/.brew /opt /usr/local
+ RL_INC 	=	$(shell find $(RL_PATH) $(TL) include $(NL) |grep $(RL)|head -1)
+ RL_LIB 	=	$(shell find $(RL_PATH) $(TL) lib $(NL) |grep $(RL)|head -1)
  RLFLAGS	=	$(CFLAGS) $(INC_RL_MAC) $(LIB_RL_MAC) $(INC)
  CO_LINE	=	$(CC) $(CFLAGS) $(INC) $(INC_RL_MAC) -c $< -o $(<:.c=.o)
 endif
@@ -63,17 +64,18 @@ all: init $(OBJS) test
 
 $(OBJS): %: %.c
 	@$(CO_LINE)
-	@$(CC) $(CFLAG) $(RLFLAGS) $(RLFLAG) $(LIB) \
-		$(<:.c=.o) -o $@.out; ./$@.out > $@.log 2>&1   \
-		&& (echo "$(grn)[OK]	$(wht)$@$(rst)")       \
-		|| (echo "$(red)[KO]	$(wht)$@$(rst)" && touch .errl)
+	@$(CC) $(CFLAGS) $(<:.c=.o) $(LIB) -L $(RL_INC) $(RLFLAG) \
+		-o $@.out; ./$@.out > $@.log 2>&1   \
+		&& (echo "$(grn)[OK]    $(wht)$@$(rst)")       \
+		|| (echo "$(red)[KO]    $(wht)$@$(rst)" && touch .errl)
 	@rm -f $@.o $@.out
 
 init:
 	@$(CHK_ERR)
 	@echo && echo "$(ora) Minishell Unity Testing$(rst)" && echo
 	@make -C .. VERBOSE=0
-	@if [[ -f "minishell.a" ]]; then rm minishell.a; fi
+	@rm -rf minishell.a
+	@cp ../libft/libft.a minishell.a
 	@ar rcs minishell.a $(_OBJS)
 
 test:
@@ -83,15 +85,18 @@ test:
 		&& cat $$file && echo; \
 		done
 	@rm -rf logs minishell.a && mkdir -p logs && mv *.log logs/
-	@echo && if [[ -f ".errl" ]]; \
+	@echo && if [ -f ".errl" ]; \
 		then rm .errl; echo "$(red)\c"; false; \
 		else echo "$(grn)make: *** [$@] SUCCESS! $(rst)"; fi
 
 tests: all
 
-.PHONY: test, tests, init
+clean:
+	@rm -rf logs/
 
-CHK_ERR =	if [[ -f ".errl" ]]; then rm .errl; fi
+.PHONY: test, tests, init, clean
+
+CHK_ERR =	if [ -f ".errl" ]; then rm .errl; fi
 
 # **************************************************************************** #
 #                           Visuals and Messages

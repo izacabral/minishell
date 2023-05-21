@@ -8,7 +8,9 @@ typedef enum e_test
 
 // Funcção para testar scan_line().
 // Compilar com os arquivos:
-// tests/debug_print.c srcs/parser/isdelim.c srcs/parser/isquotes.c srcs/parser/scan_line.c tests/test_tokenization.c srcs/parser/which_delim.c srcs/data_types/t_token.c
+// tests/debug_print.c srcs/parser/isdelim.c srcs/parser/isquotes.c
+// srcs/parser/scan_line.c tests/test_tokenization.c srcs/parser/which_delim.c
+// srcs/data_types/t_token.c
 
 int	main(void)
 {
@@ -79,9 +81,12 @@ int	main(void)
 	}
 	close(fd);
 
-	//opções de lines que DEVEM retornar error -2, ou seja retorno de tokenization precisa ser -2
-	//se desejar adicionar mais opções de teste para retorno -2, acrescente a linha deseja
-	//no arquivo token_-2.txt, certifique-se de não deixar uma linha em branco no final
+	//opções de lines que DEVEM retornar error -2, ou seja retorno de
+	//tokenization precisa ser -2
+	//se desejar adicionar mais opções de teste para retorno -2,
+	//acrescente a linha deseja
+	//no arquivo token_-2.txt, certifique-se de não deixar uma linha em branco 
+	//no final
 	//e nem espeços depois de cada frase
 
 	fd = open("token_-2.txt", O_RDONLY);
