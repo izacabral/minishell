@@ -1,11 +1,6 @@
 name: Unit Testing
 
 on:
-  push:
-    branches:
-    - develop
-    - main
-    
   pull_request:
     branches:
     - develop
@@ -17,9 +12,7 @@ jobs:
     name: Unit Testing
     steps:
     - uses: actions/checkout@v3
-    - name: install readline
-      run: brew install readline
-    - name: build minishell
+    - name: Build Minishell
       run: make
-    - name: unit testing
+    - name: Unit Testing
       run: make tests
