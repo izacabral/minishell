@@ -1,9 +1,8 @@
 #include "minishell.h"
-#include "types.h"
 
 static t_builtin	isbuiltin(char *comm);
 
-int	call_command(char *comm, char **args, t_shell *data)
+int	exec_command(char *comm, char **args, t_shell *data)
 {
 	t_builtin	builtin;
 
