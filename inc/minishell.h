@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/20 00:04:58 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:21:52 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		expandvars(char **sentences, t_env *env);
 t_string	*path_to_lst(char *path);
 
 // srcs/exec/
-int			call_execve(char **args, t_string *path);
+int			exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
 
 #endif
