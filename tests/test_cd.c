@@ -6,11 +6,11 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:28:08 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/05/19 14:20:29 by dmatavel         ###   ########.fr       */
+/*   Updated: 2023/05/22 03:22:36 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "testing.h"
+#include "unit_test.h"
 
 /*
  * cd = changes directory
@@ -20,7 +20,6 @@
  * vars
  * char *path: pointer to a string with a designed path
  *
- * NOTE: specify the real PDW and OLD_PWD identifiers in the struct.
 */
 
 typedef struct s_env
@@ -65,8 +64,7 @@ static int	change_dir(t_env *env, char *path)
 		return (1);
 	else
 	{
-		env->pwd = ft_strdup(ptr);
-		printf("%s\n", env->pwd); // test log
+		env->old_pwd = ft_strdup(ptr);
 		free(ptr);
 	}
 	chdir(path);
@@ -75,8 +73,7 @@ static int	change_dir(t_env *env, char *path)
 		return (1);
 	else
 	{
-		env->old_pwd = ft_strdup(ptr);
-		printf("%s\n", env->old_pwd); //test log
+		env->pwd = ft_strdup(ptr);
 		free(ptr);
 	}
 	return (0);
@@ -86,7 +83,8 @@ int	cd(t_env *env, char *path)
 {
 	if (!path)
 		printf("%s\n", env->home);
-	change_dir(env, path);
+	else
+		change_dir(env, path);
 	return (0);
 }
 
@@ -98,7 +96,7 @@ int	main(int ac, char **av)
 	if (!env)
 		return (1);
 	env->home = ft_strdup("home/dmatavel");
-	env->old_pwd = ft_strdup("test_path");
+	env->old_pwd = ft_strdup("old_path");
 	if (ac > 1 || ac < 3)
 	{
 		if (cd(env, av[1]) != 0)
