@@ -40,4 +40,9 @@ t_tkn	which_delim(char *delim);
 int		scan_line(t_token **lst, char *line);
 int		lexer(t_token *lst);
 
+// srcs/sentence/
+t_token *get_token_word(t_token **lst_token);
+size_t  count_tkn_words(t_token **lst_tmp);
+char    **tkn_to_sentence(t_token **lst_token);
+
 #endif

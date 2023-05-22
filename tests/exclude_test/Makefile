@@ -21,6 +21,10 @@ SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../../srcs/parser/isdelim
 OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 
 
+SRCS_P_SENTENCE	=	debug_print.c test_sentence.c  ../../srcs/sentence/sentence.c ../../srcs/parser/isdelim.c ../../srcs/parser/isquotes.c ../../srcs/parser/scan_line.c ../../srcs/parser/which_delim.c ../../srcs/data_types/t_token.c
+
+OBJS_P_SENTENCE	=	$(SRCS_P_SENTENCE:.c=.o)
+
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
 # **************************************************************************** #
@@ -55,16 +59,20 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken
+all: printtoken printsentence
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
 
+printsentence: $(LIBFT) $(OBJS_P_SENTENCE)
+	$(CC) $(OBJS_P_SENTENCE) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printsentence
 
 clean:
 		$(RM) $(OBJS_P_TOKEN)
+		$(RM) $(OBJS_P_SENTENCE)
 
 fclean: clean
 		$(RM) printtoken
+		$(RM) printsentence
 
 re:			fclean all

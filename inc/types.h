@@ -33,7 +33,12 @@ typedef struct s_token
 	struct s_token		*next;
 }						t_token;
 
-// s_sentence | t_sentence
+typedef struct s_sentence
+{
+	char 				**args;
+	struct s_sentence	*previous;
+	struct s_sentence	*next;
+}						t_sentence;
 
 /* typedef struct s_shell
  *
