@@ -3,6 +3,16 @@
 
 static int	get_exitarg(char *arg, int last);
 
+/*
+ * Fn		: call_builtin(char **args, t_shell *data, t_builtin builtin)
+ * Scope	: prepara argumentos e chama o builtin
+ * Input	: char ** - argumentos a serem passados
+ *			: t_shell * - ponteiro para estrutura global
+ *			: t_builtin - o builtin a ser chamado
+ * Output	: int - mesmo retornos do builtin
+ * Errors	: dependente dos comandos
+ * Uses		: [WIP] a ser integrado.
+ */
 int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 {
 	int	exit_value;

@@ -1,17 +1,25 @@
+#include "exec.h"
 #include "minishell.h"
 
 static t_builtin	isbuiltin(char *comm);
 
+/*
+ * Fn		: exec_command(char *comm, char **args, t_shell *data)
+ * Scope	: interface para executar comandos builtins ou por execve
+ * Input	: char * - string com o nome do comando
+ *			: char ** - argumentos a serem passados
+ *			: t_shell * - ponteiro para estrutura global
+ * Output	: int - mesmo retornos dos comandos
+ * Errors	: dependente dos comandos
+ * Uses		: [WIP] a ser integrado.
+ */
 int	exec_command(char *comm, char **args, t_shell *data)
 {
 	t_builtin	builtin;
 
 	builtin = isbuiltin(comm);
 	if (builtin)
-	{
-	//	launch call builtin
-	//	return
-	}
+		return (call_builtin(args, data, builtin));
 	// call execve
 	// return
 	return (0);
