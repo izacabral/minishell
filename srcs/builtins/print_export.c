@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_export.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/23 08:50:00 by vchastin          #+#    #+#             */
+/*   Updated: 2023/05/23 08:53:03 by vchastin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -79,7 +91,7 @@ void	print_export(t_env *env)
 	while (node)
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putstr_fd(node->key , STDOUT_FILENO);
+		ft_putstr_fd(node->key, STDOUT_FILENO);
 		if (node->value)
 		{
 			ft_putstr_fd("=\"", STDOUT_FILENO);

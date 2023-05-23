@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_builtin.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/23 08:49:52 by vchastin          #+#    #+#             */
+/*   Updated: 2023/05/23 08:52:33 by vchastin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -32,7 +44,7 @@ t_env	*compare_key(t_env *env, char *key)
  */
 static void	append_env(t_env *env, char *key, char *value, char *str)
 {
-	while(env->next)
+	while (env->next)
 		env = env->next;
 	if (value == NULL && ft_strchr(str, '='))
 		value = "";
@@ -65,8 +77,10 @@ static void	modify_env(t_env *env, char *value, char *str)
  *					:char *str - argument (enviroment variable)
  * Scope			:checks if the first character is in the correct format
  *       			:separates the string from the equal sign (=)
- *                  :in the conditional structure it is checked if the key already exists in the envp list
- * 					:calls functions that will manipulate and check the format of the string that was split
+ *                  :in the conditional structure it is checked if the key
+ * 					already exists in the envp list
+ * 					:calls functions that will manipulate and check the format of the string
+ * 					that was split
  */
 static void	add_export(t_env *env, char *str)
 {

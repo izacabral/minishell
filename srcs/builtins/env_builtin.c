@@ -1,46 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   env_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 09:18:43 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/23 08:57:28 by vchastin         ###   ########.fr       */
+/*   Created: 2023/05/23 08:49:46 by vchastin          #+#    #+#             */
+/*   Updated: 2023/05/23 08:53:30 by vchastin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	freetab(void **ptr)
+/*
+ * Input			:t_env *env - envp list(head)
+ * Output			:print environment variables(envp list)
+ * 					:Example: PATH=/usr/local/bin
+ */
+void	print_env(t_env *env)
 {
-	char	**tmp;
-	int		i;
+	t_env	*tmp;
 
-	if (!ptr)
-		return ;
-	i = 0;
-	tmp = (char **)ptr;
-	while (tmp[i])
+	tmp = env;
+	while (tmp)
 	{
-		free(tmp[i]);
-		i++;
+		if (tmp->value)
+		{
+			ft_putstr_fd(tmp->key, 1);
+			ft_putchar_fd('=', 1);
+			ft_putstr_fd(tmp->value, 1);
+			ft_putchar_fd('\n', 1);
+		}
+		tmp = tmp->next;
 	}
-	free(ptr);
-}
-
-void	free_array(char **tab)
-{
-	size_t	i;
-	char	*s;
-
-	i = 0;
-	while (tab[i])
-	{
-		s = tab[i];
-		free(s);
-		i++;
-	}
-	free(tab);
-	tab = NULL;
 }

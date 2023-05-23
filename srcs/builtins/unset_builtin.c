@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset_builtin.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/23 08:50:05 by vchastin          #+#    #+#             */
+/*   Updated: 2023/05/23 08:51:04 by vchastin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -41,15 +53,15 @@ static void	unset(t_env *env, char *key)
  */
 int	unset_builtins(int size, char *str[], t_shell data)
 {
-    int	i;
+	int	i;
 
-    i = 0;
+	i = 0;
 	if (size <= 1)
 		return (0);
-    while (++i < size)
+	while (++i < size)
 	{
 		if (check_unset(str[i]))
 			unset(data.lst_env, str[i]);
 	}
-    return (0);
+	return (0);
 }
