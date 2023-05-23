@@ -117,7 +117,7 @@ int	export_builtins(int size, char *str[], t_shell data)
 	int		i;
 
 	i = 0;
-	if (size == 1)
+	if (size == 2)
 	{
 		print_export(data.lst_env);
 		return (0);

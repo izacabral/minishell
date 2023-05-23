@@ -33,7 +33,6 @@ void	setup_signals(void);
 void	int_handler(int signum);
 char	*rl_gets(char *line);
 void	launch_prog(t_shell *data);
-void	init_shell(t_shell *data, char *envp[]);
 
 // srcs/parser/
 int		isquotes(char c);

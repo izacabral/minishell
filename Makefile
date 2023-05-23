@@ -1,39 +1,55 @@
 # **************************************************************************** #
-#                          Minishell Unity Testing
+#    SETTINGS                                                                  #
 # **************************************************************************** #
 
-# i.e. make tests
-# i.e. make
+NAME		= 	minishell
 
-SRCD	=	../srcs
-INCD	=	../inc
-_SRCS	=	$(shell find $(SRCD) ! -iname "main.c" -type f | grep -E ".+\.c")
-_OBJS	=	$(_SRCS:.c=.o)
+SRCD		=	srcs
+INCD		=	inc
+TSTD		=	tests
 
+# **************************************************************************** #
+#    INCLUDES                                                                  #
+# **************************************************************************** #
 
-SRCS 	=	$(shell find . -type f -iname "*.c" ! -path "*/exclude_test/*" | cut -c 3- | sort)
-NAME	=	$(SRCS:.c=)
-OBJS	=	$(NAME)
+INC			=	-I ./libft/ -I ./libft/ft_printf/ -I ./inc/
 
+# **************************************************************************** #
+#    SOURCES AND OBJECTS                                                       #
+# **************************************************************************** #
+
+SRCS		=	$(shell find $(SRCD) ! -path $(SRCD) -type f | grep -E ".+\.c")
+OBJS		=	$(SRCS:.c=.o)
+
+# **************************************************************************** #
+#    LIBFT                                                                     #
+# **************************************************************************** #
+
+LFT			=	libft
+
+CLFT		=	$(MFLAG) $(LFT)
+
+LIBFT		= 	$(LFT)/$(LFT).a
 
 # **************************************************************************** #
 #    COMPILER AND FLAGS                                                        #
 # **************************************************************************** #
 
 CC			=	cc
-RM			= 	rm -f
-CFLAGS		=	-Wall -Wextra -Werror
-MFLAG		=	-C
 
-INC			=	-I ../libft/ -I ../libft/ft_printf/ -I ../inc/
-LIB			=	minishell.a
+RM			= 	rm -f
+
+CFLAGS		=	-Wall -Wextra -Werror -g
+
+RLFLAG		= 	-lreadline
+
+MFLAG		=	-C
 
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
 # **************************************************************************** #
 
 RL			=	readline
-RLFLAG		= 	-lreadline
 
 detected_OS	=	$(shell uname -s)
 RL_TEST		=	if [ -z "$(RL_INC)" ]; then $(RL_MSG) && false; else true ; fi
@@ -57,46 +73,107 @@ else
 endif
 
 # **************************************************************************** #
-#              Rules                                                           #
+#    Mandatory rules                                                           #
 # **************************************************************************** #
 
-all: init $(OBJS) test
+.c.o:
+			$(RL_TEST)
+			${AT} $(CO_LINE) ${BLK}
 
-$(OBJS): %: %.c
-	@$(CO_LINE)
-	@$(CC) $(CFLAGS) $(<:.c=.o) $(LIB) -L $(RL_INC) $(RLFLAG) \
-		-o $@.out; ./$@.out > $@.log 2>&1   \
-		&& (echo "$(grn)[OK]    $(wht)$@$(rst)")       \
-		|| (echo "$(red)[KO]    $(wht)$@$(rst)" && touch .errl)
-	@rm -f $@.o $@.out
+all:		$(NAME)
 
-init:
-	@$(CHK_ERR)
-	@echo && echo "$(ora) Minishell Unity Testing$(rst)" && echo
-	@make -C .. VERBOSE=0
-	@rm -rf minishell.a
-	@cp ../libft/libft.a minishell.a
-	@ar rcs minishell.a $(_OBJS)
+$(LIBFT):
+			${AT} $(MAKE) $(CLFT) ${BLK}
+			${COMPILE}
 
-test:
-	@echo && echo "$(ora) Log Files $(rst)" && echo
-	@for file in *.log; \
-		do echo "$(pnk)$$file:$(rst)" \
-		&& cat $$file && echo; \
-		done
-	@rm -rf logs minishell.a && mkdir -p logs && mv *.log logs/
-	@echo && if [ -f ".errl" ]; \
-		then rm .errl; echo "$(red)\c"; false; \
-		else echo "$(grn)make: *** [$@] SUCCESS! $(rst)"; fi
 
-tests: all
-
+$(NAME):	$(LIBFT) $(OBJS)
+			${AT} $(CC) $(OBJS) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o $(NAME) ${BLK}
+			${COMPILE}
 clean:
-	@rm -rf logs/
+			${AT} $(RM) $(OBJS) ${BLK}
+			${AT} $(MAKE) $@ $(CLFT) ${BLK}
+			$(RM_OBJS)
 
-.PHONY: test, tests, init, clean
+fclean:		clean
+			${AT} $(RM) $(NAME) ${BLK}
+			${AT} $(MAKE) $@ $(CLFT) ${BLK}
+			$(RM_LIBS)
 
-CHK_ERR =	if [ -f ".errl" ]; then rm .errl; fi
+re:			fclean all
+
+
+.PHONY:		all clean fclean re
+
+# **************************************************************************** #
+#                           Norminette
+# **************************************************************************** #
+
+.PHONY: norm
+norm:
+	${AT} echo "$(pnk)\c"; \
+	norminette ${SRCS} ${INCD} | grep "Error" || \
+	echo "$(grn)$(ok)	Norminette		OK!" ${BLK}
+
+# **************************************************************************** #
+#                           Tests
+# **************************************************************************** #
+
+.PHONY: tests
+tests:
+	if [ -f $(TSTD)/Makefile ]; then \
+		$(MAKE) $@ $(MFLAG) $(TSTD); \
+	else \
+		echo "$(wht) Testing environment is not set \c"; \
+		echo "$(ora)($(TSTD)/)$(rst)"; \
+		false; \
+	fi
+
+# **************************************************************************** #
+#                           Helper
+# **************************************************************************** #
+
+.PHONY: help
+help:
+	@$(PRT) "$(wht) make \c"
+	@$(PRT) "$(wht) [all | clean | fclean | re | tests |\c"
+	@$(PRT) "$(pnk) norm$(rst)]\c"
+	@$(PRT) "$(cya) [VERBOSE=0..4]"
+	@$(PRT) "$(wht) "
+	@$(PRT) "$(cya) Verbose levels"
+	@$(PRT) "$(wht) # 0: Make will be totaly silenced"
+	@$(PRT) "$(grn) # 1: Make will print echos"
+	@$(PRT) "$(yel) # 2: Make will not print target commands"
+	@$(PRT) "$(ora) # 3: Make will print each command"
+	@$(PRT) "$(red) # 4: Make will print all debug info $(rst)"
+
+# **************************************************************************** #
+#                          Verbose Check
+# **************************************************************************** #
+
+# Verbose levels
+# 0: Make will be totaly silenced
+# 1: Make will print echos and printf
+# 2: Make will not be silenced but target commands will not be printed
+# 3: Make will print each command
+# 4: Make will print all debug info
+#
+# If no value is specified or an incorrect value is given make will print only
+# echoes like if VERBOSE was set to 1.
+
+VERBOSE		:= 1
+
+ifeq (${VERBOSE}, 0)
+	MAKEFLAGS += --silent
+	BLK := >/dev/null
+else ifeq (${VERBOSE}, 1)
+	MAKEFLAGS += --silent
+	AT := @
+else ifeq (${VERBOSE}, 2)
+	AT := @
+else ifeq (${VERBOSE}, 4)
+	MAKEFLAGS += --debug=v
+endif
 
 # **************************************************************************** #
 #                           Visuals and Messages
@@ -116,19 +193,15 @@ cya:=$s36m
 wht:=$s37m
 rst:=$s00m
 ora:=$s38;2;255;153;0m
-clr:=$s2K
-lup:=$s1A
-bld:=$s1m
 
-spin[0]="⠁"
-spin[1]="⠃"
-spin[2]="⠇"
-spin[3]="⠧"
-spin[4]="⠷"
-spin[5]="⠿"
-spin[6]="⠷"
-spin[7]="⠧"
-spin[8]="⠇"
-spin[9]="⠃"
+PRT := echo
+_OK := $(grn)$(ok)	Compiled		$(rst)
+_CK := $(ora)$(ck)	Creating		$(rst)
+_KO := $(red)$(ko)	Removing		$(rst)
+
+COMPILE = ${AT} ${PRT} "${_OK}${grn}${@F}${rst}" ${BLK}
+RM_OBJS = ${AT} ${PRT} "$(_KO)$(red)objects$(rst)" ${BLK}
+RM_LIBS = ${AT} ${PRT} "$(_KO)$(red)${LFT}.a$(rst)" ${BLK}
+RL_MSG  = ${PRT} "$(ora)$(ck)	${RL}${wht} is not installed.${rst}"
 
 # **************************************************************************** #

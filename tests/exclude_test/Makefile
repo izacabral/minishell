@@ -20,6 +20,12 @@ SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../../srcs/parser/isdelim
 
 OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 
+SRCS_P_EXP_UNSET_ENV	= test_export_unset_env.c ../../srcs/builtins/check_export.c ../../srcs/builtins/check_unset.c ../../srcs/builtins/env_builtin.c ../../srcs/builtins/export_builtin.c \
+	../../srcs/builtins/print_export.c ../../srcs/builtins/unset_builtin.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c ../../srcs/env/lst_add_env.c \
+	../../srcs/env/lst_remove_env.c ../../srcs/env/protect_malloc.c
+
+OBJS_P_EXP_UNSET_ENV	=	$(SRCS_P_EXP_UNSET_ENV:.c=.o)
+
 
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
@@ -55,15 +61,18 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken
+all: printtoken printexpunsenv
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
 
+printexpunsenv: $(LIBFT) $(OBJS_P_EXP_UNSET_ENV)
+	$(CC) $(OBJS_P_EXP_UNSET_ENV) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printexpunsenv
+
 clean:
-		$(RM) $(OBJS_P_TOKEN)
+		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_EXP_UNSET_ENV)
 
 fclean: clean
-		$(RM) printtoken
+		$(RM) printtoken printexpunsenv
 
 re:			fclean all
