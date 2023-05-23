@@ -6,11 +6,10 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 09:01:37 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/23 09:01:39 by vchastin         ###   ########.fr       */
+/*   Updated: 2023/05/23 09:15:23 by vchastin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "unit_test.h"
 
 void	teste_print_env(t_env *env)
