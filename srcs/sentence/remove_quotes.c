@@ -12,67 +12,18 @@
 
 #include "minishell.h"
 
-t_token	*get_token_word(t_token **lst_token)
-{
-	if (!(*lst_token))
-		return (NULL);
-	while ((*lst_token)->next && (*lst_token)->tkn != WORD)
-		*lst_token = (*lst_token)->next;
-	if ((*lst_token)->tkn != WORD)
-		return (NULL);
-	return (*lst_token);
-}
-
-t_token	*get_not_word(t_token **lst_token)
-{
-	if (!(*lst_token))
-		return (NULL);
-	while ((*lst_token) && (*lst_token)->tkn == WORD)
-		*lst_token = (*lst_token)->next;
-	return (*lst_token);
-}
-
-size_t	count_tkn_words(t_token **lst_token)
-{
-	size_t	count;
-	t_token	*tmp;
-
-	count = 0;
-	tmp = get_token_word(&(*lst_token));
-	if (!(tmp))
-		return (count);
-	while (tmp && tmp->tkn == WORD)
-	{
-		count++;
-		tmp = tmp->next;
-	}
-	return (count);
-}
-
-char	**tkn_to_sentence(t_token **lst_token)
-{
-	t_token	*tmp;
-	size_t	size;
-	char	**args;
-	size_t	i;
-
-	tmp = get_token_word(&(*lst_token));
-	size = count_tkn_words(&tmp);
-	args = malloc(sizeof(char *) * (size + 1));
-	if (!args)
-		return (NULL);
-	args[size] = NULL;
-	i = 0;
-	while (i < size)
-	{
-		args[i] = ft_strdup(tmp->word);
-		i++;
-		tmp = tmp->next;
-	}
-	return (args);
-}
-
-int	quote_size(char *str)
+/*
+ * Fn		: quote_size(char *str)
+ * Scope	: loop through the string to find where the first quote is found
+ *
+ * Input	: char *str
+ *
+ * Output	: the index of the first quote ou 0 if no quotes
+ * Errors	: not applicable
+ *
+ * Uses		: get_quote(char *str)
+ */
+static int	quote_size(char *str)
 {
 	int	len;
 	int	size;
@@ -93,7 +44,18 @@ int	quote_size(char *str)
 	return (len);
 }
 
-char	get_quote(char *str)
+/*
+ * Fn		: get_quote(char *str)
+ * Scope	: gets the type of quote
+ *
+ * Input	: char *str
+ *
+ * Output	: the caracter with type of quote or (null)
+ * Errors	: not applicable
+ *
+ * Uses		: rem_str_quotes(char **str, int str_len)
+ */
+static char	get_quote(char *str)
 {
 	char	quote;
 	int		i;
@@ -108,7 +70,18 @@ char	get_quote(char *str)
 	return (quote);
 }
 
-int	count_quotes(char *str)
+/*
+ * Fn		: count_quotes(char *str)
+ * Scope	: if has a type of quote, loop through the string counting it
+ *
+ * Input	: char *str
+ *
+ * Output	: 0 if no quotes or how many times the firt type of quotes occurs
+ * Errors	: not applicable
+ *
+ * Uses		: rem_str_quotes(char **str, int str_len)
+ */
+static int	count_quotes(char *str)
 {
 	char	quote;
 	int		count;
@@ -128,7 +101,19 @@ int	count_quotes(char *str)
 	return (count);
 }
 
-char	*rem_str_quotes(char **str, int str_len)
+/*
+ * Fn		: rem_str_quotes(char **str, int str_len)
+ * Scope	: iterate through the array of strings copying the strings
+ *				 without the quotes and releasing the old strings
+ *
+ * Input	: char **str, int str_len
+ *
+ * Output	: new array of strings without quotes
+ * Errors	: not applicable
+ *
+ * Uses		: remove_quotes(char **str)
+ */
+static char	*rem_str_quotes(char **str, int str_len)
 {
 	int		i;
 	char	quote;
@@ -150,10 +135,22 @@ char	*rem_str_quotes(char **str, int str_len)
 	}
 	new_str[n_size] = '\0';
 	free(*str);
-	str = NULL;
 	return (new_str);
 }
 
+/*
+ * Fn		: remove_quotes(char **str)
+ * Scope	: iterate through the array of strings applying the
+ *				rem_str_quotes function
+ *
+ * Input	: char **str
+ *
+ * Output	: void
+ * Errors	: not applicable
+ *
+ * Uses		: create_sentences(t_env *env, t_token **lst_token,
+ *				t_sentence **lst_sentence)
+ */
 void	remove_quotes(char **str)
 {
 	int	i;
@@ -165,18 +162,3 @@ void	remove_quotes(char **str)
 		i++;
 	}
 }
-
-void create_sentences(t_env *env, t_token **lst_token, t_sentence **lst_sentence)
-{
-	char	**args;
-
-	while (*lst_token)
-	{
-		args = tkn_to_sentence(&(*lst_token));
-		expandvars(args, env);
-		remove_quotes(args);
-		addback_sentence(&(*lst_sentence), new_sentence(args));
-		*lst_token = get_not_word(&(*lst_token));
-	}
-}
-

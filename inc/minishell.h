@@ -57,11 +57,7 @@ int			call_execve(char **args, t_string *path);
 char		*prefix_slash(char **str);
 
 // srcs/sentence/
-t_token		*get_token_word(t_token **lst_token);
-t_token	*get_not_word(t_token **lst_token);
-size_t		count_tkn_words(t_token **lst_tmp);
 char		**tkn_to_sentence(t_token **lst_token);
-char		*rem_str_quotes(char **str, int str_len);
 void		remove_quotes(char **sentences);
 void 		create_sentences(t_env *env, t_token **lst_token, t_sentence **lst_sentence);
 
