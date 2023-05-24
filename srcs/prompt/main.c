@@ -29,9 +29,9 @@ void	init_shell(t_shell *data, char *envp[])
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell	data;
+
 	(void)(argv);
 	(void)(argc);
-
 	init_shell(&data, envp);
 	setup_signals();
 	while (1)
