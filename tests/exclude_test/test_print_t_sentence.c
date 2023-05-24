@@ -4,12 +4,10 @@ int	main(void)
 {
 	char	*buffer;
 	t_token	*lst;
-    t_token *tmp;
     t_sentence *lst_sen;
 
     buffer = NULL;
 	lst = NULL;
-    tmp = NULL;
     lst_sen = NULL;
 
     /* MODELOS DE BUFFER PARA TESTE */
@@ -17,7 +15,7 @@ int	main(void)
     //buffer = " --$a\" \"$a-- ";
     //buffer = "\"\"teste\"\"";
     //buffer = " Test variable \" nested \'$a\' quotes \" ";
-	buffer = " Test variable $a for expansion < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear ";
+	buffer = " Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear ";
 
     /* CRIAÇÃO DA LISTA DE TOKENS */
 	scan_line(&lst, buffer);
@@ -63,12 +61,14 @@ int	main(void)
     free(var1->key);
 	free(var1->value);
 	free(var2->key);
+    free(var2->value);
 
 	free(var1);
 	free(var2);
 
     /* LIBERAÇÃO DA LISTA DE TOKENS */
    	clear_token(&lst);
+    free(lst);
 
     /* LIBERAÇÃO DA LISTA DE SETENÇAS */
    	clear_sentence(&lst_sen);
