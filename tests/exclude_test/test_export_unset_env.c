@@ -1,22 +1,118 @@
 #include "testing.h"
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+#define ANSI_COLOR_BRIGHT_MAGENTA "\x1b[95m"
+#define ANSI_COLOR_BRIGHT_CYAN  "\x1b[96m"
+
+void cpy_string(char** dest, char** src, int len) {
+    for (int i = 1; i < len; i++) {
+        dest[i - 1] = ft_strdup(src[i]);
+    }
+}
+/*
+char **verify_argv(char *str[], int len) {
+    
+    int new_len = len - 1;
+    char** new_string = (char**)malloc(new_len * sizeof(char*));
+
+    cpy_string(new_string, str, len);
+    return (new_string);
+}*/
 
 void print_exp_unset_env(int argc, char *argv[], t_shell info)
 {
-    printf("Tente ./builtins export ou ./builtins export key=value\n");
-    printf("ou ./builtins unset key.\n");
-    if (ft_strncmp(argv[1], "export", 7) == 0)
+    int size = 0;
+    if (ft_strncmp(argv[1], "environment", 10) == 0)
     {
-        export_builtins(argc, argv, info);
-        if (argc != 2)
-             print_env(info.lst_env);
-    }   
-    else if (ft_strncmp(argv[1], "unset", 5) == 0){
-        unset_builtins(argc, argv, info);
+        char *str1[] = {"export", "student=vchastin"};
+        char *str2[] = {"export", "_daniel=22"};
+        char *str3[] = {"export", "_alibaba=brasil+egito"};
+        char *str4[] = {"export", "IZA="};
+        printf("___________________________________________________________\n");
+        printf(ANSI_COLOR_GREEN "📝 Está sendo adicionada a variável de ambiente student=vchastin\n"ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_GREEN "📝 Está sendo adicionada a variável de ambiente _daniel=22\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_GREEN "📝 Está sendo adicionada a variável de ambiente _alibaba=brasil+egito\n"ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_GREEN "📝 Está sendo adicionada a variável de ambiente IZA=\n" ANSI_COLOR_RESET);
+        printf("___________________________________________________________");
+        export_builtins(2, str1, info);
+        usleep(2);
+        export_builtins(2, str2, info);
+        usleep(2);
+        export_builtins(2, str3, info);
+        usleep(2);
+        export_builtins(2, str4, info);
+        usleep(2);
+        printf("\n");
+        printf(ANSI_COLOR_YELLOW "*********************************\n"ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_YELLOW "       VÁRIAVEL DE AMBIENTE\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_YELLOW "*********************************\n" ANSI_COLOR_RESET);
+        print_env(info.lst_env);
+        printf("___________________________________________________________");
+        printf(ANSI_COLOR_RED "\n🗑 Está sendo deletada a variável de ambiente student\n"ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_RED "🗑 Está sendo deletada a variável de ambiente _daniel\n"ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_RED "🗑 Está sendo deletada a variável de ambiente _alibaba=brasil+egito\n"ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_RED "🗑 Está sendo deletada a variável de ambiente IZA\n" ANSI_COLOR_RESET);
+        printf("___________________________________________________________");
+        char *s1[] = {"unset", "student"};
+        char *s2[] = {"unset", "_daniel"};
+        char *s3[] = {"unset", "_alibaba"};
+        char *s4[] = {"unset", "IZA"};
+        unset_builtins(2, s1, info);
+        unset_builtins(2, s2, info);
+        unset_builtins(2, s3, info);
+        unset_builtins(2, s4, info);
+        printf("\n");
+        printf(ANSI_COLOR_YELLOW "*********************************\n"ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_YELLOW "       VÁRIAVEL DE AMBIENTE\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_YELLOW "*********************************\n" ANSI_COLOR_RESET);
+        print_env(info.lst_env);
+        char *s[] = {"export"};//print especial
+        usleep(59);
+        printf("___________________________________________________________\n");
+        printf(ANSI_COLOR_BRIGHT_MAGENTA "✍ Escrevendo apenas export no terminal\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_BRIGHT_CYAN"___________________________________________________________\n"ANSI_COLOR_RESET);
+        usleep(59);
+	    export_builtins(1, s, info);
+        printf("\n");
+        char *st1[] = {"export", "1dawe=vchastin"};
+        char *st3[] = {"export", "@hotmail=22"};
+        printf("❌ Esta variável de ambiente NÃO DEVE ser adicionada 1dawe=vchastin\n");
+        printf("❌ Está variável de ambiente NÃO DEVE ser adicionada @hotmail=22\n");
+        export_builtins(2, st1, info);
+        export_builtins(2, st3, info);
+        printf("\n");
+        printf(ANSI_COLOR_YELLOW "*********************************\n"ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_YELLOW "       VÁRIAVEL DE AMBIENTE\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_YELLOW "*********************************\n" ANSI_COLOR_RESET);
         print_env(info.lst_env);
     }
-    else if (ft_strncmp(argv[1], "env", 3) == 0)
-        print_env(info.lst_env);
+    else
+    {
+        size = argc - 1;
+        char** str = (char**)malloc(size * sizeof(char*));
+        for (int i = 1; i < argc; i++) {
+            str[i - 1] = argv[i];
+        }
+        if (ft_strncmp(str[0], "export", 7) == 0)
+        {
+            export_builtins(size, str, info);
+            if (argc != 2)
+                print_env(info.lst_env);
+        }   
+        else if (ft_strncmp(str[0], "unset", 5) == 0){
+            unset_builtins(size, str, info);
+            print_env(info.lst_env);
+        }
+        else if (ft_strncmp(str[0], "env", 3) == 0){
+            print_env(info.lst_env);
+        }
+        free(str);
+        return ;
+    }
 }
 
 void	init_shell(t_shell *data, char *envp[])
@@ -35,10 +131,16 @@ int main(int argc, char *argv[], char *envp[]) {
     t_shell  info;
     if (argc == 1)
     {
-        printf("Tente ./builtins export ou ./builtins export key=value\n");
-        printf("ou ./builtins unset key\n");
+        printf(ANSI_COLOR_BLUE"Tente ./builtins environment\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_BLUE"ou ./builtins export\nou ./builtins export key=value\n"ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_BLUE"ou ./builtins unset key\nou ./builtins env\n"ANSI_COLOR_RESET);
+        printf("\n");
         return (0);
     }
+    printf(ANSI_COLOR_BLUE "Tente ./builtins environment\n" ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_BLUE"ou ./builtins export\nou ./builtins export key=value\n"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_BLUE"ou ./builtins unset key\nou ./builtins env\n"ANSI_COLOR_RESET);
+    printf("\n");
     init_shell(&info, envp);
     print_exp_unset_env(argc, argv, info);
     return (0);
