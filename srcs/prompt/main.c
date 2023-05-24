@@ -14,8 +14,6 @@
 
 int	g_global = 0;
 
-//init **lst_env 
-//data->lst_sentence = NULL;
 void	init_shell(t_shell *data, char *envp[])
 {
 	data->line = NULL;
@@ -28,11 +26,9 @@ void	init_shell(t_shell *data, char *envp[])
 	data->reds = NULL;
 }
 
-/*Alterei o argumento passado de init shell
-Foi adicionada a função free_list()*/
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_shell	data; // Struct global (s_shell/t_shell)
+	t_shell	data;
 	(void)(argv);
 	(void)(argc);
 
