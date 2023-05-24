@@ -8,21 +8,6 @@
 #define ANSI_COLOR_BRIGHT_MAGENTA "\x1b[95m"
 #define ANSI_COLOR_BRIGHT_CYAN  "\x1b[96m"
 
-void cpy_string(char** dest, char** src, int len) {
-    for (int i = 1; i < len; i++) {
-        dest[i - 1] = ft_strdup(src[i]);
-    }
-}
-/*
-char **verify_argv(char *str[], int len) {
-    
-    int new_len = len - 1;
-    char** new_string = (char**)malloc(new_len * sizeof(char*));
-
-    cpy_string(new_string, str, len);
-    return (new_string);
-}*/
-
 void print_exp_unset_env(int argc, char *argv[], t_shell info)
 {
     int size = 0;
