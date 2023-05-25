@@ -8,6 +8,7 @@ minishell
 printtoken
 tokenization
 lexer
+pwd
 *.log
 
 # Prerequisites
