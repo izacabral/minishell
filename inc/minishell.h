@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/14 20:43:49 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/05/25 18:49:41 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,8 @@ int		isdelim(char c);
 t_tkn	which_delim(char *delim);
 int		scan_line(t_token **lst, char *line);
 int		lexer(t_token *lst);
+
+//srcs/builtins
+int		pwd(void);
 
 #endif
