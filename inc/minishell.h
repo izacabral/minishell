@@ -17,6 +17,7 @@
 # include "ft_printf.h"
 # include "defines.h"
 # include "types.h"
+# include <errno.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>

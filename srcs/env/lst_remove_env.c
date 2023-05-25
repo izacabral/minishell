@@ -1,46 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   lst_remove_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 09:18:43 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/23 08:57:28 by vchastin         ###   ########.fr       */
+/*   Created: 2023/05/23 08:56:37 by vchastin          #+#    #+#             */
+/*   Updated: 2023/05/23 08:56:39 by vchastin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	freetab(void **ptr)
+void	del_one(t_env *node)
 {
-	char	**tmp;
-	int		i;
-
-	if (!ptr)
-		return ;
-	i = 0;
-	tmp = (char **)ptr;
-	while (tmp[i])
-	{
-		free(tmp[i]);
-		i++;
-	}
-	free(ptr);
+	free(node->key);
+	free(node->value);
+	free(node);
 }
 
-void	free_array(char **tab)
+/*
+ * Input			:t_env - envp list
+ * Scope			:clear env list
+ * Output			:none
+ */
+void	del_lst(t_env *env)
 {
-	size_t	i;
-	char	*s;
+	t_env	*node;
 
-	i = 0;
-	while (tab[i])
+	while (env)
 	{
-		s = tab[i];
-		free(s);
-		i++;
+		node = env->next;
+		del_one(env);
+		env = node;
 	}
-	free(tab);
-	tab = NULL;
 }

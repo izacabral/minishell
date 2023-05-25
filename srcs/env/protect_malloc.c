@@ -1,46 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   protect_malloc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 09:18:43 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/23 08:57:28 by vchastin         ###   ########.fr       */
+/*   Created: 2023/05/23 08:56:56 by vchastin          #+#    #+#             */
+/*   Updated: 2023/05/23 08:56:58 by vchastin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	freetab(void **ptr)
+/*
+ * Input			:void *arg - argument can be of any type
+ * Scope			:checks whether dynamic memory allocation has occurred
+ * Output			:none
+ * 					:or
+ * 					:error and exit
+ */
+void	protect_malloc(void *arg)
 {
-	char	**tmp;
-	int		i;
-
-	if (!ptr)
-		return ;
-	i = 0;
-	tmp = (char **)ptr;
-	while (tmp[i])
+	if (arg == NULL)
 	{
-		free(tmp[i]);
-		i++;
+		printf("%s\n", strerror(errno));
+		exit(errno);
 	}
-	free(ptr);
-}
-
-void	free_array(char **tab)
-{
-	size_t	i;
-	char	*s;
-
-	i = 0;
-	while (tab[i])
-	{
-		s = tab[i];
-		free(s);
-		i++;
-	}
-	free(tab);
-	tab = NULL;
 }
