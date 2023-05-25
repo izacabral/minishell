@@ -1,4 +1,4 @@
-INC			=	-I ../../libft/ -I ../../libft/ft_printf/ -I ../../inc/
+INC			=	-I ../../libft/ -I ../../libft/ft_printf/ -I ../../inc/ -I ../
 
 CC			=	cc
 
@@ -20,6 +20,9 @@ SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../../srcs/parser/isdelim
 
 OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 
+SRCS_PWD		=	test_pwd.c ../../srcs/builtins/pwd.c
+
+OBJS_PWD		=	$(SRCS_PWD:.c=.o)
 
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
@@ -55,14 +58,18 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken
+all: printtoken pwd
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
 
+pwd :	$(OBJS_PWD)
+		$(CC) $^ -o $@
+
+.PHONY	:	all clean fclean re
 
 clean:
-		$(RM) $(OBJS_P_TOKEN)
+		$(RM) $(OBJS_P_TOKEN) $(OBJS_PWD)
 
 fclean: clean
 		$(RM) printtoken
