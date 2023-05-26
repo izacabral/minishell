@@ -20,9 +20,10 @@ SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../../srcs/parser/isdelim
 
 OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 
-SRCS_P_EXP_UNSET_ENV	= test_export_unset_env.c ../../srcs/builtins/check_export.c ../../srcs/builtins/check_unset.c ../../srcs/builtins/env_builtin.c ../../srcs/builtins/export_builtin.c \
-	../../srcs/builtins/print_export.c ../../srcs/builtins/unset_builtin.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c ../../srcs/env/lst_add_env.c \
-	../../srcs/env/lst_remove_env.c ../../srcs/env/protect_malloc.c
+SRCS_P_EXP_UNSET_ENV	= test_export_unset_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins/check_export.c ../../srcs/builtins/check_unset.c ../../srcs/builtins/print_env.c \
+							../../srcs/builtins/compare_key.c ../../srcs/builtins/export_builtin.c \
+							../../srcs/builtins/print_export.c ../../srcs/builtins/unset_builtin.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c \
+							../../srcs/data_types/t_env.c ../../srcs/prompt/init_shell.c\
 
 OBJS_P_EXP_UNSET_ENV	=	$(SRCS_P_EXP_UNSET_ENV:.c=.o)
 

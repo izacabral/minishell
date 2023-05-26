@@ -87,7 +87,7 @@ void print_exp_unset_env(int argc, char *argv[], t_shell info)
             export_builtins(size, str, info);
             if (argc != 2)
                 print_env(info.lst_env);
-        }   
+        }
         else if (ft_strncmp(str[0], "unset", 5) == 0){
             unset_builtins(size, str, info);
             print_env(info.lst_env);
@@ -100,31 +100,19 @@ void print_exp_unset_env(int argc, char *argv[], t_shell info)
     }
 }
 
-void	init_shell(t_shell *data, char *envp[])
-{
-	data->line = NULL;
-	data->lst_env = get_env(envp);
-	data->lst_token = NULL;
-	data->sentence_count = 0;
-	data->pipe_count = 0;
-	data->redirect_count = 0;
-	data->pipes = NULL;
-	data->reds = NULL;
-}
-
 int main(int argc, char *argv[], char *envp[]) {
     t_shell  info;
     if (argc == 1)
     {
-        printf(ANSI_COLOR_BLUE"Tente ./builtins environment\n" ANSI_COLOR_RESET);
-        printf(ANSI_COLOR_BLUE"ou ./builtins export\nou ./builtins export key=value\n"ANSI_COLOR_RESET);
-        printf(ANSI_COLOR_BLUE"ou ./builtins unset key\nou ./builtins env\n"ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_BLUE"Tente ./printexpunsenv environment\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_BLUE"ou ./printexpunsenv export\nou ./printexpunsenv export key=value\n"ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_BLUE"ou ./printexpunsenv unset key\nou ./printexpunsenv env\n"ANSI_COLOR_RESET);
         printf("\n");
         return (0);
     }
-    printf(ANSI_COLOR_BLUE "Tente ./builtins environment\n" ANSI_COLOR_RESET);
-    printf(ANSI_COLOR_BLUE"ou ./builtins export\nou ./builtins export key=value\n"ANSI_COLOR_RESET);
-    printf(ANSI_COLOR_BLUE"ou ./builtins unset key\nou ./builtins env\n"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_BLUE "Tente ./printexpunsenv environment\n" ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_BLUE"ou ./printexpunsenv export\nou ./printexpunsenv export key=value\n"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_BLUE"ou ./printexpunsenv unset key\nou ./printexpunsenv env\n"ANSI_COLOR_RESET);
     printf("\n");
     init_shell(&info, envp);
     print_exp_unset_env(argc, argv, info);

@@ -13,10 +13,10 @@
 #include "minishell.h"
 
 /*
- * Input			:char *environ[] - environment variable
- * Scope			:makes a copy of the env
- *					:remembering that environment variables have key=value format
- * Output			:a node with the data from env
+ * Input		:char *environ[] - environment variable
+ * Scope		:makes a copy of the env
+ *				:remembering that environment variables have key=value format
+ * Output		:a node with the data from env
  */
 t_env	*get_env(char *environ[])
 {

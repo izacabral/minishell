@@ -13,10 +13,10 @@
 #include "minishell.h"
 
 /*
- * Input			:char *str - environment variable in wrong format
- *					:char *key - string that was split (environment variable key
- * Scope			:checks that the key is in the correct format
- *                  :if the key exists in the env list delete the node
+ * Input	:char *str - environment variable in wrong format
+ *			:char *key - string that was split (environment variable key
+ * Scope	:checks that the key is in the correct format
+ *          :if the key exists in the env list delete the node
  */
 static void	unset(t_env *env, char *key)
 {
@@ -46,10 +46,10 @@ static void	unset(t_env *env, char *key)
 }
 
 /*
- * Input			:int size - amount of arguments
- *					:char *str[] - arguments (command unset and/or enviroment variable)
- *					:Example: argv[0] = unset - argv[1] = students
- * Scope			:check key match
+ * Input	:int size - amount of arguments
+ *			:char *str[] - arguments (command unset and/or enviroment variable)
+ *			:Example: argv[0] = unset - argv[1] = students
+ * Scope	:check key match
  */
 int	unset_builtins(int size, char *str[], t_shell data)
 {

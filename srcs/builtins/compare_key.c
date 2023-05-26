@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_remove_env.c                                   :+:      :+:    :+:   */
+/*   export_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 08:56:37 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/23 08:56:39 by vchastin         ###   ########.fr       */
+/*   Created: 2023/05/23 08:49:52 by vchastin          #+#    #+#             */
+/*   Updated: 2023/05/23 08:52:33 by vchastin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	del_one(t_env *node)
-{
-	free(node->key);
-	free(node->value);
-	free(node);
-}
-
 /*
- * Input			:t_env - envp list
- * Scope			:clear env list
- * Output			:none
+ * Input			:t_env *env - envp list(head)
+ *					:char *key - element to be compared
+ * Scope			:compares if the key of the argument is the same
+ * 					as the environment variable
+ * Output			:existing key in the environment variable
+ * 					:or
+ * 					:NULL
  */
-void	del_lst(t_env *env)
+t_env	*compare_key(t_env *env, char *key)
 {
 	t_env	*node;
 
-	while (env)
+	node = env;
+	while (node)
 	{
-		node = env->next;
-		del_one(env);
-		env = node;
+		if (ft_strncmp(node->key, key, ft_strlen(key)) == 0)
+			return (node);
+		node = node->next;
 	}
+	return (NULL);
 }

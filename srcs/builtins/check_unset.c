@@ -16,7 +16,7 @@
  * Input			:char *str - environment variable in wrong format
  * Output			:print the error on the screen
  */
-void	unset_error(char *str)
+static void	unset_error(char *str)
 {
 	ft_putstr_fd("minishell: unset: ", STDERR_FILENO);
 	ft_putstr_fd("`", STDERR_FILENO);
