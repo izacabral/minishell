@@ -65,7 +65,7 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken printexpunsenv
+all: printtoken printexpunsenv expandvar
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
