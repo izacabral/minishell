@@ -67,22 +67,16 @@ t_token		*new_token(char *ptr, t_tkn t);
 void		addback_token(t_token **lst, t_token *new);
 t_token		*find_last_token(t_token *lst);
 void		clear_token(t_token **lst);
-// freetab() não está sendo usada, mas deixei caso seja necessária
+
+/* FREE_TAB  */
 void		freetab(void **ptr);
-t_env		*get_env(char *environ[]);
-void		del_lst(t_env *env);
-void		del_one(t_env *node);
-t_env		*compare_key(t_env *env, char *key);
-/*Function that checks whether dynamic memory allocation has occurred*/
+void		free_array(char **tab);
+
+/* T_ENV */
 void		protect_malloc(void *arg);
 t_env		*new_env(char *key, char *value, int size);
-void		print_export(t_env *env);
-int			check_export(char *key, char *str);
-void		export_error(char *str);
-void		free_array(char **tab);
-void		print_env(t_env *env);
-int			export_builtins(int size, char *str[], t_shell data);
-int			unset_builtins(int size, char *str[], t_shell data);
 t_env		*add_env(t_env *env, char *key, char *value);
-int			check_unset(char *key);
+void		del_one(t_env *node);
+void		del_lst(t_env *env);
+
 #endif

@@ -13,6 +13,22 @@
 #include "minishell.h"
 
 /*
+ * Input			:void *arg - argument can be of any type
+ * Scope			:checks whether dynamic memory allocation has occurred
+ * Output			:none
+ * 					:or
+ * 					:error and exit
+ */
+void	protect_malloc(void *arg)
+{
+	if (arg == NULL)
+	{
+		printf("%s\n", strerror(errno));
+		exit(errno);
+	}
+}
+
+/*
  * Input			:char *key - environment variable key
  *					:char *value - environment variable value
  *					:char size - amount of environment variable
@@ -52,4 +68,28 @@ t_env	*add_env(t_env *env, char *key, char *value)
 		env = new;
 	}
 	return (env);
+}
+
+void	del_one(t_env *node)
+{
+	free(node->key);
+	free(node->value);
+	free(node);
+}
+
+/*
+ * Input			:t_env - envp list
+ * Scope			:clear env list
+ * Output			:none
+ */
+void	del_lst(t_env *env)
+{
+	t_env	*node;
+
+	while (env)
+	{
+		node = env->next;
+		del_one(env);
+		env = node;
+	}
 }
