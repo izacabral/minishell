@@ -40,6 +40,7 @@ int	main(int argc, char **argv, char **envp)
 		printf("\033[031mExecve FAIL\033[0m\n");
 	else
 		printf("\033[032mExecve OK\033[0m\n");
+	ft_strclear(&path, free);
 	(void)argc;
 	(void)argv;
 	return (fail);
