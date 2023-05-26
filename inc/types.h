@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/26 18:42:54 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:56:34 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_env
 	int				size;
 	struct s_env	*next;
 }						t_env;
-
 
 typedef struct s_token
 {

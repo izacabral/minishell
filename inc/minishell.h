@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/20 00:04:58 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:56:19 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@
 extern int	g_global;
 
 // srcs/prompt/
-void	init_shell(t_shell *data, char *envp[]);
-void	launch_prog(t_shell *data);
-void	int_handler(int signum);
-char	*rl_gets(char *line);
-void	setup_signals(void);
+void		init_shell(t_shell *data, char *envp[]);
+void		launch_prog(t_shell *data);
+void		int_handler(int signum);
+char		*rl_gets(char *line);
+void		setup_signals(void);
 
 // srcs/parser/
 int			isquotes(char c);
@@ -49,7 +49,7 @@ int			scan_line(t_token **lst, char *line);
 int			lexer(t_token *lst);
 
 // srcs/env/
-t_env	*get_env(char *environ[]);
+t_env		*get_env(char *environ[]);
 void		expandvars(char **sentences, t_env *env);
 
 // srcs/env/
@@ -60,13 +60,13 @@ int			call_execve(char **args, t_string *path);
 char		*prefix_slash(char **str);
 
 // srcs/builtins/
-int		check_export(char *key, char *str);
-int		check_unset(char *key);
-t_env	*compare_key(t_env *env, char *key);
-int		export_builtins(int size, char *str[], t_shell data);
-void	export_error(char *str);
-void	print_env(t_env *env);
-void	print_export(t_env *env);
-int		unset_builtins(int size, char *str[], t_shell data);
+int			check_export(char *key, char *str);
+int			check_unset(char *key);
+t_env		*compare_key(t_env *env, char *key);
+int			export_builtins(int size, char *str[], t_shell data);
+void		export_error(char *str);
+void		print_env(t_env *env);
+void		print_export(t_env *env);
+int			unset_builtins(int size, char *str[], t_shell data);
 
 #endif
