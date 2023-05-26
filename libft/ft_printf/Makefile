@@ -8,7 +8,7 @@ NAME		= libftprintf.a
 
 CC			= cc
 
-LIBC		= ar rc
+LIBC		= ar rcs
 
 LIBR		= ranlib
 

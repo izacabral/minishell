@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   scan_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:15:02 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/19 09:24:57 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/05/23 09:20:20 by vchastin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include "types.h"
 #include <ctype.h>
-#include <stdlib.h>
 
 static int	token_lenght(char *token);
 static int	token_lenght_quotes(char *token, char quote);
