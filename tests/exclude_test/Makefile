@@ -81,6 +81,6 @@ clean:
 		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXECVE)
 
 fclean: clean
-		$(RM) printtoken printexpunsenv execve
+		$(RM) printtoken printexpunsenv execve hello_world
 
 re:			fclean all
