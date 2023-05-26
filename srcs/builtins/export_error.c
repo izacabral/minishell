@@ -1,46 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   check_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 09:18:43 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/23 08:57:28 by vchastin         ###   ########.fr       */
+/*   Created: 2023/05/23 08:49:24 by vchastin          #+#    #+#             */
+/*   Updated: 2023/05/23 08:49:27 by vchastin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	freetab(void **ptr)
+/*
+ * Input			:char *str - environment variable in wrong format
+ * Output			:print the error on the screen
+ */
+void	export_error(char *str)
 {
-	char	**tmp;
-	int		i;
-
-	if (!ptr)
-		return ;
-	i = 0;
-	tmp = (char **)ptr;
-	while (tmp[i])
-	{
-		free(tmp[i]);
-		i++;
-	}
-	free(ptr);
-}
-
-void	free_array(char **tab)
-{
-	size_t	i;
-	char	*s;
-
-	i = 0;
-	while (tab[i])
-	{
-		s = tab[i];
-		free(s);
-		i++;
-	}
-	free(tab);
-	tab = NULL;
+	ft_putstr_fd("minishell: export: ", STDERR_FILENO);
+	ft_putstr_fd("`", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
 }
