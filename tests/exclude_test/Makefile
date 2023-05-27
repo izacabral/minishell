@@ -20,7 +20,7 @@ SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../../srcs/parser/isdelim
 
 OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 
-SRCS_EXECVE		=	../test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/path_to_lst.c ../../srcs/exec/prefix_slash.c ../../srcs/exec/launch_command.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_strnew.c ../../srcs/data_types/free_tab.c
+SRCS_EXECVE		=	test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/path_to_lst.c ../../srcs/exec/prefix_slash.c ../../srcs/exec/launch_command.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_strnew.c ../../srcs/data_types/free_tab.c
 
 OBJS_EXECVE		=	$(SRCS_EXECVE:.c=.o)
 
@@ -81,6 +81,6 @@ clean:
 		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXECVE)
 
 fclean: clean
-		$(RM) printtoken printexpunsenv execve
+		$(RM) printtoken printexpunsenv execve hello_world
 
 re:			fclean all

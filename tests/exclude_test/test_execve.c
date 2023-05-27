@@ -1,4 +1,3 @@
-#include "minishell.h"
 #include "unit_test.h"
 #include <string.h>
 
@@ -13,6 +12,15 @@ static char	***create_tests2(void);
  * Compilar com a libft e os arquivos:
  * tests/test_execve.c srcs/exec/call_execve.c srcs/exec/path_to_lst.c srcs/exec/prefix_slash.c srcs/exec/launch_command.c srcs/data_types/ft_stradd_back.c srcs/data_types/ft_strclear.c srcs/data_types/ft_strdelone.c srcs/data_types/ft_strsetlast.c srcs/data_types/ft_strnew.c srcs/data_types/free_tab.c -Itests -Iinc -Ilibft -Ilibft/ft_printf -Llibft -lft
  *
+ * Criar um arquivo hello_world em separado:
+ *
+ * #include <stdio.h>
+ *
+ * int	main(void)
+ * {
+ *	puts("Hello World!");
+ *	return (0);
+ * }
  */
 int	main(int argc, char **argv, char **envp)
 {
@@ -51,7 +59,7 @@ static char		*find_path(char **env)
 static int	test_exec1(char *path)
 {
 	char		***tests;
-	const int	size = 3;
+	const int	size = 4;
 	int			fail;
 	int			i;
 	int			j;
@@ -91,8 +99,7 @@ static int	test_exec1(char *path)
 		freetab((void **)tests[i]);
 		i++;
 	}
-	if (tests)
-		free(tests);
+	free(tests);
 	return (fail);
 }
 
@@ -100,17 +107,20 @@ static char	***create_tests1(void)
 {
 	char	***tests;
 
-	tests = malloc(3 * sizeof(*tests));
+	tests = malloc(4 * sizeof(*tests));
 	tests[0] = malloc(2 * sizeof(**tests));
 	tests[1] = malloc(2 * sizeof(**tests));
-	tests[2] = malloc(3 * sizeof(**tests));
+	tests[2] = malloc(2 * sizeof(**tests));
+	tests[3] = malloc(3 * sizeof(**tests));
 	tests[0][0] = strdup("ls");
 	tests[0][1] = NULL;
 	tests[1][0] = strdup("/bin/ls");
 	tests[1][1] = NULL;
-	tests[2][0] = strdup("ls");
-	tests[2][1] = strdup("-l");
-	tests[2][2] = NULL;
+	tests[2][0] = strdup("./hello_world");
+	tests[2][1] = NULL;
+	tests[3][0] = strdup("ls");
+	tests[3][1] = strdup("-l");
+	tests[3][2] = NULL;
 	return (tests);
 }
 
