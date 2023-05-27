@@ -3,9 +3,9 @@
 #include <string.h>
 
 static char		*find_path(char **env);
-static int		test_exec1(t_string *path);
+static int		test_exec1(char *path);
 static char	***create_tests1(void);
-static int		test_exec2(t_string *path);
+static int		test_exec2(char *path);
 static char	***create_tests2(void);
 
 /*
@@ -17,21 +17,18 @@ static char	***create_tests2(void);
 int	main(int argc, char **argv, char **envp)
 {
 	char		*p;
-	t_string	*path;
 	int			fail;
 
 	p = find_path(envp);
-	path = path_to_lst(p);
 	fail = 0;
-	if (test_exec1(path))
+	if (test_exec1(p))
 		fail = 1;
-	if (test_exec2(path))
+	if (test_exec2(p))
 		fail = 1;
 	if (fail)
 		printf("\033[031mExecve FAIL\033[0m\n");
 	else
 		printf("\033[032mExecve OK\033[0m\n");
-	ft_strclear(&path, free);
 	(void)argc;
 	(void)argv;
 	return (fail);
@@ -51,7 +48,7 @@ static char		*find_path(char **env)
 	return (NULL);
 }
 
-static int	test_exec1(t_string *path)
+static int	test_exec1(char *path)
 {
 	char		***tests;
 	const int	size = 3;
@@ -117,7 +114,7 @@ static char	***create_tests1(void)
 	return (tests);
 }
 
-static int	test_exec2(t_string *path)
+static int	test_exec2(char *path)
 {
 	char	***tests;
 	const int	size = 2;
