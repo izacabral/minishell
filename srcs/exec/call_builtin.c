@@ -2,6 +2,7 @@
 #include "minishell.h"
 
 static int	get_exitarg(char *arg, int last);
+static int	args_size(char **args);
 
 /*
  * Fn		: call_builtin(char **args, t_shell *data, t_builtin builtin)
@@ -15,7 +16,8 @@ static int	get_exitarg(char *arg, int last);
  */
 int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 {
-	int	exit_value;
+	int			exit_value;
+	const int	size = args_size(args);
 
 	if (builtin == ECHO)
 		return (/*call echo*/);
@@ -24,11 +26,14 @@ int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 	if (builtin == PWD)
 		return (/*call pwd*/);
 	if (builtin == EXPORT)
-		return (/*call export*/);
+		return (export_builtins(size, args, *data));
 	if (builtin == UNSET)
-		return (/*call unset*/);
+		return (unset_builtins(size, args, *data));
 	if (builtin == ENV)
-		return (/*call env*/);
+	{
+		print_env(data->lst_env);
+		return (0);
+	}
 	if (builtin == EXIT)
 	{
 		exit_value = 0; // substituir pro valor de saída do último comando
@@ -38,6 +43,16 @@ int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 		return (/*call exit*/);
 	}
 	return (0);
+}
+
+static int	args_size(char **args)
+{
+	int	size;
+
+	size = 0;
+	while (args[size])
+		size++;
+	return (size);
 }
 
 static int	get_exitarg(char *arg, int last)
