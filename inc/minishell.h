@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/22 17:21:52 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/26 23:11:27 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "types.h"
 # include "env.h"
 # include "exec.h"
+# include <errno.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
@@ -38,6 +39,11 @@ void		setup_signals(void);
 void		int_handler(int signum);
 char		*rl_gets(char *line);
 void		launch_prog(t_shell *data);
+void		init_shell(t_shell *data, char *envp[]);
+void		launch_prog(t_shell *data);
+void		int_handler(int signum);
+char		*rl_gets(char *line);
+void		setup_signals(void);
 
 // srcs/parser/
 int			isquotes(char c);
@@ -55,5 +61,18 @@ t_string	*path_to_lst(char *path);
 // srcs/exec/
 int			exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
+
+// srcs/builtins/
+int			check_export(char *key, char *str);
+int			check_unset(char *key);
+t_env		*compare_key(t_env *env, char *key);
+int			export_builtins(int size, char *str[], t_shell data);
+void		export_error(char *str);
+void		print_env(t_env *env);
+void		print_export(t_env *env);
+int			unset_builtins(int size, char *str[], t_shell data);
+
+// srcs/env/
+t_env		*get_env(char *environ[]);
 
 #endif

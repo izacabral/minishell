@@ -10,6 +10,7 @@ tokenization
 lexer
 *.log
 execve
+printexpunsenv
 
 # Prerequisites
 *.d

@@ -1,46 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 09:18:43 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/23 08:57:28 by vchastin         ###   ########.fr       */
+/*   Created: 2023/05/23 08:58:53 by vchastin          #+#    #+#             */
+/*   Updated: 2023/05/23 08:58:55 by vchastin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	freetab(void **ptr)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char	**tmp;
-	int		i;
+	int	index;
 
-	if (!ptr)
-		return ;
-	i = 0;
-	tmp = (char **)ptr;
-	while (tmp[i])
+	index = 0;
+	while (s1[index] && s2[index])
 	{
-		free(tmp[i]);
-		i++;
+		if (s1[index] != s2[index])
+			break ;
+		index++;
 	}
-	free(ptr);
-}
-
-void	free_array(char **tab)
-{
-	size_t	i;
-	char	*s;
-
-	i = 0;
-	while (tab[i])
-	{
-		s = tab[i];
-		free(s);
-		i++;
-	}
-	free(tab);
-	tab = NULL;
+	return ((unsigned char) s1[index] - (unsigned char) s2[index]);
 }
