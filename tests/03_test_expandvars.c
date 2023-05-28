@@ -1,12 +1,9 @@
 #include "minishell.h"
 
-/*
- * Teste para a função de expansão de variáveis
- * Compilar com a libft e os arquivos:
- * tests/test_expandvars.c srcs/env/expand_sentence.c srcs/env/expandvars.c srcs/env/get_value.c srcs/env/scan_sentence.c srcs/env/which_quotes.c srcs/env/ft_strnew.c srcs/env/ft_stradd_back.c srcs/env/ft_strsize.c srcs/env/ft_strsetlast.c srcs/env/ft_lst_to_str.c srcs/env/ft_strclear.c srcs/env/ft_strdelone.c srcs/env/ft_strtotallen.c
- */
 int	main(void)
 {
+	int ver = 0; // verificação de retorno do teste
+
 	t_env	*var1;
 	t_env	*var2;
 	char	**tab;
@@ -20,6 +17,7 @@ int	main(void)
 	char	*str8;
 	char	*str9;
 
+	/* CRIAÇÃO DA T_ENV PARA TESTE */
 	var1 = malloc(sizeof(*var1));
 	var2 = malloc(sizeof(*var2));
 	if (!(var1 && var2))
@@ -30,6 +28,8 @@ int	main(void)
 	var2->value = NULL;
 	var1->next = var2;
 	var2->next = NULL;
+
+	/* CRIAÇÃO DAS STRINGS PARA SEREM EXPANDIDAS */
 	tab = malloc(10 * sizeof(*tab));
 	str1 = ft_strdup("Test variable $a for expansion");
 	str2 = ft_strdup("Test $b for no value");
@@ -50,22 +50,51 @@ int	main(void)
 	tab[7] = str8;
 	tab[8] = str9;
 	tab[9] = NULL;
+
+	/* EXPANSÃO DAS VARIÁVEIS */
 	expandvars(tab, var1);
+
+	/* CRIAÇÃO DO ARRAY DE STRINGS COMO DEVERIAM FICAR */
+	char *check[10];
+
+	int i = 0;
+	while (i < 10)
+	{
+		check[i] = NULL;
+		i++;
+	}
+	check[0] = "Test variable var1 for expansion";
+	check[1] = "Test  for no value";
+	check[2] = "Test variable \"var1 some word\" inside quotes";
+	check[3] = "Test variable \" nested 'var1' quotes \"";
+	check[4] = "Test \'$a\' no expansion";
+	check[5] = "Test nothing to expand";
+	check[6] = "Test $ alone";
+	check[7] = "Test \'$\' in single quotes";
+	check[8] = "Test \"$\" in double quotes";
+
+	/* COMPARA  TAB COM OS CHECKS ESPERADOS */
+	i = 0;
+	while (tab[i])
+	{
+		ver = ft_strncmp(check[i], tab[i], (ft_strlen(check[i]) + 1));
+		ft_printf("tab[%d]:%s\n", i, tab[i]);
+		if (ver != 0)
+		{
+			ver = i + 1;
+			break;
+		}
+		i++;
+	}
+
+	/*LIBERAÇÃO */
 	free(var1->key);
 	free(var1->value);
 	free(var2->key);
 	free(var2->value);
 	free(var1);
 	free(var2);
-	ft_putendl_fd(tab[0], 1);
-	ft_putendl_fd(tab[1], 1);
-	ft_putendl_fd(tab[2], 1);
-	ft_putendl_fd(tab[3], 1);
-	ft_putendl_fd(tab[4], 1);
-	ft_putendl_fd(tab[5], 1);
-	ft_putendl_fd(tab[6], 1);
-	ft_putendl_fd(tab[7], 1);
-	ft_putendl_fd(tab[8], 1);
+
 	free(tab[0]);
 	free(tab[1]);
 	free(tab[2]);
@@ -76,5 +105,11 @@ int	main(void)
 	free(tab[7]);
 	free(tab[8]);
 	free(tab);
-	return (0);
+
+	if (ver == 0)
+		ft_printf("Expandvars functions is ok\n");
+	else
+		ft_printf("Something is wrong with expandvars function, ver= %d\n", ver);
+
+	return (ver);
 }
