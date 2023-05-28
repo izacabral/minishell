@@ -30,7 +30,8 @@ SRCS_EXECVE		=	../test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/pa
 OBJS_EXECVE		=	$(SRCS_EXECVE:.c=.o)
 
 SRCS_P_SENTENCE	=	test_print_t_sentence.c  ../../srcs/sentence/create_sentences.c ../../srcs/sentence/remove_quotes.c ../../srcs/sentence/tkn_to_sentence.c \
-					../../srcs/data_types/t_sentence.c \
+					../../srcs/data_types/t_sentence.c ../../srcs/sentence/new_index.c ../../srcs/sentence/no_quote_size.c ../../srcs/sentence/quotes_removed.c \
+					../../srcs/sentence/while_no_quotes.c ../../srcs/sentence/quote_size.c\
 					../../srcs/parser/isdelim.c \
 					../../srcs/parser/isquotes.c ../../srcs/parser/scan_line.c ../../srcs/parser/which_delim.c \
 					../../srcs/data_types/t_token.c ../../srcs/env/expand_sentence.c ../../srcs/env/expandvars.c \

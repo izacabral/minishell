@@ -48,6 +48,7 @@ int	main(void)
 	/* CRIA UMA STRING A PARTIR DA LISTA DE SENTENÇAS*/
 	char *check;
 	check = NULL;
+	int n = 0;
 	while (lst_sen)
 	{
 		char **teste = lst_sen->args;
@@ -61,6 +62,7 @@ int	main(void)
 		}
 		teste = NULL;
 		lst_sen = lst_sen->next;
+		n++;
 	}
 
 	/* COMPARA CHECK COM O RESULTADO ESPERADO*/
@@ -85,13 +87,14 @@ int	main(void)
 	free(lst_sen);
 
 
-	if (ver == 0)
+	if (ver == 0 && n == 6)
 	{
 		ft_printf("%s\n", correct);
 		ft_printf("%s\n", check);
+		ft_printf("In this test the number of senteces must be 6 n:%d\n", n);
 	}
 	else
-		ft_printf("Something is wrong with create_sentences function\n");
+		ft_printf("Something is wrong with create_sentences function\n n= %d\n", n);
 
 	/* LIBERAÇÃO DE CHECK */
 	free (check);

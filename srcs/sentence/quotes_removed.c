@@ -13,64 +13,31 @@
 #include "minishell.h"
 
 /*
- * Fn		: rem_str_quotes(char *str)
- * Scope	: iterate through the strings copying it content without
- *				 the unwanted quotes and releasing the old strings
- *
- * Input	: char *str
- *
- * Output	: new string without quotes
+ * Fn		: while_no_quotes(char *str, int i,  char *new_str)
+ * Scope	: joins the part of the string that has a quote
+ *				without unwanted quotes
+ * Input	: the string that is being scanned and the new string
+ *				that should be without unwanted quotes
+ * Output	: the  joined string without unwanted quotes
  * Errors	: not applicable
  *
- * Uses		: remove_quotes()
+ * Uses		: rem_str_quotes()
  */
-static char	*rem_str_quotes(char *str)
+char	*quotes_removed(char *str, int i, char *new_str)
 {
-	int		i;
+	char	quote;
+	char	*tmp;
 	int		j;
-	char	*new_str;
 
-	i = 0;
+	quote = str[i];
+	tmp = NULL;
 	j = 0;
-	new_str = NULL;
-	while (str[i])
-	{
-		if (str[i] == '\'' || str[i] == '\"')
-		{
-			new_str = quotes_removed(str, i, new_str);
-			i = new_index(str, i);
-		}
-		else
-		{
-			j = no_quote_size(&str[i]);
-			new_str = while_no_quotes(str, i, new_str);
-			i = i + j;
-		}
-	}
-	free(str);
-	return (new_str);
-}
-
-/*
- * Fn		: remove_quotes(char **str)
- * Scope	: iterate through the array of strings applying the
- *				rem_str_quotes function
- *
- * Input	: char **str
- *
- * Output	: void
- * Errors	: not applicable
- *
- * Uses		: create_sentences()
- */
-void	remove_quotes(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		str[i] = rem_str_quotes(str[i]);
+	i++;
+	while (str[i] && str[i] == quote)
 		i++;
-	}
+	j = quote_size(&str[i], quote);
+	tmp = ft_substr(str, i, j);
+	new_str = ft_strjoin_free(new_str, tmp);
+	free(tmp);
+	return (new_str);
 }

@@ -20,6 +20,8 @@ t_sentence	*new_sentence(char **args)
 	if (!new_node)
 		return (NULL);
 	new_node->args = args;
+	new_node->fd_i = 0;
+	new_node->fd_o = 1;
 	new_node->previous = NULL;
 	new_node->next = NULL;
 	return (new_node);
@@ -50,7 +52,7 @@ void	addback_sentence(t_sentence **lst, t_sentence *new)
 
 void	clear_sentence(t_sentence **lst)
 {
-	t_sentence *tmp;
+	t_sentence	*tmp;
 
 	if (!(*lst))
 		return ;

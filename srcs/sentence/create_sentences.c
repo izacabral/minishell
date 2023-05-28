@@ -47,7 +47,8 @@ static t_token	*get_not_word(t_token **lst_token)
  *
  * Uses		:
  */
-void create_sentences(t_env *env, t_token **lst_token, t_sentence **lst_sentence)
+void	create_sentences(t_env *env, t_token **lst_token, \
+			t_sentence **lst_sentence)
 {
 	char	**args;
 
@@ -60,4 +61,3 @@ void create_sentences(t_env *env, t_token **lst_token, t_sentence **lst_sentence
 		*lst_token = get_not_word(&(*lst_token));
 	}
 }
-

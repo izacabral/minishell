@@ -50,6 +50,8 @@ int	main(void)
             i++;
         }
         teste = NULL;
+        ft_printf("fd_i: %d\n", lst_sen->fd_i);
+        ft_printf("fd_o: %d\n", lst_sen->fd_o);
         ft_printf("previus: %p\n", lst_sen->previous);
         ft_printf("atual: %p\n", lst_sen);
         ft_printf("next: %p\n", lst_sen->next);
