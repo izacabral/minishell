@@ -12,30 +12,14 @@
 
 #include "minishell.h"
 
-int	g_global = 0;
-
-int	main(int argc, char *argv[], char *envp[])
+void	init_shell(t_shell *data, char *envp[])
 {
-	t_shell	data;
-
-	(void)(argv);
-	(void)(argc);
-	init_shell(&data, envp);
-	setup_signals();
-	while (1)
-	{
-		data.line = rl_gets(data.line);
-		if (!data.line)
-			break ;
-		if (!ft_strncmp(data.line, "exit", 5))
-		{
-			free(data.line);
-			break ;
-		}
-		launch_prog(&data);
-		if (*data.line)
-			add_history(data.line);
-	}
-	del_lst(data.lst_env);
-	return (0);
+	data->line = NULL;
+	data->lst_env = get_env(envp);
+	data->lst_token = NULL;
+	data->sentence_count = 0;
+	data->pipe_count = 0;
+	data->redirect_count = 0;
+	data->pipes = NULL;
+	data->reds = NULL;
 }

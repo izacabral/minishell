@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   scan_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:15:02 by daolivei          #+#    #+#             */
 /*   Updated: 2023/05/21 23:07:44 by daolivei         ###   ########.fr       */

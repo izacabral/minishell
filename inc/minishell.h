@@ -17,6 +17,7 @@
 # include "ft_printf.h"
 # include "defines.h"
 # include "types.h"
+# include <errno.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
@@ -28,10 +29,11 @@
 extern int	g_global;
 
 // srcs/prompt/
-void	setup_signals(void);
+void	init_shell(t_shell *data, char *envp[]);
+void	launch_prog(t_shell *data);
 void	int_handler(int signum);
 char	*rl_gets(char *line);
-void	launch_prog(t_shell *data);
+void	setup_signals(void);
 
 // srcs/parser/
 int		isquotes(char c);
@@ -39,5 +41,18 @@ int		isdelim(char c);
 t_tkn	which_delim(char *delim);
 int		scan_line(t_token **lst, char *line);
 int		lexer(t_token *lst);
+
+// srcs/builtins/
+int		check_export(char *key, char *str);
+int		check_unset(char *key);
+t_env	*compare_key(t_env *env, char *key);
+int		export_builtins(int size, char *str[], t_shell data);
+void	export_error(char *str);
+void	print_env(t_env *env);
+void	print_export(t_env *env);
+int		unset_builtins(int size, char *str[], t_shell data);
+
+// srcs/env/
+t_env	*get_env(char *environ[]);
 
 #endif
