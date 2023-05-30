@@ -9,10 +9,10 @@ printtoken
 tokenization
 lexer
 execve
-expandvar
 *.log
+printsentence
+expandvar
 printexpunsenv
-
 
 # Prerequisites
 *.d

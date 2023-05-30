@@ -1,0 +1,81 @@
+buffer[0]:  | teste2
+minishell: syntax error near unexpected token '|'
+
+buffer[1]:  |teste2
+minishell: syntax error near unexpected token '|'
+
+buffer[2]:  < | teste3
+minishell: syntax error near unexpected token '|'
+
+buffer[3]:  <| teste3
+minishell: syntax error near unexpected token '|'
+
+buffer[4]:  cat teste2 <| teste3
+minishell: syntax error near unexpected token '|'
+
+buffer[5]:  cat teste2 < |
+minishell: syntax error near unexpected token '|'
+
+buffer[6]:  cat teste2 < | teste3
+minishell: syntax error near unexpected token '|'
+
+buffer[7]:  cat teste2 <
+minishell: syntax error near unexpected token 'newline'
+
+buffer[8]:  << |
+minishell: syntax error near unexpected token '|'
+
+buffer[9]:  <<|
+minishell: syntax error near unexpected token '|'
+
+buffer[10]:  cat teste2 << | teste3
+minishell: syntax error near unexpected token '|'
+
+buffer[11]:  cat teste2 <<
+minishell: syntax error near unexpected token 'newline'
+
+buffer[12]:  cat teste2 >>| teste3
+minishell: syntax error near unexpected token '|'
+
+buffer[13]:  cat teste2 >>
+minishell: syntax error near unexpected token 'newline'
+
+buffer[14]:  cat teste2 > | teste3
+minishell: syntax error near unexpected token '|'
+
+buffer[15]:  cat teste2 > |
+minishell: syntax error near unexpected token '|'
+
+buffer[16]:  cat teste2 > 
+minishell: syntax error near unexpected token 'newline'
+
+buffer[17]:  <
+minishell: syntax error near unexpected token 'newline'
+
+buffer[18]:  <<
+minishell: syntax error near unexpected token 'newline'
+
+buffer[19]:  >>
+minishell: syntax error near unexpected token 'newline'
+
+buffer[20]:  >
+minishell: syntax error near unexpected token 'newline'
+
+buffer[21]:  cat teste || wc -l
+minishell: syntax error near unexpected token '|'
+
+buffer[22]:  cat teste ||| wc -l
+minishell: syntax error near unexpected token '|'
+
+buffer[23]:  cat teste | | wc -l
+minishell: syntax error near unexpected token '|'
+
+buffer[24]:  cat teste | || wc -l
+minishell: syntax error near unexpected token '|'
+
+buffer[25]:  cat teste || | wc -l
+minishell: syntax error near unexpected token '|'
+
+
+
+lexer is ok
