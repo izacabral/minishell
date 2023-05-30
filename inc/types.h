@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/26 19:08:21 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:58:52 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,14 @@ typedef struct s_token
 	struct s_token		*next;
 }						t_token;
 
-// s_sentence | t_sentence
+typedef struct s_sentence
+{
+	char				**args;
+	int					fd_i;
+	int					fd_o;
+	struct s_sentence	*previous;
+	struct s_sentence	*next;
+}						t_sentence;
 
 /* typedef struct s_shell
  *
@@ -88,7 +95,13 @@ t_env		*add_env(t_env *env, char *key, char *value);
 void		del_one(t_env *node);
 void		del_lst(t_env *env);
 
-// T_STRING
+/* T_SENTENCE  */
+t_sentence	*new_sentence(char **args);
+t_sentence	*find_last_sentence(t_sentence *lst);
+void		addback_sentence(t_sentence **lst, t_sentence *new);
+void		clear_sentence(t_sentence **lst);
+
+/* T_STRING */
 t_string	*ft_strnew(char *str, size_t length);
 void		ft_stradd_front(t_string **lst, t_string *new);
 void		ft_strsetlast(t_string *lst, t_string *laststr);
