@@ -34,7 +34,12 @@ char	*quotes_removed(char *str, int i, char *new_str)
 	j = 0;
 	i++;
 	while (str[i] && str[i] == quote)
+	{
+		if ((quote == '\'' && str[i + 1] == '\"') || \
+			(quote == '\"' && str[i + 1] == '\''))
+			break ;
 		i++;
+	}
 	j = quote_size(&str[i], quote);
 	tmp = ft_substr(str, i, j);
 	new_str = ft_strjoin_free(new_str, tmp);

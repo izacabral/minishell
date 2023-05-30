@@ -36,6 +36,9 @@ int	new_index(char *str, int i)
 	i++;
 	while (str[i] && str[i] == quote)
 	{
+		if ((quote == '\'' && str[i + 1] == '\"') || \
+			(quote == '\"' && str[i + 1] == '\''))
+			break ;
 		quote_count++;
 		i++;
 	}

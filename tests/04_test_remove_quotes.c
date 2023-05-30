@@ -15,12 +15,13 @@
 int	main(void)
 {
 	int ver = 0; // verificação de retorno do teste
+	int	size = 13;
 
 	/* CRIAÇÃO DO ARRAY DE STRINGS PARA TESTE */
-	char *buffer[11];
+	char *buffer[size];
 
 	int i = 0;
-	while (i < 11)
+	while (i < size)
 	{
 		buffer[i] = NULL;
 		i++;
@@ -35,15 +36,17 @@ int	main(void)
 	buffer[7] = ft_strdup("teste\"--iza--\"");
 	buffer[8] = ft_strdup("\"teste\"--iza--\"teste\"--iza--\'teste\'");
 	buffer[9] = ft_strdup("\"um\"dois\'três\'");
+	buffer[10] = ft_strdup("\"\"\'teste\'\"\"");
+	buffer[11] = ft_strdup("\"\"\'\'\"\"");
 
 	/* REMOÇÃO DAS ASPAS */
 	remove_quotes(buffer);
 
 	/* CRIAÇÃO DO ARRAY DE STRINGS COMO DEVERIAM FICAR */
-	char *check[11];
+	char *check[size];
 
 	i = 0;
-	while (i < 11)
+	while (i < size)
 	{
 		check[i] = NULL;
 		i++;
@@ -58,6 +61,8 @@ int	main(void)
 	check[7] = "teste--iza--";
 	check[8] = "teste--iza--teste--iza--teste";
 	check[9] = "umdoistrês";
+	check[10] = "teste";
+	check[11] = "";
 
 	/* COMPARA  BUFFER COM OS CHECKS ESPERADOS */
 	i = 0;
