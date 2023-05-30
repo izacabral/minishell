@@ -11,6 +11,8 @@ lexer
 execve
 *.log
 printsentence
+expandvar
+printexpunsenv
 
 # Prerequisites
 *.d

@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/20 00:04:58 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:56:19 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "types.h"
 # include "env.h"
 # include "exec.h"
+# include <errno.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
@@ -34,10 +35,11 @@
 extern int	g_global;
 
 // srcs/prompt/
-void		setup_signals(void);
+void		init_shell(t_shell *data, char *envp[]);
+void		launch_prog(t_shell *data);
 void		int_handler(int signum);
 char		*rl_gets(char *line);
-void		launch_prog(t_shell *data);
+void		setup_signals(void);
 
 // srcs/parser/
 int			isquotes(char c);
@@ -46,7 +48,8 @@ t_tkn		which_delim(char *delim);
 int			scan_line(t_token **lst, char *line);
 int			lexer(t_token *lst);
 
-//srcs/env/
+// srcs/env/
+t_env		*get_env(char *environ[]);
 void		expandvars(char **sentences, t_env *env);
 
 // srcs/env/
@@ -66,5 +69,15 @@ char		*quotes_removed(char *str, int i, char *new_str);
 void		remove_quotes(char **sentences);
 char		**tkn_to_sentence(t_token **lst_token);
 char		*while_no_quotes(char *str, int i, char *new_str);
+
+// srcs/builtins/
+int			check_export(char *key, char *str);
+int			check_unset(char *key);
+t_env		*compare_key(t_env *env, char *key);
+int			export_builtins(int size, char *str[], t_shell data);
+void		export_error(char *str);
+void		print_env(t_env *env);
+void		print_export(t_env *env);
+int			unset_builtins(int size, char *str[], t_shell data);
 
 #endif
