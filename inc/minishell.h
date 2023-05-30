@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/26 18:56:19 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:27:43 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ extern int	g_global;
 void		init_shell(t_shell *data, char *envp[]);
 void		launch_prog(t_shell *data);
 void		int_handler(int signum);
-char		*rl_gets(char *line);
+char		*readline_gets(char *line);
 void		setup_signals(void);
 
 // srcs/parser/
