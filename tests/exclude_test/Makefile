@@ -1,4 +1,4 @@
-INC			=	-I ../../libft/ -I ../../libft/ft_printf/ -I ../../inc/
+INC			=	-I ../../libft/ -I ../../libft/ft_printf/ -I ../../inc/ -I ../
 
 CC			=	cc
 
@@ -27,6 +27,9 @@ SRCS_P_EXP_UNSET_ENV	= test_export_unset_env.c ../../srcs/builtins/export_error.
 
 OBJS_P_EXP_UNSET_ENV	=	$(SRCS_P_EXP_UNSET_ENV:.c=.o)
 
+SRCS_EXPANDVAR	=	test_expandvars.c ../../srcs/env/expand_sentence.c ../../srcs/env/expandvars.c ../../srcs/env/get_value.c ../../srcs/env/scan_sentence.c ../../srcs/env/which_quotes.c ../../srcs/data_types/ft_strnew.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c ../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_lst_to_str.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strtotallen.c
+
+OBJS_EXPANDVAR	=	$(SRCS_EXPANDVAR:.c=.o)
 
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
@@ -62,7 +65,7 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken printexpunsenv
+all: printtoken printexpunsenv expandvar
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
@@ -70,10 +73,13 @@ printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 printexpunsenv: $(LIBFT) $(OBJS_P_EXP_UNSET_ENV)
 	$(CC) $(OBJS_P_EXP_UNSET_ENV) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printexpunsenv
 
+expandvar:	$(LIBFT) $(OBJS_EXPANDVAR)
+	$(CC) $(CFLAGS) $(OBJS_EXPANDVAR) $(LIBFT) -o $@
+
 clean:
-		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_EXP_UNSET_ENV)
+		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR)
 
 fclean: clean
-		$(RM) printtoken printexpunsenv
+		$(RM) printtoken printexpunsenv expandvar
 
 re:			fclean all

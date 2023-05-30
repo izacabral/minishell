@@ -6,12 +6,13 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/23 11:04:41 by vchastin         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:56:34 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
+# include <stdlib.h>
 
 typedef enum e_tkn
 {
@@ -62,6 +63,14 @@ typedef struct s_shell
 	int					*reds;
 }						t_shell;
 
+typedef struct s_string
+{
+	size_t			length;
+	char			*content;
+	struct s_string	*last;
+	struct s_string	*next;
+}					t_string;
+
 /* T_TOKEN  */
 t_token		*new_token(char *ptr, t_tkn t);
 void		addback_token(t_token **lst, t_token *new);
@@ -78,5 +87,16 @@ t_env		*new_env(char *key, char *value, int size);
 t_env		*add_env(t_env *env, char *key, char *value);
 void		del_one(t_env *node);
 void		del_lst(t_env *env);
+
+/* T_STRING */
+t_string	*ft_strnew(char *str, size_t length);
+void		ft_stradd_front(t_string **lst, t_string *new);
+void		ft_strsetlast(t_string *lst, t_string *laststr);
+void		ft_stradd_back(t_string **lst, t_string *new);
+void		ft_strdelone(t_string *lst, void (*del)(void *));
+void		ft_strclear(t_string **lst, void (*del)(void *));
+int			ft_strsize(t_string *lst);
+size_t		ft_strtotallen(t_string *lst);
+char		*ft_lst_to_str(t_string *lst);
 
 #endif

@@ -8,8 +8,11 @@ minishell
 printtoken
 tokenization
 lexer
+execve
+expandvar
 *.log
 printexpunsenv
+
 
 # Prerequisites
 *.d
