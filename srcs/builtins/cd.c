@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:18:32 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/05/29 15:26:49 by dmatavel         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:20:14 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,38 @@ char	*get_home(t_shell data)
 
 int	cd(t_shell data, char *path)
 {
-	puts(path);
+	int	ret;
+
 	set_oldpwd(data);
 	if (!path)
-		chdir(get_home(data));
+	{
+		if (!get_home(data))
+		{
+			printf("minishel: cd: HOME not set\n");
+			return (ret = 1);
+		}
+		else
+			chdir(get_home(data));
+	}
 	else
-		chdir(path);
+	{
+		if (chdir(path) == -1)
+		{
+			printf("minishel: cd: %s: No such file or directory", path);
+			return (ret = 1);
+		}
+	}
 	set_pwd(data);
+	return (0);
+}
+
+int	test_cd(t_shell data)
+{
+	int		ret;
+	char	*ptr;
+
+	ptr = NULL;
+	if (cd(data, ptr) == 1)
+		return (ret = 1);
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_cd.c                                          :+:      :+:    :+:   */
+/*   03_test_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 09:21:41 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/05/29 15:25:13 by dmatavel         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:11:05 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,40 @@ char	*get_home(t_shell data)
 
 int	cd(t_shell data, char *path)
 {
-	puts(path);
+	int	ret;
+
 	set_oldpwd(data);
 	if (!path)
-		chdir(get_home(data)); // checar retorno
+	{
+		if (!get_home(data))
+		{
+			printf("minishel: cd: HOME not set\n");
+			return (ret = 1);
+		}
+		else
+			chdir(get_home(data));
+	}
 	else
-		chdir(path); // checar retorno
+	{
+		if (chdir(path) == -1)
+		{
+			printf("minishel: cd: %s: No such file or directory", path);
+			return (ret = 1);
+		}
+	}
 	set_pwd(data);
 	return (0);
 }
 
-void	test_cd(t_shell data)
+int	test_cd(t_shell data)
 {
-	char	*ptr;	
-
+	int		ret;
+	char	*ptr;
+	
 	ptr = NULL;
-	cd(data, ptr);
+	if (cd(data, ptr) == 1)
+		return (ret = 1);
+	return (0);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -73,7 +91,8 @@ int	main(int ac, char **av, char **envp)
 	(void)(ac);
 
 	init_shell(&data, envp);
-	test_cd(data);
+	if (test_cd(data) == -1)
+		return (1);
 	del_lst(data.lst_env);
 	return (0);
 }
