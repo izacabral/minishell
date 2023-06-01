@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:50:05 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/31 21:51:19 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/01 00:19:11 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	unset(t_env *env, char *key)
 		prev = 1;
 		new = new->next;
 	}
-	env->size--;
 }
 
 /*

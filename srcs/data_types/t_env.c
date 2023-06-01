@@ -6,26 +6,29 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:57:04 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/31 21:45:32 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/01 00:36:20 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
- * Input			:void *arg - argument can be of any type
- * Scope			:checks whether dynamic memory allocation has occurred
- * Output			:none
- * 					:or
- * 					:error and exit
- */
-void	protect_malloc(void *arg)
+void	set_envsize(t_env *env)
 {
-	if (arg == NULL)
+	int	nodes;
+
+	if (env->size)
+		return ;
+	env->size = malloc(sizeof(*env->size));
+	protect_malloc((void *)env->size);
+	nodes = 1;
+	while (env->next)
 	{
-		printf("%s\n", strerror(errno));
-		exit(errno);
+		env->next->size = env->size;
+		env = env->next;
+		nodes++;
 	}
+	*env->size = nodes;
+	printf("nodes: %i\n", *env->size);
 }
 
 /*
@@ -35,7 +38,7 @@ void	protect_malloc(void *arg)
  * Scope			:adding the key and value in a new node
  * Output			:a new node with the data from env
  */
-t_env	*new_env(char *key, char *value, int size)
+t_env	*new_env(char *key, char *value)
 {
 	t_env	*node;
 
@@ -44,7 +47,7 @@ t_env	*new_env(char *key, char *value, int size)
 	node->key = ft_strdup(key);
 	node->value = ft_strtrim(value, "'");
 	node->next = NULL;
-	node->size = size;
+	node->size = NULL;
 	return (node);
 }
 
@@ -59,7 +62,7 @@ t_env	*addfront_env(t_env *env, char *key, char *value)
 {
 	t_env	*new;
 
-	new = new_env(key, value, 0);
+	new = new_env(key, value);
 	if (env == NULL)
 		env = new;
 	else
@@ -67,6 +70,8 @@ t_env	*addfront_env(t_env *env, char *key, char *value)
 		new->next = env;
 		env = new;
 	}
+	if (env->size)
+		*env->size += 1;
 	return (env);
 }
 
@@ -74,6 +79,11 @@ void	envdel_one(t_env *node)
 {
 	free(node->key);
 	free(node->value);
+	if (node->size && *node->size == 1)
+		free(node->size);
+	else if (node->size)
+		*node->size -= 1;
+	node->size = NULL;
 	free(node);
 }
 
@@ -89,7 +99,11 @@ void	clear_env(t_env *env)
 	while (env)
 	{
 		node = env->next;
-		del_one(env);
+		*env->size -= 1;
+		if (!*env->size)
+			free(env->size);
+		env->size = NULL;
+		envdel_one(env);
 		env = node;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:49:52 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/23 08:52:33 by vchastin         ###   ########.fr       */
+/*   Updated: 2023/06/01 00:12:36 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ static void	append_env(t_env *env, char *key, char *value, char *str)
 		env = env->next;
 	if (value == NULL && ft_strchr(str, '='))
 		value = "";
-	env->next = new_env(key, value, env->size);
-	env->size++;
+	env->next = new_env(key, value);
+	env->next->size = env->size;
+	*env->size += 1;
 }
 
 /*

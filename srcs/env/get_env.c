@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:37:16 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/31 21:46:49 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/01 00:35:04 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ t_env	*get_env(char *environ[])
 		dict_split = NULL;
 		index++;
 	}
-	env->size = index;
+	set_envsize(env);
 	return (env);
 }

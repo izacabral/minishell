@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:50:00 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/31 21:53:37 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/01 00:20:58 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ static t_env	*copy_env_list(t_env *env)
 	t_env	*new_node;
 	t_env	*tmp_node;
 
-	new_node = new_env(env->key, env->value, 0);
+	new_node = new_env(env->key, env->value);
 	tmp_node = new_node;
 	env = env->next;
 	while (env)
 	{
-		tmp_node->next = new_env(env->key, env->value, 0);
+		tmp_node->next = new_env(env->key, env->value);
 		tmp_node = tmp_node->next;
 		env = env->next;
 	}

@@ -32,7 +32,7 @@ SRCS_P_EXP_UNSET_ENV	= test_export_unset_env.c ../../srcs/builtins/export_error.
 							../../srcs/builtins/compare_key.c ../../srcs/builtins/export_builtin.c \
 							../../srcs/builtins/print_export.c ../../srcs/builtins/unset_builtin.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c \
 							../../srcs/data_types/t_env.c ../../srcs/prompt/init_shell.c\
-
+							../../srcs/data_types/protect_malloc.c
 
 OBJS_P_EXP_UNSET_ENV	=	$(SRCS_P_EXP_UNSET_ENV:.c=.o)
 
@@ -40,6 +40,7 @@ SRCS_T_ENV	= test_t_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins
 							../../srcs/builtins/compare_key.c ../../srcs/builtins/export_builtin.c \
 							../../srcs/builtins/print_export.c ../../srcs/builtins/unset_builtin.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c \
 							../../srcs/data_types/t_env.c ../../srcs/prompt/init_shell.c\
+							../../srcs/data_types/protect_malloc.c
 
 
 OBJS_T_ENV	=	$(SRCS_T_ENV:.c=.o)

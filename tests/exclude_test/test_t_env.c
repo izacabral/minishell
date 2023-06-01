@@ -68,7 +68,7 @@ static void	print_list(t_env *lst, int size)
 	while (lst)
 	{
 		printf("[%d]\n", i);
-		printf("key = %s\nvalue = %s\nsize = %i\n\n", lst->key, lst->value, lst->size);
+		printf("key = %s\nvalue = %s\nsize = %i\n\n", lst->key, lst->value, *lst->size);
 		i++;
 		lst = lst->next;
 	}
