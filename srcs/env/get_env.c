@@ -6,11 +6,13 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:37:16 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/01 00:35:04 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:57:45 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "types.h"
+#include <stdlib.h>
 
 /*
  * Input		:char *environ[] - environment variable
@@ -31,6 +33,7 @@ t_env	*get_env(char *environ[])
 	{
 		dict_split = ft_split(environ[index], '=');
 		env = addfront_env(env, dict_split[0], dict_split[1]);
+		freetab((void **)dict_split);
 		dict_split = NULL;
 		index++;
 	}

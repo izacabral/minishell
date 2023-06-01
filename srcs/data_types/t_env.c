@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:57:04 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/01 00:36:20 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:46:55 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,8 @@ void	envdel_one(t_env *node)
 {
 	free(node->key);
 	free(node->value);
-	if (node->size && *node->size == 1)
+	if (node->size)
 		free(node->size);
-	else if (node->size)
-		*node->size -= 1;
 	node->size = NULL;
 	free(node);
 }
@@ -92,18 +90,19 @@ void	envdel_one(t_env *node)
  * Scope			:clear env list
  * Output			:none
  */
-void	clear_env(t_env *env)
+void	clear_env(t_env **env)
 {
 	t_env	*node;
 
-	while (env)
+	while (*env)
 	{
-		node = env->next;
-		*env->size -= 1;
-		if (!*env->size)
-			free(env->size);
-		env->size = NULL;
-		envdel_one(env);
-		env = node;
+		node = *env;
+		*env = (*env)->next;
+		*node->size -= 1;
+		if (!*node->size)
+			free(node->size);
+		node->size = NULL;
+		envdel_one(node);
+		node = NULL;
 	}
 }

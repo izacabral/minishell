@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/01 00:35:10 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:46:20 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ void		protect_malloc(void *arg);
 t_env		*new_env(char *key, char *value);
 t_env		*addfront_env(t_env *env, char *key, char *value);
 void		envdel_one(t_env *node);
-void		clear_env(t_env *env);
+void		clear_env(t_env **env);
 void		set_envsize(t_env *env);
+t_env		*env_unlink(t_env **lst, t_env *to_remove);
 
 /* T_SENTENCE  */
 t_sentence	*new_sentence(char **args);

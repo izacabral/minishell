@@ -22,7 +22,8 @@ int	main(void)
 	call_unset(&data, "var3");
 	print_list(data.lst_env, 4);
 	call_unset(&data, "var5");
-	print_list(data.lst_env, 4);
+	print_list(data.lst_env, 3);
+	clear_env(&data.lst_env);
 	return (0);
 }
 
@@ -56,7 +57,7 @@ static void	call_unset(t_shell *data, const char *to_remove)
 	arg[2] = NULL;
 	arg[1] = strdup(to_remove);
 	arg[0] = strdup("unset");
-	unset_builtins(2, arg, *data);
+	unset_builtins(2, arg, data);
 	freetab((void **)arg);
 }
 
