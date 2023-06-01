@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:57:04 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/01 17:46:55 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:35:55 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,13 @@ void	clear_env(t_env **env)
 	{
 		node = *env;
 		*env = (*env)->next;
-		*node->size -= 1;
-		if (!*node->size)
-			free(node->size);
-		node->size = NULL;
+		if (node->size)
+		{
+			*node->size -= 1;
+			if (!*node->size)
+				free(node->size);
+			node->size = NULL;
+		}
 		envdel_one(node);
 		node = NULL;
 	}
