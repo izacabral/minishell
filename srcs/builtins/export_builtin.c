@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:49:52 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/01 00:12:36 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:18:54 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,17 @@ static void	add_export(t_env *env, char *str)
  * 					:or
  * 					:add a new environment variable (if true)
  */
-int	export_builtins(int size, char *str[], t_shell data)
+int	export_builtins(int size, char *str[], t_shell *data)
 {
 	int		i;
 
 	i = 0;
 	if (size == 1)
 	{
-		print_export(data.lst_env);
+		print_export(data->lst_env);
 		return (0);
 	}
 	while (++i < size)
-		add_export(data.lst_env, str[i]);
+		add_export(data->lst_env, str[i]);
 	return (0);
 }
