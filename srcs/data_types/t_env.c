@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_add_env.c                                      :+:      :+:    :+:   */
+/*   t_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:57:04 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/23 08:57:06 by vchastin         ###   ########.fr       */
+/*   Updated: 2023/05/31 21:45:32 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_env	*new_env(char *key, char *value, int size)
  * Scope			:creating a new node
  * Output			:add keys and values to the node
  */
-t_env	*add_env(t_env *env, char *key, char *value)
+t_env	*addfront_env(t_env *env, char *key, char *value)
 {
 	t_env	*new;
 
@@ -70,7 +70,7 @@ t_env	*add_env(t_env *env, char *key, char *value)
 	return (env);
 }
 
-void	del_one(t_env *node)
+void	envdel_one(t_env *node)
 {
 	free(node->key);
 	free(node->value);
@@ -82,7 +82,7 @@ void	del_one(t_env *node)
  * Scope			:clear env list
  * Output			:none
  */
-void	del_lst(t_env *env)
+void	clear_env(t_env *env)
 {
 	t_env	*node;
 

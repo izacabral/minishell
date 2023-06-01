@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:50:00 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/23 08:53:03 by vchastin         ###   ########.fr       */
+/*   Updated: 2023/05/31 21:53:37 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,5 @@ void	print_export(t_env *env)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		node = node->next;
 	}
-	del_lst(env_sorted);
+	clear_env(env_sorted);
 }

@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:50:05 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/23 08:51:04 by vchastin         ###   ########.fr       */
+/*   Updated: 2023/05/31 21:51:19 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	unset(t_env *env, char *key)
 			if (prev == 0)
 				env = node->next;
 			new->next = node->next;
-			del_one(node);
+			envdel_one(node);
 			break ;
 		}
 		prev = 1;
