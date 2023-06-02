@@ -30,7 +30,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
-# include <errno.h>
 
 extern int	g_global;
 
@@ -56,8 +55,21 @@ void		expandvars(char **sentences, t_env *env);
 t_string	*path_to_lst(char *path);
 
 // srcs/exec/
-int			call_execve(char **args, t_string *path);
+int			call_execve(char **args, char *path);
 char		*prefix_slash(char **str);
+
+// srcs/builtins/
+int			check_export(char *key, char *str);
+int			check_unset(char *key);
+t_env		*compare_key(t_env *env, char *key);
+int			export_builtins(int size, char *str[], t_shell data);
+void		export_error(char *str);
+void		print_env(t_env *env);
+void		print_export(t_env *env);
+int			unset_builtins(int size, char *str[], t_shell data);
+
+// srcs/env/
+t_env		*get_env(char *environ[]);
 
 // srcs/sentence/
 void		create_sentences(t_env *env, t_token **lst_token, \
@@ -79,5 +91,12 @@ void		export_error(char *str);
 void		print_env(t_env *env);
 void		print_export(t_env *env);
 int			unset_builtins(int size, char *str[], t_shell data);
+
+// srcs/builtins/
+int			ft_echo(char **arg);
+int			ft_exit(int n);
+
+//srcs/builtins
+int			pwd(void);
 
 #endif

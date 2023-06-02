@@ -6,11 +6,12 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:41:43 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/19 23:59:52 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/27 00:27:58 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "types.h"
 
 static int	get_comm(char **comm, t_string *path_lst);
 static int	ispath(char *s);
@@ -21,17 +22,24 @@ static int	test_acess(char *pathname);
  * Fn		: call_execve(char **argsm char *path)
  * Scope	: testa executável em args[0] e chama execve()
  * Input	: char ** - comando e argumentos a serem executados
- *			: t_string * - variável PATH convertida para uma lista
+ *			: char * - variável PATH
  *			: conversão facilita leitura e manipulação
  *			: alternativa possível à lista seria char **
  * Output	: int - 0 (sucesso)
  * Errors	: int - 1: não é um comando executável ou arquivo não existe
  * Uses		: [WIP] a ser integrado.
  */
-int	call_execve(char **args, t_string *path)
+int	call_execve(char **args, char *path)
 {
-	if (get_comm(&args[0], path))
+	t_string	*p;
+
+	p = path_to_lst(path);
+	if (get_comm(&args[0], p))
+	{
+		ft_strclear(&p, free);
 		return (1);
+	}
+	ft_strclear(&p, free);
 	launch_command(args);
 	return (0);
 }
