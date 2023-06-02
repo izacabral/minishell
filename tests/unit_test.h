@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unit_test.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
+/*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 09:52:54 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/23 09:02:18 by vchastin         ###   ########.fr       */
+/*   Updated: 2023/05/19 09:53:00 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <stdio.h>
 
-void	teste_export(t_shell data);
 void	prt(int i, char *s);
 
 void	prt(int i, char *s)

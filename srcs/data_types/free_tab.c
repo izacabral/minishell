@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
+/*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 09:18:43 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/23 08:57:28 by vchastin         ###   ########.fr       */
+/*   Updated: 2023/05/19 09:18:48 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,4 @@ void	freetab(void **ptr)
 		i++;
 	}
 	free(ptr);
-}
-
-void	free_array(char **tab)
-{
-	size_t	i;
-	char	*s;
-
-	i = 0;
-	while (tab[i])
-	{
-		s = tab[i];
-		free(s);
-		i++;
-	}
-	free(tab);
-	tab = NULL;
 }
