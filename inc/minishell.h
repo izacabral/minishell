@@ -105,6 +105,6 @@ int			ft_echo(char **arg);
 int			ft_exit(int n);
 
 //srcs/builtins
-int		pwd(void);
+int			pwd(void);
 
 #endif
