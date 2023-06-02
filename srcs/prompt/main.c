@@ -14,13 +14,24 @@
 
 int	g_global = 0;
 
-int	main(int argc, char *argv[], char *envp[])
+//init **lst_env 
+//data->lst_sentence = NULL;
+void	init_shell(t_shell *data)
+{
+	data->line = NULL;
+	data->lst_token = NULL;
+	data->sentence_count = 0;
+	data->pipe_count = 0;
+	data->redirect_count = 0;
+	data->pipes = NULL;
+	data->reds = NULL;
+}
+
+int	main(void)
 {
 	t_shell	data;
 
-	(void)(argv);
-	(void)(argc);
-	init_shell(&data, envp);
+	init_shell(&data);
 	setup_signals();
 	while (1)
 	{
@@ -36,6 +47,5 @@ int	main(int argc, char *argv[], char *envp[])
 		if (*data.line)
 			add_history(data.line);
 	}
-	del_lst(data.lst_env);
 	return (0);
 }
