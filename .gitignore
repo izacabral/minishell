@@ -9,6 +9,7 @@ printtoken
 tokenization
 lexer
 *.log
+printexpunsenv
 
 # Prerequisites
 *.d
