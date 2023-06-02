@@ -22,6 +22,9 @@ SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../../srcs/parser/isdelim
 
 OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 
+SRCS_PWD		=	test_pwd.c ../../srcs/builtins/pwd.c
+
+OBJS_PWD		=	$(SRCS_PWD:.c=.o)
 
 SRCS_ECHO		=	test_echo.c ../../srcs/builtins/echo.c
 
@@ -89,11 +92,13 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken printsentence printexpunsenv expandvar execve echo
+all: printtoken printsentence printexpunsenv expandvar execve echo pwd
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
 
+pwd :	$(OBJS_PWD)
+		$(CC) $^ -o $@
 
 echo:	$(LIBFT) $(OBJS_ECHO)
 	$(CC) $(OBJS_ECHO) $(LIBFT) -o $@
@@ -112,9 +117,11 @@ printsentence: $(LIBFT) $(OBJS_P_SENTENCE)
 	$(CC) $(OBJS_P_SENTENCE) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printsentence
 
 clean:
-		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR) $(OBJS_EXECVE) $(OBJS_ECHO)
+		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR) $(OBJS_EXECVE) $(OBJS_ECHO) $(OBJS_PWD)
 
 fclean: clean
-		$(RM) printtoken printsentence printexpunsenv expandvar execve echo
+		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd
 
 re:			fclean all
+
+.PHONY	:	all clean fclean re

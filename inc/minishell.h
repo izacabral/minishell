@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/01 23:10:57 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/25 18:49:41 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,8 @@ int			unset_builtins(int size, char *str[], t_shell data);
 // srcs/builtins/
 int			ft_echo(char **arg);
 int			ft_exit(int n);
+
+//srcs/builtins
+int			pwd(void);
 
 #endif
