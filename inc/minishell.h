@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/25 18:49:41 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:27:43 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,10 @@
 extern int	g_global;
 
 // srcs/prompt/
-void		setup_signals(void);
-void		int_handler(int signum);
-char		*rl_gets(char *line);
-void		launch_prog(t_shell *data);
 void		init_shell(t_shell *data, char *envp[]);
 void		launch_prog(t_shell *data);
 void		int_handler(int signum);
-char		*rl_gets(char *line);
-void		init_shell(t_shell *data, char *envp[]);
-void		launch_prog(t_shell *data);
-void		int_handler(int signum);
-char		*rl_gets(char *line);
+char		*readline_gets(char *line);
 void		setup_signals(void);
 
 // srcs/parser/
