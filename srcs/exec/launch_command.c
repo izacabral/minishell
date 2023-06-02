@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   launch_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/19 09:46:51 by bda-silv         ###   ########.fr       */
+/*   Created: 2023/05/19 14:41:23 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/19 14:41:24 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_global = 0;
-
-int	main(int argc, char *argv[], char *envp[])
+/*
+ * Fn		: launch_command(char **args)
+ * Scope	: cria um processo que chama execve()
+ * Input	: char ** - argumentos para execve()
+ * Output	: int - 0 (sucesso)
+ * Errors	: -1 - erro do execve()
+ * Uses		: call_execve (call_execve.c)
+ */
+int	launch_command(char **args)
 {
-	t_shell	data;
+	int	pid;
 
-	(void)(argv);
-	(void)(argc);
-	init_shell(&data, envp);
-	setup_signals();
-	while (1)
+	pid = fork();
+	if (!pid)
 	{
-		data.line = rl_gets(data.line);
-		if (!data.line)
-			break ;
-		if (!ft_strncmp(data.line, "exit", 5))
-		{
-			free(data.line);
-			break ;
-		}
-		launch_prog(&data);
-		if (*data.line)
-			add_history(data.line);
+		if ((execve(*args, args, NULL)) < 0)
+			exit(-1);
 	}
-	del_lst(data.lst_env);
+	else
+		waitpid(pid, NULL, 0);
 	return (0);
 }

@@ -9,9 +9,14 @@ printtoken
 tokenization
 lexer
 echo
+execve
+printsentence
+expandvar
+printexpunsenv
 
 # Prerequisites
 *.d
+*.log
 
 # Object files
 *.o
