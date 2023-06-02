@@ -22,11 +22,17 @@ SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../../srcs/parser/isdelim
 
 OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 
+SRCS_PWD		=	test_pwd.c ../../srcs/builtins/pwd.c
 
-SRCS_EXECVE		=	../test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/path_to_lst.c \
-					../../srcs/exec/prefix_slash.c ../../srcs/exec/launch_command.c ../../srcs/data_types/ft_stradd_back.c \
-					../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strsetlast.c \
-					../../srcs/data_types/ft_strnew.c ../../srcs/data_types/free_tab.c
+OBJS_PWD		=	$(SRCS_PWD:.c=.o)
+
+SRCS_ECHO		=	test_echo.c ../../srcs/builtins/echo.c
+
+OBJS_ECHO		=	$(SRCS_ECHO:.c=.o)
+
+SRCS_EXECVE		=	test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/path_to_lst.c ../../srcs/exec/prefix_slash.c ../../srcs/exec/launch_command.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_strnew.c ../../srcs/data_types/free_tab.c
+
+OBJS_EXECVE		=	$(SRCS_EXECVE:.c=.o)
 
 SRCS_P_EXP_UNSET_ENV	= test_export_unset_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins/check_export.c ../../srcs/builtins/check_unset.c ../../srcs/builtins/print_env.c \
 							../../srcs/builtins/compare_key.c ../../srcs/builtins/export_builtin.c \
@@ -98,10 +104,20 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken printsentence printexpunsenv expandvar t_env
+all: printtoken printsentence printexpunsenv expandvar execve echo pwd t_env
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
+
+pwd :	$(OBJS_PWD)
+		$(CC) $^ -o $@
+
+echo:	$(LIBFT) $(OBJS_ECHO)
+	$(CC) $(OBJS_ECHO) $(LIBFT) -o $@
+
+execve: $(LIBFT) $(OBJS_EXECVE)
+	cc hello_world.c -o hello_world
+	$(CC) $(OBJS_EXECVE) $(LIBFT) -o $@
 
 printexpunsenv: $(LIBFT) $(OBJS_P_EXP_UNSET_ENV)
 	$(CC) $(OBJS_P_EXP_UNSET_ENV) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printexpunsenv
@@ -116,9 +132,11 @@ t_env: $(LIBFT) $(OBJS_T_ENV)
 	$(CC) $(CFLAGS) $(OBJS_T_ENV) $(LIBFT) -o $@
 
 clean:
-		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR) $(OBJS_T_ENV)
+		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR) $(OBJS_EXECVE) $(OBJS_ECHO) $(OBJS_PWD) $(OBJS_T_ENV)
 
 fclean: clean
-		$(RM) printtoken printsentence printexpunsenv expandvar t_env
+		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env
 
 re:			fclean all
+
+.PHONY	:	all clean fclean re

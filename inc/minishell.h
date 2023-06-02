@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/01 18:19:13 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/02 02:50:05 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
-# include <errno.h>
 
 extern int	g_global;
 
@@ -38,7 +37,7 @@ extern int	g_global;
 void		init_shell(t_shell *data, char *envp[]);
 void		launch_prog(t_shell *data);
 void		int_handler(int signum);
-char		*rl_gets(char *line);
+char		*readline_gets(char *line);
 void		setup_signals(void);
 
 // srcs/parser/
@@ -51,12 +50,10 @@ int			lexer(t_token *lst);
 // srcs/env/
 t_env		*get_env(char *environ[]);
 void		expandvars(char **sentences, t_env *env);
-
-// srcs/env/
 t_string	*path_to_lst(char *path);
 
 // srcs/exec/
-int			call_execve(char **args, t_string *path);
+int			call_execve(char **args, char *path);
 char		*prefix_slash(char **str);
 
 // srcs/sentence/
@@ -79,5 +76,8 @@ void		export_error(char *str);
 void		print_env(t_env *env);
 void		print_export(t_env *env);
 int			unset_builtins(int size, char *str[], t_shell *data);
+int			ft_echo(char **arg);
+int			ft_exit(int n);
+int			pwd(void);
 
 #endif

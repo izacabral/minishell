@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_unlink.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/02 02:54:03 by daolivei          #+#    #+#             */
+/*   Updated: 2023/06/02 02:54:05 by daolivei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	remove_first(t_env **lst, t_env *to_remove);
-static void remove_last(t_env **lst, t_env *to_remove);
-static void remove_middle(t_env **lst, t_env *to_remove);
+static void	remove_last(t_env **lst, t_env *to_remove);
+static void	remove_middle(t_env **lst, t_env *to_remove);
 
 t_env	*env_unlink(t_env **lst, t_env *to_remove)
 {
@@ -30,26 +42,26 @@ static void	remove_first(t_env **lst, t_env *to_remove)
 	to_remove->size = NULL;
 }
 
-static void remove_last(t_env **lst, t_env *to_remove)
+static void	remove_last(t_env **lst, t_env *to_remove)
 {
 	t_env	*previous;
 
 	previous = *lst;
 	while (previous->next != to_remove)
 		previous = previous->next;
-	previous->next =  to_remove->next;
+	previous->next = to_remove->next;
 	to_remove->next = NULL;
 	to_remove->size = NULL;
 }
 
-static void remove_middle(t_env **lst, t_env *to_remove)
+static void	remove_middle(t_env **lst, t_env *to_remove)
 {
 	t_env	*previous;
 
 	previous = *lst;
 	while (previous->next != to_remove)
 		previous = previous->next;
-	previous->next =  to_remove->next;
+	previous->next = to_remove->next;
 	to_remove->next = NULL;
 	to_remove->size = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 09:47:32 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/19 09:47:39 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:18:31 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 //After a call to execve() the signals action are reset to default.
 //SIGQUIT is set to be ignored here, but this might need to be changed,
 // as CTRL+D can be used to quit a command in execution.
+/*
+ * Fn		: setup_signals(void)
+ * Scope	: setup the signals for interactive mode
+ *			: SIGINT (Ctrl + C) is set to int_handler function
+ *			: SIGQUIT (Ctrl + \) is set to be ignored
+ * Input	: void
+ * Output	: void
+ * Errors	: not applicable
+ * Uses		: main() [main.c]
+ */
 void	setup_signals(void)
 {
 	struct sigaction	int_action;

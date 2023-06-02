@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 22:49:22 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/31 22:49:24 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/02 02:52:13 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,3 @@ void	protect_malloc(void *arg)
 		exit(errno);
 	}
 }
-

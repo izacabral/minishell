@@ -8,8 +8,9 @@ minishell
 printtoken
 tokenization
 lexer
+pwd
+echo
 execve
-*.log
 printsentence
 expandvar
 printexpunsenv
@@ -17,6 +18,7 @@ t_env
 
 # Prerequisites
 *.d
+*.log
 
 # Object files
 *.o
