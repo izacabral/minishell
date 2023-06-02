@@ -14,8 +14,8 @@ void print_exp_unset_env(int argc, char *argv[], t_shell *info)
     int size = 0;
     if (ft_strncmp(argv[1], "environment", 10) == 0)
     {
-        char *str1[] = {"export", "student=vchastin"};
-        char *str2[] = {"export", "_daniel=22"};
+        char *str1[] = {"export", "student='vchastin'"};
+        char *str2[] = {"export", "_daniel=\"22 + 20\""};
         char *str3[] = {"export", "_alibaba=brasil+egito"};
         char *str4[] = {"export", "IZA="};
         printf("___________________________________________________________\n");

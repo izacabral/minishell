@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:57:04 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/01 18:35:55 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/02 02:22:19 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,14 @@ t_env	*new_env(char *key, char *value)
 	node = (t_env *)malloc(sizeof(t_env));
 	protect_malloc(node);
 	node->key = ft_strdup(key);
-	node->value = ft_strtrim(value, "'");
+	node->value = NULL;
+	if (value)
+	{
+		if (*value == '\'')
+			node->value = ft_strtrim(value, "'");
+		else
+			node->value = ft_strtrim(value, "\"");
+	}
 	node->next = NULL;
 	node->size = NULL;
 	return (node);
