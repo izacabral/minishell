@@ -1,11 +1,10 @@
-#include "minishell.h"
 #include "unit_test.h"
 #include <string.h>
 
 static char		*find_path(char **env);
-static int		test_exec1(t_string *path);
+static int		test_exec1(char *path);
 static char	***create_tests1(void);
-static int		test_exec2(t_string *path);
+static int		test_exec2(char *path);
 static char	***create_tests2(void);
 
 /*
@@ -13,28 +12,17 @@ static char	***create_tests2(void);
  * Compilar com a libft e os arquivos:
  * tests/test_execve.c srcs/exec/call_execve.c srcs/exec/path_to_lst.c srcs/exec/prefix_slash.c srcs/exec/launch_command.c srcs/data_types/ft_stradd_back.c srcs/data_types/ft_strclear.c srcs/data_types/ft_strdelone.c srcs/data_types/ft_strsetlast.c srcs/data_types/ft_strnew.c srcs/data_types/free_tab.c -Itests -Iinc -Ilibft -Ilibft/ft_printf -Llibft -lft
  *
- * Criar um arquivo hello_world em separado:
- *
- * #include <stdio.h>
- *
- * int	main(void)
- * {
- *	puts("Hello World!");
- *	return (0);
- * }
  */
 int	main(int argc, char **argv, char **envp)
 {
 	char		*p;
-	t_string	*path;
 	int			fail;
 
 	p = find_path(envp);
-	path = path_to_lst(p);
 	fail = 0;
-	if (test_exec1(path))
+	if (test_exec1(p))
 		fail = 1;
-	if (test_exec2(path))
+	if (test_exec2(p))
 		fail = 1;
 	if (fail)
 		printf("\033[031mExecve FAIL\033[0m\n");
@@ -59,7 +47,7 @@ static char		*find_path(char **env)
 	return (NULL);
 }
 
-static int	test_exec1(t_string *path)
+static int	test_exec1(char *path)
 {
 	char		***tests;
 	const int	size = 4;
@@ -127,7 +115,7 @@ static char	***create_tests1(void)
 	return (tests);
 }
 
-static int	test_exec2(t_string *path)
+static int	test_exec2(char *path)
 {
 	char	***tests;
 	const int	size = 2;
