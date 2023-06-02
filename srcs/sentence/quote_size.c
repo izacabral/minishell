@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   sentence.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 20:41:43 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/14 20:41:48 by izsoares         ###   ########.fr       */
+/*   Created: 2023/05/21 20:08:15 by izsoares          #+#    #+#             */
+/*   Updated: 2023/05/21 20:08:18 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#include "minishell.h"
 
-# define BIN	"/bin/"
-# define USRBIN	"/usr/bin/"
-# define LOCBIN	"/usr/local/bin/"
-# define ERROR_BUILTINS -1
-# define SUCESS_BUILTINS 1
+/*
+ * Fn		: quote_size(char *str, char quote)
+ * Scope	: counts bytes that are between quotes
 
-#endif
+ * Input	: the string that is being scanned and the quote type
+ * Output	: the number of bytes that are between quotes
+ * Errors	: not applicable
+ *
+ * Uses		: new_index()
+ */
+int	quote_size(char *str, char quote)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != quote)
+		i++;
+	return (i);
+}

@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   test_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*   By: fpeixoto <fpeixoto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 20:41:43 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/14 20:41:48 by izsoares         ###   ########.fr       */
+/*   Created: 2023/05/15 17:49:57 by fpeixoto          #+#    #+#             */
+/*   Updated: 2023/05/20 10:59:53 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#include "minishell.h"
 
-# define BIN	"/bin/"
-# define USRBIN	"/usr/bin/"
-# define LOCBIN	"/usr/local/bin/"
-# define ERROR_BUILTINS -1
-# define SUCESS_BUILTINS 1
-
-#endif
+int	main(int argc, char **argv)
+{
+	ft_echo(&argv[0]);
+	(void)argc;
+	return (0);
+}

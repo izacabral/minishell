@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*   By: fpeixoto <fpeixoto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 20:41:43 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/14 20:41:48 by izsoares         ###   ########.fr       */
+/*   Created: 2023/05/15 19:47:56 by fpeixoto          #+#    #+#             */
+/*   Updated: 2023/05/20 11:10:05 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#include "minishell.h"
 
-# define BIN	"/bin/"
-# define USRBIN	"/usr/bin/"
-# define LOCBIN	"/usr/local/bin/"
-# define ERROR_BUILTINS -1
-# define SUCESS_BUILTINS 1
-
-#endif
+int	ft_exit(int n)
+{
+	exit(n);
+	return (0);
+}

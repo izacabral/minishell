@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lst_to_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/19 09:46:51 by bda-silv         ###   ########.fr       */
+/*   Created: 2023/05/14 16:27:45 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/14 16:27:47 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_global = 0;
-
-int	main(int argc, char *argv[], char *envp[])
+char	*ft_lst_to_str(t_string *lst)
 {
-	t_shell	data;
+	char	*str;
+	size_t	length;
+	int		i;
 
-	(void)(argv);
-	(void)(argc);
-	init_shell(&data, envp);
-	setup_signals();
-	while (1)
+	length = ft_strtotallen(lst);
+	str = malloc((length + 1) * sizeof(*str));
+	str[length] = '\0';
+	i = 0;
+	while (lst)
 	{
-		data.line = rl_gets(data.line);
-		if (!data.line)
-			break ;
-		if (!ft_strncmp(data.line, "exit", 5))
-		{
-			free(data.line);
-			break ;
-		}
-		launch_prog(&data);
-		if (*data.line)
-			add_history(data.line);
+		if (lst->content)
+			ft_memcpy(&str[i], lst->content, lst->length);
+		i += lst->length;
+		lst = lst->next;
 	}
-	del_lst(data.lst_env);
-	return (0);
+	return (str);
 }

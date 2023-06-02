@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   which_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 20:41:43 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/14 20:41:48 by izsoares         ###   ########.fr       */
+/*   Created: 2023/05/14 16:29:51 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/14 16:29:52 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#include "env.h"
 
-# define BIN	"/bin/"
-# define USRBIN	"/usr/bin/"
-# define LOCBIN	"/usr/local/bin/"
-# define ERROR_BUILTINS -1
-# define SUCESS_BUILTINS 1
-
-#endif
+t_quotes	which_quotes(char c)
+{
+	if (c == '\'')
+		return (SINGLE);
+	if (c == '\"')
+		return (DOUBLE);
+	return (NONE);
+}

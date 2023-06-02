@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unit_test.h                                        :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
+/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 09:52:54 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/23 09:02:18 by vchastin         ###   ########.fr       */
+/*   Created: 2023/05/19 14:39:49 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/19 14:39:50 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UNIT_TEST_H
-# define UNIT_TEST_H
+#ifndef EXEC_H
+# define EXEC_H
 
-# include "minishell.h"
-# include <unistd.h>
-# include <stdio.h>
-
-void	teste_export(t_shell data);
-void	prt(int i, char *s);
-
-void	prt(int i, char *s)
-{
-	while (*s)
-		write(i, &*s++, 1);
-	write(i, "\n", 1);
-}
+int		launch_command(char **args);
 
 #endif
