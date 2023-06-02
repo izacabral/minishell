@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 02:54:03 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/02 02:54:05 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/02 03:03:19 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@ static void	remove_first(t_env **lst, t_env *to_remove);
 static void	remove_last(t_env **lst, t_env *to_remove);
 static void	remove_middle(t_env **lst, t_env *to_remove);
 
+/*
+ * Fn		: env_unlink(t_env **lst, t_env *to_remove)
+ * Scope	: remove node from list and relink remaining nodes
+ * Input	: t_env ** - address of list
+ *			: t_env * - node to be unlinked
+ * Output	: t_env * - the unlinked node that can be freed
+ * Errors	: not applicable
+ * Uses		: unset
+ */
 t_env	*env_unlink(t_env **lst, t_env *to_remove)
 {
 	t_env	*tmp;

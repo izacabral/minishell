@@ -6,13 +6,11 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:37:16 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/01 17:57:45 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/02 03:07:22 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "types.h"
-#include <stdlib.h>
 
 /*
  * Input		:char *environ[] - environment variable

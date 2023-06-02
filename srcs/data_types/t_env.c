@@ -6,12 +6,21 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:57:04 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/02 02:22:19 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/02 03:06:02 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+ * Fn		: set_envsize(t_env *env)
+ * Scope	: set the size variable from t_env list
+ *			: should be used only once on the list creation
+ * Input	: t_env * - the list
+ * Output	: void
+ * Errors	: not applicable
+ * Uses		: get_env
+ */
 void	set_envsize(t_env *env)
 {
 	int	nodes;
