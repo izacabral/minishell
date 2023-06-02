@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/30 17:28:04 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/02 13:31:37 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ int	main(int argc, char *argv[], char *envp[])
 		if (*data.line)
 			add_history(data.line);
 	}
-	del_lst(data.lst_env);
+	clear_env(&data.lst_env);
 	return (0);
 }
