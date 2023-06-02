@@ -22,6 +22,11 @@ SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../../srcs/parser/isdelim
 
 OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 
+
+SRCS_ECHO		=	test_echo.c ../../srcs/builtins/echo.c
+
+OBJS_ECHO		=	$(SRCS_ECHO:.c=.o)
+
 SRCS_EXECVE		=	test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/path_to_lst.c ../../srcs/exec/prefix_slash.c ../../srcs/exec/launch_command.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_strnew.c ../../srcs/data_types/free_tab.c
 
 OBJS_EXECVE		=	$(SRCS_EXECVE:.c=.o)
@@ -84,10 +89,14 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken printsentence printexpunsenv expandvar execve
+all: printtoken printsentence printexpunsenv expandvar execve echo
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
+
+
+echo:	$(LIBFT) $(OBJS_ECHO)
+	$(CC) $(OBJS_ECHO) $(LIBFT) -o $@
 
 execve: $(LIBFT) $(OBJS_EXECVE)
 	cc hello_world.c -o hello_world
@@ -103,9 +112,9 @@ printsentence: $(LIBFT) $(OBJS_P_SENTENCE)
 	$(CC) $(OBJS_P_SENTENCE) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printsentence
 
 clean:
-		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR) $(OBJS_EXECVE)
+		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR) $(OBJS_EXECVE) $(OBJS_ECHO)
 
 fclean: clean
-		$(RM) printtoken printsentence printexpunsenv expandvar execve
+		$(RM) printtoken printsentence printexpunsenv expandvar execve echo
 
 re:			fclean all

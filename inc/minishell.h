@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/30 13:58:30 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/01 23:10:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,9 @@ void		export_error(char *str);
 void		print_env(t_env *env);
 void		print_export(t_env *env);
 int			unset_builtins(int size, char *str[], t_shell data);
+
+// srcs/builtins/
+int			ft_echo(char **arg);
+int			ft_exit(int n);
 
 #endif
