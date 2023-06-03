@@ -6,32 +6,28 @@
 /*   By: fpeixoto <fpeixoto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 00:01:33 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/06/02 00:01:52 by fpeixoto         ###   ########.fr       */
+/*   Updated: 2023/06/03 15:59:08 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 
-char	*heredoc(char *str)
+int	heredoc(char *str, int fd_out)
 {
 	char	*read;
-	char	*word;
 
-	word = NULL;
 	read = NULL;
 	while (1)
 	{
 		read = readline(">");
+		if (!read)
+			return (0);
 		if (ft_strncmp(read, str, ft_strlen(str)) == 0)
 			break ;
-		if (!word)
-		{
-			word = malloc(1);
-			word[0] = '\0';
-		}
-		word = ft_strjoin_free(word, read);
+		ft_putendl_fd(read, fd_out);
 		free(read);
 	}
 	free(read);
-	return (word);
+	return (0);
 }
