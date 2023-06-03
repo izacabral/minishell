@@ -6,10 +6,11 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:57:04 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/02 03:06:02 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/03 12:15:19 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 
 /*
@@ -54,14 +55,7 @@ t_env	*new_env(char *key, char *value)
 	node = (t_env *)malloc(sizeof(t_env));
 	protect_malloc(node);
 	node->key = ft_strdup(key);
-	node->value = NULL;
-	if (value)
-	{
-		if (*value == '\'')
-			node->value = ft_strtrim(value, "'");
-		else
-			node->value = ft_strtrim(value, "\"");
-	}
+	node->value = ft_strdup(value);
 	node->next = NULL;
 	node->size = NULL;
 	return (node);
