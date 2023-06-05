@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/02 02:36:55 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:19:51 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,16 @@ typedef struct s_sentence
 	struct s_sentence	*next;
 }						t_sentence;
 
-/* typedef struct s_shell
- *
- * TODO:
- * - Incluir:
- * 	t_env			**lst_env;
- * 	t_sentence		*lst_sentence;
- *
- * */
-
 typedef struct s_shell
 {
 	char				*line;
 	t_env				*lst_env;
 	t_token				*lst_token;
+	t_sentence			*lst_sentence;
 	int					sentence_count;
 	int					pipe_count;
 	int					redirect_count;
-	int					*pipes;
+	int					**pipes;
 	int					*reds;
 }						t_shell;
 
