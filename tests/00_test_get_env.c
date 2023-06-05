@@ -57,7 +57,7 @@ while (fake_envs[i])
 }
 
 /* LIBERAÇÃO DA T_ENV */
-del_lst(lst_env);
+clear_env(&lst_env);
 
 if (ver == 0)
 	ft_printf ("Function get_env is working well\n");

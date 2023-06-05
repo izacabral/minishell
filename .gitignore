@@ -14,6 +14,7 @@ execve
 printsentence
 expandvar
 printexpunsenv
+t_env
 
 # Prerequisites
 *.d

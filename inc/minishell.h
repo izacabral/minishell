@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/30 17:27:43 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/02 02:50:05 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,11 @@ int			lexer(t_token *lst);
 // srcs/env/
 t_env		*get_env(char *environ[]);
 void		expandvars(char **sentences, t_env *env);
-
-// srcs/env/
 t_string	*path_to_lst(char *path);
 
 // srcs/exec/
 int			call_execve(char **args, char *path);
 char		*prefix_slash(char **str);
-
-// srcs/builtins/
-int			check_export(char *key, char *str);
-int			check_unset(char *key);
-t_env		*compare_key(t_env *env, char *key);
-int			export_builtins(int size, char *str[], t_shell data);
-void		export_error(char *str);
-void		print_env(t_env *env);
-void		print_export(t_env *env);
-int			unset_builtins(int size, char *str[], t_shell data);
-
-// srcs/env/
-t_env		*get_env(char *environ[]);
 
 // srcs/sentence/
 void		create_sentences(t_env *env, t_token **lst_token, \
@@ -86,17 +71,13 @@ char		*while_no_quotes(char *str, int i, char *new_str);
 int			check_export(char *key, char *str);
 int			check_unset(char *key);
 t_env		*compare_key(t_env *env, char *key);
-int			export_builtins(int size, char *str[], t_shell data);
+int			export_builtins(int size, char *str[], t_shell *data);
 void		export_error(char *str);
 void		print_env(t_env *env);
 void		print_export(t_env *env);
-int			unset_builtins(int size, char *str[], t_shell data);
-
-// srcs/builtins/
+int			unset_builtins(int size, char *str[], t_shell *data);
 int			ft_echo(char **arg);
 int			ft_exit(int n);
-
-//srcs/builtins
 int			pwd(void);
 
 #endif

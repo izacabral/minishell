@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   03_test_cd.c                                       :+:      :+:    :+:   */
+/*   06_test_builtin_cd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 09:21:41 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/05/31 15:11:05 by dmatavel         ###   ########.fr       */
+/*   Updated: 2023/06/03 14:48:18 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	set_oldpwd(t_shell data)
 
 	ptr = getcwd(NULL, 0);
 	oldpwd = ft_strjoin("OLDPWD=", ptr);
-	unset_builtins(1, &oldpwd, data);
-	export_builtins(1, &oldpwd, data);
+	unset_builtins(1, &oldpwd, &data);
+	export_builtins(1, &oldpwd, &data);
 	free(ptr);
 	free(oldpwd);
 }
@@ -32,8 +32,8 @@ void	set_pwd(t_shell data)
 
 	ptr = getcwd(NULL, 0);
 	pwd = ft_strjoin("PWD=", ptr);
-	unset_builtins(1, &pwd, data);
-	export_builtins(1, &pwd, data);
+	unset_builtins(1, &pwd, &data);
+	export_builtins(1, &pwd, &data);
 	free(ptr);
 	free(pwd);
 }
@@ -77,7 +77,7 @@ int	test_cd(t_shell data)
 {
 	int		ret;
 	char	*ptr;
-	
+
 	ptr = NULL;
 	if (cd(data, ptr) == 1)
 		return (ret = 1);
@@ -93,6 +93,6 @@ int	main(int ac, char **av, char **envp)
 	init_shell(&data, envp);
 	if (test_cd(data) == -1)
 		return (1);
-	del_lst(data.lst_env);
+	clear_env(&data.lst_env);
 	return (0);
 }

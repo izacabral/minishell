@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/30 13:58:52 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/02 02:36:55 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	int				size;
+	int				*size;
 	struct s_env	*next;
 }						t_env;
 
@@ -90,10 +90,12 @@ void		free_array(char **tab);
 
 /* T_ENV */
 void		protect_malloc(void *arg);
-t_env		*new_env(char *key, char *value, int size);
-t_env		*add_env(t_env *env, char *key, char *value);
-void		del_one(t_env *node);
-void		del_lst(t_env *env);
+t_env		*new_env(char *key, char *value);
+t_env		*addfront_env(t_env *env, char *key, char *value);
+void		envdel_one(t_env *node);
+void		clear_env(t_env **env);
+void		set_envsize(t_env *env);
+t_env		*env_unlink(t_env **lst, t_env *to_remove);
 
 /* T_SENTENCE  */
 t_sentence	*new_sentence(char **args);
