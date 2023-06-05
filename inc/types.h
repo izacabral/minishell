@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/05 13:19:51 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:52:55 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ t_sentence	*new_sentence(char **args);
 t_sentence	*find_last_sentence(t_sentence *lst);
 void		addback_sentence(t_sentence **lst, t_sentence *new);
 void		clear_sentence(t_sentence **lst);
+int			size_sentence(t_sentence *lst_sentence);
 
 /* T_STRING */
 t_string	*ft_strnew(char *str, size_t length);

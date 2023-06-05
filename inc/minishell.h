@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/02 02:50:05 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/05 16:42:28 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		launch_prog(t_shell *data);
 void		int_handler(int signum);
 char		*readline_gets(char *line);
 void		setup_signals(void);
+void			fill_shell(t_shell *data);
 
 // srcs/parser/
 int			isquotes(char c);
@@ -79,5 +80,11 @@ int			unset_builtins(int size, char *str[], t_shell *data);
 int			ft_echo(char **arg);
 int			ft_exit(int n);
 int			pwd(void);
+
+// srcs/pipes/
+int			counting_pipes(t_token *lst_token);
+
+// srcs/redirects/
+int			counting_redirects(t_token *lst_token);
 
 #endif

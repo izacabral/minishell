@@ -34,7 +34,7 @@ int	main(void)
 	var2->next = NULL;
 	tab = malloc(12 * sizeof(*tab));
 	str1 = ft_strdup("Test variable $a for expansion");
-	str2 = ft_strdup("Test $b for no value");
+	str2 = ft_strdup("Test -$b? for no value");
 	str3 = ft_strdup("Test variable \"$a some word\" inside quotes");
 	str4 = ft_strdup("Test variable \" nested \'$a\' quotes \"");
 	str5 = ft_strdup("Test \'$a\' no expansion");
