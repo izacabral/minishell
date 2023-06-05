@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:18:32 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/06/05 12:33:10 by dmatavel         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:52:04 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,3 @@ int	cd(t_shell *data, char *path)
 	set_pwd(data);
 	return (0);
 }
-

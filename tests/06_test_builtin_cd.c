@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 09:21:41 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/06/05 12:35:52 by dmatavel         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:52:44 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	test_cd(t_shell *data)
 {
 	int		ret;
-	//char	*ptr;
 	char	*path = "42";
 
-//	ptr = NULL;
 	if (cd(data, path) == 1)
 		return (ret = 1);
 	return (0);
