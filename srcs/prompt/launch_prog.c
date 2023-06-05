@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/05 17:04:06 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:10:10 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	launch_prog(t_shell *data)
 		&& lexer(data->lst_token) == 0)
 	{
 		create_sentences(data->lst_env, &data->lst_token, &data->lst_sentence);
-		fill_shell (data);
+		//fill_shell (data);
 		while (data->lst_sentence)
 		{
 			char **args = data->lst_sentence->args;
@@ -37,7 +37,6 @@ void	launch_prog(t_shell *data)
 				ft_printf("args[%d]: %s\n", i, args[i]);
 				i++;
 			}
-			ft_printf("args[%d]: %s\n", i + 1, args[i + 1]);
 			args = NULL;
 			data->lst_sentence = data->lst_sentence->next;
 
@@ -46,7 +45,8 @@ void	launch_prog(t_shell *data)
 	else
 	{
 		clear_token(&data->lst_token);
-		clear_sentence(&data->lst_sentence);
+		if (data->lst_sentence)
+			clear_sentence(&data->lst_sentence);
 
 	}
 	//ft_printf("Number of pipes: %d", data->pipe_count);
