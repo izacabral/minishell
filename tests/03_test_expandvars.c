@@ -16,6 +16,7 @@ int	main(void)
 	char	*str7;
 	char	*str8;
 	char	*str9;
+	char	*str10;
 
 	/* CRIAÇÃO DA T_ENV PARA TESTE */
 	var1 = malloc(sizeof(*var1));
@@ -30,7 +31,8 @@ int	main(void)
 	var2->next = NULL;
 
 	/* CRIAÇÃO DAS STRINGS PARA SEREM EXPANDIDAS */
-	tab = malloc(10 * sizeof(*tab));
+	int size = 11;
+	tab = malloc(11 * sizeof(*tab));
 	str1 = ft_strdup("Test variable $a for expansion");
 	str2 = ft_strdup("Test $b for no value");
 	str3 = ft_strdup("Test variable \"$a some word\" inside quotes");
@@ -40,6 +42,7 @@ int	main(void)
 	str7 = ft_strdup("Test $ alone");
 	str8 = ft_strdup("Test \'$\' in single quotes");
 	str9 = ft_strdup("Test \"$\" in double quotes");
+	str10 = ft_strdup("Test $c in double quotes");
 	tab[0] = str1;
 	tab[1] = str2;
 	tab[2] = str3;
@@ -49,22 +52,23 @@ int	main(void)
 	tab[6] = str7;
 	tab[7] = str8;
 	tab[8] = str9;
-	tab[9] = NULL;
+	tab[9] = str10;
+	tab[10] = NULL;
 
 	/* EXPANSÃO DAS VARIÁVEIS */
 	expandvars(tab, var1);
 
 	/* CRIAÇÃO DO ARRAY DE STRINGS COMO DEVERIAM FICAR */
-	char *check[10];
+	char *check[size];
 
 	int i = 0;
-	while (i < 10)
+	while (i < size)
 	{
 		check[i] = NULL;
 		i++;
 	}
 	check[0] = "Test variable var1 for expansion";
-	check[1] = "Test  for no value";
+	check[1] = "Test for no value";
 	check[2] = "Test variable \"var1 some word\" inside quotes";
 	check[3] = "Test variable \" nested 'var1' quotes \"";
 	check[4] = "Test \'$a\' no expansion";
@@ -72,6 +76,7 @@ int	main(void)
 	check[6] = "Test $ alone";
 	check[7] = "Test \'$\' in single quotes";
 	check[8] = "Test \"$\" in double quotes";
+	check[9] = "Test in double quotes";
 
 	/* COMPARA  TAB COM OS CHECKS ESPERADOS */
 	i = 0;
@@ -104,6 +109,7 @@ int	main(void)
 	free(tab[6]);
 	free(tab[7]);
 	free(tab[8]);
+	free(tab[9]);
 	free(tab);
 
 	if (ver == 0)
