@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/05 17:10:10 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:51:29 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void print_sentence_teste(t_sentence **lst_sentence)
 			i++;
 		}
 		args = NULL;
-		tmp = tmp->next;	
+		tmp = tmp->next;
 	}
 }
 
@@ -56,6 +56,7 @@ void	launch_prog(t_shell *data)
 	ft_printf("Number of sentences: %d\n", data->sentence_count);
 	ft_printf("Number of pipes: %d\n", data->pipe_count);
 	ft_printf("Number of redirects: %d\n", data->redirect_count);
+	open_pipe_reds(data);
 	clear_token(&data->lst_token);
 	if (data->lst_sentence)
 	{
