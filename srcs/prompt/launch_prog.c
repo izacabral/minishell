@@ -12,6 +12,29 @@
 
 #include "minishell.h"
 
+void print_sentence_teste(t_sentence **lst_sentence)
+{
+	t_sentence *tmp;
+
+	tmp = *lst_sentence;
+	if (!tmp)
+		return ;
+	while (tmp)
+	{
+		char **args = tmp->args;
+		int i;
+		i = 0;
+		while (args[i])
+		{
+			ft_printf("args[%d]: %s\n", i, args[i]);
+			i++;
+		}
+		args = NULL;
+		tmp = tmp->next;	
+	}
+}
+
+
 /*
  * Fn		: launch_prog(t_shell *data)
  * Scope	: Run the REPL loop
@@ -26,29 +49,17 @@ void	launch_prog(t_shell *data)
 		&& lexer(data->lst_token) == 0)
 	{
 		create_sentences(data->lst_env, &data->lst_token, &data->lst_sentence);
-		//fill_shell (data);
-		while (data->lst_sentence)
-		{
-			char **args = data->lst_sentence->args;
-			int i;
-			i = 0;
-			while (args[i])
-			{
-				ft_printf("args[%d]: %s\n", i, args[i]);
-				i++;
-			}
-			args = NULL;
-			data->lst_sentence = data->lst_sentence->next;
-
-		}
+		fill_shell (data);
 	}
-	else
+	print_sentence_teste(&data->lst_sentence);
+
+	ft_printf("Number of sentences: %d\n", data->sentence_count);
+	ft_printf("Number of pipes: %d\n", data->pipe_count);
+	ft_printf("Number of redirects: %d\n", data->redirect_count);
+	clear_token(&data->lst_token);
+	if (data->lst_sentence)
 	{
-		clear_token(&data->lst_token);
-		if (data->lst_sentence)
-			clear_sentence(&data->lst_sentence);
-
+		clear_sentence(&data->lst_sentence);
+		fill_shell(data);
 	}
-	//ft_printf("Number of pipes: %d", data->pipe_count);
-	//ft_printf("Number of redirects: %d", data->redirect_count);
 }

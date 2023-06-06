@@ -51,13 +51,15 @@ void	create_sentences(t_env *env, t_token **lst_token, \
 			t_sentence **lst_sentence)
 {
 	char	**args;
+	t_token	*tmp;
 
-	while (*lst_token)
+	tmp = *lst_token;
+	while (tmp)
 	{
-		args = tkn_to_sentence(&(*lst_token));
+		args = tkn_to_sentence(&tmp);
 		expandvars(args, env);
 		remove_quotes(args);
 		addback_sentence(&(*lst_sentence), new_sentence(args));
-		*lst_token = get_not_word(&(*lst_token));
+		tmp = get_not_word(&tmp);
 	}
 }

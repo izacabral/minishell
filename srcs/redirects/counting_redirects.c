@@ -12,18 +12,20 @@
 
 #include "minishell.h"
 
-int counting_redirects(t_token *lst_token)
+int counting_redirects(t_token **lst_token)
 {
-	int count;
+	t_token	*tmp;
+	int		count;
 
+	tmp = *lst_token;
 	count = 0;
-	if (!lst_token)
+	if (!tmp)
 		return (0);
-	while (lst_token)
+	while (tmp)
 	{
-		if (lst_token->tkn != PIPE && lst_token->tkn != WORD)
+		if (tmp->tkn != PIPE && tmp->tkn != WORD)
 			count++;
-		lst_token = lst_token->next;
+		tmp = tmp->next;
 	}
 	return (count);
 }

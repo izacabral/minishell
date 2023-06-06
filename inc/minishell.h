@@ -82,9 +82,9 @@ int			ft_exit(int n);
 int			pwd(void);
 
 // srcs/pipes/
-int			counting_pipes(t_token *lst_token);
+int			counting_pipes(t_token **lst_token);
 
 // srcs/redirects/
-int			counting_redirects(t_token *lst_token);
+int			counting_redirects(t_token **lst_token);
 
 #endif
