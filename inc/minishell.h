@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/05 16:42:28 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:03:50 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void		launch_prog(t_shell *data);
 void		int_handler(int signum);
 char		*readline_gets(char *line);
 void		setup_signals(void);
-void			fill_shell(t_shell *data);
+void		fill_shell(t_shell *data);
+int			open_pipe_reds(t_shell *data);
 
 // srcs/parser/
 int			isquotes(char c);
