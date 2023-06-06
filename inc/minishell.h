@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/06 13:27:22 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:06:52 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_env		*get_env(char *environ[]);
 void		expandvars(char **sentences, t_env *env);
 t_string	*path_to_lst(char *path);
 int			check_varname(char *key);
+int			iscrule(int c, int first);
 
 // srcs/exec/
 int			call_execve(char **args, char *path);

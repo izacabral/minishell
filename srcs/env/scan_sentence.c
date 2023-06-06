@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/06 13:28:50 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:09:06 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,9 @@ static int	expvar(t_string **lst, char *var, t_env *env)
 	int		len;
 
 	i = 1;
-	while (var[i] && !check_varname(&var[i]))
+	if (var[i] && iscrule(var[i], 1))
+		i++;
+	while(var[i] && iscrule(var[i], 0))
 		i++;
 	if (i == 1)
 	{

@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:29:37 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/06 14:52:27 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:56:29 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 int	check_varname(char *key)
 {
-	if (!(ft_isalpha(*key) || *key != '_'))
-		return (1);
-	key++;
-	while(*key)
+	int	len;
+
+	len = 0;
+	if (!(ft_isalpha(key[len]) || key[len] != '_'))
+		return (0);
+	len++;
+	while(key[len])
 	{
-		if (!(ft_isalnum(*key) || *key !='_'))
-			return (1);
-		key++;
+		if (!(ft_isalnum(key[len]) || key[len] !='_'))
+			return (0);
+		len++;
 	}
 	return (0);
 }
