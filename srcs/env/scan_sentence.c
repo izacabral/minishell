@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/05 15:09:22 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:28:50 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ static int	expvar(t_string **lst, char *var, t_env *env)
 	char	*value;
 	int		len;
 
-	i = 0;
-	while (var[i] && !ft_isspace(var[i]) && !which_quotes(var[i]))
+	i = 1;
+	while (var[i] && !check_varname(&var[i]))
 		i++;
 	if (i == 1)
 	{
