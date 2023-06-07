@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/06 16:09:06 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:30:11 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,18 +93,11 @@ static void	split_sentence(t_string **lst, t_repl *repl, t_env *env)
 		}
 		j++;
 	}
-	if (!*lst && !tmp[j + i])
-		return ;
-	if (!tmp[i])
+	if ((!*lst && !tmp[j + i]) || !tmp[i])
 		return ;
 	repl->new = ft_substr(&tmp[i], 0, j);
 	if (repl->new && *repl->new)
 		ft_stradd_back(lst, ft_strnew(repl->new, j));
-	else if (repl->new && !*repl->new)
-	{
-		free(repl->new);
-		repl->new = NULL;
-	}
 }
 
 // guarda a string até o char anterior a $
@@ -129,13 +122,13 @@ static int	expvar(t_string **lst, char *var, t_env *env)
 	i = 1;
 	if (var[i] && iscrule(var[i], 1))
 		i++;
-	while(var[i] && iscrule(var[i], 0))
-		i++;
 	if (i == 1)
 	{
 		ft_stradd_back(lst, ft_strnew(ft_substr(var, 0, i), i));
 		return (i);
 	}
+	while (var[i] && iscrule(var[i], 0))
+		i++;
 	value = get_value(&var[1], i - 1, env);
 	len = 0;
 	if (value)

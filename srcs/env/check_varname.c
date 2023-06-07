@@ -6,13 +6,22 @@
 /*   By: daolivei <daolivei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:29:37 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/06 20:57:24 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:39:34 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 
+/*
+ * Fn		: check_varname(char *key)
+ * Scope	: check if string is a valid variable name
+ * Input	: char * - the variable name (no $)
+ * Output	: int - 1 if is a valid name
+			  int - 0 if in not a valid name
+ * Errors	: not aplicable
+ * Uses		:
+ */
 int	check_varname(char *key)
 {
 	int	len;
@@ -21,15 +30,25 @@ int	check_varname(char *key)
 	if (!(ft_isalpha(key[len]) || key[len] != '_'))
 		return (0);
 	len++;
-	while(key[len])
+	while (key[len])
 	{
-		if (!(ft_isalnum(key[len]) || key[len] !='_'))
+		if (!(ft_isalnum(key[len]) || key[len] != '_'))
 			return (0);
 		len++;
 	}
 	return (0);
 }
 
+/*
+ * Fn		: iscrule(int c, int first)
+ * Scope	: check if char is valid in the context of a shell variable name
+ * Input	: int - char to be tested
+ *			: int - bool indicated if the char is supposed to be the first letter
+ * Output	: int - 1 if is a valid name
+			  int - 0 if in not a valid name
+ * Errors	: not aplicable
+ * Uses		: expvar(), in scan_sentence.c
+ */
 int	iscrule(int c, int first)
 {
 	if (first)
