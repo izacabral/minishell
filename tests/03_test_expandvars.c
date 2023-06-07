@@ -34,7 +34,7 @@ int	main(void)
 	int size = 11;
 	tab = malloc(11 * sizeof(*tab));
 	str1 = ft_strdup("Test variable $a for expansion");
-	str2 = ft_strdup("Test $b for no value");
+	str2 = ft_strdup("Test-$b-for no value");
 	str3 = ft_strdup("Test variable \"$a some word\" inside quotes");
 	str4 = ft_strdup("Test variable \" nested \'$a\' quotes \"");
 	str5 = ft_strdup("Test \'$a\' no expansion");
@@ -42,7 +42,7 @@ int	main(void)
 	str7 = ft_strdup("Test $ alone");
 	str8 = ft_strdup("Test \'$\' in single quotes");
 	str9 = ft_strdup("Test \"$\" in double quotes");
-	str10 = ft_strdup("Test $c in double quotes");
+	str10 = ft_strdup("\"Test -$c- in double quotes\"");
 	tab[0] = str1;
 	tab[1] = str2;
 	tab[2] = str3;
@@ -68,7 +68,7 @@ int	main(void)
 		i++;
 	}
 	check[0] = "Test variable var1 for expansion";
-	check[1] = "Test for no value";
+	check[1] = "Test--for no value";
 	check[2] = "Test variable \"var1 some word\" inside quotes";
 	check[3] = "Test variable \" nested 'var1' quotes \"";
 	check[4] = "Test \'$a\' no expansion";
@@ -76,7 +76,7 @@ int	main(void)
 	check[6] = "Test $ alone";
 	check[7] = "Test \'$\' in single quotes";
 	check[8] = "Test \"$\" in double quotes";
-	check[9] = "Test in double quotes";
+	check[9] = "\"Test -- in double quotes\"";
 
 	/* COMPARA  TAB COM OS CHECKS ESPERADOS */
 	i = 0;
