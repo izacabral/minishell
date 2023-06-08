@@ -13,23 +13,62 @@
 #include "minishell.h"
 
 /*
- * Fn		: get_not_word(t_token **lst_token)
- * Scope	: loops through the token list and returns the next node in the
- *				token list of type != word or null
- * Input	: t_token ** token list
+ * Fn		: count_sentence_reds(t_token **lst_token)
+ * Scope	: loops through the list of tokens and returns the number os
+				redirects until the next pipe or end of lst_token
  *
- * Output	: t_token of != word or null type token list node
+ * Input	: t_token **lst_token
+ *
+ * Output	: number of redirects of a sentence
  * Errors	: not applicable
  *
- * Uses		: create_sentences(t_env *env, t_token **lst_token, \
- 				 t_sentence **lst_sentence)
+ * Uses		: create_sentences()
  */
-static t_token	*get_not_word(t_token **lst_token)
+static size_t	count_sentence_reds(t_token **lst_token)
+{
+	size_t	count;
+	t_token	*tmp;
+
+	count = 0;
+	tmp = *lst_token;
+	if (!tmp)
+		return (count);
+	while (tmp && tmp->tkn >= WORD)
+	{
+		if (tmp->tkn == PIPE)
+			break;
+		if (tmp->tkn > PIPE)
+			count++;
+		tmp = tmp->next;
+	}
+	return (count);
+}
+
+/*
+ * Fn		: get_next_sentence(t_token **lst_token)
+ * Scope	: loops through the list of tokens and returns the node for
+				create next sentence node or null
+ *
+ * Input	: t_token **lst_token
+ *
+ * Output	: node of lst_token to create next sentence or null
+ * Errors	: not applicable
+ *
+ * Uses		: create_sentences()
+ */
+static t_token	*get_next_sentence(t_token **lst_token)
 {
 	if (!(*lst_token))
 		return (NULL);
-	while ((*lst_token) && (*lst_token)->tkn == WORD)
+	while ((*lst_token) && (*lst_token)->tkn >= WORD)
+	{
+		if((*lst_token)->tkn == PIPE)
+		{
+			*lst_token= (*lst_token)->next;
+			break;
+		}
 		*lst_token = (*lst_token)->next;
+	}
 	return (*lst_token);
 }
 
@@ -45,21 +84,26 @@ static t_token	*get_not_word(t_token **lst_token)
  * Output	: void
  * Errors	: not applicable
  *
- * Uses		:
+ * Uses		: launch_prog();
  */
 void	create_sentences(t_env *env, t_token **lst_token, \
 			t_sentence **lst_sentence)
 {
-	char	**args;
-	t_token	*tmp;
+	char		**args;
+	t_token		*tmp_tkn;
+	t_sentence	*tmp_sen;
 
-	tmp = *lst_token;
-	while (tmp)
+	tmp_tkn = *lst_token;
+	while (tmp_tkn)
 	{
-		args = tkn_to_sentence(&tmp);
+		args = NULL;
+		args = tkn_to_sentence(&tmp_tkn);
 		expandvars(args, env);
 		remove_quotes(args);
-		addback_sentence(&(*lst_sentence), new_sentence(args));
-		tmp = get_not_word(&tmp);
+		tmp_sen = NULL;
+		tmp_sen = new_sentence(args);
+		tmp_sen->reds_inside = count_sentence_reds(&tmp_tkn);
+		addback_sentence(&(*lst_sentence), tmp_sen);
+		tmp_tkn = get_next_sentence(&tmp_tkn);
 	}
 }

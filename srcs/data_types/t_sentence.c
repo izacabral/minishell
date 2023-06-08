@@ -22,6 +22,7 @@ t_sentence	*new_sentence(char **args)
 	new_node->args = args;
 	new_node->fd_i = 0;
 	new_node->fd_o = 1;
+	new_node->reds_inside = 0;
 	new_node->previous = NULL;
 	new_node->next = NULL;
 	return (new_node);

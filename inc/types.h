@@ -45,6 +45,7 @@ typedef struct s_sentence
 	char				**args;
 	int					fd_i;
 	int					fd_o;
+	int					reds_inside;
 	struct s_sentence	*previous;
 	struct s_sentence	*next;
 }						t_sentence;

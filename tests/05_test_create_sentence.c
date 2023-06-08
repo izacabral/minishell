@@ -66,7 +66,7 @@ int	main(void)
 	}
 
 	/* COMPARA CHECK COM O RESULTADO ESPERADO*/
-	char *correct = "Test variable var1 for expansion  Test $a no expansion ls \'teste4\' clear ";
+	char *correct = "Test variable var1 for expansion <  < Test $a no expansion ls \'teste4\' > clear ";
 	ver = ft_strncmp(check, correct, (ft_strlen(correct) + 1));
 
 	/* LIBERAÇÃO DA T_ENV */
@@ -87,17 +87,16 @@ int	main(void)
 	free(lst_sen);
 
 
-	if (ver == 0 && n == 6)
+	if (ver == 0 && n == 3)
 	{
 		ft_printf("%s\n", correct);
 		ft_printf("%s\n", check);
-		ft_printf("In this test the number of senteces must be 6 n:%d\n", n);
+		ft_printf("In this test the number of senteces must be 3 n:%d\n", n);
 	}
 	else
-		ft_printf("Something is wrong with create_sentences function\n n= %d\n", n);
+		ft_printf("Something is wrong with create_sentences function\n n= %d and ver=%d\n", n, ver);
 
 	/* LIBERAÇÃO DE CHECK */
 	free (check);
-
 	return (ver);
 }
