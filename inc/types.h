@@ -95,7 +95,7 @@ t_sentence	*new_sentence(char **args);
 t_sentence	*find_last_sentence(t_sentence *lst);
 void		addback_sentence(t_sentence **lst, t_sentence *new);
 void		clear_sentence(t_sentence **lst);
-int			size_sentence(t_sentence *lst_sentence);
+int			size_sentence(t_sentence **lst_sentence);
 
 /* T_STRING */
 t_string	*ft_strnew(char *str, size_t length);

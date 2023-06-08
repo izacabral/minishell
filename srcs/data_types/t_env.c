@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
 /*
@@ -38,7 +37,6 @@ void	set_envsize(t_env *env)
 		nodes++;
 	}
 	*env->size = nodes;
-	printf("nodes: %i\n", *env->size);
 }
 
 /*

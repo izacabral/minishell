@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+// make real open_pipe
 int	*open_pipe(t_sentence *previous, t_sentence *after)
 {
 	char **argsp = previous->args;
@@ -31,6 +32,8 @@ int	*open_pipe(t_sentence *previous, t_sentence *after)
 	}
 	return (0);
 }
+
+// make real open_reds
 int open_reds(int token, t_sentence *cmd, char *file_name)
 {
 	char **argscmd = cmd->args;
@@ -46,36 +49,64 @@ int open_reds(int token, t_sentence *cmd, char *file_name)
 	return (0);
 }
 
+/*
+ * Fn		: set_reds_array(t_sentence *s, int **reds, int *index)
+ * Scope	: if sentence has redirect calls open_reds() and set the reds array
+ * Input	: a sentence node, a pointer to reds array and the array index;
+ * Output	: void
+ * Errors	: not applicable
+ * Uses		: open_pipes_reds()
+ */
+static void	set_reds_array(t_sentence *s, int **reds, int *index)
+{
+	t_tkn	t;
+	int		i;
+
+	i = 0;
+	while (s->args[i])
+	{
+		if ((t = which_delim(s->args[i])))
+		{
+			i++;
+			*reds[*index] = open_reds(t, s, s->args[i]);
+			(*index)++;
+		}
+		i++;
+	}
+}
+
+
+/*
+ * Fn		: open_pipe_reds(t_shell *data)
+ * Scope	: traverse the sentences and call the functions open_reds and 
+ *				open_pipes filling their respective arrays in the t_shell
+ * Input	: t_shell * - pointer to the global struct
+ * Output	: int to show error
+ * Errors	: -1 if there aren't any sentence
+ * Uses		: launch_prog()
+ */
 int	open_pipe_reds(t_shell *data)
 {
-	t_token		*tmp_token;
 	t_sentence	*tmp_sentence;
-
-	tmp_token = data->lst_token;
+	int			i_reds;
+	int			i_pipes;
+	
 	tmp_sentence = data->lst_sentence;
-	if (!tmp_token || !tmp_sentence)
+	i_reds = 0;
+	i_pipes = 0;
+	if (!tmp_sentence)
 		return (-1);
-	while (tmp_token)
+	while (tmp_sentence && data->redirect_count > 0)
 	{
-		if (tmp_token->tkn == PIPE)
-		{
-			if (tmp_sentence->next)
-			{
-				open_pipe(tmp_sentence, tmp_sentence->next);
-				tmp_sentence = tmp_sentence->next;
-			}
-			else
-				open_pipe(tmp_sentence, NULL);
-		}
-		if (tmp_token->tkn != PIPE && tmp_token->tkn != WORD)
-		{
-			if(tmp_sentence->previous == NULL)
-				open_reds(tmp_token->tkn, tmp_sentence, tmp_sentence->args[0]);
-			else
-				open_reds(tmp_token->tkn, tmp_sentence->previous, tmp_sentence->args[0]);
-			tmp_sentence = tmp_sentence->next;
-		}
-		tmp_token = tmp_token->next;
+		if (tmp_sentence->reds_inside > 0)
+			set_reds_array(tmp_sentence, &data->reds, &i_reds);
+		tmp_sentence = tmp_sentence->next;
+	}
+	tmp_sentence = data->lst_sentence;
+	while (tmp_sentence && tmp_sentence->next)
+	{
+		data->pipes[i_pipes++] = open_pipe(tmp_sentence, tmp_sentence->next);
+		tmp_sentence = tmp_sentence->next;
 	}
 	return (0);
 }

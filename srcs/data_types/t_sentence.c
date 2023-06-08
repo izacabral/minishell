@@ -66,16 +66,18 @@ void	clear_sentence(t_sentence **lst)
 	}
 }
 
-int	size_sentence(t_sentence *lst_sentence)
+int	size_sentence(t_sentence **lst_sentence)
 {
-	int size;
+	int			size;
+	t_sentence	*tmp;
 
 	size = 0;
-	if (!lst_sentence)
-		return (0);
-	while (lst_sentence)
+	tmp = *lst_sentence;
+	if (!tmp)
+		return (size);
+	while (tmp)
 	{
-		lst_sentence = lst_sentence -> next;
+		tmp = tmp->next;
 		size++;
 	}
 	return (size);
