@@ -12,7 +12,9 @@ int	main(void)
 
     /* MODELOS DE BUFFER PARA TESTE */
     //buffer = "< < teste | como | fica";
-    //buffer = " --$a\" \"$a-- ";
+    //buffer = " --$a $a-- ";
+    //buffer = "Test two variables $a $a";
+    //buffer = "Test two nested variables \"$a $a\"";
     //buffer = "\"\"teste\"\"";
     //buffer = " Test variable \" nested \'$a\' quotes \" ";
 	buffer = " Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear ";
