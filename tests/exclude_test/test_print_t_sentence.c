@@ -52,6 +52,7 @@ int	main(void)
         teste = NULL;
         ft_printf("fd_i: %d\n", lst_sen->fd_i);
         ft_printf("fd_o: %d\n", lst_sen->fd_o);
+        ft_printf("reds_inside: %d\n", lst_sen->reds_inside);
         ft_printf("previus: %p\n", lst_sen->previous);
         ft_printf("atual: %p\n", lst_sen);
         ft_printf("next: %p\n", lst_sen->next);
