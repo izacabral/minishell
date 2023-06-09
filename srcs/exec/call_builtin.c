@@ -19,16 +19,17 @@ int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 	int			exit_value;
 	const int	size = args_size(args);
 
+	default_signals();
 	if (builtin == ECHO)
-		return (/*call echo*/);
+		return (ft_echo(args));
 	if (builtin == CD)
-		return (/*call cd*/);
+		return (cd(*data, args[1]));
 	if (builtin == PWD)
-		return (/*call pwd*/);
+		return (pwd());
 	if (builtin == EXPORT)
-		return (export_builtins(size, args, *data));
+		return (export_builtins(size, args, data));
 	if (builtin == UNSET)
-		return (unset_builtins(size, args, *data));
+		return (unset_builtins(size, args, data));
 	if (builtin == ENV)
 	{
 		print_env(data->lst_env);
@@ -36,11 +37,11 @@ int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 	}
 	if (builtin == EXIT)
 	{
-		exit_value = 0; // substituir pro valor de saída do último comando
+		exit_value = 0; // substituir por valor de saída do último comando
 		if (args[1])
 			exit_value = get_exitarg(args[1], exit_value);
 		// liberar mémoria alocada
-		return (/*call exit*/);
+		return (ft_exit(exit_value));
 	}
 	return (0);
 }
