@@ -17,7 +17,7 @@
 // VERIFICAR PERMISSÕES NO MAC
 //===============================
 
-int	open_reds(int token, t_sentece *cmd, char *file_name)
+int	open_reds(int token, t_sentence *cmd, char *file_name)
 {
 	if (token == IN)
 		return (in(cmd, file_name));
