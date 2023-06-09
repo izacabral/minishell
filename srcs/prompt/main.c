@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/19 09:46:51 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/06/02 13:31:37 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char *argv[], char *envp[])
 	setup_signals();
 	while (1)
 	{
-		data.line = rl_gets(data.line);
+		data.line = readline_gets(data.line);
 		if (!data.line)
 			break ;
 		if (!ft_strncmp(data.line, "exit", 5))
@@ -36,6 +36,6 @@ int	main(int argc, char *argv[], char *envp[])
 		if (*data.line)
 			add_history(data.line);
 	}
-	del_lst(data.lst_env);
+	clear_env(&data.lst_env);
 	return (0);
 }

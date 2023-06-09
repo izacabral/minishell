@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_line.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 09:47:13 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/19 09:47:16 by bda-silv         ###   ########.fr       */
+/*   Created: 2023/05/09 13:13:30 by dmatavel          #+#    #+#             */
+/*   Updated: 2023/05/24 12:45:03 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*rl_gets(char *line)
+int	pwd(void)
 {
-	if (line)
-	{
-		free(line);
-		line = NULL;
-	}
-	line = readline("minishell > ");
-	return (line);
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	printf("%s\n", path);
+	free(path);
+	path = NULL;
+	return (0);
 }

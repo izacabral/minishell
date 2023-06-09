@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/27 00:39:12 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/08 23:07:47 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,14 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
-# include <errno.h>
 
 extern int	g_global;
 
 // srcs/prompt/
-void		setup_signals(void);
-void		int_handler(int signum);
-char		*rl_gets(char *line);
-void		launch_prog(t_shell *data);
 void		init_shell(t_shell *data, char *envp[]);
 void		launch_prog(t_shell *data);
 void		int_handler(int signum);
-char		*rl_gets(char *line);
+char		*readline_gets(char *line);
 void		setup_signals(void);
 
 // srcs/parser/
@@ -52,27 +47,37 @@ t_tkn		which_delim(char *delim);
 int			scan_line(t_token **lst, char *line);
 int			lexer(t_token *lst);
 
-//srcs/env/
-void		expandvars(char **sentences, t_env *env);
-
 // srcs/env/
+t_env		*get_env(char *environ[]);
+void		expandvars(char **sentences, t_env *env);
 t_string	*path_to_lst(char *path);
 
 // srcs/exec/
 int			exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
 
+// srcs/sentence/
+void		create_sentences(t_env *env, t_token **lst_token, \
+				t_sentence **lst_sentence);
+int			new_index(char *str, int i);
+int			no_quote_size(char *str);
+int			quote_size(char *str, char quote);
+char		*quotes_removed(char *str, int i, char *new_str);
+void		remove_quotes(char **sentences);
+char		**tkn_to_sentence(t_token **lst_token);
+char		*while_no_quotes(char *str, int i, char *new_str);
+
 // srcs/builtins/
 int			check_export(char *key, char *str);
 int			check_unset(char *key);
 t_env		*compare_key(t_env *env, char *key);
-int			export_builtins(int size, char *str[], t_shell data);
+int			export_builtins(int size, char *str[], t_shell *data);
 void		export_error(char *str);
 void		print_env(t_env *env);
 void		print_export(t_env *env);
-int			unset_builtins(int size, char *str[], t_shell data);
-
-// srcs/env/
-t_env		*get_env(char *environ[]);
+int			unset_builtins(int size, char *str[], t_shell *data);
+int			ft_echo(char **arg);
+int			ft_exit(int n);
+int			pwd(void);
 
 #endif

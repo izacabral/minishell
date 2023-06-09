@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/20 12:33:45 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/05/28 00:17:32 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_string	*scan_sentence(char *sentence, t_env *env)
 	i = 0;
 	while (sentence[i])
 	{
+		repl.new = NULL;
 		repl.quote = which_quotes(sentence[i]);
 		repl.old = &sentence[i];
 		repl.old_sz = sentence_lenght(repl.old, repl.quote);
@@ -80,23 +81,24 @@ static void	split_sentence(t_string **lst, t_repl *repl, t_env *env)
 	tmp = repl->old;
 	i = 0;
 	j = 0;
-	while (tmp[j] && j < repl->old_sz)
+	while (tmp[j + i] && (j + i) < repl->old_sz)
 	{
-		if (tmp[j] == '$' && (repl->quote == DOUBLE || repl->quote == NONE))
+		if (tmp[j + i] == '$' && (repl->quote == DOUBLE || repl->quote == NONE))
 		{
 			if (j > 0)
 				stash_string(lst, &tmp[i], j);
-			j += (expvar(lst, &tmp[j], env) - 1);
-			i += (j + 1);
+			j += (expvar(lst, &tmp[j + i], env));
+			i += j;
+			j = -1;
 		}
 		j++;
 	}
-	if (!*lst && !tmp[j])
+	if (!*lst && !tmp[j + i])
 		return ;
-	if (!&tmp[i])
+	if (!tmp[i])
 		return ;
-	repl->new = ft_substr(&tmp[i], 0, j - i);
-	ft_stradd_back(lst, ft_strnew(repl->new, j - i));
+	repl->new = ft_substr(&tmp[i], 0, j);
+	ft_stradd_back(lst, ft_strnew(repl->new, j));
 }
 
 // guarda a string até o char anterior a $

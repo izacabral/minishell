@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:37:16 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/23 08:56:19 by vchastin         ###   ########.fr       */
+/*   Updated: 2023/06/02 03:07:22 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ t_env	*get_env(char *environ[])
 	while (environ[index])
 	{
 		dict_split = ft_split(environ[index], '=');
-		env = add_env(env, dict_split[0], dict_split[1]);
+		env = addfront_env(env, dict_split[0], dict_split[1]);
+		freetab((void **)dict_split);
 		dict_split = NULL;
 		index++;
 	}
-	env->size = index;
+	set_envsize(env);
 	return (env);
 }

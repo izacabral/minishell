@@ -1,31 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_add_env.c                                      :+:      :+:    :+:   */
+/*   t_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:57:04 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/23 08:57:06 by vchastin         ###   ########.fr       */
+/*   Updated: 2023/06/03 12:15:19 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 
 /*
- * Input			:void *arg - argument can be of any type
- * Scope			:checks whether dynamic memory allocation has occurred
- * Output			:none
- * 					:or
- * 					:error and exit
+ * Fn		: set_envsize(t_env *env)
+ * Scope	: set the size variable from t_env list
+ *			: should be used only once on the list creation
+ * Input	: t_env * - the list
+ * Output	: void
+ * Errors	: not applicable
+ * Uses		: get_env
  */
-void	protect_malloc(void *arg)
+void	set_envsize(t_env *env)
 {
-	if (arg == NULL)
+	int	nodes;
+
+	if (env->size)
+		return ;
+	env->size = malloc(sizeof(*env->size));
+	protect_malloc((void *)env->size);
+	nodes = 1;
+	while (env->next)
 	{
-		printf("%s\n", strerror(errno));
-		exit(errno);
+		env->next->size = env->size;
+		env = env->next;
+		nodes++;
 	}
+	*env->size = nodes;
+	printf("nodes: %i\n", *env->size);
 }
 
 /*
@@ -35,16 +48,16 @@ void	protect_malloc(void *arg)
  * Scope			:adding the key and value in a new node
  * Output			:a new node with the data from env
  */
-t_env	*new_env(char *key, char *value, int size)
+t_env	*new_env(char *key, char *value)
 {
 	t_env	*node;
 
 	node = (t_env *)malloc(sizeof(t_env));
 	protect_malloc(node);
 	node->key = ft_strdup(key);
-	node->value = ft_strtrim(value, "'");
+	node->value = ft_strdup(value);
 	node->next = NULL;
-	node->size = size;
+	node->size = NULL;
 	return (node);
 }
 
@@ -55,11 +68,11 @@ t_env	*new_env(char *key, char *value, int size)
  * Scope			:creating a new node
  * Output			:add keys and values to the node
  */
-t_env	*add_env(t_env *env, char *key, char *value)
+t_env	*addfront_env(t_env *env, char *key, char *value)
 {
 	t_env	*new;
 
-	new = new_env(key, value, 0);
+	new = new_env(key, value);
 	if (env == NULL)
 		env = new;
 	else
@@ -67,13 +80,18 @@ t_env	*add_env(t_env *env, char *key, char *value)
 		new->next = env;
 		env = new;
 	}
+	if (env->size)
+		*env->size += 1;
 	return (env);
 }
 
-void	del_one(t_env *node)
+void	envdel_one(t_env *node)
 {
 	free(node->key);
 	free(node->value);
+	if (node->size)
+		free(node->size);
+	node->size = NULL;
 	free(node);
 }
 
@@ -82,14 +100,22 @@ void	del_one(t_env *node)
  * Scope			:clear env list
  * Output			:none
  */
-void	del_lst(t_env *env)
+void	clear_env(t_env **env)
 {
 	t_env	*node;
 
-	while (env)
+	while (*env)
 	{
-		node = env->next;
-		del_one(env);
-		env = node;
+		node = *env;
+		*env = (*env)->next;
+		if (node->size)
+		{
+			*node->size -= 1;
+			if (!*node->size)
+				free(node->size);
+			node->size = NULL;
+		}
+		envdel_one(node);
+		node = NULL;
 	}
 }
