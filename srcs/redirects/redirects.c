@@ -17,56 +17,56 @@
 // VERIFICAR PERMISSÕES NO MAC
 //===============================
 
-void	redirect(t_sentence *cmd, t_sentence *file, char *redirect)
+int	open_reds(int token, t_sentece *cmd, char *file_name)
 {
-	if (ft_strequal(redirect, "<") == 0)
-		red1(cmd, file);
-	if (ft_strequal(redirect, "<<") == 0)
-		red2(cmd, file);
-	if (ft_strequal(redirect, ">") == 0)
-		red3(cmd, file);
-	if (ft_strequal(redirect, ">>") == 0)
-		red4(cmd, file);
+	if (token == IN)
+		return (in(cmd, file_name));
+	else if (token == OUT)
+		return (out(cmd, file_name));
+	else if (token == APPEND)
+		return (append(cmd, file));
+	else
+		return (-1);
 }
 
-void	red3(t_sentence *cmd, t_sentence *file)
+void	out(t_sentence *cmd, char *file)
 {
 	int	temp_fd;
 
-	temp_fd = open(file->args[0], O_WONLY | O_TRUNC | O_CREATE, 0777);
+	temp_fd = open(file, O_WONLY | O_TRUNC | O_CREATE, 0777);
 	if (temp_fd == -1)
 	{
-		write(2, "ERROR", 5);
-		return ;
+		strerror(errno);
+		return (-1);
 	}
-	file->fd_i = temp_fd;
-	dup2(file->fd_i, cmd->fd_o);
+	dup2(temp_fd, cmd->fd_o);
+	return (temp_fd);
 }
 
-void	red4(t_sentence *cmd, t_sentence *file)
+void	append(t_sentence *cmd, t_sentence *file)
 {
 	int	temp_fd;
 
-	temp_fd = open(file->args[0], O_WONLY | O_APPEND | O_CREATE, 0777);
+	temp_fd = open(file, O_WONLY | O_APPEND | O_CREATE, 0777);
 	if (temp_fd == -1)
 	{
-		write(2, "ERROR", 5);
-		return ;
+		strerror(errno);
+		return (-1);
 	}
-	file->fd_i = temp_fd;
-	dup2(file->fd_i, cmd->fd_o);
+	dup2(temp_fd, cmd->fd_o);
+	return (temp_fd);
 }
 
-void	red1(t_sentence *cmd, t_sentence *file)
+void	in(t_sentence *cmd, char *file)
 {
 	int	temp_fd;
 
-	temp_fd = open(file->args[0], O_RONLY, 0777);
+	temp_fd = open(file, O_RONLY, 0777);
 	if (temp_fd == -1)
 	{
-		write(2, "ERROR", 5);
-		return ;
+		strerror(errno);
+		return (-1);
 	}
-	file->fd_o = temp_fd;
-	dup2(cmd->fd_i, file->fd_o);
+	dup2(cmd->fd_i, temp_fd);
+	return (temp_fd);
 }
