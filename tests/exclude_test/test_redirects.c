@@ -1,41 +1,6 @@
 #include "testing.h"
 #include "types.h"
 
-void error_redir(char *filename)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(filename, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(strerror(errno), STDERR_FILENO);
-}
-
-int open_reds(int token, t_sentence cmd, char *file_name) {
-    int fd;
-    int flags;
-	(void)(cmd);
-
-	if (!file_name)
-		return (EXIT_FAILURE);
-    if (token == OUT) {
-        flags = O_WRONLY | O_CREAT | O_TRUNC;
-        fd = open(file_name, flags, 0644);
-		cmd.fd_o = fd;
-    } else if (token == IN) {
-        flags = O_RDONLY;
-        fd = open(file_name, flags);
-		cmd.fd_i = fd;
-    } else if (token == APPEND) {
-        flags = O_WRONLY | O_CREAT | O_APPEND;
-        fd = open(file_name, flags, 0644);
-		cmd.fd_o = fd;
-    }
-    if (fd == -1) {
-        error_redir(file_name);
-        return -1;
-    }
-    return fd;
-}
-
 static char	*find_filename(char *s, int redir)
 {
 	char 	*str;
@@ -87,7 +52,7 @@ int contains_redirection(const char* str, const char* redirection) {
 
 int	main(void)
 {
-	char *initial_args[] = { "blabla >> input.txt", "beaba > output.txt"};
+	char *initial_args[] = { "blabla < input.txt", "beaba > output.txt", "alibaba >> output.txt"};
 	/*calcula o número de elementos no array initial_args*/
     int num_args = sizeof(initial_args) / sizeof(initial_args[0]);
 	int i = 0;
@@ -117,13 +82,13 @@ int	main(void)
 	i = 0;
     while (i < num_args) {
         if (contains_redirection(st.args[i], ">>")) {
-            open_reds(APPEND, st, find_filename(st.args[i], APPEND));
+            open_reds(APPEND, &st, find_filename(st.args[i], APPEND));
             printf("Encontrou redirecionamento \">>\": %s\n", st.args[i]);
         } else if (contains_redirection(st.args[i], ">")) {
-           	open_reds(OUT, st, find_filename(st.args[i], OUT));
+           	open_reds(OUT, &st, find_filename(st.args[i], OUT));
             printf("Encontrou redirecionamento \">\": %s\n", st.args[i]);
         } else if (contains_redirection(st.args[i], "<")) {
-           	open_reds(IN, st, find_filename(st.args[i], IN));
+           	open_reds(IN, &st, find_filename(st.args[i], IN));
             printf("Encontrou redirecionamento \"<\": %s\n", st.args[i]);
 		}
 		i++;

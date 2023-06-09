@@ -80,4 +80,6 @@ int			ft_echo(char **arg);
 int			ft_exit(int n);
 int			pwd(void);
 
+// srcs/redirects/
+int			open_reds(int token, t_sentence *cmd, char *file_name);
 #endif

@@ -70,7 +70,7 @@ SRCS_P_SENTENCE	=	test_print_t_sentence.c  ../../srcs/sentence/create_sentences.
 
 OBJS_P_SENTENCE	=	$(SRCS_P_SENTENCE:.c=.o)
 
-SRCS_REDIRECTS = 	test_redirects.c 
+SRCS_REDIRECTS = 	test_redirects.c ../../srcs/redirects/redirects.c
 
 OBJS_REDIRECTS	=	$(SRCS_REDIRECTS:.c=.o)
 
@@ -108,7 +108,7 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken printsentence printexpunsenv expandvar execve echo pwd t_env
+all: printtoken printsentence printexpunsenv expandvar execve echo pwd t_env printredirects
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
