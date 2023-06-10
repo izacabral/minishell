@@ -81,5 +81,6 @@ int			unset_builtins(int size, char *str[], t_shell *data);
 int			ft_echo(char **arg);
 int			ft_exit(int n);
 int			pwd(void);
+int			cd(t_shell *data, char *path);
 
 #endif
