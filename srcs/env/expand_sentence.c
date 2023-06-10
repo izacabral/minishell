@@ -14,13 +14,13 @@
 
 /*
  * Fn		: expand_sentence(char **sentence, t_env *env)
- * Scope	: lê uma string e aplica expansões
- *			: a string antiga, se foi feita a expansão, é liberada
- * Input	: char ** - endereço de uma string
- *			: t_env * - lista com as variáveis de ambiente
- * Output	: char * - uma nova string alocada com as expansões aplicadas;
- *			:		 - a string sem modificações, caso nenhuma expansão encontrada
- * Errors	: não se aplica
+ * Scope	: reads a string and applies expansions.
+ *				The old string, if expanded, is released
+ * Input	: char ** - string address
+ *			: t_env * - list of environment variables
+ * Output	: char * - a new allocated string with the expansions applied;
+ *			:		 - the unmodified string if no expansion found
+ * Errors	: not applicable
  * Uses		: expandvars()
  */
 char	*expand_sentence(char **sentence, t_env *env)

@@ -19,12 +19,12 @@ static int	expvar(t_string **lst, char *var, t_env *env);
 
 /*
  * Fn		: scan_sentence(char *sentence, t_env *env)
- * Scope	: divide uma string em blocos, aplicando as expansões
- * Input	: char *sentence - string a ser lida e expandida
- *			: t_env * - lista com as variáveis de ambiente
- * Output	: t_string * - lista de strings, com a string de entrada divida
- *			  em blocos a serem reunidos posteriormente
- * Errors	: NULL - a string de entrada não tem expansões a serem feitas
+ * Scope	: splits a string into blocks, applying the expansions
+ * Input	: char *sentence - string to be read and expanded
+ *			: t_env * - list of environment variables
+ * Output	: t_string * - list of strings, with the input string split
+ * 				into blocks to be assembled later
+ * Errors	: NULL - input string has no expansions to be done
  * Uses		: expand_sentence()
  */
 t_string	*scan_sentence(char *sentence, t_env *env)
@@ -49,10 +49,17 @@ t_string	*scan_sentence(char *sentence, t_env *env)
 	return (output);
 }
 
-// determina o escopo a ser lido
-// incrementa até encontrar uma aspas ou até o final da string
-// se estiver em um contexto de aspas,
-// incrementa até encontrar a aspas de fechamento
+/*
+ * Fn		: sentence_lenght(char *sentence, t_quotes quote)
+ * Scope	: determines the scope to be read increments until it finds a
+ * 				quote or until the end of the string if in a quote context,
+ * 				increments until it finds the closing quote
+ * Input	: char *sentence - string to be read and expanded
+ *			: t_quotes quote - quote type
+ * Output	: scope size
+ * Errors	: not applicable
+ * Uses		: scan_sentence()
+ */
 static int	sentence_lenght(char *sentence, t_quotes quote)
 {
 	int	len;
@@ -70,8 +77,12 @@ static int	sentence_lenght(char *sentence, t_quotes quote)
 	return (len + 1);
 }
 
-// divide a string em blocos quando encontra $
-// se estiver em um contexto de <"> ou <sem aspas>, expande a variável
+/*
+ * Fn		: split_sentence(t_string **lst, t_repl *repl, t_env *env)
+ * Scope	: splits string into blocks when encounters $ if in context
+ * 				of <"> or <no quotes>, expands variable
+ * Uses		: scan_sentence()
+ */
 static void	split_sentence(t_string **lst, t_repl *repl, t_env *env)
 {
 	int		i;
@@ -100,7 +111,11 @@ static void	split_sentence(t_string **lst, t_repl *repl, t_env *env)
 		ft_stradd_back(lst, ft_strnew(repl->new, j));
 }
 
-// guarda a string até o char anterior a $
+/*
+ * Fn		: stash_string(t_string **lst, char *sentence, int size)
+ * Scope	: stores the string up to the character before $
+ * Uses		: split_sentence()
+ */
 static void	stash_string(t_string **lst, char *sentence, int size)
 {
 	char	*to_stash;
@@ -110,9 +125,12 @@ static void	stash_string(t_string **lst, char *sentence, int size)
 		ft_stradd_back(lst, ft_strnew(to_stash, size));
 }
 
-// expande a variável
-// se o $ for seguido de espaço em branco ou de aspas,
-// não faz expansão e guarda $
+
+/*
+ * Fn		: expvar(t_string **lst, char *var, t_env *env)
+ * Scope	: expand the variable
+ * Uses		: split_sentence()
+ */
 static int	expvar(t_string **lst, char *var, t_env *env)
 {
 	int		i;

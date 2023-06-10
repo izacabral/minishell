@@ -12,7 +12,9 @@ int	main(void)
 
     /* MODELOS DE BUFFER PARA TESTE */
     //buffer = "< < teste | como | fica";
-    //buffer = " --$a\" \"$a-- ";
+    //buffer = " --$a $a-- ";
+    //buffer = "Test two variables $a $a";
+    //buffer = "Test two nested variables \"$a $a\"";
     //buffer = "\"\"teste\"\"";
     //buffer = " Test variable \" nested \'$a\' quotes \" ";
 	buffer = " Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear ";
@@ -52,6 +54,7 @@ int	main(void)
         teste = NULL;
         ft_printf("fd_i: %d\n", lst_sen->fd_i);
         ft_printf("fd_o: %d\n", lst_sen->fd_o);
+        ft_printf("reds_inside: %d\n", lst_sen->reds_inside);
         ft_printf("previus: %p\n", lst_sen->previous);
         ft_printf("atual: %p\n", lst_sen);
         ft_printf("next: %p\n", lst_sen->next);
