@@ -16,6 +16,9 @@ int	main(void)
 	char	*str7;
 	char	*str8;
 	char	*str9;
+	char	*str10;
+	char	*str11;
+	char	*str12;
 
 	/* CRIAÇÃO DA T_ENV PARA TESTE */
 	var1 = malloc(sizeof(*var1));
@@ -30,9 +33,10 @@ int	main(void)
 	var2->next = NULL;
 
 	/* CRIAÇÃO DAS STRINGS PARA SEREM EXPANDIDAS */
-	tab = malloc(10 * sizeof(*tab));
+	int size = 13;
+	tab = malloc(13 * sizeof(*tab));
 	str1 = ft_strdup("Test variable $a for expansion");
-	str2 = ft_strdup("Test $b for no value");
+	str2 = ft_strdup("Test-$b-for no value");
 	str3 = ft_strdup("Test variable \"$a some word\" inside quotes");
 	str4 = ft_strdup("Test variable \" nested \'$a\' quotes \"");
 	str5 = ft_strdup("Test \'$a\' no expansion");
@@ -40,6 +44,9 @@ int	main(void)
 	str7 = ft_strdup("Test $ alone");
 	str8 = ft_strdup("Test \'$\' in single quotes");
 	str9 = ft_strdup("Test \"$\" in double quotes");
+	str10 = ft_strdup("\"Test -$c- in double quotes\"");
+	str11 = ft_strdup("Test to-$a-expand");
+	str12 = ft_strdup("Test I will be$a_var1 gone");
 	tab[0] = str1;
 	tab[1] = str2;
 	tab[2] = str3;
@@ -49,22 +56,25 @@ int	main(void)
 	tab[6] = str7;
 	tab[7] = str8;
 	tab[8] = str9;
-	tab[9] = NULL;
+	tab[9] = str10;
+	tab[10] = str11;
+	tab[11] = str12;
+	tab[12] = NULL;
 
 	/* EXPANSÃO DAS VARIÁVEIS */
 	expandvars(tab, var1);
 
 	/* CRIAÇÃO DO ARRAY DE STRINGS COMO DEVERIAM FICAR */
-	char *check[10];
+	char *check[size];
 
 	int i = 0;
-	while (i < 10)
+	while (i < size)
 	{
 		check[i] = NULL;
 		i++;
 	}
 	check[0] = "Test variable var1 for expansion";
-	check[1] = "Test  for no value";
+	check[1] = "Test--for no value";
 	check[2] = "Test variable \"var1 some word\" inside quotes";
 	check[3] = "Test variable \" nested 'var1' quotes \"";
 	check[4] = "Test \'$a\' no expansion";
@@ -72,6 +82,9 @@ int	main(void)
 	check[6] = "Test $ alone";
 	check[7] = "Test \'$\' in single quotes";
 	check[8] = "Test \"$\" in double quotes";
+	check[9] = "\"Test -- in double quotes\"";
+	check[10] = "Test to-var1-expand";
+	check[11] = "Test I will be gone";
 
 	/* COMPARA  TAB COM OS CHECKS ESPERADOS */
 	i = 0;
@@ -104,6 +117,9 @@ int	main(void)
 	free(tab[6]);
 	free(tab[7]);
 	free(tab[8]);
+	free(tab[9]);
+	free(tab[10]);
+	free(tab[11]);
 	free(tab);
 
 	if (ver == 0)

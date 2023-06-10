@@ -23,6 +23,7 @@ int	main(void)
 	char	*str11;
 	char	*str12;
 	char	*str13;
+	char	*str14;
 
 	var1 = malloc(sizeof(*var1));
 	var2 = malloc(sizeof(*var2));
@@ -34,10 +35,9 @@ int	main(void)
 	var2->value = NULL;
 	var1->next = var2;
 	var2->next = NULL;
-	int size = 14;
-	tab = malloc(size * sizeof(*tab));
+	tab = malloc(15 * sizeof(*tab));
 	str1 = ft_strdup("Test variable $a for expansion");
-	str2 = ft_strdup("Test $b for no value");
+	str2 = ft_strdup("Test-$b-for no value");
 	str3 = ft_strdup("Test variable \"$a some word\" inside quotes");
 	str4 = ft_strdup("Test variable \" nested \'$a\' quotes \"");
 	str5 = ft_strdup("Test \'$a\' no expansion");
@@ -47,8 +47,9 @@ int	main(void)
 	str9 = ft_strdup("Test \"$\" in double quotes");
 	str10 = ft_strdup("Test two variables $a $a");
 	str11 = ft_strdup("Test two nested variables \"$a $a\"");
-	str12 = ft_strdup(" --$a $a-- ");
-	str13 = ft_strdup(" --$a\" \"$a-- ");
+	str12 = ft_strdup("\"Test -- non-existent in double quotes\"");
+	str13 = ft_strdup("Test to-$a-expand");
+	str14 = ft_strdup("Test I will be$a_var1 gone");
 	tab[0] = str1;
 	tab[1] = str2;
 	tab[2] = str3;
@@ -62,7 +63,8 @@ int	main(void)
 	tab[10] = str11;
 	tab[11] = str12;
 	tab[12] = str13;
-	tab[13] = NULL;
+	tab[13] = str14;
+	tab[14] = NULL;
 	expandvars(tab, var1);
 	free(var1->key);
 	free(var1->value);
@@ -83,6 +85,7 @@ int	main(void)
 	ft_putendl_fd(tab[10], 1);
 	ft_putendl_fd(tab[11], 1);
 	ft_putendl_fd(tab[12], 1);
+	ft_putendl_fd(tab[13], 1);
 	free(tab[0]);
 	free(tab[1]);
 	free(tab[2]);
@@ -96,6 +99,7 @@ int	main(void)
 	free(tab[10]);
 	free(tab[11]);
 	free(tab[12]);
+	free(tab[13]);
 	free(tab);
 	return (0);
 }
