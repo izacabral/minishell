@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   launch_prog.c                                      :+:      :+:    :+:   */
+/*   launch_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/30 17:21:40 by daolivei         ###   ########.fr       */
+/*   Created: 2023/05/19 14:41:23 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/19 14:41:24 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
- * Fn		: launch_prog(t_shell *data)
- * Scope	: Run the REPL loop
- * Input	: t_shell * - pointer to the global struct
- * Output	: void
- * Errors	: not applicable
- * Uses		: main() [main.c]
+ * Fn		: launch_command(char **args)
+ * Scope	: cria um processo que chama execve()
+ * Input	: char ** - argumentos para execve()
+ * Output	: int - 0 (sucesso)
+ * Errors	: -1 - erro do execve()
+ * Uses		: call_execve (call_execve.c)
  */
-void	launch_prog(t_shell *data)
+int	launch_command(char **args)
 {
-	if (scan_line(&data->lst_token, data->line) == 0
-		&& lexer(data->lst_token) == 0)
-		ft_printf("scan_line and lexer ok. Next step create t_setence\n");
-	clear_token(&data->lst_token);
+	int	pid;
+
+	pid = fork();
+	if (!pid)
+	{
+		if ((execve(*args, args, NULL)) < 0)
+			exit(-1);
+	}
+	else
+		waitpid(pid, NULL, 0);
+	return (0);
 }

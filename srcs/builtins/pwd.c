@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 20:41:43 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/30 18:10:11 by daolivei         ###   ########.fr       */
+/*   Created: 2023/05/09 13:13:30 by dmatavel          #+#    #+#             */
+/*   Updated: 2023/05/24 12:45:03 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#include "minishell.h"
 
-# define ERROR_BUILTINS -1
-# define SUCESS_BUILTINS 1
+int	pwd(void)
+{
+	char	*path;
 
-#endif
+	path = getcwd(NULL, 0);
+	printf("%s\n", path);
+	free(path);
+	path = NULL;
+	return (0);
+}

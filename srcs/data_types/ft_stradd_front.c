@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   ft_stradd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 20:41:43 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/30 18:10:11 by daolivei         ###   ########.fr       */
+/*   Created: 2022/10/28 00:24:50 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/14 15:55:14 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#include "env.h"
 
-# define ERROR_BUILTINS -1
-# define SUCESS_BUILTINS 1
-
-#endif
+void	ft_stradd_front(t_string **lst, t_string *new)
+{
+	if (!(*lst))
+		*lst = new;
+	else
+	{
+		new->last = (*lst)->last;
+		new->next = *lst;
+		*lst = new;
+	}
+}

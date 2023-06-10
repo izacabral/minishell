@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*   By: daolivei <daolivei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 20:41:43 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/30 18:10:11 by daolivei         ###   ########.fr       */
+/*   Created: 2023/02/27 13:31:08 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/14 15:56:57 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#include "env.h"
 
-# define ERROR_BUILTINS -1
-# define SUCESS_BUILTINS 1
+t_string	*ft_strnew(char *str, size_t length)
+{
+	t_string	*new;
 
-#endif
+	new = malloc(sizeof(*new));
+	if (!new)
+		return (NULL);
+	new->content = str;
+	new->length = length;
+	new->last = new;
+	new->next = NULL;
+	return (new);
+}

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <ctype.h>
 
 static int	token_lenght(char *token);
 static int	token_lenght_quotes(char *token, char quote);
@@ -58,7 +57,7 @@ static int	token_lenght_quotes(char *token, char quote)
 		len++;
 	if (!token[len])
 		return (-2);
-	if (!isspace(token[len + 1]) || !isdelim(token[len + 1]))
+	if (!ft_isspace(token[len + 1]) || !isdelim(token[len + 1]))
 	{
 		error = token_lenght(&token[len + 1]);
 		if (error < 0)
@@ -104,7 +103,6 @@ static int	token_lenght(char *token)
  *			: int (-2) - erro de sintaxe (aspas de fechamento não encontradas)
  * Uses		: launch_prog()
  */
-
 int	scan_line(t_token **lst, char *line)
 {
 	char	*start;

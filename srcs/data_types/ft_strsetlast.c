@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   ft_strsetlast.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 20:41:43 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/30 18:10:11 by daolivei         ###   ########.fr       */
+/*   Created: 2022/12/08 21:51:56 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/14 15:57:21 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#include "env.h"
 
-# define ERROR_BUILTINS -1
-# define SUCESS_BUILTINS 1
-
-#endif
+void	ft_strsetlast(t_string *lst, t_string *laststr)
+{
+	while (lst)
+	{
+		lst->last = laststr;
+		lst = lst->next;
+	}
+}

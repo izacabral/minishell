@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_line.c                                        :+:      :+:    :+:   */
+/*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
+/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 09:47:13 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/19 09:47:16 by bda-silv         ###   ########.fr       */
+/*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/30 16:52:17 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*rl_gets(char *line)
+void	init_shell(t_shell *data, char *envp[])
 {
-	if (line)
-	{
-		free(line);
-		line = NULL;
-	}
-	line = readline("minishell > ");
-	return (line);
+	data->line = NULL;
+	data->lst_env = get_env(envp);
+	data->lst_token = NULL;
+	data->sentence_count = 0;
+	data->pipe_count = 0;
+	data->redirect_count = 0;
+	data->pipes = NULL;
+	data->reds = NULL;
 }

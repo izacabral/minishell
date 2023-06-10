@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   ft_strtotallen.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 20:41:43 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/30 18:10:11 by daolivei         ###   ########.fr       */
+/*   Created: 2023/05/14 16:30:07 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/14 16:30:09 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#include "env.h"
 
-# define ERROR_BUILTINS -1
-# define SUCESS_BUILTINS 1
+size_t	ft_strtotallen(t_string *lst)
+{
+	size_t	total_len;
 
-#endif
+	total_len = 0;
+	while (lst)
+	{
+		total_len += lst->length;
+		lst = lst->next;
+	}
+	return (total_len);
+}

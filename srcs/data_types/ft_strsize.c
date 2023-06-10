@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   ft_strsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*   By: daolivei <daolivei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 20:41:43 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/30 18:10:11 by daolivei         ###   ########.fr       */
+/*   Created: 2023/02/27 13:30:46 by daolivei          #+#    #+#             */
+/*   Updated: 2023/05/14 15:57:42 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#include "env.h"
 
-# define ERROR_BUILTINS -1
-# define SUCESS_BUILTINS 1
+int	ft_strsize(t_string *lst)
+{
+	int	nodes;
 
-#endif
+	nodes = 0;
+	while (lst)
+	{
+		nodes++;
+		lst = lst->next;
+	}
+	return (nodes);
+}
