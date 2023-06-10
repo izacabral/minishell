@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/28 00:17:32 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:30:11 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,11 @@ static void	split_sentence(t_string **lst, t_repl *repl, t_env *env)
 		}
 		j++;
 	}
-	if (!*lst && !tmp[j + i])
-		return ;
-	if (!tmp[i])
+	if ((!*lst && !tmp[j + i]) || !tmp[i])
 		return ;
 	repl->new = ft_substr(&tmp[i], 0, j);
-	ft_stradd_back(lst, ft_strnew(repl->new, j));
+	if (repl->new && *repl->new)
+		ft_stradd_back(lst, ft_strnew(repl->new, j));
 }
 
 // guarda a string até o char anterior a $
@@ -107,7 +106,8 @@ static void	stash_string(t_string **lst, char *sentence, int size)
 	char	*to_stash;
 
 	to_stash = ft_substr(sentence, 0, size);
-	ft_stradd_back(lst, ft_strnew(to_stash, size));
+	if (to_stash && *to_stash)
+		ft_stradd_back(lst, ft_strnew(to_stash, size));
 }
 
 // expande a variável
@@ -119,18 +119,21 @@ static int	expvar(t_string **lst, char *var, t_env *env)
 	char	*value;
 	int		len;
 
-	i = 0;
-	while (var[i] && !ft_isspace(var[i]) && !which_quotes(var[i]))
+	i = 1;
+	if (var[i] && iscrule(var[i], 1))
 		i++;
 	if (i == 1)
 	{
 		ft_stradd_back(lst, ft_strnew(ft_substr(var, 0, i), i));
 		return (i);
 	}
+	while (var[i] && iscrule(var[i], 0))
+		i++;
 	value = get_value(&var[1], i - 1, env);
 	len = 0;
 	if (value)
 		len = ft_strlen(value);
-	ft_stradd_back(lst, ft_strnew(value, len));
+	if (value && *value)
+		ft_stradd_back(lst, ft_strnew(value, len));
 	return (i);
 }
