@@ -26,7 +26,9 @@
  */
 static void	print_syntax_error(char *word)
 {
-	ft_printf("minishell: syntax error near unexpected token '%s'\n", word);
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+	ft_putstr_fd(word, 2);
+	ft_putendl_fd("'", 2);
 	g_global = 258;
 }
 
