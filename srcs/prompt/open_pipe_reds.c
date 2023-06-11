@@ -19,6 +19,7 @@ int	*open_pipe(t_sentence *previous, t_sentence *after)
 	char	**argsa;
 	int		i;
 
+	ft_printf("\nopen_pipe() - just checking\n");
 	argsp = previous->args;
 	i = 0;
 	while (argsp[i])
@@ -70,23 +71,20 @@ static void	set_reds_array(t_sentence *s, int **reds, int *index)
 	int		i;
 
 	i = 0;
-
+	ft_printf("\nset_reds_array()\n");
 	while (s->args[i])
 	{
-		ft_printf("s->args[%d]: %s\n", i, s->args[i]);
 		t = which_delim(s->args[i]);
 		if (t > PIPE)
 		{
-			ft_printf("s->argsdentro[%d]: %s\n", i, s->args[i]);
+			ft_printf("s->args[%d]: %s\n", i, s->args[i]);
 			i++;
 			*reds[*index] = open_reds(t, s, s->args[i]);
 			ft_printf("reds[%d]: %d\n", *index, *reds[*index]);
+			ft_printf("filename: %s\n", s->args[i]);
 			(*index)++;
 			ft_printf("(*index)++: %d\n", *index);
-			ft_printf("filename: %s\n", s->args[i]);
-
 		}
-
 		i++;
 	}
 }

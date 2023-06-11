@@ -55,6 +55,7 @@ void	launch_prog(t_shell *data)
 		ft_printf("Number of pipes: %d\n", data->pipe_count);
 		ft_printf("Number of redirects: %d\n", data->redirect_count);
 		open_pipe_reds(data);
+		ft_printf("\nSentences after open_pipe_reds() and cleaned up\n");
 		clean_reds_sentences(data->lst_sentence);
 		print_sentence_teste(&data->lst_sentence);
 	}
