@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:45:24 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/11 17:10:38 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/11 21:15:47 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	main(void)
 	lst = NULL;
 	lst_sen = NULL;
 
-	buffer = " Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear ";
-	
+	buffer = " Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear teste > aqui teste > aqui teste > aqui ls";
+
 
 	/* CRIAÇÃO DA LISTA DE TOKENS */
 	scan_line(&lst, buffer);
@@ -44,7 +44,7 @@ int	main(void)
 	var2->next = NULL;
 
 	/* CRIAÇÃO DA LISTA DE SENTENÇAS*/
-    create_sentences(var1, &lst, &lst_sen);
+	create_sentences(var1, &lst, &lst_sen);
 
 	/* REMOÇÃO DOS REDIRECTS E FILE NAMES DA LISTA DE SENTENÇAS*/
 	clean_reds_sentences(lst_sen);
@@ -70,7 +70,7 @@ int	main(void)
 	}
 
 	/* COMPARA CHECK COM O RESULTADO ESPERADO*/
-	char *correct = "Test variable var1 for expansion $a no expansion ls \'teste4\' ";
+	char *correct = "Test variable var1 for expansion $a no expansion ls \'teste4\' teste teste teste ls ";
 	ver = ft_strncmp(check, correct, (ft_strlen(correct) + 1));
 
 	/* LIBERAÇÃO DA T_ENV */
