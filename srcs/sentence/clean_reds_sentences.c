@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 22:26:30 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/11 15:56:39 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/11 16:23:23 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,23 +74,23 @@ static char	**clean_arr(char **array)
  * Errors	: not applicable
  * Uses		: wip
  */
-void	clean_reds_sentences(t_shell *data)
+void	clean_reds_sentences(t_sentence *lst_sentence)
 {
 	t_sentence	*tmp_sentencelst;
 	char		**tmp;
 
-	tmp_sentencelst = data->lst_sentence;
-	if (!data->lst_sentence)
+	tmp_sentencelst = lst_sentence;
+	if (!lst_sentence)
 		return ;
-	while (data->lst_sentence)
+	while (lst_sentence)
 	{
-		if (data->lst_sentence->reds_inside > 0)
+		if (lst_sentence->reds_inside > 0)
 		{
-			tmp = data->lst_sentence->args;
-			data->lst_sentence->args = clean_arr(data->lst_sentence->args);
+			tmp = lst_sentence->args;
+			lst_sentence->args = clean_arr(lst_sentence->args);
 			free_array(tmp);
 		}
-		data->lst_sentence = data->lst_sentence->next;
+		lst_sentence = lst_sentence->next;
 	}
-	data->lst_sentence = tmp_sentencelst;
+	lst_sentence = tmp_sentencelst;
 }

@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 22:26:46 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/10 22:26:52 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:15:28 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static size_t	count_sentence_reds(t_token **lst_token)
 	while (tmp && tmp->tkn >= WORD)
 	{
 		if (tmp->tkn == PIPE)
-			break;
+			break ;
 		if (tmp->tkn > PIPE)
 			count++;
 		tmp = tmp->next;
@@ -62,10 +62,10 @@ static t_token	*get_next_sentence(t_token **lst_token)
 		return (NULL);
 	while ((*lst_token) && (*lst_token)->tkn >= WORD)
 	{
-		if((*lst_token)->tkn == PIPE)
+		if ((*lst_token)->tkn == PIPE)
 		{
-			*lst_token= (*lst_token)->next;
-			break;
+			*lst_token = (*lst_token)->next;
+			break ;
 		}
 		*lst_token = (*lst_token)->next;
 	}

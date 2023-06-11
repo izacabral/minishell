@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:28:57 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/11 15:33:40 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:21:32 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,18 @@
 // make real open_pipe
 int	*open_pipe(t_sentence *previous, t_sentence *after)
 {
-	char **argsp = previous->args;
-	int i;
+	char	**argsp;
+	char	**argsa;
+	int		i;
+
+	argsp = previous->args;
 	i = 0;
 	while (argsp[i])
 	{
 		ft_printf("argspipep[%d]: %s\n", i, argsp[i]);
 		i++;
 	}
-	char **argsa = after->args;
+	argsa = after->args;
 	i = 0;
 	while (argsa[i])
 	{
@@ -34,10 +37,12 @@ int	*open_pipe(t_sentence *previous, t_sentence *after)
 }
 
 // make real open_reds
-int open_reds(int token, t_sentence *cmd, char *file_name)
+int	open_reds(int token, t_sentence *cmd, char *file_name)
 {
-	char **argscmd = cmd->args;
-	int i;
+	char	**argscmd;
+	int		i;
+
+	argscmd = cmd->args;
 	i = 0;
 	while (argscmd[i])
 	{
@@ -65,7 +70,8 @@ static void	set_reds_array(t_sentence *s, int **reds, int *index)
 	i = 0;
 	while (s->args[i])
 	{
-		if ((t = which_delim(s->args[i])) && s->args[i + 1])
+		t = which_delim(s->args[i]);
+		if (t && s->args[i + 1])
 		{
 			i++;
 			*reds[*index] = open_reds(t, s, s->args[i]);
@@ -74,7 +80,6 @@ static void	set_reds_array(t_sentence *s, int **reds, int *index)
 		i++;
 	}
 }
-
 
 /*
  * Fn		: open_pipe_reds(t_shell *data)
