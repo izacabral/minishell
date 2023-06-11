@@ -92,4 +92,6 @@ int			counting_pipes(t_token **lst_token);
 // srcs/redirects/
 int			counting_redirects(t_token **lst_token);
 
+// srcs/redirects/
+int			open_reds(int token, t_sentence *cmd, char *file_name);
 #endif

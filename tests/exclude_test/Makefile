@@ -71,6 +71,10 @@ SRCS_P_SENTENCE	=	test_print_t_sentence.c  ../../srcs/sentence/create_sentences.
 
 OBJS_P_SENTENCE	=	$(SRCS_P_SENTENCE:.c=.o)
 
+SRCS_REDIRECTS = 	test_redirects.c ../../srcs/redirects/redirects.c
+
+OBJS_REDIRECTS	=	$(SRCS_REDIRECTS:.c=.o)
+
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
 # **************************************************************************** #
@@ -105,7 +109,7 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken printsentence printexpunsenv expandvar execve echo pwd t_env
+all: printtoken printsentence printexpunsenv expandvar execve echo pwd t_env printredirects
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
@@ -132,11 +136,14 @@ printsentence: $(LIBFT) $(OBJS_P_SENTENCE)
 t_env: $(LIBFT) $(OBJS_T_ENV)
 	$(CC) $(CFLAGS) $(OBJS_T_ENV) $(LIBFT) -o $@
 
+printredirects: $(LIBFT) $(OBJS_REDIRECTS)
+	$(CC) $(OBJS_REDIRECTS) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printredirects
+
 clean:
-		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR) $(OBJS_EXECVE) $(OBJS_ECHO) $(OBJS_PWD) $(OBJS_T_ENV)
+		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR) $(OBJS_EXECVE) $(OBJS_ECHO) $(OBJS_PWD) $(OBJS_T_ENV) $(OBJS_REDIRECTS)
 
 fclean: clean
-		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env
+		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env printredirects
 
 re:			fclean all
 
