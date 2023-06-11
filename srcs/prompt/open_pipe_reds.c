@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:28:57 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/06 16:35:33 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/11 15:33:40 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int	*open_pipe(t_sentence *previous, t_sentence *after)
 	i = 0;
 	while (argsp[i])
 	{
-		ft_printf("argsp[%d]: %s\n", i, argsp[i]);
+		ft_printf("argspipep[%d]: %s\n", i, argsp[i]);
 		i++;
 	}
 	char **argsa = after->args;
 	i = 0;
 	while (argsa[i])
 	{
-		ft_printf("argsa[%d]: %s\n", i, argsa[i]);
+		ft_printf("argspipea[%d]: %s\n", i, argsa[i]);
 		i++;
 	}
 	return (0);
@@ -41,7 +41,7 @@ int open_reds(int token, t_sentence *cmd, char *file_name)
 	i = 0;
 	while (argscmd[i])
 	{
-		ft_printf("argscmd[%d]: %s\n", i, argscmd[i]);
+		ft_printf("argsreds[%d]: %s\n", i, argscmd[i]);
 		i++;
 	}
 	ft_printf("token: %d\n", token);
@@ -65,7 +65,7 @@ static void	set_reds_array(t_sentence *s, int **reds, int *index)
 	i = 0;
 	while (s->args[i])
 	{
-		if ((t = which_delim(s->args[i])))
+		if ((t = which_delim(s->args[i])) && s->args[i + 1])
 		{
 			i++;
 			*reds[*index] = open_reds(t, s, s->args[i]);
@@ -78,7 +78,7 @@ static void	set_reds_array(t_sentence *s, int **reds, int *index)
 
 /*
  * Fn		: open_pipe_reds(t_shell *data)
- * Scope	: traverse the sentences and call the functions open_reds and 
+ * Scope	: traverse the sentences and call the functions open_reds and
  *				open_pipes filling their respective arrays in the t_shell
  * Input	: t_shell * - pointer to the global struct
  * Output	: int to show error
@@ -90,7 +90,7 @@ int	open_pipe_reds(t_shell *data)
 	t_sentence	*tmp_sentence;
 	int			i_reds;
 	int			i_pipes;
-	
+
 	tmp_sentence = data->lst_sentence;
 	i_reds = 0;
 	i_pipes = 0;

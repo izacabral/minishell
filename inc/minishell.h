@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/06 12:03:50 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/11 13:16:56 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ char		*quotes_removed(char *str, int i, char *new_str);
 void		remove_quotes(char **sentences);
 char		**tkn_to_sentence(t_token **lst_token);
 char		*while_no_quotes(char *str, int i, char *new_str);
+void		clean_reds_sentences(t_shell *data);
 
 // srcs/builtins/
 int			check_export(char *key, char *str);
