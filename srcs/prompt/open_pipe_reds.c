@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:28:57 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/11 17:21:32 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:48:28 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	*open_pipe(t_sentence *previous, t_sentence *after)
 	return (0);
 }
 
+/*
 // make real open_reds
 int	open_reds(int token, t_sentence *cmd, char *file_name)
 {
@@ -53,6 +54,7 @@ int	open_reds(int token, t_sentence *cmd, char *file_name)
 	ft_printf("filename: %s\n", file_name);
 	return (0);
 }
+ */
 
 /*
  * Fn		: set_reds_array(t_sentence *s, int **reds, int *index)

@@ -12,30 +12,26 @@
 
 #include"minishell.h"
 
-//===============================
-// ATENÇÃO
-// VERIFICAR PERMISSÕES NO MAC
-//===============================
-
 void error_redir(char *filename)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(filename, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+	g_global = 1;
 }
 
 int	out(t_sentence *cmd, char *file)
 {
 	int	temp_fd;
 
-	temp_fd = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0777);
+	temp_fd = open(file, O_CREAT | O_WRONLY | O_TRUNC , 0666);
 	if (temp_fd == -1)
 	{
 		error_redir(file);
 		return (-1);
 	}
-	dup2(temp_fd, cmd->fd_o);
+	cmd->fd_o = temp_fd;
 	return (temp_fd);
 }
 
@@ -43,13 +39,13 @@ int	append(t_sentence *cmd, char *file)
 {
 	int	temp_fd;
 
-	temp_fd = open(file, O_WRONLY | O_APPEND | O_CREAT, 0777);
+	temp_fd = open(file, O_WRONLY | O_APPEND | O_CREAT, 0666);
 	if (temp_fd == -1)
 	{
 		error_redir(file);
 		return (-1);
 	}
-	dup2(temp_fd, cmd->fd_o);
+	cmd->fd_o = temp_fd;
 	return (temp_fd);
 }
 
@@ -63,7 +59,7 @@ int	in(t_sentence *cmd, char *file)
 		error_redir(file);
 		return (-1);
 	}
-	dup2(cmd->fd_i, temp_fd);
+	cmd->fd_i = temp_fd;
 	return (temp_fd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/11 17:30:08 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:46:32 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,5 @@ int			counting_pipes(t_token **lst_token);
 
 // srcs/redirects/
 int			counting_redirects(t_token **lst_token);
-
-// srcs/redirects/
 int			open_reds(int token, t_sentence *cmd, char *file_name);
 #endif
