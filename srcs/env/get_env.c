@@ -6,11 +6,14 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:37:16 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/02 03:07:22 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/11 13:24:21 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
+
+void	get_entry(char **key, char **value, char *var, int len);
 
 /*
  * Input		:char *environ[] - environment variable
@@ -21,20 +24,34 @@
 t_env	*get_env(char *environ[])
 {
 	int		index;
-	char	**dict_split;
+	char	*key;
+	char	*value;
 	t_env	*env;
 
 	index = 0;
 	env = NULL;
-	dict_split = NULL;
 	while (environ[index])
 	{
-		dict_split = ft_split(environ[index], '=');
-		env = addfront_env(env, dict_split[0], dict_split[1]);
-		freetab((void **)dict_split);
-		dict_split = NULL;
+		key = NULL;
+		value = NULL;
+		get_entry(&key, &value, environ[index], ft_strlen(environ[index]));
+		env = addfront_env(env, key, value);
+		free(key);
+		free(value);
 		index++;
 	}
 	set_envsize(env);
 	return (env);
+}
+
+void	get_entry(char **key, char **value, char *var, int len)
+{
+	int	i;
+
+	i = 0;
+	while (var[i] != '=')
+		i++;
+	*key = ft_substr(var, 0, i);
+	i++;
+	*value = ft_substr(var, i, len - i);
 }

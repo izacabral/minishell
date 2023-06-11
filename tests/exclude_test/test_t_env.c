@@ -44,7 +44,7 @@ static char	**create_fake_env(void)
 	fenv[1] = strdup("var2=bbb");
 	fenv[2] = strdup("var3=ccc");
 	fenv[3] = strdup("var4=ddd");
-	fenv[4] = strdup("var5=eee");
+	fenv[4] = strdup("var5==eee=eee=");
 	fenv[5] = NULL;
 	return (fenv);
 }
