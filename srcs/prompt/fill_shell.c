@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:18:51 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/05 16:42:43 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/11 21:02:46 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	fill_shell(t_shell *data)
 	data->redirect_count = counting_redirects(&data->lst_token);
 	if (data->pipe_count > 0)
 	{
-		data->pipes = malloc (sizeof(int) * data->pipe_count);
+		data->pipes = malloc (sizeof(int *) * data->pipe_count);
 		if (!data->pipes)
 		{
 			ft_putendl_fd("Malloc error array pipes", 2);

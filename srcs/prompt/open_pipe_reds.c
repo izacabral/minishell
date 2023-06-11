@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:28:57 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/11 17:48:28 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/11 21:07:13 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,22 @@ static void	set_reds_array(t_sentence *s, int **reds, int *index)
 	int		i;
 
 	i = 0;
+
 	while (s->args[i])
 	{
+		ft_printf("s->args[%d]: %s\n", i, s->args[i]);
 		t = which_delim(s->args[i]);
-		if (t && s->args[i + 1])
+		if (t > PIPE)
 		{
+			ft_printf("s->argsdentro[%d]: %s\n", i, s->args[i]);
+			ft_printf("index antes %d\n", *index);
 			i++;
 			*reds[*index] = open_reds(t, s, s->args[i]);
 			(*index)++;
+			ft_printf("index dentro %d\n", *index);
+			ft_printf("s->argsdentro2[%d]: %s\n", i, s->args[i]);
 		}
+
 		i++;
 	}
 }
