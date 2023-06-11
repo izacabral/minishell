@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/06 16:06:52 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/11 15:47:42 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char		*while_no_quotes(char *str, int i, char *new_str);
 int			check_export(char *key, char *str);
 int			check_unset(char *key);
 t_env		*compare_key(t_env *env, char *key);
-int			export_builtins(int size, char *str[], t_shell *data);
+int			export(int size, char *str[], t_env *env);
 void		export_error(char *str);
 void		print_env(t_env *env);
 void		print_export(t_env *env);

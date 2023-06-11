@@ -24,13 +24,13 @@ void print_exp_unset_env(int argc, char *argv[], t_shell *info)
         printf(ANSI_COLOR_GREEN "📝 Está sendo adicionada a variável de ambiente _alibaba=brasil+egito\n"ANSI_COLOR_RESET);
         printf(ANSI_COLOR_GREEN "📝 Está sendo adicionada a variável de ambiente IZA=\n" ANSI_COLOR_RESET);
         printf("___________________________________________________________");
-        export_builtins(2, str1, info);
+        export(2, str1, info->lst_env);
         usleep(2);
-        export_builtins(2, str2, info);
+        export(2, str2, info->lst_env);
         usleep(2);
-        export_builtins(2, str3, info);
+        export(2, str3, info->lst_env);
         usleep(2);
-        export_builtins(2, str4, info);
+        export(2, str4, info->lst_env);
         usleep(2);
         printf("\n");
         printf(ANSI_COLOR_YELLOW "*********************************\n"ANSI_COLOR_RESET);
@@ -62,14 +62,14 @@ void print_exp_unset_env(int argc, char *argv[], t_shell *info)
         printf(ANSI_COLOR_BRIGHT_MAGENTA "✍ Escrevendo apenas export no terminal\n" ANSI_COLOR_RESET);
         printf(ANSI_COLOR_BRIGHT_CYAN"___________________________________________________________\n"ANSI_COLOR_RESET);
         usleep(59);
-	    export_builtins(1, s, info);
+	    export(1, s, info->lst_env);
         printf("\n");
         char *st1[] = {"export", "1dawe=vchastin"};
         char *st3[] = {"export", "@hotmail=22"};
         printf("❌ Esta variável de ambiente NÃO DEVE ser adicionada 1dawe=vchastin\n");
         printf("❌ Está variável de ambiente NÃO DEVE ser adicionada @hotmail=22\n");
-        export_builtins(2, st1, info);
-        export_builtins(2, st3, info);
+        export(2, st1, info->lst_env);
+        export(2, st3, info->lst_env);
         printf("\n");
         printf(ANSI_COLOR_YELLOW "*********************************\n"ANSI_COLOR_RESET);
         printf(ANSI_COLOR_YELLOW "       VÁRIAVEL DE AMBIENTE\n" ANSI_COLOR_RESET);
@@ -85,7 +85,7 @@ void print_exp_unset_env(int argc, char *argv[], t_shell *info)
         }
         if (ft_strncmp(str[0], "export", 7) == 0)
         {
-            export_builtins(size, str, info);
+            export(size, str, info->lst_env);
             if (argc != 2)
                 print_env(info->lst_env);
         }
