@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 15:26:25 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/17 13:55:48 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:26:39 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,32 @@
 
 /*
  * Fn		: print_syntax_error(char *word)
- * Scope	: printa a mensagem de error da função lexer
+ * Scope	: print error message from lexer function
  * Input	: char *word da t_token (lista de tokens)
  *
- * Output	: mensagem de error
+ * Output	: error message
  * Errors	:
  *
  * Uses		: lexer()
  *
- * OBS		: setar o erro 258 para a variável global que representará o ?
+ * OBS		: assign error 258 to global variable representing ?
  */
 static void	print_syntax_error(char *word)
 {
-	ft_printf("minishell: syntax error near unexpected token '%s'\n", word);
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+	ft_putstr_fd(word, 2);
+	ft_putendl_fd("'", 2);
 	g_global = 258;
 }
 
 /*
  * Fn		: next_token(t_token *tmp)
- * Scope	: Valida o próximo token depois de um token de redirec.
- * 				E retorna a msg de erro correspondente.
+ * Scope	: Validate token after a redirect token
+ * 				Return correspondent error
  * Input	: t_token *tmp (lista de tokens)
  *
- * Output	: int (0) - nenhum erro encontrado
- * Errors	: int (-1) - token invalido
+ * Output	: int (0) - no error found
+ * Errors	: int (-1) - invalid token
  * Uses		: lexer_iterate()
  */
 static int	next_token(t_token *tmp)
@@ -58,12 +60,11 @@ static int	next_token(t_token *tmp)
 
 /*
  * Fn		: lexer_iterate(t_token *tmp)
- * Scope	: percorrer a t_token *tmp validando a sintaxe. Função criada
- * 				para diminuir a quantidade de linhas da lexer
- * Input	: t_token *tmp (lista de tokens)
+ * Scope	: Validate syntax in a t_token list
+ * Input	: t_token *tmp (token list)
  *
- * Output	: int (0) - nenhum erro encontrado
- * Errors	: int (-2) - erro de sintaxe
+ * Output	: int (0) - no error found
+ * Errors	: int (-2) - syntax error
  * Uses		: lexer()
  */
 static int	lexer_iterate(t_token *tmp)
@@ -96,12 +97,12 @@ static int	lexer_iterate(t_token *tmp)
 
 /*
  * Fn		: lexer(t_token *lst)
- * Scope	: percorrer a t_token *tmp validando a sintaxe.
- * Input	: t_token *tmp (lista de tokens)
+ * Scope	: Validate syntax in a token list
+ * Input	: t_token *tmp (token list)
  *
- * Output	: int (0) - nenhum erro encontrado
- * Errors	: int (-1) - t_token *lst não existe
- *			: int (-2) - erro de sintaxe
+ * Output	: int (0) - no error found
+ * Errors	: int (-1) - token list is empty
+ *			: int (-2) - syntax error
  * Uses		: lexer()
  */
 int	lexer(t_token *lst)

@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:45 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/14 16:27:47 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:34:36 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_lst_to_str(t_string *lst)
 	int		i;
 
 	length = ft_strtotallen(lst);
+	if (!length)
+		return (NULL);
 	str = malloc((length + 1) * sizeof(*str));
 	str[length] = '\0';
 	i = 0;

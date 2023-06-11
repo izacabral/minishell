@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/11 16:22:18 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:30:08 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int			lexer(t_token *lst);
 t_env		*get_env(char *environ[]);
 void		expandvars(char **sentences, t_env *env);
 t_string	*path_to_lst(char *path);
+int			check_varname(char *key);
+int			iscrule(int c, int first);
 
 // srcs/exec/
 int			call_execve(char **args, char *path);
@@ -82,6 +84,7 @@ int			unset_builtins(int size, char *str[], t_shell *data);
 int			ft_echo(char **arg);
 int			ft_exit(int n);
 int			pwd(void);
+int			cd(t_shell *data, char *path);
 
 // srcs/pipes/
 int			counting_pipes(t_token **lst_token);
