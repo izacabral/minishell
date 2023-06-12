@@ -1,5 +1,8 @@
 #include "testing.h"
 #include "types.h"
+#include "minishell.h"
+
+int	g_global = 0;
 
 static char	*find_filename(char *s, int redir)
 {
@@ -9,7 +12,7 @@ static char	*find_filename(char *s, int redir)
 
 	if (redir == IN)
 		str = ft_strchr(s, '<');
-	else if (redir == OUT || redir == APPEND)
+	if (redir == OUT || redir == APPEND)
 		str = ft_strchr(s, '>');
 	pos = (str - s) + 2;
 	filename = ft_substr(s, pos , ft_strlen(s) - pos);
@@ -17,7 +20,7 @@ static char	*find_filename(char *s, int redir)
 	{
         filename = ft_strtrim(filename, " ");
 	}
-	return (filename);
+    return (filename);
 }
 
 int contains_redirection(const char* str, const char* redirection) {
@@ -50,6 +53,7 @@ int contains_redirection(const char* str, const char* redirection) {
 }
 
 
+
 int	main(void)
 {
 	char *initial_args[] = { "blabla < input.txt", "beaba > output.txt", "alibaba >> output.txt"};
@@ -63,9 +67,9 @@ int	main(void)
         printf("Falha na alocação de memória.\n");
         return 1;
     }
-	/* percorrendo o array initial_args e fazendo a cópia de cada elemento 
+	/* percorrendo o array initial_args e fazendo a cópia de cada elemento
 	para o array st.args da estrutura t_sentence, usando a função strdup.*/
-    while (i < num_args) 
+    while (i < num_args)
 	{
         st.args[i] = ft_strdup(initial_args[i]);
         if (st.args[i] == NULL) {
