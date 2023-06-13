@@ -6,14 +6,11 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:37:16 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/11 13:24:21 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/12 21:35:09 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-
-void	get_entry(char **key, char **value, char *var, int len);
 
 /*
  * Input		:char *environ[] - environment variable
@@ -42,16 +39,4 @@ t_env	*get_env(char *environ[])
 	}
 	set_envsize(env);
 	return (env);
-}
-
-void	get_entry(char **key, char **value, char *var, int len)
-{
-	int	i;
-
-	i = 0;
-	while (var[i] != '=')
-		i++;
-	*key = ft_substr(var, 0, i);
-	i++;
-	*value = ft_substr(var, i, len - i);
 }

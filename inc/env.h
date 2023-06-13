@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 00:03:44 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/20 00:03:52 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/12 21:34:30 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_repl
 	char		*new;
 	int			new_sz;
 }	t_repl;
+
+void	get_entry(char **key, char **value, char *var, int len);
 
 // Var expansion
 char		*expand_sentence(char **sentence, t_env *env);

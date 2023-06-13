@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:29:37 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/07 14:39:34 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:57:33 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_varname(char *key)
 			return (0);
 		len++;
 	}
-	return (0);
+	return (1);
 }
 
 /*
