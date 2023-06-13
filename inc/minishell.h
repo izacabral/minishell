@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/13 19:17:12 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/13 20:10:01 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int			check_unset(char *key);
 t_env		*compare_key(t_env *env, char *key);
 int			export(int size, char *str[], t_env *env);
 void		export_error(char *str);
-void		print_env(t_env *env);
+void		env(t_env *env);
 void		print_export(t_env *env);
 int			unset(int size, char *str[], t_env **env);
 int			ft_echo(char **arg);

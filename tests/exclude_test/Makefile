@@ -34,7 +34,7 @@ SRCS_EXECVE		=	test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/path_
 
 OBJS_EXECVE		=	$(SRCS_EXECVE:.c=.o)
 
-SRCS_P_EXP_UNSET_ENV	= test_export_unset_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins/check_export.c ../../srcs/builtins/check_unset.c ../../srcs/builtins/print_env.c \
+SRCS_P_EXP_UNSET_ENV	= test_export_unset_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins/check_export.c ../../srcs/builtins/check_unset.c ../../srcs/builtins/env.c \
 							../../srcs/builtins/compare_key.c ../../srcs/builtins/export.c \
 							../../srcs/builtins/print_export.c ../../srcs/builtins/unset.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c \
 							../../srcs/data_types/t_env.c ../../srcs/prompt/init_shell.c \
@@ -45,7 +45,7 @@ SRCS_P_EXP_UNSET_ENV	= test_export_unset_env.c ../../srcs/builtins/export_error.
 
 OBJS_P_EXP_UNSET_ENV	=	$(SRCS_P_EXP_UNSET_ENV:.c=.o)
 
-SRCS_T_ENV	= test_t_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins/check_export.c ../../srcs/builtins/check_unset.c ../../srcs/builtins/print_env.c \
+SRCS_T_ENV	= test_t_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins/check_export.c ../../srcs/builtins/check_unset.c ../../srcs/builtins/env.c \
 							../../srcs/builtins/compare_key.c ../../srcs/builtins/export.c \
 							../../srcs/builtins/print_export.c ../../srcs/builtins/unset.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c \
 							../../srcs/data_types/t_env.c ../../srcs/prompt/init_shell.c \

@@ -36,7 +36,7 @@ void print_exp_unset_env(int argc, char *argv[], t_shell *info)
         printf(ANSI_COLOR_YELLOW "*********************************\n"ANSI_COLOR_RESET);
         printf(ANSI_COLOR_YELLOW "       VÁRIAVEL DE AMBIENTE\n" ANSI_COLOR_RESET);
         printf(ANSI_COLOR_YELLOW "*********************************\n" ANSI_COLOR_RESET);
-        print_env(info->lst_env);
+        env(info->lst_env);
         printf("___________________________________________________________");
         printf(ANSI_COLOR_RED "\n🗑 Está sendo deletada a variável de ambiente student\n"ANSI_COLOR_RESET);
         printf(ANSI_COLOR_RED "🗑 Está sendo deletada a variável de ambiente _daniel\n"ANSI_COLOR_RESET);
@@ -55,7 +55,7 @@ void print_exp_unset_env(int argc, char *argv[], t_shell *info)
         printf(ANSI_COLOR_YELLOW "*********************************\n"ANSI_COLOR_RESET);
         printf(ANSI_COLOR_YELLOW "       VÁRIAVEL DE AMBIENTE\n" ANSI_COLOR_RESET);
         printf(ANSI_COLOR_YELLOW "*********************************\n" ANSI_COLOR_RESET);
-        print_env(info->lst_env);
+        env(info->lst_env);
         char *s[] = {"export"};//print especial
         usleep(59);
         printf("___________________________________________________________\n");
@@ -74,7 +74,7 @@ void print_exp_unset_env(int argc, char *argv[], t_shell *info)
         printf(ANSI_COLOR_YELLOW "*********************************\n"ANSI_COLOR_RESET);
         printf(ANSI_COLOR_YELLOW "       VÁRIAVEL DE AMBIENTE\n" ANSI_COLOR_RESET);
         printf(ANSI_COLOR_YELLOW "*********************************\n" ANSI_COLOR_RESET);
-        print_env(info->lst_env);
+        env(info->lst_env);
     }
     else
     {
@@ -87,14 +87,14 @@ void print_exp_unset_env(int argc, char *argv[], t_shell *info)
         {
             export(size, str, info->lst_env);
             if (argc != 2)
-                print_env(info->lst_env);
+                env(info->lst_env);
         }
         else if (ft_strncmp(str[0], "unset", 5) == 0){
             unset(size, str, &info->lst_env);
-            print_env(info->lst_env);
+            env(info->lst_env);
         }
         else if (ft_strncmp(str[0], "env", 3) == 0){
-            print_env(info->lst_env);
+            env(info->lst_env);
         }
         free(str);
         return ;

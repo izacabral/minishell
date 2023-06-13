@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_builtin.c                                      :+:      :+:    :+:   */
+/*   print_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:49:46 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/23 08:53:30 by vchastin         ###   ########.fr       */
+/*   Updated: 2023/06/13 20:09:38 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * Output			:print environment variables(envp list)
  * 					:Example: PATH=/usr/local/bin
  */
-void	print_env(t_env *env)
+void	env(t_env *env)
 {
 	t_env	*tmp;
 
