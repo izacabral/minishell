@@ -48,6 +48,7 @@ int			isdelim(char c);
 t_tkn		which_delim(char *delim);
 int			scan_line(t_token **lst, char *line);
 int			lexer(t_token *lst);
+int			heredoc(char *str, int fd_out);
 
 // srcs/env/
 t_env		*get_env(char *environ[]);

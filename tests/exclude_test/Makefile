@@ -18,7 +18,7 @@ LIBFT		= 	../../$(LFT)/$(LFT).a
 # **************************************************************************** #
 
 SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../../srcs/parser/isdelim.c \
-					../../srcs/parser/isquotes.c ../../srcs/parser/scan_line.c ../../srcs/parser/which_delim.c ../../srcs/data_types/t_token.c
+					../../srcs/parser/isquotes.c ../../srcs/parser/scan_line.c ../../srcs/parser/which_delim.c ../../srcs/data_types/t_token.c ../../srcs/parser/heredoc.c
 
 OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 
