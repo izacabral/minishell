@@ -12,8 +12,9 @@
 
 #include "minishell.h"
 
+/*
 // make real open_pipe
-int	*open_pipe(t_sentence *previous, t_sentence *after)
+int	*open_pipe(t_sentence *actual, t_sentence *next)
 {
 	char	**argsp;
 	char	**argsa;
@@ -36,25 +37,6 @@ int	*open_pipe(t_sentence *previous, t_sentence *after)
 	}
 	return (0);
 }
-
-/*
-// make real open_reds
-int	open_reds(int token, t_sentence *cmd, char *file_name)
-{
-	char	**argscmd;
-	int		i;
-
-	argscmd = cmd->args;
-	i = 0;
-	while (argscmd[i])
-	{
-		ft_printf("argsreds[%d]: %s\n", i, argscmd[i]);
-		i++;
-	}
-	ft_printf("token: %d\n", token);
-	ft_printf("filename: %s\n", file_name);
-	return (0);
-}
  */
 
 /*
@@ -65,7 +47,7 @@ int	open_reds(int token, t_sentence *cmd, char *file_name)
  * Errors	: not applicable
  * Uses		: open_pipes_reds()
  */
-static void	set_reds_array(t_sentence *s, int **reds, int *index)
+static void	set_reds_array(t_sentence *s, int *reds, int *index)
 {
 	t_tkn	t;
 	int		i;
@@ -79,8 +61,8 @@ static void	set_reds_array(t_sentence *s, int **reds, int *index)
 		{
 			ft_printf("s->args[%d]: %s\n", i, s->args[i]);
 			i++;
-			*reds[*index] = open_reds(t, s, s->args[i]);
-			ft_printf("reds[%d]: %d\n", *index, *reds[*index]);
+			reds[*index] = open_reds(t, s, s->args[i]);
+			ft_printf("reds[%d]: %d\n", *index, reds[*index]);
 			ft_printf("filename: %s\n", s->args[i]);
 			(*index)++;
 			ft_printf("(*index)++: %d\n", *index);
@@ -112,7 +94,7 @@ int	open_pipe_reds(t_shell *data)
 	while (tmp_sentence && data->redirect_count > 0)
 	{
 		if (tmp_sentence->reds_inside > 0)
-			set_reds_array(tmp_sentence, &data->reds, &i_reds);
+			set_reds_array(tmp_sentence, data->reds, &i_reds);
 		tmp_sentence = tmp_sentence->next;
 	}
 	tmp_sentence = data->lst_sentence;

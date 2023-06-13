@@ -88,6 +88,7 @@ int			cd(t_shell *data, char *path);
 
 // srcs/pipes/
 int			counting_pipes(t_token **lst_token);
+int		*open_pipe(t_sentence *actual, t_sentence *next);
 
 // srcs/redirects/
 int			counting_redirects(t_token **lst_token);

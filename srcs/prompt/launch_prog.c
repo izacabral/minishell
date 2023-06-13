@@ -31,6 +31,8 @@ void	print_sentence_teste(t_sentence **lst_sentence)
 			i++;
 		}
 		args = NULL;
+		ft_printf("sentence fd_i: %d\n", tmp->fd_i);
+		ft_printf("sentence fd_o: %d\n", tmp->fd_o);
 		tmp = tmp->next;
 	}
 }
