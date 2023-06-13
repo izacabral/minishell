@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:50:05 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/13 19:16:51 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:25:28 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	unset(int size, char *str[], t_env **env)
 		return (0);
 	while (++i < size)
 	{
-		if (check_unset(str[i]))
+		if (check_varname(str[i]))
 			delete_var(env, str[i]);
 	}
 	return (0);
