@@ -6,7 +6,7 @@
 /*   By: gcalvell <gcalvell@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 00:30:43 by gcalvell          #+#    #+#             */
-/*   Updated: 2023/06/09 00:30:43 by gcalvell         ###   ########.fr       */
+/*   Updated: 2023/06/13 09:54:45 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	open_reds(int token, t_sentence *cmd, char *file_name)
 		return (out(cmd, file_name));
 	else if (token == APPEND)
 		return (append(cmd, file_name));
+	else if (token == HDOC)
+		return (heredoc(cmd, file_name));
 	else
 		return (-1);
 }

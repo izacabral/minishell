@@ -48,7 +48,6 @@ int			isdelim(char c);
 t_tkn		which_delim(char *delim);
 int			scan_line(t_token **lst, char *line);
 int			lexer(t_token *lst);
-int			heredoc(char *str, int fd_out);
 
 // srcs/env/
 t_env		*get_env(char *environ[]);
@@ -94,5 +93,7 @@ int			*open_pipe(t_sentence *actual, t_sentence *next);
 // srcs/redirects/
 int			counting_redirects(t_token **lst_token);
 int			open_reds(int token, t_sentence *cmd, char *file_name);
+int			heredoc(t_sentence *cmd, char *file);
+void		error_redir(char *filename);
 
 #endif

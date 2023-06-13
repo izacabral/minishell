@@ -10,24 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
-int	heredoc(char *str, int fd_out)
+int	heredoc(t_sentence *cmd, char *file)
 {
 	char	*read;
+	int		pipe_fd[2];
 
 	read = NULL;
+	if (pipe(pipe_fd) == -1)
+	{
+		error_redir(file);
+		return (-1);
+	}
+	close(pipe_fd[1]);
 	while (1)
 	{
 		read = readline(">");
 		if (!read)
-			return (0);
-		if (ft_strncmp(read, str, ft_strlen(str)) == 0)
+			return (-1);
+		if (ft_strncmp(read, file, ft_strlen(file)) == 0)
 			break ;
-		ft_putendl_fd(read, fd_out);
+		ft_putendl_fd(read, pipe_fd[0]);
 		free(read);
 	}
 	free(read);
-	return (0);
+	cmd->fd_i = pipe_fd[0];
+	return (pipe_fd[0]);
 }
