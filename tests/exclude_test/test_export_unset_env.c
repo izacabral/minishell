@@ -47,10 +47,10 @@ void print_exp_unset_env(int argc, char *argv[], t_shell *info)
         char *s2[] = {"unset", "_daniel"};
         char *s3[] = {"unset", "_alibaba"};
         char *s4[] = {"unset", "IZA"};
-        unset_builtins(2, s1, info);
-        unset_builtins(2, s2, info);
-        unset_builtins(2, s3, info);
-        unset_builtins(2, s4, info);
+        unset(2, s1, &info->lst_env);
+        unset(2, s2, &info->lst_env);
+        unset(2, s3, &info->lst_env);
+        unset(2, s4, &info->lst_env);
         printf("\n");
         printf(ANSI_COLOR_YELLOW "*********************************\n"ANSI_COLOR_RESET);
         printf(ANSI_COLOR_YELLOW "       VÁRIAVEL DE AMBIENTE\n" ANSI_COLOR_RESET);
@@ -90,7 +90,7 @@ void print_exp_unset_env(int argc, char *argv[], t_shell *info)
                 print_env(info->lst_env);
         }
         else if (ft_strncmp(str[0], "unset", 5) == 0){
-            unset_builtins(size, str, info);
+            unset(size, str, &info->lst_env);
             print_env(info->lst_env);
         }
         else if (ft_strncmp(str[0], "env", 3) == 0){

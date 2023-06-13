@@ -57,7 +57,7 @@ static void	call_unset(t_shell *data, const char *to_remove)
 	arg[2] = NULL;
 	arg[1] = strdup(to_remove);
 	arg[0] = strdup("unset");
-	unset_builtins(2, arg, data);
+	unset(2, arg, &data->lst_env);
 	freetab((void **)arg);
 }
 
