@@ -53,6 +53,7 @@ static void	run_tests(t_env *lst)
 	const char	*test1 = "export var6=fff var7=ggg";
 	const char	*test2 = "export var1=111 var5=";
 	const char	*test3 = "export 1var=zzz var8=hhh var8=888";
+	const char	*test4 = "export";
 
 	printf("Adding variables\nCall: %s\n", test1);
 	test_export((char *)test1, lst);
@@ -62,6 +63,8 @@ static void	run_tests(t_env *lst)
 	print_list(lst);
 	printf("\nInvalid entry\nCall %s\n", test3);
 	test_export((char *)test3, lst);
+	printf("Test export for print variables\n");
+	test_export((char *)test4, lst);
 }
 
 static void test_export(char *str, t_env *lst)
