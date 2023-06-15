@@ -29,7 +29,7 @@ int	heredoc(t_sentence *cmd, char *file)
 		line_read = readline(">");
 		if (!line_read)
 			return (-1);
-		if (ft_strncmp(line_read, file, ft_strlen(file)) == 0)
+		if (ft_strncmp(line_read, file, ft_strlen(file) + 1) == 0)
 			break ;
 		ft_putendl_fd(line_read, pipe_fd[0]);
 		free(line_read);
