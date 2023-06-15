@@ -12,37 +12,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
-int	heredoc(char *str, int fd_out)
-{
-	char	*read;
-
-	read = NULL;
-	while (1)
-	{
-		read = readline(">");
-		if (!read)
-			return (0);
-		if (ft_strncmp(read, str, ft_strlen(str)) == 0)
-			break ;
-		ft_putendl_fd(read, fd_out);
-		free(read);
-	}
-	free(read);
-	return (0);
-}
+int	g_global = 0;
 
 int    main()
 {
-    //int        fd[2];
-    int  fdout;
+    t_sentence *cmd;
 
-    fdout = open("arquivo_teste.txt", 64 | 512 | 02, 0644);
-    //pipe(fd);
-    heredoc_input("teste", fdout);
-    close(fdout);
-    //close(fd[1]);
+	cmd = malloc (sizeof(t_sentence));
+	cmd->args = NULL;
+	cmd->fd_i = 0;
+	cmd->fd_o = 1;
+	cmd->reds_inside = 0;
+	cmd->previous = NULL;
+	cmd->next = NULL;
+
+
+	if (heredoc(cmd, "EOF") == -1)
+	{
+		ft_printf("error hdoc\n");
+		return (-1);
+	}
+	ft_printf("fd_i: %d\n", cmd->fd_i);
+	
+	free(cmd);
     return (0);
 }

@@ -13,33 +13,6 @@
 #include "minishell.h"
 
 /*
-// make real open_pipe
-int	*open_pipe(t_sentence *actual, t_sentence *next)
-{
-	char	**argsp;
-	char	**argsa;
-	int		i;
-
-	ft_printf("\nopen_pipe() - just checking\n");
-	argsp = previous->args;
-	i = 0;
-	while (argsp[i])
-	{
-		ft_printf("argspipep[%d]: %s\n", i, argsp[i]);
-		i++;
-	}
-	argsa = after->args;
-	i = 0;
-	while (argsa[i])
-	{
-		ft_printf("argspipea[%d]: %s\n", i, argsa[i]);
-		i++;
-	}
-	return (0);
-}
- */
-
-/*
  * Fn		: set_reds_array(t_sentence *s, int **reds, int *index)
  * Scope	: if sentence has redirect calls open_reds() and set the reds array
  * Input	: a sentence node, a pointer to reds array and the array index;
@@ -53,19 +26,14 @@ static void	set_reds_array(t_sentence *s, int *reds, int *index)
 	int		i;
 
 	i = 0;
-	ft_printf("\nset_reds_array()\n");
 	while (s->args[i])
 	{
 		t = which_delim(s->args[i]);
 		if (t > PIPE)
 		{
-			ft_printf("s->args[%d]: %s\n", i, s->args[i]);
 			i++;
 			reds[*index] = open_reds(t, s, s->args[i]);
-			ft_printf("reds[%d]: %d\n", *index, reds[*index]);
-			ft_printf("filename: %s\n", s->args[i]);
 			(*index)++;
-			ft_printf("(*index)++: %d\n", *index);
 		}
 		i++;
 	}
@@ -98,7 +66,7 @@ int	open_pipe_reds(t_shell *data)
 		tmp_sentence = tmp_sentence->next;
 	}
 	tmp_sentence = data->lst_sentence;
-	while (tmp_sentence && tmp_sentence->next)
+	while (tmp_sentence && tmp_sentence->next && data->pipe_count > 0)
 	{
 		data->pipes[i_pipes++] = open_pipe(tmp_sentence, tmp_sentence->next);
 		tmp_sentence = tmp_sentence->next;

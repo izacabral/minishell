@@ -12,13 +12,22 @@
 
 #include "minishell.h"
 
-void error_pipe(void)
+static void	error_pipe(void)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
 	g_global = errno;
 }
 
+/*
+ * Fn		: open_pipe(t_sentence *actual, t_sentence *next)
+ * Scope	: call function pipe(), and update sentence fd_i and fd_o
+ *				when its necessary
+ * Input	: currenty node sentence and the next one
+ * Output	: the array of fds
+ * Errors	: -1 if the fds weren't created
+ * Uses		: open_pipe_reds()
+ */
 int	*open_pipe(t_sentence *actual, t_sentence *next)
 {
 	int	*pipe_fd;

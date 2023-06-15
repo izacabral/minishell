@@ -41,6 +41,8 @@ char		*readline_gets(char *line);
 void		setup_signals(void);
 void		fill_shell(t_shell *data);
 int			open_pipe_reds(t_shell *data);
+void		close_fds(t_shell *data);
+void		free_shell(t_shell *data);
 
 // srcs/parser/
 int			isquotes(char c);
@@ -89,6 +91,7 @@ int			cd(t_shell *data, char *path);
 // srcs/pipes/
 int			counting_pipes(t_token **lst_token);
 int			*open_pipe(t_sentence *actual, t_sentence *next);
+void		clear_pipe(t_shell *data);
 
 // srcs/redirects/
 int			counting_redirects(t_token **lst_token);

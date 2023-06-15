@@ -18,7 +18,7 @@ LIBFT		= 	../../$(LFT)/$(LFT).a
 # **************************************************************************** #
 
 SRCS_P_TOKEN	=	debug_print.c test_print_tokenization.c ../../srcs/parser/isdelim.c \
-					../../srcs/parser/isquotes.c ../../srcs/parser/scan_line.c ../../srcs/parser/which_delim.c ../../srcs/data_types/t_token.c ../../srcs/parser/heredoc.c
+					../../srcs/parser/isquotes.c ../../srcs/parser/scan_line.c ../../srcs/parser/which_delim.c ../../srcs/data_types/t_token.c
 
 OBJS_P_TOKEN	=	$(SRCS_P_TOKEN:.c=.o)
 
@@ -30,7 +30,9 @@ SRCS_ECHO		=	test_echo.c ../../srcs/builtins/echo.c
 
 OBJS_ECHO		=	$(SRCS_ECHO:.c=.o)
 
-SRCS_EXECVE		=	test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/path_to_lst.c ../../srcs/exec/prefix_slash.c ../../srcs/exec/launch_command.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_strnew.c ../../srcs/data_types/free_tab.c
+SRCS_EXECVE		=	test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/path_to_lst.c ../../srcs/exec/prefix_slash.c ../../srcs/exec/launch_command.c \
+					../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strsetlast.c \
+					../../srcs/data_types/ft_strnew.c ../../srcs/data_types/free_tab.c
 
 OBJS_EXECVE		=	$(SRCS_EXECVE:.c=.o)
 
@@ -53,7 +55,10 @@ SRCS_T_ENV	= test_t_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins
 
 OBJS_T_ENV	=	$(SRCS_T_ENV:.c=.o)
 
-SRCS_EXPANDVAR	=	test_expandvars.c ../../srcs/env/expand_sentence.c ../../srcs/env/expandvars.c ../../srcs/env/get_value.c ../../srcs/env/scan_sentence.c ../../srcs/env/which_quotes.c ../../srcs/data_types/ft_strnew.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c ../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_lst_to_str.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strtotallen.c ../../srcs/env/check_varname.c
+SRCS_EXPANDVAR	=	test_expandvars.c ../../srcs/env/expand_sentence.c ../../srcs/env/expandvars.c ../../srcs/env/get_value.c ../../srcs/env/scan_sentence.c \
+					../../srcs/env/which_quotes.c ../../srcs/data_types/ft_strnew.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c \
+					../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_lst_to_str.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c \
+					../../srcs/data_types/ft_strtotallen.c ../../srcs/env/check_varname.c
 
 OBJS_EXPANDVAR	=	$(SRCS_EXPANDVAR:.c=.o)
 
@@ -71,9 +76,13 @@ SRCS_P_SENTENCE	=	test_print_t_sentence.c  ../../srcs/sentence/create_sentences.
 
 OBJS_P_SENTENCE	=	$(SRCS_P_SENTENCE:.c=.o)
 
-SRCS_REDIRECTS = 	test_redirects.c ../../srcs/redirects/redirects.c
+SRCS_REDIRECTS = 	test_redirects.c ../../srcs/redirects/open_reds.c ../../srcs/redirects/heredoc.c
 
 OBJS_REDIRECTS	=	$(SRCS_REDIRECTS:.c=.o)
+
+SRCS_HDOC		= 	teste_heredoc.c ../../srcs/redirects/heredoc.c ../../srcs/redirects/open_reds.c
+
+OBJS_HDOC		=	$(SRCS_HDOC:.c=.o)
 
 # **************************************************************************** #
 #    READLINE SUPPORT                                                          #
@@ -109,7 +118,8 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken printsentence printexpunsenv expandvar execve echo pwd t_env printredirects
+all: printtoken printsentence printexpunsenv expandvar execve echo pwd t_env printredirects \
+		hdoc
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
@@ -139,11 +149,17 @@ t_env: $(LIBFT) $(OBJS_T_ENV)
 printredirects: $(LIBFT) $(OBJS_REDIRECTS)
 	$(CC) $(OBJS_REDIRECTS) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printredirects
 
+hdoc:	$(LIBFT) $(OBJS_HDOC)
+	$(CC) $(OBJS_HDOC) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o hdoc
+
 clean:
-		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR) $(OBJS_EXECVE) $(OBJS_ECHO) $(OBJS_PWD) $(OBJS_T_ENV) $(OBJS_REDIRECTS)
+		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR)
+		$(RM) $(OBJS_EXECVE) $(OBJS_ECHO) $(OBJS_PWD) $(OBJS_T_ENV) $(OBJS_REDIRECTS)
+		$(RM) $(OBJS_HDOC)
 
 fclean: clean
-		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env printredirects
+		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env printredirects \
+		$(RM) hdoc
 
 re:			fclean all
 

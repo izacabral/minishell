@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+//apenas para uso didático - remover depois
 void	print_sentence_teste(t_sentence **lst_sentence)
 {
 	t_sentence	*tmp;
@@ -52,19 +53,15 @@ void	launch_prog(t_shell *data)
 	{
 		create_sentences(data->lst_env, &data->lst_token, &data->lst_sentence);
 		fill_shell (data);
-		print_sentence_teste(&data->lst_sentence);
-		ft_printf("Number of sentences: %d\n", data->sentence_count);
-		ft_printf("Number of pipes: %d\n", data->pipe_count);
-		ft_printf("Number of redirects: %d\n", data->redirect_count);
-		open_pipe_reds(data);
-		ft_printf("\nSentences after open_pipe_reds() and cleaned up\n");
-		clean_reds_sentences(data->lst_sentence);
-		print_sentence_teste(&data->lst_sentence);
+		if (data->pipe_count > 0 || data->redirect_count > 0)
+		{
+			open_pipe_reds(data);
+			clean_reds_sentences(data->lst_sentence);
+			ft_printf("\nSentences after open_pipe_reds() and cleaned up\n");
+			ft_printf("\nOnly for didatics, need remove later\n");
+			print_sentence_teste(&data->lst_sentence);
+		}
 	}
-	clear_token(&data->lst_token);
-	if (data->lst_sentence)
-	{
-		clear_sentence(&data->lst_sentence);
-		fill_shell(data);
-	}
+	ft_printf("\nNext steps execution.\n");
+	free_shell (data);
 }

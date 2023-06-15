@@ -14,10 +14,10 @@
 
 int	heredoc(t_sentence *cmd, char *file)
 {
-	char	*read;
+	char	*line_read;
 	int		pipe_fd[2];
 
-	read = NULL;
+	line_read = NULL;
 	if (pipe(pipe_fd) == -1)
 	{
 		error_redir(file);
@@ -26,15 +26,16 @@ int	heredoc(t_sentence *cmd, char *file)
 	close(pipe_fd[1]);
 	while (1)
 	{
-		read = readline(">");
-		if (!read)
+		line_read = readline(">");
+		if (!line_read)
 			return (-1);
-		if (ft_strncmp(read, file, ft_strlen(file)) == 0)
+		if (ft_strncmp(line_read, file, ft_strlen(file)) == 0)
 			break ;
-		ft_putendl_fd(read, pipe_fd[0]);
-		free(read);
+		ft_putendl_fd(line_read, pipe_fd[0]);
+		free(line_read);
 	}
-	free(read);
+	free(line_read);
 	cmd->fd_i = pipe_fd[0];
 	return (pipe_fd[0]);
 }
+
