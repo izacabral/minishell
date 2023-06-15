@@ -1,3 +1,5 @@
+#include "minishell.h"
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -30,4 +32,17 @@ int	heredoc(char *str, int fd_out)
 	}
 	free(read);
 	return (0);
+}
+
+int    main()
+{
+    //int        fd[2];
+    int  fdout;
+
+    fdout = open("arquivo_teste.txt", 64 | 512 | 02, 0644);
+    //pipe(fd);
+    heredoc_input("teste", fdout);
+    close(fdout);
+    //close(fd[1]);
+    return (0);
 }
