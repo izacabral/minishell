@@ -6,11 +6,12 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:29:34 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/20 12:32:02 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/14 21:19:03 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "types.h"
 
 /*
  * Fn		: expandvars(char **sentences, t_env *env)
@@ -23,12 +24,17 @@
  */
 void	expandvars(char **sentences, t_env *env)
 {
-	int	i;
+	int		i;
+	t_tkn	t;
 
 	i = 0;
 	while (sentences[i])
 	{
-		sentences[i] = expand_sentence(&sentences[i], env);
+		t = which_delim(sentences[i]);
+		if (t > WORD)
+			i++;
+		if (t != HDOC)
+			sentences[i] = expand_sentence(&sentences[i], env, 0);
 		i++;
 	}
 }
