@@ -39,20 +39,12 @@ int    main()
 		ft_printf("error hdoc\n");
 		return (-1);
 	}
-	ft_printf("fd_i: %d\n", cmd->fd_i);
-
-
+	
 	if ((cmd->fd_o = open("teste_heredoc.txt", O_CREAT | O_WRONLY | O_TRUNC, 0666)) == -1)
 	{
 		ft_printf("error open\n");
 		return (-2);
 	}
-	ft_printf("fd_o: %d\n", cmd->fd_o);
-
-	if (cmd->fd_i != 0)
-		dup2(cmd->fd_i, 0);
-	if (cmd->fd_o != 1)
-		dup2(cmd->fd_o, 1);
 
 	int pid = fork();
 	if (pid == -1)
@@ -62,6 +54,11 @@ int    main()
 	}
 	if(pid == 0)
 	{
+		if (cmd->fd_i != 0)
+			dup2(cmd->fd_i, 0);
+		if (cmd->fd_o != 1)
+			dup2(cmd->fd_o, 1);
+		close (cmd->fd_i);
 		int err = execv("/bin/cat", &cmd->args[0]);
 		if (err == -1)
 		{
@@ -70,7 +67,11 @@ int    main()
 		}
 	}
 
-    int wstatus;
+	wait(&pid);
+	close (cmd->fd_i);
+	close (cmd->fd_o);
+
+ /*    int wstatus;
 	wait(&wstatus);
 
      if (WIFEXITED(wstatus))
@@ -80,8 +81,7 @@ int    main()
 	        printf("Sucess!\n");
         else
 	        printf("Failure with statusCode %d\n", statusCode);
-    }
-
+    } */
 	free(cmd);
     return (0);
 }
