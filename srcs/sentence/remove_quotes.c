@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sentence.c                                         :+:      :+:    :+:   */
+/*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 20:08:15 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/21 20:08:18 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/14 22:23:49 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,22 @@ static char	*rem_str_quotes(char *str)
  */
 void	remove_quotes(char **str)
 {
-	int	i;
+	int		i;
+	t_tkn	t;
 
 	i = 0;
 	while (str[i])
 	{
-		str[i] = rem_str_quotes(str[i]);
+		t = which_delim(str[i]);
+		if (t > WORD)
+			i++;
+		if (t != HDOC)
+			str[i] = rem_str_quotes(str[i]);
 		i++;
 	}
+}
+
+char	*remove_hdoc_quotes(char *str)
+{
+	return (rem_str_quotes(str));
 }

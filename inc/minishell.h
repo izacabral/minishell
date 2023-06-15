@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/06 16:06:52 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/14 22:42:50 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int			isdelim(char c);
 t_tkn		which_delim(char *delim);
 int			scan_line(t_token **lst, char *line);
 int			lexer(t_token *lst);
-int			heredoc(char *str, int fd_out);
 
 // srcs/env/
 t_env		*get_env(char *environ[]);
@@ -54,6 +53,7 @@ void		expandvars(char **sentences, t_env *env);
 t_string	*path_to_lst(char *path);
 int			check_varname(char *key);
 int			iscrule(int c, int first);
+void		expand_hdoc_var(char **sentence, t_env *env);
 
 // srcs/exec/
 int			call_execve(char **args, char *path);
@@ -69,6 +69,7 @@ char		*quotes_removed(char *str, int i, char *new_str);
 void		remove_quotes(char **sentences);
 char		**tkn_to_sentence(t_token **lst_token);
 char		*while_no_quotes(char *str, int i, char *new_str);
+char		*remove_hdoc_quotes(char *str);
 
 // srcs/builtins/
 int			check_export(char *key, char *str);
@@ -83,5 +84,8 @@ int			ft_echo(char **arg);
 int			ft_exit(int n);
 int			pwd(void);
 int			cd(t_shell *data, char *path);
+
+// srcs/redirects/
+int			heredoc(char **str, t_env *env, int fd_out);
 
 #endif

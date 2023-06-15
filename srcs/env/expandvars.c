@@ -6,10 +6,11 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:29:34 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/14 21:19:03 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/14 22:26:55 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "env.h"
 #include "minishell.h"
 #include "types.h"
 
@@ -37,4 +38,9 @@ void	expandvars(char **sentences, t_env *env)
 			sentences[i] = expand_sentence(&sentences[i], env, 0);
 		i++;
 	}
+}
+
+void	expand_hdoc_var(char **sentence, t_env *env)
+{
+	*sentence = expand_sentence(sentence, env, 1);
 }
