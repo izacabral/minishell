@@ -6,12 +6,14 @@
 /*   By: daolivei <daolivei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:29:37 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/07 14:39:34 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:21:06 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "libft.h"
 #include "minishell.h"
+#include <stdio.h>
 
 /*
  * Fn		: check_varname(char *key)
@@ -27,16 +29,16 @@ int	check_varname(char *key)
 	int	len;
 
 	len = 0;
-	if (!(ft_isalpha(key[len]) || key[len] != '_'))
+	if (!ft_isalpha(key[len]) && key[len] != '_')
 		return (0);
 	len++;
 	while (key[len])
 	{
-		if (!(ft_isalnum(key[len]) || key[len] != '_'))
+		if (!ft_isalnum(key[len]) && key[len] != '_')
 			return (0);
 		len++;
 	}
-	return (0);
+	return (1);
 }
 
 /*

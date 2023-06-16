@@ -34,24 +34,38 @@ SRCS_EXECVE		=	test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/path_
 
 OBJS_EXECVE		=	$(SRCS_EXECVE:.c=.o)
 
-SRCS_P_EXP_UNSET_ENV	= test_export_unset_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins/check_export.c ../../srcs/builtins/check_unset.c ../../srcs/builtins/print_env.c \
-							../../srcs/builtins/compare_key.c ../../srcs/builtins/export_builtin.c \
-							../../srcs/builtins/print_export.c ../../srcs/builtins/unset_builtin.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c \
+SRCS_P_EXP_UNSET_ENV	= test_export_unset_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins/check_export.c ../../srcs/builtins/check_unset.c ../../srcs/builtins/env.c \
+							../../srcs/builtins/compare_key.c ../../srcs/builtins/export.c \
+							../../srcs/builtins/print_export.c ../../srcs/builtins/unset.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c \
 							../../srcs/data_types/t_env.c ../../srcs/prompt/init_shell.c \
 							../../srcs/data_types/protect_malloc.c \
-							../../srcs/data_types/env_unlink.c
+							../../srcs/data_types/env_unlink.c \
+							../../srcs/env/get_entry.c \
+							../../srcs/env/check_varname.c
 
 OBJS_P_EXP_UNSET_ENV	=	$(SRCS_P_EXP_UNSET_ENV:.c=.o)
 
-SRCS_T_ENV	= test_t_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins/check_export.c ../../srcs/builtins/check_unset.c ../../srcs/builtins/print_env.c \
-							../../srcs/builtins/compare_key.c ../../srcs/builtins/export_builtin.c \
-							../../srcs/builtins/print_export.c ../../srcs/builtins/unset_builtin.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c \
+SRCS_T_ENV	= test_t_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins/check_export.c ../../srcs/builtins/check_unset.c ../../srcs/builtins/env.c \
+							../../srcs/builtins/compare_key.c ../../srcs/builtins/export.c \
+							../../srcs/builtins/print_export.c ../../srcs/builtins/unset.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c \
 							../../srcs/data_types/t_env.c ../../srcs/prompt/init_shell.c \
 							../../srcs/data_types/protect_malloc.c \
-							../../srcs/data_types/env_unlink.c
+							../../srcs/data_types/env_unlink.c \
+							../../srcs/env/get_entry.c \
+							../../srcs/env/check_varname.c
 
+SRCS_EXPORT	= test_export.c ../../srcs/builtins/export_error.c ../../srcs/builtins/check_export.c \
+							../../srcs/builtins/compare_key.c ../../srcs/builtins/export.c \
+							../../srcs/builtins/print_export.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c \
+							../../srcs/data_types/t_env.c  \
+							../../srcs/data_types/protect_malloc.c \
+							../../srcs/data_types/env_unlink.c \
+							../../srcs/env/get_entry.c \
+							../../srcs/env/check_varname.c
 
 OBJS_T_ENV	=	$(SRCS_T_ENV:.c=.o)
+
+OBJS_EXPORT	=	$(SRCS_EXPORT:.c=.o)
 
 SRCS_EXPANDVAR	=	test_expandvars.c ../../srcs/env/expand_sentence.c ../../srcs/env/expandvars.c ../../srcs/env/get_value.c ../../srcs/env/scan_sentence.c ../../srcs/env/which_quotes.c ../../srcs/data_types/ft_strnew.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c ../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_lst_to_str.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strtotallen.c ../../srcs/env/check_varname.c
 
@@ -105,7 +119,7 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken printsentence printexpunsenv expandvar execve echo pwd t_env
+all: printtoken printsentence printexpunsenv expandvar execve echo pwd t_env test_export
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
@@ -131,6 +145,9 @@ printsentence: $(LIBFT) $(OBJS_P_SENTENCE)
 
 t_env: $(LIBFT) $(OBJS_T_ENV)
 	$(CC) $(CFLAGS) $(OBJS_T_ENV) $(LIBFT) -o $@
+
+test_export: $(LIBFT) $(OBJS_EXPORT)
+	$(CC) $(CFLAGS) $(OBJS_EXPORT) $(LIBFT) -o $@
 
 clean:
 		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR) $(OBJS_EXECVE) $(OBJS_ECHO) $(OBJS_PWD) $(OBJS_T_ENV)

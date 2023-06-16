@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:18:32 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/06/05 12:52:04 by dmatavel         ###   ########.fr       */
+/*   Updated: 2023/06/13 22:22:32 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	set_oldpwd(t_shell *data)
 
 	ptr = getcwd(NULL, 0);
 	oldpwd = ft_strjoin("OLDPWD=", ptr);
-	unset_builtins(1, &oldpwd, data);
-	export_builtins(1, &oldpwd, data);
+	unset(1, &oldpwd, &data->lst_env);
+	export(1, &oldpwd, data->lst_env);
 	free(ptr);
 	free(oldpwd);
 }
@@ -32,8 +32,8 @@ void	set_pwd(t_shell *data)
 
 	ptr = getcwd(NULL, 0);
 	pwd = ft_strjoin("PWD=", ptr);
-	unset_builtins(1, &pwd, data);
-	export_builtins(1, &pwd, data);
+	unset(1, &pwd, &data->lst_env);
+	export(1, &pwd, data->lst_env);
 	free(ptr);
 	free(pwd);
 }

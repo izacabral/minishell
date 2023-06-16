@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:57:04 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/03 12:15:19 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/14 21:24:20 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	set_envsize(t_env *env)
 		nodes++;
 	}
 	*env->size = nodes;
-	printf("nodes: %i\n", *env->size);
 }
 
 /*

@@ -23,6 +23,8 @@ int	main(void)
 	print_list(data.lst_env, 4);
 	call_unset(&data, "var5");
 	print_list(data.lst_env, 3);
+	printf("Calling env:\n");
+	env(data.lst_env);
 	clear_env(&data.lst_env);
 	return (0);
 }
@@ -43,8 +45,8 @@ static char	**create_fake_env(void)
 	fenv[0] = strdup("var1=aaa");
 	fenv[1] = strdup("var2=bbb");
 	fenv[2] = strdup("var3=ccc");
-	fenv[3] = strdup("var4=ddd");
-	fenv[4] = strdup("var5=eee");
+	fenv[3] = strdup("var4=");
+	fenv[4] = strdup("var5==eee=eee=");
 	fenv[5] = NULL;
 	return (fenv);
 }
@@ -57,7 +59,7 @@ static void	call_unset(t_shell *data, const char *to_remove)
 	arg[2] = NULL;
 	arg[1] = strdup(to_remove);
 	arg[0] = strdup("unset");
-	unset_builtins(2, arg, data);
+	unset(2, arg, &data->lst_env);
 	freetab((void **)arg);
 }
 
