@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
 /*   Updated: 2023/06/13 20:10:01 by daolivei         ###   ########.fr       */
@@ -39,6 +39,7 @@ void		launch_prog(t_shell *data);
 void		int_handler(int signum);
 char		*readline_gets(char *line);
 void		setup_signals(void);
+int			only_spaces(char *line);
 
 // srcs/parser/
 int			isquotes(char c);

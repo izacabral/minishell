@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/02 13:31:37 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:07:50 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char *argv[], char *envp[])
 			break ;
 		}
 		launch_prog(&data);
-		if (*data.line)
+		if (*data.line && !only_spaces(data.line))
 			add_history(data.line);
 	}
 	clear_env(&data.lst_env);

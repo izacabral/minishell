@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   scan_sentence.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
 /*   Updated: 2023/06/11 16:07:53 by daolivei         ###   ########.fr       */
