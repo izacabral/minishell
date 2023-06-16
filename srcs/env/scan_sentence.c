@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scan_sentence.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/07 15:30:11 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:16:24 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ static void	stash_string(t_string **lst, char *sentence, int size)
 	if (to_stash && *to_stash)
 		ft_stradd_back(lst, ft_strnew(to_stash, size));
 }
-
 
 /*
  * Fn		: expvar(t_string **lst, char *var, t_env *env)
