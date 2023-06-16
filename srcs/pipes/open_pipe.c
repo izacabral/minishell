@@ -41,8 +41,8 @@ int	*open_pipe(t_sentence *actual, t_sentence *next)
 		error_pipe();
 		return (NULL);
 	}
-	if (actual->previous != NULL && actual->fd_i == 0)
-		actual->fd_i = pipe_fd[0];
+	if (next && next->fd_i == 0)
+		next->fd_i = pipe_fd[0];
 	if (actual->fd_o == 1 && next != NULL)
 		actual->fd_o = pipe_fd[1];
 	return (pipe_fd);

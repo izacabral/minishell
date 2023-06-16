@@ -163,7 +163,7 @@ int main(void)
 		if (data.reds[3] != 5)
 		{
 			ver = -7;
-			ft_printf ("Something wrong with reds fd. data.reds[%d]: %d", 3, data.reds[3]);
+			ft_printf ("Something wrong with reds fd. data.reds[%d]: %d\n", 3, data.reds[3]);
 		}
 		if (data.reds[4] != 6)
 		{

@@ -71,5 +71,6 @@ int	open_pipe_reds(t_shell *data)
 		data->pipes[i_pipes++] = open_pipe(tmp_sentence, tmp_sentence->next);
 		tmp_sentence = tmp_sentence->next;
 	}
+	close_fds(data);
 	return (0);
 }

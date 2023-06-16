@@ -39,8 +39,20 @@ int    main()
 		ft_printf("error hdoc\n");
 		return (-1);
 	}
-	
+
 	if ((cmd->fd_o = open("teste_heredoc.txt", O_CREAT | O_WRONLY | O_TRUNC, 0666)) == -1)
+	{
+		ft_printf("error open\n");
+		return (-2);
+	}
+
+	if ((cmd->fd_o = open("teste_heredoc.txt", O_CREAT | O_WRONLY | O_TRUNC, 0666)) == -1)
+	{
+		ft_printf("error open\n");
+		return (-2);
+	}
+
+	if ((cmd->fd_o = open("teste_heredoc2.txt", O_CREAT | O_WRONLY | O_TRUNC, 0666)) == -1)
 	{
 		ft_printf("error open\n");
 		return (-2);
