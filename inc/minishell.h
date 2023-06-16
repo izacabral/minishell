@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
 /*   Updated: 2023/06/13 12:18:04 by izsoares         ###   ########.fr       */
@@ -39,6 +39,7 @@ void		launch_prog(t_shell *data);
 void		int_handler(int signum);
 char		*readline_gets(char *line);
 void		setup_signals(void);
+int			only_spaces(char *line);
 void		fill_shell(t_shell *data);
 int			open_pipe_reds(t_shell *data);
 void		close_fds(t_shell *data);
@@ -78,11 +79,11 @@ void		clean_reds_sentences(t_sentence *lst_sentence);
 int			check_export(char *key, char *str);
 int			check_unset(char *key);
 t_env		*compare_key(t_env *env, char *key);
-int			export_builtins(int size, char *str[], t_shell *data);
+int			export(int size, char *str[], t_env *env);
 void		export_error(char *str);
-void		print_env(t_env *env);
+void		env(t_env *env);
 void		print_export(t_env *env);
-int			unset_builtins(int size, char *str[], t_shell *data);
+int			unset(int size, char *str[], t_env **env);
 int			ft_echo(char **arg);
 int			ft_exit(int n);
 int			pwd(void);

@@ -15,6 +15,7 @@ printsentence
 expandvar
 printexpunsenv
 t_env
+test_export
 hdoc
 hollo_world
 output.txt

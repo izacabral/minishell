@@ -6,7 +6,7 @@
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:50:00 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/01 17:27:08 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/12 21:58:20 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,10 @@ void	print_export(t_env *env)
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		ft_putstr_fd(node->key, STDOUT_FILENO);
+		ft_putstr_fd("=\"", STDOUT_FILENO);
 		if (node->value)
-		{
-			ft_putstr_fd("=\"", STDOUT_FILENO);
 			ft_putstr_fd(node->value, STDOUT_FILENO);
-			ft_putstr_fd(node->value, STDOUT_FILENO);
-			ft_putchar_fd('"', STDOUT_FILENO);
-		}
-		ft_putchar_fd('\n', STDOUT_FILENO);
+		ft_putstr_fd("\"\n", STDOUT_FILENO);
 		node = node->next;
 	}
 	clear_env(&env_sorted);
