@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/13 12:18:04 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/14 22:42:50 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void		expandvars(char **sentences, t_env *env);
 t_string	*path_to_lst(char *path);
 int			check_varname(char *key);
 int			iscrule(int c, int first);
+void		expand_hdoc_var(char **sentence, t_env *env);
 
 // srcs/exec/
 int			call_execve(char **args, char *path);
@@ -73,6 +74,7 @@ char		*quotes_removed(char *str, int i, char *new_str);
 void		remove_quotes(char **sentences);
 char		**tkn_to_sentence(t_token **lst_token);
 char		*while_no_quotes(char *str, int i, char *new_str);
+char		*remove_hdoc_quotes(char *str);
 void		clean_reds_sentences(t_sentence *lst_sentence);
 
 // srcs/builtins/

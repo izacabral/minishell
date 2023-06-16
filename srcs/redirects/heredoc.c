@@ -6,11 +6,12 @@
 /*   By: fpeixoto <fpeixoto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 00:01:33 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/06/03 15:59:08 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/14 22:50:22 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 int	heredoc(t_sentence *cmd, char *file)
 {

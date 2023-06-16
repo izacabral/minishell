@@ -56,6 +56,8 @@ SRCS_T_ENV	= test_t_env.c ../../srcs/builtins/export_error.c ../../srcs/builtins
 							../../srcs/env/get_entry.c \
 							../../srcs/env/check_varname.c
 
+OBJS_T_ENV	=	$(SRCS_T_ENV:.c=.o)
+
 SRCS_EXPORT	= test_export.c ../../srcs/builtins/export_error.c ../../srcs/builtins/check_export.c \
 							../../srcs/builtins/compare_key.c ../../srcs/builtins/export.c \
 							../../srcs/builtins/print_export.c ../../srcs/data_types/free_tab.c ../../srcs/env/get_env.c \
@@ -65,14 +67,14 @@ SRCS_EXPORT	= test_export.c ../../srcs/builtins/export_error.c ../../srcs/builti
 							../../srcs/env/get_entry.c \
 							../../srcs/env/check_varname.c
 
-OBJS_T_ENV	=	$(SRCS_T_ENV:.c=.o)
-
 OBJS_EXPORT	=	$(SRCS_EXPORT:.c=.o)
 
-SRCS_EXPANDVAR	=	test_expandvars.c ../../srcs/env/expand_sentence.c ../../srcs/env/expandvars.c ../../srcs/env/get_value.c ../../srcs/env/scan_sentence.c \
-					../../srcs/env/which_quotes.c ../../srcs/data_types/ft_strnew.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c \
-					../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_lst_to_str.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c \
-					../../srcs/data_types/ft_strtotallen.c ../../srcs/env/check_varname.c
+SRCS_EXPANDVAR	=	test_expandvars.c ../../srcs/env/expand_sentence.c ../../srcs/env/expandvars.c ../../srcs/env/get_value.c \
+						../../srcs/env/scan_sentence.c ../../srcs/env/which_quotes.c ../../srcs/data_types/ft_strnew.c \
+						../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c ../../srcs/data_types/ft_strsetlast.c \
+						../../srcs/data_types/ft_lst_to_str.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c \
+						../../srcs/data_types/ft_strtotallen.c ../../srcs/env/check_varname.c ../../srcs/parser/which_delim.c \
+						../../srcs/parser/isdelim.c
 
 OBJS_EXPANDVAR	=	$(SRCS_EXPANDVAR:.c=.o)
 

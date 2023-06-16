@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/11 17:35:48 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:22:34 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	expvar(t_string **lst, char *var, t_env *env);
  * Errors	: NULL - input string has no expansions to be done
  * Uses		: expand_sentence()
  */
-t_string	*scan_sentence(char *sentence, t_env *env)
+t_string	*scan_sentence(char *sentence, t_env *env, int hdoc)
 {
 	t_string	*output;
 	t_repl		repl;
@@ -39,6 +39,8 @@ t_string	*scan_sentence(char *sentence, t_env *env)
 	{
 		repl.new = NULL;
 		repl.quote = which_quotes(sentence[i]);
+		if (hdoc)
+			repl.quote = DOUBLE;
 		repl.old = &sentence[i];
 		repl.old_sz = sentence_lenght(repl.old, repl.quote);
 		split_sentence(&output, &repl, env);
