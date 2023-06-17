@@ -23,7 +23,7 @@ int	main(void)
 	lst = NULL;
 	lst_sen = NULL;
 
-	buffer = " Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear teste > aqui teste > aqui teste > aqui ls";
+	buffer = " Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear teste > aqui teste > aqui teste > aqui ls | cat << $USER | cat << \"$USER\"";
 
 
 	/* CRIAÇÃO DA LISTA DE TOKENS */
@@ -70,7 +70,7 @@ int	main(void)
 	}
 
 	/* COMPARA CHECK COM O RESULTADO ESPERADO*/
-	char *correct = "Test variable var1 for expansion $a no expansion ls \'teste4\' teste teste teste ls ";
+	char *correct = "Test variable var1 for expansion $a no expansion ls \'teste4\' teste teste teste ls cat cat ";
 	ver = ft_strncmp(check, correct, (ft_strlen(correct) + 1));
 
 	/* LIBERAÇÃO DA T_ENV */
@@ -91,11 +91,11 @@ int	main(void)
 	free(lst_sen);
 
 
-	if (ver == 0 && n == 3)
+	if (ver == 0 && n == 5)
 	{
 		ft_printf("%s\n", correct);
 		ft_printf("%s\n", check);
-		ft_printf("In this test the number of senteces must be 3 n:%d\n", n);
+		ft_printf("In this test the number of senteces must be 5 n:%d\n", n);
 	}
 	else
 	{

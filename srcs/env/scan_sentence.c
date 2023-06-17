@@ -40,9 +40,12 @@ t_string	*scan_sentence(char *sentence, t_env *env, int hdoc)
 		repl.new = NULL;
 		repl.quote = which_quotes(sentence[i]);
 		if (hdoc)
-			repl.quote = DOUBLE;
+			repl.quote = NONE;
 		repl.old = &sentence[i];
-		repl.old_sz = sentence_lenght(repl.old, repl.quote);
+		if (hdoc)
+			repl.old_sz = ft_strlen(sentence);
+		else
+			repl.old_sz = sentence_lenght(repl.old, repl.quote);
 		split_sentence(&output, &repl, env);
 		if (!output)
 			return (NULL);
@@ -66,17 +69,20 @@ static int	sentence_lenght(char *sentence, t_quotes quote)
 {
 	int	len;
 
+	len = 0;
 	if (!quote)
 	{
-		len = 0;
 		while (sentence[len] && which_quotes(sentence[len]) == NONE)
 			len++;
 		return (len);
 	}
-	len = 1;
-	while (which_quotes(sentence[len]) != quote)
-		len++;
-	return (len + 1);
+	else
+	{
+		len = 1;
+		while (which_quotes(sentence[len]) != quote)
+			len++;
+		return (len + 1);
+	}
 }
 
 /*

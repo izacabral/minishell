@@ -4,7 +4,8 @@ CC			=	cc
 
 RM			=	rm -f
 
-CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -g
+#-fsanitize=address
 
 LFT			=	libft
 
@@ -144,23 +145,20 @@ endif
 		$(CO_LINE)
 
 all: printtoken printsentence printexpunsenv expandvar t_env test_export \
-		hdoc
-#pwd
-#execve
-#echo
+		hdoc pwd execve echo
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
 
-#pwd :	$(OBJS_PWD)
-#		$(CC) $^ -o $@
+pwd :	$(OBJS_PWD)
+		$(CC) $^ -o $@
 
-#echo:	$(LIBFT) $(OBJS_ECHO)
-#	$(CC) $(OBJS_ECHO) $(LIBFT) -o $@
+echo:	$(LIBFT) $(OBJS_ECHO)
+	$(CC) $(OBJS_ECHO) $(LIBFT) -o $@
 
-#execve: $(LIBFT) $(OBJS_EXECVE)
-#	cc hello_world.c -o hello_world
-#	$(CC) $(OBJS_EXECVE) $(LIBFT) -o $@
+execve: $(LIBFT) $(OBJS_EXECVE)
+	cc hello_world.c -o hello_world
+	$(CC) $(OBJS_EXECVE) $(LIBFT) -o $@
 
 printexpunsenv: $(LIBFT) $(OBJS_P_EXP_UNSET_ENV)
 	$(CC) $(OBJS_P_EXP_UNSET_ENV) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printexpunsenv
