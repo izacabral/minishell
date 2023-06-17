@@ -62,6 +62,6 @@ void	launch_prog(t_shell *data)
 			print_sentence_teste(&data->lst_sentence);
 		}
 	}
-	ft_printf("\nNext steps execution.\n");
+	ft_printf("\nNext steps execution. \n");
 	free_shell (data);
 }
