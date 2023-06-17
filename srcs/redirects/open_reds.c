@@ -72,7 +72,7 @@ int	in(t_sentence *cmd, char *file)
  * Errors	: -1 if the fd wasn't created
  * Uses		: open_pipe_reds()
  */
-int	open_reds(int token, t_sentence *cmd, char *file_name)
+int	open_reds(int token, t_sentence *cmd, char *file_name, t_env *env)
 {
 	if (token == IN)
 		return (in(cmd, file_name));
@@ -81,7 +81,7 @@ int	open_reds(int token, t_sentence *cmd, char *file_name)
 	else if (token == APPEND)
 		return (append(cmd, file_name));
 	else if (token == HDOC)
-		return (heredoc(cmd, file_name));
+		return (heredoc(cmd, file_name, env));
 	else
 		return (-1);
 }

@@ -20,7 +20,7 @@
  * Errors	: not applicable
  * Uses		: open_pipes_reds()
  */
-static void	set_reds_array(t_sentence *s, int *reds, int *index)
+static void	set_reds_array(t_sentence *s, int *reds, int *index, t_env *env)
 {
 	t_tkn	t;
 	int		i;
@@ -32,7 +32,7 @@ static void	set_reds_array(t_sentence *s, int *reds, int *index)
 		if (t > PIPE)
 		{
 			i++;
-			reds[*index] = open_reds(t, s, s->args[i]);
+			reds[*index] = open_reds(t, s, s->args[i], env);
 			(*index)++;
 		}
 		i++;
@@ -62,7 +62,7 @@ int	open_pipe_reds(t_shell *data)
 	while (tmp_sentence && data->redirect_count > 0)
 	{
 		if (tmp_sentence->reds_inside > 0)
-			set_reds_array(tmp_sentence, data->reds, &i_reds);
+			set_reds_array(tmp_sentence, data->reds, &i_reds, data->lst_env);
 		tmp_sentence = tmp_sentence->next;
 	}
 	tmp_sentence = data->lst_sentence;

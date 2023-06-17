@@ -16,9 +16,13 @@
 
 int	g_global = 0;
 
-int    main()
+int    main(int argc, char **argv, char **envp)
 {
+	(void) argc;
+	(void) argv;
     t_sentence *cmd;
+	t_env *lst_env;
+	char *file;
 
 	cmd = malloc (sizeof(t_sentence));
 	cmd->args = NULL;
@@ -33,13 +37,21 @@ int    main()
 	arg[1] = NULL;
 
 	cmd->args = arg;
+	lst_env = get_env(envp);
+	//file = ft_strdup("\"$USER\"");
+	file = ft_strdup("$USER");
 
-	if ((heredoc(cmd, "EOF")) == -1)
+
+	if ((heredoc(cmd, file, lst_env)) == -1)
 	{
 		ft_printf("error hdoc\n");
 		return (-1);
 	}
 
+
+	// DESCOMENTAR ATÉ ANTES DO FORK() PARA VERIFICAR OS REDIRECIONAMENTO PARA OUTROS ARQUIVOS FUNCIONADO
+
+	/*
 	if ((cmd->fd_o = open("teste_heredoc.txt", O_CREAT | O_WRONLY | O_TRUNC, 0666)) == -1)
 	{
 		ft_printf("error open\n");
@@ -57,6 +69,7 @@ int    main()
 		ft_printf("error open\n");
 		return (-2);
 	}
+ 	*/
 
 	int pid = fork();
 	if (pid == -1)
@@ -95,5 +108,6 @@ int    main()
 	        printf("Failure with statusCode %d\n", statusCode);
     } */
 	free(cmd);
-    return (0);
+	clear_env(&lst_env);
+	return (0);
 }

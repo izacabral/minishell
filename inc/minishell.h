@@ -98,8 +98,8 @@ void		clear_pipe(t_shell *data);
 
 // srcs/redirects/
 int			counting_redirects(t_token **lst_token);
-int			open_reds(int token, t_sentence *cmd, char *file_name);
-int			heredoc(t_sentence *cmd, char *file);
+int			open_reds(int token, t_sentence *cmd, char *file_name, t_env *env);
+int			heredoc(t_sentence *cmd, char *file, t_env *env);
 void		error_redir(char *filename);
 
 #endif

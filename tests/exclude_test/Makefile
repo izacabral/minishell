@@ -4,8 +4,7 @@ CC			=	cc
 
 RM			=	rm -f
 
-CFLAGS		=	-Wall -Wextra -Werror -g
-#-fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 
 LFT			=	libft
 
@@ -80,7 +79,7 @@ OBJS_EXPANDVAR	=	$(SRCS_EXPANDVAR:.c=.o)
 
 SRCS_P_SENTENCE	=	test_print_t_sentence.c  ../../srcs/sentence/create_sentences.c ../../srcs/sentence/remove_quotes.c ../../srcs/sentence/tkn_to_sentence.c \
 					../../srcs/data_types/t_sentence.c ../../srcs/sentence/new_index.c ../../srcs/sentence/no_quote_size.c ../../srcs/sentence/quotes_removed.c \
-					../../srcs/sentence/while_no_quotes.c ../../srcs/sentence/quote_size.c\
+					../../srcs/sentence/while_no_quotes.c ../../srcs/sentence/quote_size.c \
 					../../srcs/parser/isdelim.c \
 					../../srcs/parser/isquotes.c ../../srcs/parser/scan_line.c ../../srcs/parser/which_delim.c \
 					../../srcs/data_types/t_token.c ../../srcs/env/expand_sentence.c ../../srcs/env/expandvars.c \
@@ -92,11 +91,21 @@ SRCS_P_SENTENCE	=	test_print_t_sentence.c  ../../srcs/sentence/create_sentences.
 
 OBJS_P_SENTENCE	=	$(SRCS_P_SENTENCE:.c=.o)
 
-SRCS_REDIRECTS = 	test_redirects.c ../../srcs/redirects/open_reds.c ../../srcs/redirects/heredoc.c
+SRCS_HDOC		= 	teste_heredoc.c \
+					../../srcs/redirects/heredoc.c ../../srcs/redirects/open_reds.c \
+					../../srcs/env/get_env.c ../../srcs/env/get_value.c ../../srcs/env/scan_sentence.c ../../srcs/env/which_quotes.c \
+					../../srcs/env/expand_sentence.c ../../srcs/env/expandvars.c \
+					../../srcs/env/get_entry.c ../../srcs/env/check_varname.c \
+					../../srcs/data_types/t_env.c ../../srcs/data_types/protect_malloc.c \
+					../../srcs/data_types/t_token.c \
+					../../srcs/sentence/while_no_quotes.c ../../srcs/sentence/quote_size.c ../../srcs/sentence/new_index.c \
+					../../srcs/sentence/no_quote_size.c ../../srcs/sentence/quotes_removed.c ../../srcs/sentence/remove_quotes.c \
+					../../srcs/parser/isdelim.c \
+					../../srcs/parser/isquotes.c ../../srcs/parser/scan_line.c ../../srcs/parser/which_delim.c \
+					../../srcs/data_types/ft_strnew.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c \
+					../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_lst_to_str.c \
+					../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strtotallen.c \
 
-OBJS_REDIRECTS	=	$(SRCS_REDIRECTS:.c=.o)
-
-SRCS_HDOC		= 	teste_heredoc.c ../../srcs/redirects/heredoc.c ../../srcs/redirects/open_reds.c
 
 OBJS_HDOC		=	$(SRCS_HDOC:.c=.o)
 
@@ -134,21 +143,24 @@ endif
 .c.o:
 		$(CO_LINE)
 
-all: printtoken printsentence printexpunsenv expandvar execve echo pwd t_env test_export \
-		printredirects hdoc
+all: printtoken printsentence printexpunsenv expandvar t_env test_export \
+		hdoc
+#pwd
+#execve
+#echo
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
 
-pwd :	$(OBJS_PWD)
-		$(CC) $^ -o $@
+#pwd :	$(OBJS_PWD)
+#		$(CC) $^ -o $@
 
-echo:	$(LIBFT) $(OBJS_ECHO)
-	$(CC) $(OBJS_ECHO) $(LIBFT) -o $@
+#echo:	$(LIBFT) $(OBJS_ECHO)
+#	$(CC) $(OBJS_ECHO) $(LIBFT) -o $@
 
-execve: $(LIBFT) $(OBJS_EXECVE)
-	cc hello_world.c -o hello_world
-	$(CC) $(OBJS_EXECVE) $(LIBFT) -o $@
+#execve: $(LIBFT) $(OBJS_EXECVE)
+#	cc hello_world.c -o hello_world
+#	$(CC) $(OBJS_EXECVE) $(LIBFT) -o $@
 
 printexpunsenv: $(LIBFT) $(OBJS_P_EXP_UNSET_ENV)
 	$(CC) $(OBJS_P_EXP_UNSET_ENV) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printexpunsenv
@@ -165,9 +177,6 @@ t_env: $(LIBFT) $(OBJS_T_ENV)
 test_export: $(LIBFT) $(OBJS_EXPORT)
 	$(CC) $(CFLAGS) $(OBJS_EXPORT) $(LIBFT) -o $@
 
-printredirects: $(LIBFT) $(OBJS_REDIRECTS)
-	$(CC) $(OBJS_REDIRECTS) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printredirects
-
 hdoc:	$(LIBFT) $(OBJS_HDOC)
 	$(CC) $(OBJS_HDOC) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o hdoc
 
@@ -177,7 +186,7 @@ clean:
 		$(RM) $(OBJS_HDOC) $(OBJS_EXPORT)
 
 fclean: clean
-		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env printredirects \
+		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env \
 		$(RM) hdoc test_export
 
 re:			fclean all

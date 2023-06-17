@@ -74,7 +74,7 @@ void	remove_quotes(char **str)
 		t = which_delim(str[i]);
 		if (t > WORD)
 			i++;
-		if (t != HDOC)
+		if (t != HDOC && str[i])
 			str[i] = rem_str_quotes(str[i]);
 		i++;
 	}
