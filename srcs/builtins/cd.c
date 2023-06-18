@@ -6,26 +6,25 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:18:32 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/06/13 22:22:32 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/18 12:11:42 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_oldpwd(t_shell *data)
+static void	set_oldpwd(t_shell *data)
 {
 	char	*ptr;
 	char	*oldpwd;
 
 	ptr = getcwd(NULL, 0);
 	oldpwd = ft_strjoin("OLDPWD=", ptr);
-	unset(1, &oldpwd, &data->lst_env);
 	export(1, &oldpwd, data->lst_env);
 	free(ptr);
 	free(oldpwd);
 }
 
-void	set_pwd(t_shell *data)
+static void	set_pwd(t_shell *data)
 {
 	char	*ptr;
 	char	*pwd;
@@ -38,7 +37,7 @@ void	set_pwd(t_shell *data)
 	free(pwd);
 }
 
-char	*get_home(t_shell *data)
+static char	*get_home(t_shell *data)
 {
 	t_env	*home;
 
@@ -46,29 +45,36 @@ char	*get_home(t_shell *data)
 	return (home->value);
 }
 
-int	cd(t_shell *data, char *path)
+static int	change_dir(char *path, t_shell *data)
 {
-	int	ret;
-
-	set_oldpwd(data);
 	if (!path)
 	{
-		if (!get_home(data))
+		path = get_home(data);
+		if (!path)
 		{
-			printf("minishel: cd: HOME not set\n");
-			return (ret = 1);
+			ft_putendl_fd("minishell: cd: HOME not set", 1);
+			return (1);
 		}
-		else
-			chdir(get_home(data));
+		set_oldpwd(data);
+		chdir(path);
+		set_pwd(data);
+		return (0);
 	}
-	else
+	if (chdir(path) == -1)
 	{
-		if (chdir(path) == -1)
-		{
-			printf("minishel: cd: %s: No such file or directory", path);
-			return (ret = 1);
-		}
+		ft_printf("minishel: cd: %s: No such file or directory", path);
+		return (1);
 	}
 	set_pwd(data);
 	return (0);
+}
+
+int	cd(int argc, char **argv, t_shell *data)
+{
+	if (argc > 2)
+	{
+		ft_putendl_fd("minishell: cd: too many arguments", 1);
+		return (1);
+	}
+	return (change_dir(argv[1], data));
 }
