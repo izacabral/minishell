@@ -153,7 +153,7 @@ clean:
 		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR) $(OBJS_EXECVE) $(OBJS_ECHO) $(OBJS_PWD) $(OBJS_T_ENV)
 
 fclean: clean
-		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env
+		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env hello_world
 
 re:			fclean all
 

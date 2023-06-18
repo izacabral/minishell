@@ -16,6 +16,7 @@ expandvar
 printexpunsenv
 t_env
 test_export
+hello_world
 
 # Prerequisites
 *.d
