@@ -46,6 +46,7 @@ typedef struct s_sentence
 	int					fd_i;
 	int					fd_o;
 	int					reds_inside;
+	int					pid;
 	struct s_sentence	*previous;
 	struct s_sentence	*next;
 }						t_sentence;

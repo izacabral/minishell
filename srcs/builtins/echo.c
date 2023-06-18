@@ -30,7 +30,7 @@ static int	check_n(char *str)
 	return (0);
 }
 
-int	ft_echo(char **arg)
+int	echo(char **arg)
 {
 	int	control;
 	int	i;

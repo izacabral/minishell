@@ -44,6 +44,7 @@ void		fill_shell(t_shell *data);
 int			open_pipe_reds(t_shell *data);
 void		close_fds(t_shell *data);
 void		free_shell(t_shell *data);
+void		executor(t_shell *data);
 
 // srcs/parser/
 int			isquotes(char c);
@@ -87,8 +88,8 @@ void		export_error(char *str);
 void		env(t_env *env);
 void		print_export(t_env *env);
 int			unset(int size, char *str[], t_env **env);
-int			ft_echo(char **arg);
-int			ft_exit(int n);
+int			echo(char **args);
+int			ft_exit(char **args, t_shell *data);
 int			pwd(void);
 int			cd(t_shell *data, char *path);
 

@@ -1,7 +1,6 @@
 #include "libft.h"
 #include "minishell.h"
 
-static int	get_exitarg(char *arg, int last);
 static int	args_size(char **args);
 
 /*
@@ -16,33 +15,26 @@ static int	args_size(char **args);
  */
 int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 {
-	int			exit_value;
 	const int	size = args_size(args);
 
 	default_signals();
 	if (builtin == ECHO)
-		return (ft_echo(args));
+		return (echo(args));
 	if (builtin == CD)
-		return (cd(*data, args[1]));
+		return (cd(data, args[1]));
 	if (builtin == PWD)
 		return (pwd());
 	if (builtin == EXPORT)
-		return (export_builtins(size, args, data));
+		return (export(size, args, data->lst_env));
 	if (builtin == UNSET)
-		return (unset_builtins(size, args, data));
+		return (unset(size, args, &data->lst_env));
 	if (builtin == ENV)
 	{
-		print_env(data->lst_env);
+		env(data->lst_env);
 		return (0);
 	}
 	if (builtin == EXIT)
-	{
-		exit_value = 0; // substituir por valor de saída do último comando
-		if (args[1])
-			exit_value = get_exitarg(args[1], exit_value);
-		// liberar mémoria alocada
-		return (ft_exit(exit_value));
-	}
+		return (ft_exit(&args[1], data));
 	return (0);
 }
 
@@ -56,16 +48,4 @@ static int	args_size(char **args)
 	return (size);
 }
 
-static int	get_exitarg(char *arg, int last)
-{
-	int	i;
 
-	i = 0;
-	while (arg[i])
-	{
-		if (!ft_isdigit(arg[i]))
-			return (last);
-		i++;
-	}
-	return (ft_atoi(arg));
-}

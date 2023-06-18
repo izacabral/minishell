@@ -17,12 +17,20 @@ int	exec_command(char *comm, char **args, t_shell *data)
 {
 	t_builtin	builtin;
 	t_env		*path;
+	int			ret;
 
 	builtin = isbuiltin(comm);
 	if (builtin)
-		return (call_builtin(args, data, builtin));
-	path = compare_key(data->lst_env, "PATH");
-	return (call_execve(args, path->value));
+	{
+		ret = call_builtin(args, data, builtin);
+		free_shell(data);
+		return (ret);
+	}
+	else
+	{
+		path = compare_key(data->lst_env, "PATH");
+		return (call_execve(args, path->value));
+	}
 }
 
 static t_builtin	isbuiltin(char *comm)

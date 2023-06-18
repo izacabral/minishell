@@ -57,17 +57,18 @@ void	launch_prog(t_shell *data)
 		{
 			open_pipe_reds(data);
 			clean_reds_sentences(data->lst_sentence);
-			ft_printf("\nSentences after open_pipe_reds() and cleaned up\n");
-			ft_printf("\nOnly for didatics, need remove later\n");
-			print_sentence_teste(&data->lst_sentence);
+			//ft_printf("\nSentences after open_pipe_reds() and cleaned up\n");
+			//ft_printf("\nOnly for didatics, need remove later\n");
+			//print_sentence_teste(&data->lst_sentence);
 		}
-		else
-		{
-			ft_printf("\nSentences without pipes or reds\n");
-			ft_printf("\nOnly for didatics, need remove later\n");
-			print_sentence_teste(&data->lst_sentence);
-		}
+		// else
+		// {
+		// 	ft_printf("\nSentences without pipes or reds\n");
+		// 	ft_printf("\nOnly for didatics, need remove later\n");
+		// 	print_sentence_teste(&data->lst_sentence);
+		// }
 	}
-	ft_printf("\nNext steps execution. \n");
-	free_shell (data);
+	//ft_printf("\nNext steps execution. \n");
+	executor(data);
+	free_shell(data);
 }
