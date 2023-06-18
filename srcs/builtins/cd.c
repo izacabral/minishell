@@ -6,14 +6,11 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:18:32 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/06/18 13:47:38 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/18 14:54:48 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 static void	set_oldpwd(char *old, t_shell *data)
 {

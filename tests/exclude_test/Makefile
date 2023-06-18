@@ -124,8 +124,8 @@ all: printtoken printsentence printexpunsenv expandvar execve echo pwd t_env tes
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
 
-pwd :	$(OBJS_PWD)
-		$(CC) $^ -o $@
+pwd :	$(LIBFT) $(OBJS_PWD)
+		$(CC) $(OBJS_PWD) $(LIBFT) -o $@
 
 echo:	$(LIBFT) $(OBJS_ECHO)
 	$(CC) $(OBJS_ECHO) $(LIBFT) -o $@
