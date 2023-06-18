@@ -6,35 +6,33 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:18:32 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/06/18 12:11:42 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/18 13:47:38 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
+#include <stdlib.h>
+#include <unistd.h>
 
-static void	set_oldpwd(t_shell *data)
+static void	set_oldpwd(char *old, t_shell *data)
 {
-	char	*ptr;
-	char	*oldpwd;
+	t_env	*oldpwd;
 
-	ptr = getcwd(NULL, 0);
-	oldpwd = ft_strjoin("OLDPWD=", ptr);
-	export(1, &oldpwd, data->lst_env);
-	free(ptr);
-	free(oldpwd);
+	oldpwd = compare_key(data->lst_env, "OLDPWD");
+	free(oldpwd->value);
+	oldpwd->value = NULL;
+	oldpwd->value = old;
 }
 
 static void	set_pwd(t_shell *data)
 {
-	char	*ptr;
-	char	*pwd;
+	t_env	*pwd;
 
-	ptr = getcwd(NULL, 0);
-	pwd = ft_strjoin("PWD=", ptr);
-	unset(1, &pwd, &data->lst_env);
-	export(1, &pwd, data->lst_env);
-	free(ptr);
-	free(pwd);
+	pwd = compare_key(data->lst_env, "PWD");
+	free(pwd->value);
+	pwd->value = NULL;
+	pwd->value = getcwd(NULL, 0);
 }
 
 static char	*get_home(t_shell *data)
@@ -55,26 +53,33 @@ static int	change_dir(char *path, t_shell *data)
 			ft_putendl_fd("minishell: cd: HOME not set", 1);
 			return (1);
 		}
-		set_oldpwd(data);
 		chdir(path);
-		set_pwd(data);
 		return (0);
 	}
 	if (chdir(path) == -1)
 	{
-		ft_printf("minishel: cd: %s: No such file or directory", path);
+		ft_printf("minishel: cd: %s: No such file or directory\n", path);
 		return (1);
 	}
-	set_pwd(data);
 	return (0);
 }
 
 int	cd(int argc, char **argv, t_shell *data)
 {
+	char	*cwd;
+
 	if (argc > 2)
 	{
 		ft_putendl_fd("minishell: cd: too many arguments", 1);
 		return (1);
 	}
-	return (change_dir(argv[1], data));
+	cwd = getcwd(NULL, 0);
+	if (change_dir(argv[1], data))
+	{
+		free(cwd);
+		return (1);
+	}
+	set_oldpwd(cwd, data);
+	set_pwd(data);
+	return (0);
 }
