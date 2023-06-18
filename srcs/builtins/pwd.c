@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:13:30 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/05/24 12:45:03 by dmatavel         ###   ########.fr       */
+/*   Updated: 2023/06/18 14:51:21 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	pwd(void)
 	char	*path;
 
 	path = getcwd(NULL, 0);
-	printf("%s\n", path);
+	ft_putendl_fd(path, 1);
 	free(path);
 	path = NULL;
 	return (0);
