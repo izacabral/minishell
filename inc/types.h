@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/05 15:52:55 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/08 23:08:20 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,18 @@ typedef struct s_shell
 	int					**pipes;
 	int					*reds;
 }						t_shell;
+
+typedef enum e_buitin
+{
+	ENOBLTN,
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT,
+}	t_builtin;
 
 typedef struct s_string
 {

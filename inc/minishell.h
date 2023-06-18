@@ -61,8 +61,9 @@ int			iscrule(int c, int first);
 void		expand_hdoc_var(char **sentence, t_env *env);
 
 // srcs/exec/
-int			call_execve(char **args, char *path);
+int			exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
+void		default_signals(void);
 
 // srcs/sentence/
 void		create_sentences(t_env *env, t_token **lst_token, \

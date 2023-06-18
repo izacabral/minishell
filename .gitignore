@@ -11,6 +11,8 @@ lexer
 pwd
 echo
 execve
+*.log
+execve
 printsentence
 expandvar
 printexpunsenv
