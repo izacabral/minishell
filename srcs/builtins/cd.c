@@ -6,10 +6,11 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:18:32 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/06/18 14:54:48 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:08:16 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 
 static void	set_oldpwd(char *old, t_shell *data)
@@ -47,7 +48,7 @@ static int	change_dir(char *path, t_shell *data)
 		path = get_home(data);
 		if (!path)
 		{
-			ft_putendl_fd("minishell: cd: HOME not set", 1);
+			ft_putendl_fd("minishell: cd: HOME not set", 2);
 			return (1);
 		}
 		chdir(path);
@@ -55,7 +56,9 @@ static int	change_dir(char *path, t_shell *data)
 	}
 	if (chdir(path) == -1)
 	{
-		ft_printf("minishel: cd: %s: No such file or directory\n", path);
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putendl_fd(": No such file or directory", 2);
 		return (1);
 	}
 	return (0);
@@ -67,7 +70,7 @@ int	cd(int argc, char **argv, t_shell *data)
 
 	if (argc > 2)
 	{
-		ft_putendl_fd("minishell: cd: too many arguments", 1);
+		ft_putendl_fd("minishell: cd: too many arguments", 2);
 		return (1);
 	}
 	cwd = getcwd(NULL, 0);
