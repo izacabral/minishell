@@ -24,10 +24,8 @@
 char	*readline_gets(char *line)
 {
 	if (line)
-	{
 		free(line);
-		line = NULL;
-	}
+	line = NULL;
 	line = readline("minishell > ");
 	return (line);
 }

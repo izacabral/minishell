@@ -89,7 +89,7 @@ void		env(t_env *env);
 void		print_export(t_env *env);
 int			unset(int size, char *str[], t_env **env);
 int			echo(char **args);
-int			ft_exit(char **args, t_shell *data);
+void		ft_exit(char **args, t_shell *data, int size);
 int			pwd(void);
 int			cd(t_shell *data, char *path);
 

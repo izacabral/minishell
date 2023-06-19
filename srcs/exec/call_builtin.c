@@ -34,7 +34,7 @@ int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 		return (0);
 	}
 	if (builtin == EXIT)
-		return (ft_exit(&args[1], data));
+		ft_exit(args, data, size);
 	return (0);
 }
 
