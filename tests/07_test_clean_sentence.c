@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_lexer.c                                       :+:      :+:    :+:   */
+/*   07_test_clean_sentence.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:45:24 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/17 15:56:24 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/11 21:15:47 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	main(void)
 	lst = NULL;
 	lst_sen = NULL;
 
-	buffer = " Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear | cat << $USER | cat << \"$USER\"";
+	buffer = " Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear teste > aqui teste > aqui teste > aqui ls | cat << $USER | cat << \"$USER\"";
+
 
 	/* CRIAÇÃO DA LISTA DE TOKENS */
 	scan_line(&lst, buffer);
@@ -43,7 +44,10 @@ int	main(void)
 	var2->next = NULL;
 
 	/* CRIAÇÃO DA LISTA DE SENTENÇAS*/
-    create_sentences(var1, &lst, &lst_sen);
+	create_sentences(var1, &lst, &lst_sen);
+
+	/* REMOÇÃO DOS REDIRECTS E FILE NAMES DA LISTA DE SENTENÇAS*/
+	clean_reds_sentences(lst_sen);
 
 	/* CRIA UMA STRING A PARTIR DA LISTA DE SENTENÇAS*/
 	char *check;
@@ -66,7 +70,7 @@ int	main(void)
 	}
 
 	/* COMPARA CHECK COM O RESULTADO ESPERADO*/
-	char *correct = "Test variable var1 for expansion <  < Test $a no expansion ls \'teste4\' > clear cat << $USER cat << \"$USER\" ";
+	char *correct = "Test variable var1 for expansion $a no expansion ls \'teste4\' teste teste teste ls cat cat ";
 	ver = ft_strncmp(check, correct, (ft_strlen(correct) + 1));
 
 	/* LIBERAÇÃO DA T_ENV */
@@ -94,8 +98,12 @@ int	main(void)
 		ft_printf("In this test the number of senteces must be 5 n:%d\n", n);
 	}
 	else
-		ft_printf("Something is wrong with create_sentences function\n n= %d and ver=%d\n", n, ver);
+	{
+		ft_printf("%s\n", correct);
+		ft_printf("%s\n", check);
 
+		ft_printf("Something is wrong with create_sentences function\n n= %d and ver=%d\n", n, ver);
+	}
 	/* LIBERAÇÃO DE CHECK */
 	free (check);
 	return (ver);

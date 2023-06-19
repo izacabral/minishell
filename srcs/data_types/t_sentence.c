@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:12:12 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/23 16:12:19 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:52:45 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,21 @@ void	clear_sentence(t_sentence **lst)
 		free(*lst);
 		*lst = tmp;
 	}
+}
+
+int	size_sentence(t_sentence **lst_sentence)
+{
+	int			size;
+	t_sentence	*tmp;
+
+	size = 0;
+	tmp = *lst_sentence;
+	if (!tmp)
+		return (size);
+	while (tmp)
+	{
+		tmp = tmp->next;
+		size++;
+	}
+	return (size);
 }

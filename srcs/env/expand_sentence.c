@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:29:06 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/14 16:29:08 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:22:04 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
  * Errors	: not applicable
  * Uses		: expandvars()
  */
-char	*expand_sentence(char **sentence, t_env *env)
+char	*expand_sentence(char **sentence, t_env *env, int hdoc)
 {
 	char		*new;
 	char		*old;
 	t_string	*tmp;
 
 	old = *sentence;
-	tmp = scan_sentence(old, env);
+	tmp = scan_sentence(old, env, hdoc);
 	if (!tmp)
 		return (old);
 	new = ft_lst_to_str(tmp);
