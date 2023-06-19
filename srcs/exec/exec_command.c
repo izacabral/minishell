@@ -17,14 +17,14 @@ int	exec_command(char *comm, char **args, t_shell *data)
 {
 	t_builtin	builtin;
 	t_env		*path;
-	int			ret;
 
 	builtin = isbuiltin(comm);
 	if (builtin)
 	{
-		ret = call_builtin(args, data, builtin);
+		call_builtin(args, data, builtin);
 		free_shell(data);
-		return (ret);
+		clear_env(&data->lst_env);
+		exit (1);
 	}
 	else
 	{
