@@ -6,7 +6,7 @@
 /*   By: fpeixoto <fpeixoto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:49:57 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/05/20 10:59:53 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/18 21:00:35 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	ft_echo(&argv[0]);
+	echo(&argv[0], 1);
 	(void)argc;
 	return (0);
 }
