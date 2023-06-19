@@ -5,21 +5,6 @@
 
 ## PROJECT STUFFS
 minishell
-printtoken
-tokenization
-lexer
-pwd
-echo
-execve
-printsentence
-expandvar
-printexpunsenv
-t_env
-test_export
-hdoc
-output.txt
-printredirects
-
 
 # Prerequisites
 *.d
