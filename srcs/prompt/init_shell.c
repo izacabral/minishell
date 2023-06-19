@@ -17,6 +17,7 @@ void	init_shell(t_shell *data, char *envp[])
 	data->line = NULL;
 	data->lst_env = get_env(envp);
 	data->lst_token = NULL;
+	data->lst_sentence = NULL;
 	data->sentence_count = 0;
 	data->pipe_count = 0;
 	data->redirect_count = 0;

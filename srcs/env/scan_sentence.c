@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scan_sentence.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/11 16:07:53 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:30:11 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	expvar(t_string **lst, char *var, t_env *env);
  * Errors	: NULL - input string has no expansions to be done
  * Uses		: expand_sentence()
  */
-t_string	*scan_sentence(char *sentence, t_env *env)
+t_string	*scan_sentence(char *sentence, t_env *env, int hdoc)
 {
 	t_string	*output;
 	t_repl		repl;
@@ -39,8 +39,13 @@ t_string	*scan_sentence(char *sentence, t_env *env)
 	{
 		repl.new = NULL;
 		repl.quote = which_quotes(sentence[i]);
+		if (hdoc)
+			repl.quote = NONE;
 		repl.old = &sentence[i];
-		repl.old_sz = sentence_lenght(repl.old, repl.quote);
+		if (hdoc)
+			repl.old_sz = ft_strlen(sentence);
+		else
+			repl.old_sz = sentence_lenght(repl.old, repl.quote);
 		split_sentence(&output, &repl, env);
 		if (!output)
 			return (NULL);
@@ -64,17 +69,20 @@ static int	sentence_lenght(char *sentence, t_quotes quote)
 {
 	int	len;
 
+	len = 0;
 	if (!quote)
 	{
-		len = 0;
 		while (sentence[len] && which_quotes(sentence[len]) == NONE)
 			len++;
 		return (len);
 	}
-	len = 1;
-	while (which_quotes(sentence[len]) != quote)
-		len++;
-	return (len + 1);
+	else
+	{
+		len = 1;
+		while (which_quotes(sentence[len]) != quote)
+			len++;
+		return (len + 1);
+	}
 }
 
 /*

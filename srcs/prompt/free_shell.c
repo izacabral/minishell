@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quote_size.c                                       :+:      :+:    :+:   */
+/*   free_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/21 20:08:15 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/10 22:27:33 by izsoares         ###   ########.fr       */
+/*   Created: 2023/06/14 13:55:57 by izsoares          #+#    #+#             */
+/*   Updated: 2023/06/14 13:56:07 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
- * Fn		: quote_size(char *str, char quote)
- * Scope	: counts bytes that are between quotes
-
- * Input	: the string that is being scanned and the quote type
- * Output	: the number of bytes that are between quotes
- * Errors	: not applicable
- *
- * Uses		: new_index()
- */
-int	quote_size(char *str, char quote)
+void	free_shell(t_shell *data)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != quote)
-		i++;
-	return (i);
+	if (data->lst_token)
+		clear_token(&data->lst_token);
+	if (data->lst_sentence)
+		clear_sentence(&data->lst_sentence);
+	if (data->pipes)
+	{
+		clear_pipe(data);
+		data->pipes = NULL;
+		data->pipe_count = 0;
+	}
+	if (data->reds)
+	{
+		free(data->reds);
+		data->reds = NULL;
+		data->redirect_count = 0;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:29:34 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/20 12:32:02 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/14 22:26:55 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,22 @@
  */
 void	expandvars(char **sentences, t_env *env)
 {
-	int	i;
+	int		i;
+	t_tkn	t;
 
 	i = 0;
 	while (sentences[i])
 	{
-		sentences[i] = expand_sentence(&sentences[i], env);
+		t = which_delim(sentences[i]);
+		if (t > WORD)
+			i++;
+		if (t != HDOC)
+			sentences[i] = expand_sentence(&sentences[i], env, 0);
 		i++;
 	}
+}
+
+void	expand_hdoc_var(char **sentence, t_env *env)
+{
+	*sentence = expand_sentence(sentence, env, 1);
 }
