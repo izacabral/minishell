@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/08 23:08:20 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:57:25 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ t_token		*new_token(char *ptr, t_tkn t);
 void		addback_token(t_token **lst, t_token *new);
 t_token		*find_last_token(t_token *lst);
 void		clear_token(t_token **lst);
-
-/* FREE_TAB  */
+// freetab() não está sendo usada, mas deixei caso seja necessária
 void		freetab(void **ptr);
 void		free_array(char **tab);
 
