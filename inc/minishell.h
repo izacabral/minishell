@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/18 21:00:50 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:18:22 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void		fill_shell(t_shell *data);
 int			open_pipe_reds(t_shell *data);
 void		close_fds(t_shell *data);
 void		free_shell(t_shell *data);
+void		executor(t_shell *data);
 
 // srcs/parser/
 int			isquotes(char c);
@@ -61,8 +62,9 @@ int			iscrule(int c, int first);
 void		expand_hdoc_var(char **sentence, t_env *env);
 
 // srcs/exec/
-int			call_execve(char **args, char *path);
+int			exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
+void		default_signals(void);
 
 // srcs/sentence/
 void		create_sentences(t_env *env, t_token **lst_token, \
@@ -87,7 +89,7 @@ void		env(t_env *env);
 void		print_export(t_env *env);
 int			unset(int size, char *str[], t_env **env);
 int			echo(char **arg, int fd);
-int			ft_exit(int n);
+void		ft_exit(char **args, t_shell *data, int size);
 int			pwd(int fd);
 int			cd(int argc, char **argv, t_shell *data);
 

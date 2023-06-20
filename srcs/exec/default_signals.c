@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   default_signals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 14:39:49 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/27 00:38:59 by daolivei         ###   ########.fr       */
+/*   Created: 2023/06/09 00:10:25 by daolivei          #+#    #+#             */
+/*   Updated: 2023/06/09 00:10:27 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
-# include "types.h"
+#include "minishell.h"
 
-int		call_execve(char **args, char *path);
-int		launch_command(char **args);
-int		call_builtin(char **args, t_shell *data, t_builtin builtin);
+void	default_signals(void)
+{
+	struct sigaction	dfl;
 
-#endif
+	dfl.sa_handler = SIG_DFL;
+	sigaction(SIGINT, &dfl, NULL);
+	sigaction(SIGQUIT, &dfl, NULL);
+}

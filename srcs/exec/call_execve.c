@@ -29,6 +29,21 @@ static int	test_acess(char *pathname);
  * Errors	: int - 1: não é um comando executável ou arquivo não existe
  * Uses		: [WIP] a ser integrado.
  */
+// int	call_execve(char **args, char *path)
+// {
+// 	t_string	*p;
+
+// 	p = path_to_lst(path);
+// 	if (get_comm(&args[0], p))
+// 	{
+// 		ft_strclear(&p, free);
+// 		return (1);
+// 	}
+// 	ft_strclear(&p, free);
+// 	launch_command(args);
+// 	return (0);
+// }
+
 int	call_execve(char **args, char *path)
 {
 	t_string	*p;
@@ -40,7 +55,11 @@ int	call_execve(char **args, char *path)
 		return (1);
 	}
 	ft_strclear(&p, free);
-	launch_command(args);
+	if ((execve(*args, args, NULL)) == -1)
+	{
+		ft_putendl_fd("Error with execve\n", 2);
+		g_global = errno;
+	}
 	return (0);
 }
 

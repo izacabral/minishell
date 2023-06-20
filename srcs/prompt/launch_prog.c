@@ -57,11 +57,8 @@ void	launch_prog(t_shell *data)
 		{
 			open_pipe_reds(data);
 			clean_reds_sentences(data->lst_sentence);
-			ft_printf("\nSentences after open_pipe_reds() and cleaned up\n");
-			ft_printf("\nOnly for didatics, need remove later\n");
-			print_sentence_teste(&data->lst_sentence);
 		}
+		executor(data);
 	}
-	ft_printf("\nNext steps execution.\n");
-	free_shell (data);
+	free_shell(data);
 }

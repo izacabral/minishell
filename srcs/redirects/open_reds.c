@@ -18,7 +18,7 @@ void	error_redir(char *filename)
 	ft_putstr_fd(filename, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
-	g_global = 1;
+	g_global = errno;
 }
 
 int	out(t_sentence *cmd, char *file)
