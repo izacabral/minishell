@@ -19,11 +19,11 @@ int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 
 	default_signals();
 	if (builtin == ECHO)
-		return (echo(args));
+		return (echo(args, 1));
 	if (builtin == CD)
-		return (cd(data, args[1]));
+		return (cd(size, args, data));
 	if (builtin == PWD)
-		return (pwd());
+		return (pwd(1));
 	if (builtin == EXPORT)
 		return (export(size, args, data->lst_env));
 	if (builtin == UNSET)

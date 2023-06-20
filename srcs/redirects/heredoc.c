@@ -26,19 +26,21 @@ static int	isquoted(char *str)
 static int	hdoc_routine(char *file, int expand, int fd, t_env *env)
 {
 	char	*line_read;
+	int		size;
 
+	size = ft_strlen(file) + 1;
 	line_read = NULL;
 	while (1)
 	{
 		line_read = readline("> ");
 		if (!line_read)
 			return (-1);
-		if (ft_strncmp(line_read, file, ft_strlen(file) + 1) == 0)
+		if (ft_strncmp(line_read, file, size) == 0)
 		{
 			free(line_read);
 			break ;
 		}
-		if (!expand)
+		if (expand)
 			expand_hdoc_var(&line_read, env);
 		ft_putendl_fd(line_read, fd);
 		free(line_read);
@@ -51,9 +53,9 @@ int	heredoc(t_sentence *cmd, char *file, t_env *env)
 	int		expand;
 	int		pipe_fd[2];
 
-	expand = isquoted(file);
-	if (expand)
-		file = remove_hdoc_quotes(file);
+	expand = !isquoted(file);
+	if (!expand)
+		file = ft_strdup((remove_hdoc_quotes(file)));
 	if (pipe(pipe_fd) == -1)
 	{
 		error_redir(file);

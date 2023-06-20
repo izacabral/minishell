@@ -1,5 +1,3 @@
-#include "minishell.h"
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -108,6 +106,7 @@ int    main(int argc, char **argv, char **envp)
 	        printf("Failure with statusCode %d\n", statusCode);
     } */
 	free(cmd);
+	free(file);
 	clear_env(&lst_env);
 	return (0);
 }

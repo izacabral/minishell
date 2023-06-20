@@ -23,7 +23,7 @@ int	counting_redirects(t_token **lst_token)
 		return (0);
 	while (tmp)
 	{
-		if (tmp->tkn != PIPE && tmp->tkn != WORD)
+		if (tmp->tkn > PIPE)
 			count++;
 		tmp = tmp->next;
 	}

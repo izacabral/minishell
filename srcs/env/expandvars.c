@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
 #include "minishell.h"
-#include "types.h"
 
 /*
  * Fn		: expandvars(char **sentences, t_env *env)
