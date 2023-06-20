@@ -88,8 +88,8 @@ void		print_export(t_env *env);
 int			unset(int size, char *str[], t_env **env);
 int			echo(char **arg, int fd);
 int			ft_exit(int n);
-int			pwd(void);
-int			cd(t_shell *data, char *path);
+int			pwd(int fd);
+int			cd(int argc, char **argv, t_shell *data);
 
 // srcs/pipes/
 int			counting_pipes(t_token **lst_token);

@@ -150,8 +150,8 @@ all: printtoken printsentence printexpunsenv expandvar t_env test_export \
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
 
-pwd :	$(OBJS_PWD)
-		$(CC) $^ -o $@
+pwd :	$(LIBFT) $(OBJS_PWD)
+		$(CC) $(OBJS_PWD) $(LIBFT) -o $@
 
 echo:	$(LIBFT) $(OBJS_ECHO)
 	$(CC) $(OBJS_ECHO) $(LIBFT) -o $@
@@ -184,7 +184,7 @@ clean:
 		$(RM) $(OBJS_HDOC) $(OBJS_EXPORT)
 
 fclean: clean
-		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env \
+		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env hello_world \
 		$(RM) hdoc test_export
 
 re:			fclean all

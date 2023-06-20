@@ -6,39 +6,34 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:18:32 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/06/13 22:22:32 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:08:16 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 
-void	set_oldpwd(t_shell *data)
+static void	set_oldpwd(char *old, t_shell *data)
 {
-	char	*ptr;
-	char	*oldpwd;
+	t_env	*oldpwd;
 
-	ptr = getcwd(NULL, 0);
-	oldpwd = ft_strjoin("OLDPWD=", ptr);
-	unset(1, &oldpwd, &data->lst_env);
-	export(1, &oldpwd, data->lst_env);
-	free(ptr);
-	free(oldpwd);
+	oldpwd = compare_key(data->lst_env, "OLDPWD");
+	free(oldpwd->value);
+	oldpwd->value = NULL;
+	oldpwd->value = old;
 }
 
-void	set_pwd(t_shell *data)
+static void	set_pwd(t_shell *data)
 {
-	char	*ptr;
-	char	*pwd;
+	t_env	*pwd;
 
-	ptr = getcwd(NULL, 0);
-	pwd = ft_strjoin("PWD=", ptr);
-	unset(1, &pwd, &data->lst_env);
-	export(1, &pwd, data->lst_env);
-	free(ptr);
-	free(pwd);
+	pwd = compare_key(data->lst_env, "PWD");
+	free(pwd->value);
+	pwd->value = NULL;
+	pwd->value = getcwd(NULL, 0);
 }
 
-char	*get_home(t_shell *data)
+static char	*get_home(t_shell *data)
 {
 	t_env	*home;
 
@@ -46,29 +41,45 @@ char	*get_home(t_shell *data)
 	return (home->value);
 }
 
-int	cd(t_shell *data, char *path)
+static int	change_dir(char *path, t_shell *data)
 {
-	int	ret;
-
-	set_oldpwd(data);
 	if (!path)
 	{
-		if (!get_home(data))
+		path = get_home(data);
+		if (!path)
 		{
-			printf("minishel: cd: HOME not set\n");
-			return (ret = 1);
+			ft_putendl_fd("minishell: cd: HOME not set", 2);
+			return (1);
 		}
-		else
-			chdir(get_home(data));
+		chdir(path);
+		return (0);
 	}
-	else
+	if (chdir(path) == -1)
 	{
-		if (chdir(path) == -1)
-		{
-			printf("minishel: cd: %s: No such file or directory", path);
-			return (ret = 1);
-		}
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		return (1);
 	}
+	return (0);
+}
+
+int	cd(int argc, char **argv, t_shell *data)
+{
+	char	*cwd;
+
+	if (argc > 2)
+	{
+		ft_putendl_fd("minishell: cd: too many arguments", 2);
+		return (1);
+	}
+	cwd = getcwd(NULL, 0);
+	if (change_dir(argv[1], data))
+	{
+		free(cwd);
+		return (1);
+	}
+	set_oldpwd(cwd, data);
 	set_pwd(data);
 	return (0);
 }
