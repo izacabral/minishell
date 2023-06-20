@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/18 14:54:32 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/18 21:00:50 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void		export_error(char *str);
 void		env(t_env *env);
 void		print_export(t_env *env);
 int			unset(int size, char *str[], t_env **env);
-int			ft_echo(char **arg);
+int			echo(char **arg, int fd);
 int			ft_exit(int n);
 int			pwd(int fd);
 int			cd(int argc, char **argv, t_shell *data);
