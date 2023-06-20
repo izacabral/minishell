@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/02 02:50:05 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:18:22 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ void		launch_prog(t_shell *data);
 void		int_handler(int signum);
 char		*readline_gets(char *line);
 void		setup_signals(void);
+int			only_spaces(char *line);
+void		fill_shell(t_shell *data);
+int			open_pipe_reds(t_shell *data);
+void		close_fds(t_shell *data);
+void		free_shell(t_shell *data);
+void		executor(t_shell *data);
 
 // srcs/parser/
 int			isquotes(char c);
@@ -51,10 +57,14 @@ int			lexer(t_token *lst);
 t_env		*get_env(char *environ[]);
 void		expandvars(char **sentences, t_env *env);
 t_string	*path_to_lst(char *path);
+int			check_varname(char *key);
+int			iscrule(int c, int first);
+void		expand_hdoc_var(char **sentence, t_env *env);
 
 // srcs/exec/
-int			call_execve(char **args, char *path);
+int			exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
+void		default_signals(void);
 
 // srcs/sentence/
 void		create_sentences(t_env *env, t_token **lst_token, \
@@ -66,18 +76,32 @@ char		*quotes_removed(char *str, int i, char *new_str);
 void		remove_quotes(char **sentences);
 char		**tkn_to_sentence(t_token **lst_token);
 char		*while_no_quotes(char *str, int i, char *new_str);
+char		*remove_hdoc_quotes(char *str);
+void		clean_reds_sentences(t_sentence *lst_sentence);
 
 // srcs/builtins/
 int			check_export(char *key, char *str);
 int			check_unset(char *key);
 t_env		*compare_key(t_env *env, char *key);
-int			export_builtins(int size, char *str[], t_shell *data);
+int			export(int size, char *str[], t_env *env);
 void		export_error(char *str);
-void		print_env(t_env *env);
+void		env(t_env *env);
 void		print_export(t_env *env);
-int			unset_builtins(int size, char *str[], t_shell *data);
-int			ft_echo(char **arg);
-int			ft_exit(int n);
-int			pwd(void);
+int			unset(int size, char *str[], t_env **env);
+int			echo(char **arg, int fd);
+void		ft_exit(char **args, t_shell *data, int size);
+int			pwd(int fd);
+int			cd(int argc, char **argv, t_shell *data);
+
+// srcs/pipes/
+int			counting_pipes(t_token **lst_token);
+int			*open_pipe(t_sentence *actual, t_sentence *next);
+void		clear_pipe(t_shell *data);
+
+// srcs/redirects/
+int			counting_redirects(t_token **lst_token);
+int			open_reds(int token, t_sentence *cmd, char *file_name, t_env *env);
+int			heredoc(t_sentence *cmd, char *file, t_env *env);
+void		error_redir(char *filename);
 
 #endif

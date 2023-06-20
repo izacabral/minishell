@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   launch_prog.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/30 17:21:40 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:14:03 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//apenas para uso didático - remover depois
+void	print_sentence_teste(t_sentence **lst_sentence)
+{
+	t_sentence	*tmp;
+	char		**args;
+	int			i;
+
+	tmp = *lst_sentence;
+	if (!tmp)
+		return ;
+	while (tmp)
+	{
+		args = tmp->args;
+		i = 0;
+		while (args[i])
+		{
+			ft_printf("print sentence args[%d]: %s\n", i, args[i]);
+			i++;
+		}
+		args = NULL;
+		ft_printf("sentence fd_i: %d\n", tmp->fd_i);
+		ft_printf("sentence fd_o: %d\n", tmp->fd_o);
+		tmp = tmp->next;
+	}
+}
 
 /*
  * Fn		: launch_prog(t_shell *data)
@@ -24,6 +50,15 @@ void	launch_prog(t_shell *data)
 {
 	if (scan_line(&data->lst_token, data->line) == 0
 		&& lexer(data->lst_token) == 0)
-		ft_printf("scan_line and lexer ok. Next step create t_setence\n");
-	clear_token(&data->lst_token);
+	{
+		create_sentences(data->lst_env, &data->lst_token, &data->lst_sentence);
+		fill_shell (data);
+		if (data->pipe_count > 0 || data->redirect_count > 0)
+		{
+			open_pipe_reds(data);
+			clean_reds_sentences(data->lst_sentence);
+		}
+		executor(data);
+	}
+	free_shell(data);
 }

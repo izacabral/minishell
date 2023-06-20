@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:29:06 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/14 16:29:08 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:22:04 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 /*
  * Fn		: expand_sentence(char **sentence, t_env *env)
- * Scope	: lê uma string e aplica expansões
- *			: a string antiga, se foi feita a expansão, é liberada
- * Input	: char ** - endereço de uma string
- *			: t_env * - lista com as variáveis de ambiente
- * Output	: char * - uma nova string alocada com as expansões aplicadas;
- *			:		 - a string sem modificações, caso nenhuma expansão encontrada
- * Errors	: não se aplica
+ * Scope	: reads a string and applies expansions.
+ *				The old string, if expanded, is released
+ * Input	: char ** - string address
+ *			: t_env * - list of environment variables
+ * Output	: char * - a new allocated string with the expansions applied;
+ *			:		 - the unmodified string if no expansion found
+ * Errors	: not applicable
  * Uses		: expandvars()
  */
-char	*expand_sentence(char **sentence, t_env *env)
+char	*expand_sentence(char **sentence, t_env *env, int hdoc)
 {
 	char		*new;
 	char		*old;
 	t_string	*tmp;
 
 	old = *sentence;
-	tmp = scan_sentence(old, env);
+	tmp = scan_sentence(old, env, hdoc);
 	if (!tmp)
 		return (old);
 	new = ft_lst_to_str(tmp);

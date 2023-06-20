@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_lexer.c                                       :+:      :+:    :+:   */
+/*   02_test_lexer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:45:24 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/17 15:56:24 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:29:16 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	main(void)
 	buffer[7] = "cat teste2 |";
 	buffer[8] = "cat main.c |> teste";
 	buffer[9] = "<< EOF";
-
+	buffer[10] = "cat > teste main.c";
+	buffer[11] = "> teste cat main.c";
 
 	// percorrer as strings acima criando a lista de tokens e verificando se o retorno de lexer é 0
 	// se lexer não for 0, retorna -1

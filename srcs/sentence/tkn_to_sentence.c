@@ -1,60 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sentence.c                                         :+:      :+:    :+:   */
+/*   tkn_to_sentence.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 20:08:15 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/21 20:08:18 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/10 22:27:58 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
- * Fn		: get_token_word(t_token **lst_token)
- * Scope	: loops through the token list and returns the next node in the
- *				token list of type word or null
+ * Fn		: counting_args(t_token **lst_token)
+ * Scope	: loops through the token list and counting every no tkn=PIPE
+ *				to know the number of args to t_sentence
+ *
  * Input	: t_token ** token list
  *
- * Output	: t_token of word or null type token list node
+ * Output	: the numbers of args to t_sentence or 0 if none
  * Errors	: not applicable
  *
  * Uses		: tkn_to_sentence(t_token **lst_token)
  */
-static t_token	*get_token_word(t_token **lst_token)
-{
-	if (!(*lst_token))
-		return (NULL);
-	while ((*lst_token)->next && (*lst_token)->tkn != WORD)
-		*lst_token = (*lst_token)->next;
-	if ((*lst_token)->tkn != WORD)
-		return (NULL);
-	return (*lst_token);
-}
-
-/*
- * Fn		: count_tkn_words(t_token **lst_token)
- * Scope	: loops through the token list and counting word nodes
- *
- * Input	: t_token ** token list
- *
- * Output	: the numbers of word nodes or 0 if none
- * Errors	: not applicable
- *
- * Uses		: tkn_to_sentence(t_token **lst_token)
- */
-static size_t	count_tkn_words(t_token **lst_token)
+static size_t	counting_args(t_token **lst_token)
 {
 	size_t	count;
 	t_token	*tmp;
 
 	count = 0;
-	tmp = get_token_word(&(*lst_token));
-	if (!(tmp))
+	tmp = *lst_token;
+	if (!tmp)
 		return (count);
-	while (tmp && tmp->tkn == WORD)
+	while (tmp && tmp->tkn && tmp->tkn != PIPE)
 	{
 		count++;
 		tmp = tmp->next;
@@ -81,8 +60,8 @@ char	**tkn_to_sentence(t_token **lst_token)
 	char	**args;
 	size_t	i;
 
-	tmp = get_token_word(&(*lst_token));
-	size = count_tkn_words(&tmp);
+	tmp = *lst_token;
+	size = counting_args(&tmp);
 	args = malloc(sizeof(char *) * (size + 1));
 	if (!args)
 		return (NULL);

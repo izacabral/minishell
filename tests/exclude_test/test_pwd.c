@@ -6,14 +6,14 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 15:22:23 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/05/25 18:45:55 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/18 14:58:26 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unit_test.h"
+#include "minishell.h"
 
 int	main(void)
 {
-	pwd();
+	pwd(1);
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_builtin.c                                   :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:49:52 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/01 18:18:54 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/12 22:37:55 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@
  *					:char *str - argument (enviroment variable)
  * Scope       		:adding new environment variable in envp list
  */
-static void	append_env(t_env *env, char *key, char *value, char *str)
+static void	append_env(t_env *env, char *key, char *value)
 {
 	while (env->next)
 		env = env->next;
-	if (value == NULL && ft_strchr(str, '='))
-		value = "";
 	env->next = new_env(key, value);
 	env->next->size = env->size;
 	*env->size += 1;
@@ -36,18 +34,10 @@ static void	append_env(t_env *env, char *key, char *value, char *str)
  *					:char *str - argument (enviroment variable)
  * Scope       		:exchange of envp list value element
  */
-static void	modify_env(t_env *env, char *value, char *str)
+static void	modify_env(t_env *env, char *value)
 {
-	if (value)
-	{
-		free(env->value);
-		env->value = ft_strdup(value);
-	}
-	else if (ft_strchr(str, '='))
-	{
-		free(env->value);
-		env->value = ft_strdup("");
-	}
+	free(env->value);
+	env->value = ft_strdup(value);
 }
 
 /*
@@ -62,21 +52,27 @@ static void	modify_env(t_env *env, char *value, char *str)
  */
 static void	add_export(t_env *env, char *str)
 {
-	char	**dict_split;
 	t_env	*new;
+	char	*key;
+	char	*value;
 
-	if (!ft_isalpha(str[0]) && str[0] != '_')
+	key = NULL;
+	value = NULL;
+	get_entry(&key, &value, str, ft_strlen(str));
+	if (!check_varname(key))
 	{
+		free(key);
+		free(value);
 		export_error(str);
 		return ;
 	}
-	dict_split = ft_split(str, '=');
-	new = compare_key(env, dict_split[0]);
-	if (new == NULL && check_export(dict_split[0], str))
-		append_env(env, dict_split[0], dict_split[1], str);
-	else if (new != NULL)
-		modify_env(new, dict_split[1], str);
-	free_array(dict_split);
+	new = compare_key(env, key);
+	if (new == NULL)
+		append_env(env, key, value);
+	else
+		modify_env(new, value);
+	free(key);
+	free(value);
 }
 
 /*
@@ -90,17 +86,17 @@ static void	add_export(t_env *env, char *str)
  * 					:or
  * 					:add a new environment variable (if true)
  */
-int	export_builtins(int size, char *str[], t_shell *data)
+int	export(int size, char *str[], t_env *env)
 {
 	int		i;
 
 	i = 0;
 	if (size == 1)
 	{
-		print_export(data->lst_env);
+		print_export(env);
 		return (0);
 	}
 	while (++i < size)
-		add_export(data->lst_env, str[i]);
+		add_export(env, str[i]);
 	return (0);
 }

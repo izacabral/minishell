@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 00:03:44 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/20 00:03:52 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:21:28 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ typedef struct s_repl
 	int			new_sz;
 }	t_repl;
 
+void		get_entry(char **key, char **value, char *var, int len);
+
 // Var expansion
-char		*expand_sentence(char **sentence, t_env *env);
-t_string	*scan_sentence(char *sentence, t_env *env);
+char		*expand_sentence(char **sentence, t_env *env, int hdoc);
+t_string	*scan_sentence(char *sentence, t_env *env, int hdoc);
 char		*get_value(char *var, int size, t_env *env);
 t_quotes	which_quotes(char c);
 

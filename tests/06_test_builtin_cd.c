@@ -6,81 +6,71 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 09:21:41 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/06/03 14:48:18 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/18 13:06:08 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+#include "minishell.h"
 #include "unit_test.h"
+#include <stdio.h>
 
-void	set_oldpwd(t_shell data)
+static char **check(int argc, char **argv, t_shell *data)
 {
-	char	*ptr;
-	char	*oldpwd;
+	t_env	*oldpwd;
+	t_env	*pwd;
 
-	ptr = getcwd(NULL, 0);
-	oldpwd = ft_strjoin("OLDPWD=", ptr);
-	unset_builtins(1, &oldpwd, &data);
-	export_builtins(1, &oldpwd, &data);
-	free(ptr);
-	free(oldpwd);
+	oldpwd = compare_key(data->lst_env, "OLDPWD");
+	pwd = compare_key(data->lst_env, "PWD");
+	printf("cd args: ");
+	for (int i = 0; i < argc; i++)
+		printf("%s ", argv[i]);
+	printf("\n");
+	printf("OLDPWD: %s\nPWD: %s\n\n", oldpwd->value, pwd->value);
+	freetab((void **)argv);
+	return (NULL);
 }
 
-void	set_pwd(t_shell data)
+static char	**create_argv(int n)
 {
-	char	*ptr;
-	char	*pwd;
-
-	ptr = getcwd(NULL, 0);
-	pwd = ft_strjoin("PWD=", ptr);
-	unset_builtins(1, &pwd, &data);
-	export_builtins(1, &pwd, &data);
-	free(ptr);
-	free(pwd);
-}
-
-char	*get_home(t_shell data)
-{
-	t_env	*home;
-
-	home = compare_key(data.lst_env, "HOME");
-	return (home->value);
-}
-
-int	cd(t_shell data, char *path)
-{
-	int	ret;
-
-	set_oldpwd(data);
-	if (!path)
+	switch (n)
 	{
-		if (!get_home(data))
-		{
-			printf("minishel: cd: HOME not set\n");
-			return (ret = 1);
-		}
-		else
-			chdir(get_home(data));
+		case 1:
+			return (ft_split("cd 42", ' '));
+		case 2:
+			return (ft_split("cd exclude_test logs", ' '));
+		case 3:
+			return (ft_split("cd exclude_test", ' '));
+		default:
+			return (ft_split("cd", ' '));
 	}
-	else
-	{
-		if (chdir(path) == -1)
-		{
-			printf("minishel: cd: %s: No such file or directory", path);
-			return (ret = 1);
-		}
-	}
-	set_pwd(data);
-	return (0);
 }
 
-int	test_cd(t_shell data)
+static int	test_cd(t_shell *data)
 {
+	char	**argv;
 	int		ret;
-	char	*ptr;
 
-	ptr = NULL;
-	if (cd(data, ptr) == 1)
-		return (ret = 1);
+	argv = create_argv(1);
+	ret = cd(2, argv, data);
+	argv = check(2, argv, data);
+	if (ret != 1)
+		return (1);
+	argv = create_argv(2);
+	ret = cd(3, argv, data);
+	argv = check(3, argv, data);
+	if (ret != 1)
+		return (1);
+	argv = create_argv(3);
+	ret = cd(2, argv, data);
+	argv = check(2, argv, data);
+	if (ret != 0)
+		return (1);
+	argv = create_argv(4);
+	ret = cd(1, argv, data);
+	argv = check(1, argv, data);
+	if (ret != 0)
+		return (1);
 	return (0);
 }
 
@@ -91,7 +81,7 @@ int	main(int ac, char **av, char **envp)
 	(void)(ac);
 
 	init_shell(&data, envp);
-	if (test_cd(data) == -1)
+	if (test_cd(&data) == 1)
 		return (1);
 	clear_env(&data.lst_env);
 	return (0);

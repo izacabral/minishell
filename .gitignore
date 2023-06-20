@@ -1,20 +1,10 @@
 ## arquivo criado a partir do template C do github: https://github.com/github/gitignore
 ## juntei aqui o template do VIM e do Visual Studio Code
-## No final do arquivo tem um campo PROJECT STUFFS para serem acrescentados qualquer
+## No campo PROJECT STUFFS para serem acrescentados qualquer
 ## outro arquivo referente ao projeto
 
 ## PROJECT STUFFS
 minishell
-printtoken
-tokenization
-lexer
-pwd
-echo
-execve
-printsentence
-expandvar
-printexpunsenv
-t_env
 
 # Prerequisites
 *.d

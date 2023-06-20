@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/02 02:36:55 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:57:25 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,29 +45,36 @@ typedef struct s_sentence
 	char				**args;
 	int					fd_i;
 	int					fd_o;
+	int					reds_inside;
+	int					pid;
 	struct s_sentence	*previous;
 	struct s_sentence	*next;
 }						t_sentence;
-
-/* typedef struct s_shell
- *
- * TODO:
- * - Incluir:
- * 	t_sentence		*lst_sentence;
- *
- * */
 
 typedef struct s_shell
 {
 	char				*line;
 	t_env				*lst_env;
 	t_token				*lst_token;
+	t_sentence			*lst_sentence;
 	int					sentence_count;
 	int					pipe_count;
 	int					redirect_count;
-	int					*pipes;
+	int					**pipes;
 	int					*reds;
 }						t_shell;
+
+typedef enum e_buitin
+{
+	ENOBLTN,
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT,
+}	t_builtin;
 
 typedef struct s_string
 {
@@ -100,6 +107,7 @@ t_sentence	*new_sentence(char **args);
 t_sentence	*find_last_sentence(t_sentence *lst);
 void		addback_sentence(t_sentence **lst, t_sentence *new);
 void		clear_sentence(t_sentence **lst);
+int			size_sentence(t_sentence **lst_sentence);
 
 /* T_STRING */
 t_string	*ft_strnew(char *str, size_t length);

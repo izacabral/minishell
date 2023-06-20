@@ -17,12 +17,13 @@ static char	*search_value(char *key, int size, t_env *env);
 
 /*
  * Fn		: get_value(char *var, int size, t_env *env)
- * Scope	: recupera o valor de uma variável de ambiente em uma string
- * Input	: char * - o nome da variável, sem $
- *			: int size - o número de caracters que compõem o nome da variável
- *			: t_env * - lista com as variáveis de ambiente
- * Output	: char * - string com o valor da variável
- * Errors	: NULL - variável não encontrada ou sem valor
+ * Scope	: retrieves the value of an environment variable in a string
+ * Input	: char * - the variable name, without $
+ *			: int size - the number of characters of variable name
+ *			: t_env * - list of environment variables
+ * Output	: char * - string with the value of the variable
+ *				NULL - variable not found or without value
+ * Errors	: not applicable
  * Uses		: expvar() [by scan_sentence]
  */
 char	*get_value(char *var, int size, t_env *env)
