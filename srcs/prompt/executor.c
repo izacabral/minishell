@@ -6,13 +6,13 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:52:16 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/18 12:52:19 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/20 00:08:08 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_executor_error()
+static void	print_executor_error(void)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
@@ -74,5 +74,3 @@ void	executor(t_shell *data)
 	close_fds(data);
 	wait_sentences(data);
 }
-
-
