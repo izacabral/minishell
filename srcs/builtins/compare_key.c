@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_builtin.c                                   :+:      :+:    :+:   */
+/*   compare_key.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:49:52 by vchastin          #+#    #+#             */
-/*   Updated: 2023/05/23 08:52:33 by vchastin         ###   ########.fr       */
+/*   Updated: 2023/06/18 14:15:17 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_env	*compare_key(t_env *env, char *key)
 	node = env;
 	while (node)
 	{
-		if (ft_strncmp(node->key, key, ft_strlen(key)) == 0)
+		if (ft_strncmp(node->key, key, ft_strlen(key) + 1) == 0)
 			return (node);
 		node = node->next;
 	}
