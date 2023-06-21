@@ -27,10 +27,7 @@ int	out(t_sentence *cmd, char *file)
 
 	temp_fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (temp_fd == -1)
-	{
 		error_redir(file);
-		return (-1);
-	}
 	cmd->fd_o = temp_fd;
 	return (temp_fd);
 }
@@ -41,10 +38,7 @@ int	append(t_sentence *cmd, char *file)
 
 	temp_fd = open(file, O_WRONLY | O_APPEND | O_CREAT, 0666);
 	if (temp_fd == -1)
-	{
 		error_redir(file);
-		return (-1);
-	}
 	cmd->fd_o = temp_fd;
 	return (temp_fd);
 }
@@ -55,10 +49,7 @@ int	in(t_sentence *cmd, char *file)
 
 	temp_fd = open(file, O_RDONLY);
 	if (temp_fd == -1)
-	{
 		error_redir(file);
-		return (-1);
-	}
 	cmd->fd_i = temp_fd;
 	return (temp_fd);
 }

@@ -23,7 +23,7 @@
 # define FT_INT_MIN -2147483648
 
 # define FT_LONG_MAX 9223372036854775807
-# define FT_LONG_MIN -9223372036854775807
+# define FT_LONG_MIN -9223372036854775807 -1
 
 typedef struct s_list
 {
@@ -70,6 +70,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strjoin_free(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_itoa(int n);
+char	*ft_ltoa(long int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	**ft_split(char const *s, char c);
 t_list	*ft_lstnew(void *content);
