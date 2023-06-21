@@ -33,6 +33,8 @@ static void	set_reds_array(t_sentence *s, int *reds, int *index, t_env *env)
 		{
 			i++;
 			reds[*index] = open_reds(t, s, s->args[i], env);
+			if (reds[*index] == -1)
+				return ;
 			(*index)++;
 		}
 		i++;
