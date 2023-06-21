@@ -6,7 +6,7 @@
 /*   By: fpeixoto <fpeixoto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 19:47:56 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/06/19 23:18:49 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:37:35 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ static void	exit_case2(char **args, t_shell *data)
 
 void	ft_exit(char **args, t_shell *data, int size)
 {
-	char		*arg;
-
-	arg = NULL;
 	if (data->lst_sentence->fd_i == -1)
 		return ;
 	if (size == 1)
