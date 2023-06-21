@@ -88,9 +88,14 @@ SRCS_P_SENTENCE	=	test_print_t_sentence.c  ../../srcs/sentence/create_sentences.
 					../../srcs/data_types/ft_strnew.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c \
 					../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_lst_to_str.c \
 					../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strtotallen.c \
-					../../srcs/env/check_varname.c
+					../../srcs/env/check_varname.c \
+					../../srcs/data_types/free_tab.c
 
 OBJS_P_SENTENCE	=	$(SRCS_P_SENTENCE:.c=.o)
+
+SRCS_SENT		=	test_sentence.c ../../srcs/data_types/t_sentence.c ../../srcs/data_types/free_tab.c
+
+OBJS_SENT		=	$(SRCS_SENT:.c=.o)
 
 SRCS_HDOC		= 	teste_heredoc.c \
 					../../srcs/redirects/heredoc.c ../../srcs/redirects/open_reds.c \
@@ -145,7 +150,7 @@ endif
 		$(CO_LINE)
 
 all: printtoken printsentence printexpunsenv expandvar t_env test_export \
-		hdoc pwd execve echo
+		hdoc pwd execve echo test_sentence
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
@@ -178,14 +183,17 @@ test_export: $(LIBFT) $(OBJS_EXPORT)
 hdoc:	$(LIBFT) $(OBJS_HDOC)
 	$(CC) $(OBJS_HDOC) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o hdoc
 
+test_sentence:	$(LIBFT) $(OBJS_SENT)
+	$(CC) $(OBJS_SENT) $(LIBFT) -o test_sentence
+
 clean:
 		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR)
 		$(RM) $(OBJS_EXECVE) $(OBJS_ECHO) $(OBJS_PWD) $(OBJS_T_ENV) $(OBJS_REDIRECTS)
-		$(RM) $(OBJS_HDOC) $(OBJS_EXPORT)
+		$(RM) $(OBJS_HDOC) $(OBJS_EXPORT) $(OBJS_SENT)
 
 fclean: clean
 		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env hello_world \
-		$(RM) hdoc test_export
+		$(RM) hdoc test_export test_sentence
 
 re:			fclean all
 

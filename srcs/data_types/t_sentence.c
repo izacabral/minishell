@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:12:12 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/05 15:52:45 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:31:56 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,11 @@ void	clear_sentence(t_sentence **lst)
 		return ;
 	while (*lst)
 	{
-		tmp = (*lst)-> next;
-		free((*lst)->args);
-		free(*lst);
-		*lst = tmp;
+		tmp = *lst;
+		*lst = (*lst)->next;
+		freetab((void **)tmp->args);
+		free(tmp);
+		tmp = NULL;
 	}
 }
 
