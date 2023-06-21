@@ -39,7 +39,7 @@ char	*ft_ltoa(long int n)
 	long		end;
 	long int	aux_n;
 
-	if (n == FT_LONG_MIN)
+	if (n == FT_LONG_MIN - 1)
 		return (ft_strdup("-9223372036854775808"));
 	end = ft_count(n);
 	str = malloc((end + 1) * sizeof(char));
