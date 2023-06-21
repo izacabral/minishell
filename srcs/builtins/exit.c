@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int		calc_return(long int n)
+static int	calc_return(long int n)
 {
 	int	ret;
 
@@ -27,6 +27,34 @@ int		calc_return(long int n)
 	else
 		ret = 0;
 	return (ret);
+}
+
+static void	exit_case2(char **args, t_shell *data)
+{
+	char	*arg;
+
+	arg = ft_ltoa(ft_atol(args[1]));
+	if (ft_strncmp(arg, args[1], ft_strlen(args[1]) + 1) == 0)
+	{
+		free(arg);
+		ft_putendl_fd("exit", 2);
+		free_shell(data);
+		clear_env(&data->lst_env);
+		g_global = calc_return (ft_atol(args[1]));
+		exit(g_global);
+	}
+	else
+	{
+		free(arg);
+		ft_putendl_fd("exit", 2);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(args[1], 2);
+		ft_putendl_fd(": numeric argument required", 2);
+		free_shell(data);
+		clear_env(&data->lst_env);
+		g_global = 255;
+		exit(g_global);
+	}
 }
 
 void	ft_exit(char **args, t_shell *data, int size)
@@ -45,30 +73,7 @@ void	ft_exit(char **args, t_shell *data, int size)
 		exit(0);
 	}
 	if (size == 2)
-	{
-		arg = ft_ltoa(ft_atol(args[1]));
-		if (ft_strncmp(arg, args[1], ft_strlen(args[1]) + 1) == 0)
-		{
-			free(arg);
-			ft_putendl_fd("exit", 2);
-			g_global = calc_return (ft_atol(args[1]));
-			free_shell(data);
-			clear_env(&data->lst_env);
-			exit(g_global);
-		}
-		else
-		{
-			free(arg);
-			ft_putendl_fd("exit", 2);
-			ft_putstr_fd("minishell: exit: ", 2);
-			ft_putstr_fd(args[1], 2);
-			ft_putendl_fd(": numeric argument required", 2);
-			free_shell(data);
-			clear_env(&data->lst_env);
-			g_global = 255;
-			exit(g_global);
-		}
-	}
+		exit_case2(args, data);
 	if (size > 2)
 	{
 		ft_putendl_fd("exit", 2);

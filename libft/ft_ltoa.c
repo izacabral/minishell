@@ -20,7 +20,7 @@ static int	ft_count(long int n)
 	if (n < 0)
 	{
 		digits++;
-		if (n == FT_LONG_MIN)
+		if (n == FT_LONG_MIN - 1)
 			n = n + 1;
 		n = n * -1;
 	}

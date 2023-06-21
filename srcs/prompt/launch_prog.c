@@ -32,12 +32,11 @@ void	launch_prog(t_shell *data)
 			open_pipe_reds(data);
 			clean_reds_sentences(data->lst_sentence);
 		}
-		if (data->sentence_count == 1 &&
-				!ft_strncmp(data->lst_sentence->args[0], "exit", 5))
+		if (data->sentence_count == 1
+			&& !ft_strncmp(data->lst_sentence->args[0], "exit", 5))
 			call_builtin(data->lst_sentence->args, data, EXIT);
 		else
 			executor(data);
 	}
 	free_shell(data);
 }
-
