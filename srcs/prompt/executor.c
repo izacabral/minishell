@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:52:16 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/20 00:08:08 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/22 03:34:19 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	wait_sentences(t_shell *data)
 
 	tmp = data->lst_sentence;
 	g_global = 0;
+	status = 0;
 	while (tmp)
 	{
 		waitpid(tmp->pid, &status, 0);

@@ -6,7 +6,7 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:41:43 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/27 00:27:58 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/22 03:31:05 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	call_execve(char **args, char *path)
 		return (1);
 	}
 	ft_strclear(&p, free);
+	default_signals();
 	if ((execve(*args, args, NULL)) == -1)
 	{
 		ft_putendl_fd("Error with execve\n", 2);
