@@ -52,18 +52,21 @@ int	heredoc(t_sentence *cmd, char *file, t_env *env)
 {
 	int		expand;
 	int		pipe_fd[2];
-	
-	expand = !isquoted(file);
+	char	*cpy_file;
+
+	cpy_file = ft_strdup(file);
+	expand = !isquoted(cpy_file);
 	if (!expand)
-		file = ft_strdup((remove_hdoc_quotes(file)));
+		cpy_file = ft_strdup((remove_hdoc_quotes(cpy_file)));
 	if (pipe(pipe_fd) == -1)
 	{
-		error_redir(file);
+		error_redir(cpy_file);
 		return (-1);
 	}
-	if ((hdoc_routine(file, expand, pipe_fd[1], env)) == -1)
+	if ((hdoc_routine(cpy_file, expand, pipe_fd[1], env)) == -1)
 		return (-1);
 	cmd->fd_i = pipe_fd[0];
 	close (pipe_fd[1]);
+	free(cpy_file);
 	return (pipe_fd[0]);
 }
