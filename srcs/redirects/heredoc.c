@@ -52,7 +52,7 @@ int	heredoc(t_sentence *cmd, char *file, t_env *env)
 {
 	int		expand;
 	int		pipe_fd[2];
-
+	
 	expand = !isquoted(file);
 	if (!expand)
 		file = ft_strdup((remove_hdoc_quotes(file)));

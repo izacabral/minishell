@@ -59,7 +59,7 @@ void	executor(t_shell *data)
 	count = 0;
 	while (count < data->sentence_count)
 	{
-		if (tmp->fd_i != -1 && tmp->fd_o != -1)
+		if (tmp->fd_i != -1 && tmp->fd_o != -1 && tmp->args[0])
 		{
 			pid = fork();
 			if (pid == -1)
