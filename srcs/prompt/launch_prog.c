@@ -12,32 +12,6 @@
 
 #include "minishell.h"
 
-//para fins didáticos retirar depois
-void	print_sentence_teste(t_sentence **lst_sentence)
-{
-	t_sentence	*tmp;
-	char		**args;
-	int			i;
-
-	tmp = *lst_sentence;
-	if (!tmp)
-		return ;
-	while (tmp)
-	{
-		args = tmp->args;
-		i = 0;
-		while (args[i])
-		{
-			ft_printf("print sentence args[%d]: %s\n", i, args[i]);
-			i++;
-		}
-		args = NULL;
-		ft_printf("sentence fd_i: %d\n", tmp->fd_i);
-		ft_printf("sentence fd_o: %d\n", tmp->fd_o);
-		tmp = tmp->next;
-	}
-}
-
 /*
  * Fn		: launch_prog(t_shell *data)
  * Scope	: Run the REPL loop
