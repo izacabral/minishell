@@ -92,6 +92,8 @@ int			echo(char **arg, int fd);
 void		ft_exit(char **args, t_shell *data, int size);
 int			pwd(int fd);
 int			cd(int argc, char **argv, t_shell *data);
+t_builtin	isbuiltin(char *comm);
+int			call_builtin(char **args, t_shell *data, t_builtin builtin);
 
 // srcs/pipes/
 int			counting_pipes(t_token **lst_token);
