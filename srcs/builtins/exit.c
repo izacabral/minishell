@@ -36,25 +36,23 @@ static void	exit_case2(char **args, t_shell *data)
 	arg = ft_ltoa(ft_atol(args[1]));
 	if (ft_strncmp(arg, args[1], ft_strlen(args[1]) + 1) == 0)
 	{
-		free(arg);
-		ft_putendl_fd("exit", 2);
-		free_shell(data);
-		clear_env(&data->lst_env);
+		if (data->sentence_count == 1)
+			ft_putendl_fd("exit", 2);
 		g_global = calc_return (ft_atol(args[1]));
-		exit(g_global);
 	}
 	else
 	{
-		free(arg);
-		ft_putendl_fd("exit", 2);
+		if (data->sentence_count == 1)
+			ft_putendl_fd("exit", 2);
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(args[1], 2);
 		ft_putendl_fd(": numeric argument required", 2);
-		free_shell(data);
-		clear_env(&data->lst_env);
 		g_global = 255;
-		exit(g_global);
 	}
+	free(arg);
+	free_shell(data);
+	clear_env(&data->lst_env);
+	exit(g_global);
 }
 
 void	ft_exit(char **args, t_shell *data, int size)
@@ -63,7 +61,8 @@ void	ft_exit(char **args, t_shell *data, int size)
 		return ;
 	if (size == 1)
 	{
-		ft_putendl_fd("exit", 2);
+		if (data->sentence_count == 1)
+			ft_putendl_fd("exit", 2);
 		g_global = 0;
 		free_shell(data);
 		clear_env(&data->lst_env);
@@ -73,7 +72,8 @@ void	ft_exit(char **args, t_shell *data, int size)
 		exit_case2(args, data);
 	if (size > 2)
 	{
-		ft_putendl_fd("exit", 2);
+		if (data->sentence_count == 1)
+			ft_putendl_fd("exit", 2);
 		ft_putendl_fd("minishell: exit: too many arguments", 2);
 		g_global = 1;
 	}
