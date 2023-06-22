@@ -6,45 +6,75 @@
 /*   By: fpeixoto <fpeixoto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 19:47:56 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/06/19 23:18:49 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:37:35 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	calc_return(long int n)
+{
+	int	ret;
+
+	if (n > 0)
+		ret = n % 256;
+	if (n < 0)
+	{
+		ret = n % 256;
+		if (ret < 0)
+			ret += 256;
+	}
+	else
+		ret = 0;
+	return (ret);
+}
+
+static void	exit_case2(char **args, t_shell *data)
+{
+	char	*arg;
+
+	arg = ft_ltoa(ft_atol(args[1]));
+	if (ft_strncmp(arg, args[1], ft_strlen(args[1]) + 1) == 0)
+	{
+		if (data->sentence_count == 1)
+			ft_putendl_fd("exit", 2);
+		g_global = calc_return (ft_atol(args[1]));
+	}
+	else
+	{
+		if (data->sentence_count == 1)
+			ft_putendl_fd("exit", 2);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(args[1], 2);
+		ft_putendl_fd(": numeric argument required", 2);
+		g_global = 255;
+	}
+	free(arg);
+	free_shell(data);
+	clear_env(&data->lst_env);
+	exit(g_global);
+}
+
 void	ft_exit(char **args, t_shell *data, int size)
 {
-	char		*arg;
-
-	arg = NULL;
+	if (data->lst_sentence->fd_i == -1)
+		return ;
 	if (size == 1)
 	{
+		if (data->sentence_count == 1)
+			ft_putendl_fd("exit", 2);
 		g_global = 0;
 		free_shell(data);
+		clear_env(&data->lst_env);
 		exit(0);
 	}
-	else if (args[1] != NULL)
+	if (size == 2)
+		exit_case2(args, data);
+	if (size > 2)
 	{
-		arg = ft_itoa(ft_atoi(args[1]));
-		if (ft_strncmp(arg, args[1], ft_strlen(args[1]) + 1) != 0)
-		{
-			free(arg);
-			ft_putstr_fd("minishell: exit: ", 2);
-			ft_putstr_fd(args[1], 2);
-			ft_putendl_fd(": numeric argument required", 2);
-			free_shell(data);
-			exit(g_global);
-		}
-		else
-		{
-			g_global = ft_atoi(args[0]);
-			free_shell(data);
-			exit(g_global);
-		}
-	}
-	else if (size > 2)
-	{
-		ft_putendl_fd("exit", 2);
-		ft_putendl_fd("minishell: exit: too many argument", 2);
+		if (data->sentence_count == 1)
+			ft_putendl_fd("exit", 2);
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
+		g_global = 1;
 	}
 }
