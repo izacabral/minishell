@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/11 17:14:03 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:25:36 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
  */
 void	launch_prog(t_shell *data)
 {
+	t_builtin	cmd;
+
 	if (scan_line(&data->lst_token, data->line) == 0
 		&& lexer(data->lst_token) == 0)
 	{
@@ -32,9 +34,12 @@ void	launch_prog(t_shell *data)
 			open_pipe_reds(data);
 			clean_reds_sentences(data->lst_sentence);
 		}
-		if (data->sentence_count == 1
-			&& !ft_strncmp(data->lst_sentence->args[0], "exit", 5))
-			call_builtin(data->lst_sentence->args, data, EXIT);
+		if (data->sentence_count == 1)
+		{
+			cmd = isbuiltin(data->lst_sentence->args[0]);
+			if (cmd)
+				call_builtin(data->lst_sentence->args, data, cmd);
+		}
 		else
 			executor(data);
 	}

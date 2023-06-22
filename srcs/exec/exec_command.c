@@ -6,13 +6,11 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:09:25 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/20 00:09:27 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:16:23 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static t_builtin	isbuiltin(char *comm);
 
 /*
  * Fn		: exec_command(char *comm, char **args, t_shell *data)
@@ -42,23 +40,4 @@ int	exec_command(char *comm, char **args, t_shell *data)
 		path = compare_key(data->lst_env, "PATH");
 		return (call_execve(args, path->value));
 	}
-}
-
-static t_builtin	isbuiltin(char *comm)
-{
-	if (!ft_strncmp(comm, "echo", 5))
-		return (ECHO);
-	if (!ft_strncmp(comm, "cd", 3))
-		return (CD);
-	if (!ft_strncmp(comm, "pwd", 4))
-		return (PWD);
-	if (!ft_strncmp(comm, "export", 7))
-		return (EXPORT);
-	if (!ft_strncmp(comm, "unset", 6))
-		return (UNSET);
-	if (!ft_strncmp(comm, "env", 4))
-		return (ENV);
-	if (!ft_strncmp(comm, "exit", 5))
-		return (EXIT);
-	return (ENOBLTN);
 }

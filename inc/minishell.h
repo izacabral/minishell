@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/19 23:18:22 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:16:01 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void		expand_hdoc_var(char **sentence, t_env *env);
 int			exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
 void		default_signals(void);
+t_builtin	isbuiltin(char *comm);
 
 // srcs/sentence/
 void		create_sentences(t_env *env, t_token **lst_token, \
