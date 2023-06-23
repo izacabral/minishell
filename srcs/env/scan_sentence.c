@@ -154,7 +154,10 @@ static int	expvar(t_string **lst, char *var, t_env *env)
 	}
 	while (var[i] && iscrule(var[i], 0))
 		i++;
-	value = get_value(&var[1], i - 1, env);
+	if (var[1] == '?')
+		value = get_global(&var[1], i - 2);
+	else
+		value = get_value(&var[1], i - 1, env);
 	len = 0;
 	if (value)
 		len = ft_strlen(value);

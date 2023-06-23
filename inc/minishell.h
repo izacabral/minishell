@@ -61,6 +61,7 @@ int			check_varname(char *key);
 int			iscrule(int c, int first);
 void		expand_hdoc_var(char **sentence, t_env *env);
 void		swap_ptr(char **a, char **b);
+char		*get_global(char *var, int size);
 
 // srcs/exec/
 int			exec_command(char *comm, char **args, t_shell *data);

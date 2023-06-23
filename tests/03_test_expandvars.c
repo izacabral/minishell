@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+int	g_global = 1;
+
 int	main(void)
 {
 	int ver = 0; // verificação de retorno do teste
@@ -19,6 +21,10 @@ int	main(void)
 	char	*str10;
 	char	*str11;
 	char	*str12;
+	char	*str13;
+	char	*str14;
+	char	*str15;
+	char	*str16;
 
 	/* CRIAÇÃO DA T_ENV PARA TESTE */
 	var1 = malloc(sizeof(*var1));
@@ -33,8 +39,8 @@ int	main(void)
 	var2->next = NULL;
 
 	/* CRIAÇÃO DAS STRINGS PARA SEREM EXPANDIDAS */
-	int size = 13;
-	tab = malloc(13 * sizeof(*tab));
+	int size = 17;
+	tab = malloc(size * sizeof(*tab));
 	str1 = ft_strdup("Test variable $a for expansion");
 	str2 = ft_strdup("Test-$b-for no value");
 	str3 = ft_strdup("Test variable \"$a some word\" inside quotes");
@@ -47,6 +53,10 @@ int	main(void)
 	str10 = ft_strdup("\"Test -$c- in double quotes\"");
 	str11 = ft_strdup("Test to-$a-expand");
 	str12 = ft_strdup("Test I will be$a_var1 gone");
+	str13 = ft_strdup("Test -$c- non-existent");
+	str14 = ft_strdup("Test \'$?\' no expansion");
+	str15 = ft_strdup("Test $? expansion");
+	str16 = ft_strdup("Test $?a expansion");
 	tab[0] = str1;
 	tab[1] = str2;
 	tab[2] = str3;
@@ -59,7 +69,11 @@ int	main(void)
 	tab[9] = str10;
 	tab[10] = str11;
 	tab[11] = str12;
-	tab[12] = NULL;
+	tab[12] = str13;
+	tab[13] = str14;
+	tab[14] = str15;
+	tab[15] = str16;
+	tab[16] = NULL;
 
 	/* EXPANSÃO DAS VARIÁVEIS */
 	expandvars(tab, var1);
@@ -85,6 +99,11 @@ int	main(void)
 	check[9] = "\"Test -- in double quotes\"";
 	check[10] = "Test to-var1-expand";
 	check[11] = "Test I will be gone";
+	check[12] = "Test -- non-existent";
+	check[13] = "Test '$?' no expansion";
+	check[14] = "Test 1 expansion";
+	check[15] = "Test 1a expansion";
+
 
 	/* COMPARA  TAB COM OS CHECKS ESPERADOS */
 	i = 0;
