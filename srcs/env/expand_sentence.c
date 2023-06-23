@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-#include "libft.h"
+#include "minishell.h"
 
 /*
  * Fn		: expand_sentence(char **sentence, t_env *env)
