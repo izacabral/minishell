@@ -6,13 +6,11 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:08:55 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/20 00:08:56 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/22 21:05:03 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	args_size(char **args);
 
 /*
  * Fn		: call_builtin(char **args, t_shell *data, t_builtin builtin)
@@ -47,14 +45,4 @@ int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 	if (builtin == EXIT)
 		ft_exit(args, data, size);
 	return (0);
-}
-
-static int	args_size(char **args)
-{
-	int	size;
-
-	size = 0;
-	while (args[size])
-		size++;
-	return (size);
 }

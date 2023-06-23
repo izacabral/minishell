@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/19 23:18:22 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/22 21:23:56 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,13 @@ t_string	*path_to_lst(char *path);
 int			check_varname(char *key);
 int			iscrule(int c, int first);
 void		expand_hdoc_var(char **sentence, t_env *env);
+void		swap_ptr(char **a, char **b);
 
 // srcs/exec/
 int			exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
 void		default_signals(void);
+int			args_size(char **args);
 
 // srcs/sentence/
 void		create_sentences(t_env *env, t_token **lst_token, \
