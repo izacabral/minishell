@@ -35,7 +35,7 @@ int	exec_command(char *comm, char **args, t_shell *data)
 		call_builtin(args, data, builtin);
 		free_shell(data);
 		clear_env(&data->lst_env);
-		exit (1);
+		exit(0);
 	}
 	else
 	{
