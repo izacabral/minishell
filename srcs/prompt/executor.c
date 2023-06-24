@@ -56,6 +56,7 @@ void	exec_one(t_sentence *tmp, t_shell *data, t_builtin builtin)
 		return ;
 	if (builtin)
 		call_builtin(tmp->args, data, builtin);
+	setup_signals();
 }
 
 void	executor(t_shell *data)
