@@ -16,13 +16,10 @@
 void	default_signals(void)
 {
 	struct sigaction	dfl;
-	struct sigaction	old;
 
+	sigemptyset(&dfl.sa_mask);
+	dfl.sa_flags = 0;
 	dfl.sa_handler = SIG_DFL;
 	sigaction(SIGINT, &dfl, NULL);
-	sigaction(SIGQUIT, NULL, &old);
-	if (old.sa_handler == SIG_IGN)
-	{
-		sigaction(SIGQUIT, &dfl, NULL);
-	}
+	sigaction(SIGQUIT, &dfl, NULL);
 }
