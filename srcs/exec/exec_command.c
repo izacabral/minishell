@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-static t_builtin	isbuiltin(char *comm);
-
 /*
  * Fn		: exec_command(char *comm, char **args, t_shell *data)
  * Scope	: interface para executar comandos builtins ou por execve
@@ -30,35 +28,16 @@ int	exec_command(char *comm, char **args, t_shell *data)
 	t_env		*path;
 
 	builtin = isbuiltin(comm);
-	if (builtin)
+	if (builtin && data->sentence_count > 1)
 	{
 		call_builtin(args, data, builtin);
 		free_shell(data);
 		clear_env(&data->lst_env);
-		exit (1);
+		exit(0);
 	}
 	else
 	{
 		path = compare_key(data->lst_env, "PATH");
 		return (call_execve(args, path->value));
 	}
-}
-
-static t_builtin	isbuiltin(char *comm)
-{
-	if (!ft_strncmp(comm, "echo", 5))
-		return (ECHO);
-	if (!ft_strncmp(comm, "cd", 3))
-		return (CD);
-	if (!ft_strncmp(comm, "pwd", 4))
-		return (PWD);
-	if (!ft_strncmp(comm, "export", 7))
-		return (EXPORT);
-	if (!ft_strncmp(comm, "unset", 6))
-		return (UNSET);
-	if (!ft_strncmp(comm, "env", 4))
-		return (ENV);
-	if (!ft_strncmp(comm, "exit", 5))
-		return (EXIT);
-	return (ENOBLTN);
 }

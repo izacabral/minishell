@@ -15,6 +15,8 @@
 #include "unit_test.h"
 #include <stdio.h>
 
+int g_global = 0;
+
 static char **check(int argc, char **argv, t_shell *data)
 {
 	t_env	*oldpwd;

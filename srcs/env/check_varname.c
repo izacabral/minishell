@@ -55,7 +55,7 @@ int	iscrule(int c, int first)
 {
 	if (first)
 	{
-		if (ft_isalpha(c) || c == '_')
+		if (ft_isalpha(c) || c == '_' || c == '?')
 			return (1);
 	}
 	else if (ft_isalnum(c) || c == '_')

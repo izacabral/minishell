@@ -27,10 +27,6 @@ int	main(int argc, char *argv[], char *envp[])
 		data.line = readline_gets(data.line);
 		if (!data.line)
 			break ;
-		if (!ft_strncmp(data.line, "exit", 5))
-		{
-			ft_exit(&data.line, &data, 1);
-		}
 		launch_prog(&data);
 		if (*data.line && !only_spaces(data.line))
 			add_history(data.line);

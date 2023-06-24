@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void	print_executor_error(void)
+void	print_executor_error(void)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
@@ -50,27 +50,37 @@ void	wait_sentences(t_shell *data)
 	}
 }
 
+void	exec_one(t_sentence *tmp, t_shell *data, t_builtin builtin)
+{
+	if (tmp->fd_i == -1 || tmp->fd_o == -1)
+		return ;
+	if (builtin)
+		call_builtin(tmp->args, data, builtin);
+}
+
 void	executor(t_shell *data)
 {
 	t_sentence	*tmp;
-	int			count;
-	int			pid;
+	t_builtin	builtin;
 
 	tmp = data->lst_sentence;
-	count = 0;
-	while (count < data->sentence_count)
+	builtin = isbuiltin(tmp->args[0]);
+	if (data->sentence_count == 1 && builtin)
+		exec_one(tmp, data, builtin);
+	else
 	{
-		if (tmp->fd_i != -1 && tmp->fd_o != -1)
+		while (tmp)
 		{
-			pid = fork();
-			if (pid == -1)
-				print_executor_error();
-			if (pid == 0)
-				exec_sentence(tmp, data);
-			tmp->pid = pid;
+			if (tmp->fd_i != -1 && tmp->fd_o != -1 && tmp->args[0])
+			{
+				tmp->pid = fork();
+				if (tmp->pid == -1)
+					print_executor_error();
+				if (tmp->pid == 0)
+					exec_sentence(tmp, data);
+			}
+			tmp = tmp->next;
 		}
-		count++;
-		tmp = tmp->next;
 	}
 	close_fds(data);
 	wait_sentences(data);
