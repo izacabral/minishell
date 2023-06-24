@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <readline/readline.h>
 
 /*
  * Fn		: int_handler(int signum)

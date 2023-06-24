@@ -16,6 +16,5 @@
 
 int		call_execve(char **args, char *path);
 int		launch_command(char **args);
-int		call_builtin(char **args, t_shell *data, t_builtin builtin);
 
 #endif
