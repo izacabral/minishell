@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int g_global = 0;
+
 int	main(void)
 {
 	char *buffer;
