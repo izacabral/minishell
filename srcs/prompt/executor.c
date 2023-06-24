@@ -27,6 +27,7 @@ void	exec_sentence(t_sentence *sentence, t_shell *data)
 		dup2(sentence->fd_o, 1);
 	close_fds(data);
 	exec_command(sentence->args[0], sentence->args, data);
+	exit(1);
 }
 
 void	wait_sentences(t_shell *data)

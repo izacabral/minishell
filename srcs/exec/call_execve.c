@@ -61,6 +61,7 @@ int	call_execve(char **args, char *path)
 		ft_putendl_fd("Error with execve\n", 2);
 		g_global = errno;
 	}
+	setup_signals();
 	return (0);
 }
 
