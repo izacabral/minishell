@@ -45,6 +45,7 @@ int			open_pipe_reds(t_shell *data);
 void		close_fds(t_shell *data);
 void		free_shell(t_shell *data);
 void		executor(t_shell *data);
+void	    ignore_sigint(void);
 
 // srcs/parser/
 int			isquotes(char c);
