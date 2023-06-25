@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "types.h"
 
 static int	get_comm(char **comm, t_string *path_lst);
 static int	ispath(char *s);
