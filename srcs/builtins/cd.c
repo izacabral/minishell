@@ -35,7 +35,7 @@ static void	set_pwd(t_shell *data)
 	pwd = compare_key(data->lst_env, "PWD");
 	if (!pwd)
 	{
-		path = getcwd;
+		path = getcwd(NULL, 0);
 		data->lst_env = addfront_env(data->lst_env, ft_strdup("PWD"), path);
 		return ;
 	}
