@@ -34,7 +34,7 @@
 extern int	g_global;
 
 // srcs/prompt/
-void		init_shell(t_shell *data, char *envp[]);
+void		init_shell(t_shell *data);
 void		launch_prog(t_shell *data);
 void		int_handler(int signum);
 char		*readline_gets(char *line);

@@ -12,10 +12,9 @@
 
 #include "minishell.h"
 
-void	init_shell(t_shell *data, char *envp[])
+void	init_shell(t_shell *data)
 {
 	data->line = NULL;
-	data->lst_env = get_env(envp);
 	data->lst_token = NULL;
 	data->lst_sentence = NULL;
 	data->sentence_count = 0;

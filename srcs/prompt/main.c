@@ -18,19 +18,26 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell	data;
 
-	(void)(argv);
-	(void)(argc);
-	init_shell(&data, envp);
+	if (argc != 1 && ft_strncmp(argv[1], "minishell", 10))
+	{
+		ft_putendl_fd("\e[31m---Invalid parameters! Try:\e[0m", 2);
+		ft_putendl_fd("\e[32m./minishell\e[0m", 2);
+		return (0);
+	}
+	init_shell(&data);
+	data.lst_env = get_env(envp);
 	setup_signals();
 	while (1)
 	{
 		data.line = readline_gets(data.line);
 		if (!data.line)
 			break ;
-		launch_prog(&data);
 		if (*data.line && !only_spaces(data.line))
 			add_history(data.line);
+		launch_prog(&data);
 	}
+	free_shell(&data);
 	clear_env(&data.lst_env);
+	rl_clear_history();
 	return (0);
 }

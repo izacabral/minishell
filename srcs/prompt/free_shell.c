@@ -14,20 +14,15 @@
 
 void	free_shell(t_shell *data)
 {
+	if (data->line)
+		free(data->line);
 	if (data->lst_token)
 		clear_token(&data->lst_token);
 	if (data->lst_sentence)
 		clear_sentence(&data->lst_sentence);
 	if (data->pipes)
-	{
 		clear_pipe(data);
-		data->pipes = NULL;
-		data->pipe_count = 0;
-	}
 	if (data->reds)
-	{
 		free(data->reds);
-		data->reds = NULL;
-		data->redirect_count = 0;
-	}
+	init_shell(data);
 }

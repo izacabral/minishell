@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+int	g_global = 0;
+
 /*
  * Teste para a função de expansão de variáveis
  * Compilar com a libft e os arquivos:

@@ -32,7 +32,9 @@ OBJS_ECHO		=	$(SRCS_ECHO:.c=.o)
 
 SRCS_EXECVE		=	test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/path_to_lst.c ../../srcs/exec/prefix_slash.c ../../srcs/exec/launch_command.c \
 					../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strsetlast.c \
-					../../srcs/data_types/ft_strnew.c ../../srcs/data_types/free_tab.c
+					../../srcs/data_types/ft_strnew.c ../../srcs/data_types/free_tab.c \
+					../../srcs/exec/default_signals.c \
+					../../srcs/prompt/setup_signals.c ../../srcs/prompt/int_handler.c
 
 OBJS_EXECVE		=	$(SRCS_EXECVE:.c=.o)
 
@@ -74,7 +76,9 @@ SRCS_EXPANDVAR	=	test_expandvars.c ../../srcs/env/expand_sentence.c ../../srcs/e
 						../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c ../../srcs/data_types/ft_strsetlast.c \
 						../../srcs/data_types/ft_lst_to_str.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c \
 						../../srcs/data_types/ft_strtotallen.c ../../srcs/env/check_varname.c ../../srcs/parser/which_delim.c \
-						../../srcs/parser/isdelim.c
+						../../srcs/parser/isdelim.c \
+						../../srcs/env/get_global.c ../../srcs/env/swap_ptr.c \
+						../../srcs/exec/args_size.c
 
 OBJS_EXPANDVAR	=	$(SRCS_EXPANDVAR:.c=.o)
 
@@ -88,7 +92,8 @@ SRCS_P_SENTENCE	=	test_print_t_sentence.c  ../../srcs/sentence/create_sentences.
 					../../srcs/data_types/ft_strnew.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c \
 					../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_lst_to_str.c \
 					../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strtotallen.c \
-					../../srcs/env/check_varname.c \
+					../../srcs/env/check_varname.c ../../srcs/env/get_global.c ../../srcs/env/swap_ptr.c \
+					../../srcs/exec/args_size.c \
 					../../srcs/data_types/free_tab.c
 
 OBJS_P_SENTENCE	=	$(SRCS_P_SENTENCE:.c=.o)
@@ -118,7 +123,8 @@ SRCS_HDOC		= 	teste_heredoc.c \
 					../../srcs/data_types/ft_strnew.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c \
 					../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_lst_to_str.c \
 					../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strtotallen.c \
-
+					../../srcs/env/get_global.c ../../srcs/env/swap_ptr.c \
+					../../srcs/exec/args_size.c
 
 OBJS_HDOC		=	$(SRCS_HDOC:.c=.o)
 
@@ -170,7 +176,7 @@ echo:	$(LIBFT) $(OBJS_ECHO)
 
 execve: $(LIBFT) $(OBJS_EXECVE)
 	cc hello_world.c -o hello_world
-	$(CC) $(OBJS_EXECVE) $(LIBFT) -o $@
+	$(CC) $(OBJS_EXECVE) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o $@
 
 printexpunsenv: $(LIBFT) $(OBJS_P_EXP_UNSET_ENV)
 	$(CC) $(OBJS_P_EXP_UNSET_ENV) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printexpunsenv

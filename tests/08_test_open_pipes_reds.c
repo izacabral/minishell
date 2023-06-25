@@ -64,7 +64,9 @@ int main(void)
 	fake_envs[7] = NULL;
 
 
-	init_shell(&data, fake_envs);
+	init_shell(&data);
+	data.lst_env = get_env(fake_envs);
+
 	data.line = "echo \"hey hey\" > input.txt | Test > $MINISHELL for expansion < \"\'$MINISHELL\'\" no created | echo < project | teste >> aqui teste > aqui teste > aqui teste > aqui ls";
 
 	/* CRIAÇÃO DA LISTA DE TOKENS */
