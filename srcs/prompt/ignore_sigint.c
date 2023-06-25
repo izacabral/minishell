@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   default_signals.c                                  :+:      :+:    :+:   */
+/*   ignore_sigint.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 00:10:25 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/22 03:30:31 by daolivei         ###   ########.fr       */
+/*   Created: 2023/06/24 18:36:24 by daolivei          #+#    #+#             */
+/*   Updated: 2023/06/24 18:38:28 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	default_signals(void)
+void	ignore_sigint(void)
 {
-	struct sigaction	dfl;
+	struct sigaction	ign;
 
-	sigemptyset(&dfl.sa_mask);
-	dfl.sa_flags = 0;
-	dfl.sa_handler = SIG_DFL;
-	sigaction(SIGINT, &dfl, NULL);
-	sigaction(SIGQUIT, &dfl, NULL);
+	sigemptyset(&ign.sa_mask);
+	ign.sa_handler = SIG_IGN;
+	ign.sa_flags = 0;
+	sigaction(SIGINT, &ign, NULL);
 }

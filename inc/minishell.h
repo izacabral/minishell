@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/22 21:23:56 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/24 18:38:56 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int			open_pipe_reds(t_shell *data);
 void		close_fds(t_shell *data);
 void		free_shell(t_shell *data);
 void		executor(t_shell *data);
+void		ignore_sigint(void);
 
 // srcs/parser/
 int			isquotes(char c);
