@@ -21,6 +21,7 @@ void	print_executor_error(void)
 
 void	exec_sentence(t_sentence *sentence, t_shell *data)
 {
+	default_signals();
 	if (sentence->fd_i != 0)
 		dup2(sentence->fd_i, 0);
 	if (sentence->fd_o != 1)
@@ -38,7 +39,7 @@ void	wait_sentences(t_shell *data)
 	tmp = data->lst_sentence;
 	g_global = 0;
 	status = 0;
-	ignore_sigint();
+	//ignore_sigint();
 	while (tmp)
 	{
 		waitpid(tmp->pid, &status, 0);
@@ -49,20 +50,19 @@ void	wait_sentences(t_shell *data)
 			g_global = 128 + WTERMSIG(status);
 			write(1, "\n", 1);
 		}
-		if (tmp->args == NULL)
-			g_global = 127;
 		tmp = tmp->next;
 	}
-	setup_signals();
+	//setup_signals();
 }
 
 void	exec_one(t_sentence *tmp, t_shell *data, t_builtin builtin)
 {
+	default_signals();
 	if (tmp->fd_i == -1 || tmp->fd_o == -1)
 		return ;
 	if (builtin)
 		call_builtin(tmp->args, data, builtin);
-	setup_signals();
+	//setup_signals();
 }
 
 void	executor(t_shell *data)
@@ -91,4 +91,5 @@ void	executor(t_shell *data)
 	}
 	close_fds(data);
 	wait_sentences(data);
+	setup_signals();
 }

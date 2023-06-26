@@ -29,7 +29,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <string.h>
+# include <sys/ioctl.h>
 
 extern int	g_global;
 
@@ -109,5 +109,6 @@ int			counting_redirects(t_token **lst_token);
 int			open_reds(int token, t_sentence *cmd, char *file_name, t_env *env);
 int			heredoc(t_sentence *cmd, char *file, t_env *env);
 void		error_redir(char *filename);
+void		setup_hdoc_sig(void);
 
 #endif
