@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include "unit_test.h"
-#include <stdio.h>
 
 int g_global = 0;
 
@@ -82,7 +79,8 @@ int	main(int ac, char **av, char **envp)
 	(void)(av);
 	(void)(ac);
 
-	init_shell(&data, envp);
+	init_shell(&data);
+	data.lst_env = get_env(envp);
 	if (test_cd(&data) == 1)
 		return (1);
 	clear_env(&data.lst_env);

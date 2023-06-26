@@ -1,6 +1,8 @@
 #include "unit_test.h"
 #include <string.h>
 
+int	g_global = 0;
+
 static char		*find_path(char **env);
 static int		test_exec1(char *path);
 static char	***create_tests1(void);
