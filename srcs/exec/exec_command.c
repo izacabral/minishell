@@ -28,7 +28,7 @@ int	exec_command(char *comm, char **args, t_shell *data)
 	t_env		*path;
 
 	builtin = isbuiltin(comm);
-	if (builtin && data->sentence_count > 1)
+	if (builtin)
 	{
 		call_builtin(args, data, builtin);
 		free_shell(data);
