@@ -18,12 +18,12 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell	data;
 
-	if (argc != 1 && ft_strncmp(argv[1], "minishell", 10))
+	if (argc != 1)
 	{
-		ft_putendl_fd("\e[31m---Invalid parameters! Try:\e[0m", 2);
-		ft_putendl_fd("\e[32m./minishell\e[0m", 2);
+		ft_putendl_fd("\e[31m---Too many arguments---\e[0m", 2);
 		return (0);
 	}
+	(void) argv;
 	init_shell(&data);
 	data.lst_env = get_env(envp);
 	setup_signals();
