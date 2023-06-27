@@ -67,7 +67,7 @@ int main(void)
 	init_shell(&data);
 	data.lst_env = get_env(fake_envs);
 
-	data.line = "echo \"hey hey\" > input.txt | Test > $MINISHELL for expansion < \"\'$MINISHELL\'\" no created | echo < project | teste >> aqui teste > aqui teste > aqui teste > aqui ls";
+	data.line = ft_strdup("echo \"hey hey\" > input.txt | Test > $MINISHELL for expansion < \"\'$MINISHELL\'\" no created | echo < project | teste >> aqui teste > aqui teste > aqui teste > aqui ls");
 
 	/* CRIAÇÃO DA LISTA DE TOKENS */
 	if (scan_line(&data.lst_token, data.line) != 0)
@@ -336,8 +336,8 @@ int main(void)
 	print_sentence_teste(&data.lst_sentence);
 
 	/* LIBERAÇÃO DAS t_ENV E FAKE ENVS */
-	clear_env(&data.lst_env);
 	free_array(fake_envs);
+	clear_env(&data.lst_env);
 
 	/* LIBERAÇÃO DA T_SHELL */
 	free_shell(&data);
