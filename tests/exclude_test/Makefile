@@ -32,7 +32,9 @@ OBJS_ECHO		=	$(SRCS_ECHO:.c=.o)
 
 SRCS_EXECVE		=	test_execve.c ../../srcs/exec/call_execve.c ../../srcs/exec/path_to_lst.c ../../srcs/exec/prefix_slash.c ../../srcs/exec/launch_command.c \
 					../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strsetlast.c \
-					../../srcs/data_types/ft_strnew.c ../../srcs/data_types/free_tab.c
+					../../srcs/data_types/ft_strnew.c ../../srcs/data_types/free_tab.c \
+					../../srcs/exec/default_signals.c \
+					../../srcs/prompt/setup_signals.c ../../srcs/prompt/int_handler.c
 
 OBJS_EXECVE		=	$(SRCS_EXECVE:.c=.o)
 
@@ -74,7 +76,9 @@ SRCS_EXPANDVAR	=	test_expandvars.c ../../srcs/env/expand_sentence.c ../../srcs/e
 						../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c ../../srcs/data_types/ft_strsetlast.c \
 						../../srcs/data_types/ft_lst_to_str.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c \
 						../../srcs/data_types/ft_strtotallen.c ../../srcs/env/check_varname.c ../../srcs/parser/which_delim.c \
-						../../srcs/parser/isdelim.c
+						../../srcs/parser/isdelim.c \
+						../../srcs/env/get_global.c ../../srcs/env/swap_ptr.c \
+						../../srcs/exec/args_size.c
 
 OBJS_EXPANDVAR	=	$(SRCS_EXPANDVAR:.c=.o)
 
@@ -88,9 +92,22 @@ SRCS_P_SENTENCE	=	test_print_t_sentence.c  ../../srcs/sentence/create_sentences.
 					../../srcs/data_types/ft_strnew.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c \
 					../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_lst_to_str.c \
 					../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strtotallen.c \
-					../../srcs/env/check_varname.c
+					../../srcs/env/check_varname.c ../../srcs/env/get_global.c ../../srcs/env/swap_ptr.c \
+					../../srcs/exec/args_size.c \
+					../../srcs/data_types/free_tab.c
 
 OBJS_P_SENTENCE	=	$(SRCS_P_SENTENCE:.c=.o)
+
+SRCS_SENT		=	test_sentence.c ../../srcs/data_types/t_sentence.c ../../srcs/data_types/free_tab.c
+
+OBJS_SENT		=	$(SRCS_SENT:.c=.o)
+
+SRCS_TKN_SENT	=	test_token_to_sentence.c ../../srcs/data_types/t_sentence.c ../../srcs/data_types/t_token.c ../../srcs/data_types/free_tab.c ../../srcs/data_types/ft_strnew.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strsize.c ../../srcs/data_types/ft_strtotallen.c ../../srcs/data_types/ft_lst_to_str.c ../../srcs/data_types/ft_strsetlast.c \
+					../../srcs/sentence/create_sentences.c ../../srcs/sentence/tkn_to_sentence.c ../../srcs/sentence/remove_quotes.c ../../srcs/sentence/while_no_quotes.c ../../srcs/sentence/no_quote_size.c ../../srcs/sentence/new_index.c ../../srcs/sentence/quote_size.c ../../srcs/sentence/quotes_removed.c \
+					../../srcs/env/expandvars.c ../../srcs/env/expand_sentence.c ../../srcs/env/scan_sentence.c ../../srcs/env/get_value.c ../../srcs/env/which_quotes.c ../../srcs/env/check_varname.c \
+					../../srcs/parser/which_delim.c ../../srcs/parser/isdelim.c
+
+OBJS_TKN_SENT	= $(SRCS_TKN_SENT:.c=.o)
 
 SRCS_HDOC		= 	teste_heredoc.c \
 					../../srcs/redirects/heredoc.c ../../srcs/redirects/open_reds.c \
@@ -106,7 +123,8 @@ SRCS_HDOC		= 	teste_heredoc.c \
 					../../srcs/data_types/ft_strnew.c ../../srcs/data_types/ft_stradd_back.c ../../srcs/data_types/ft_strsize.c \
 					../../srcs/data_types/ft_strsetlast.c ../../srcs/data_types/ft_lst_to_str.c \
 					../../srcs/data_types/ft_strclear.c ../../srcs/data_types/ft_strdelone.c ../../srcs/data_types/ft_strtotallen.c \
-
+					../../srcs/env/get_global.c ../../srcs/env/swap_ptr.c \
+					../../srcs/exec/args_size.c
 
 OBJS_HDOC		=	$(SRCS_HDOC:.c=.o)
 
@@ -145,7 +163,7 @@ endif
 		$(CO_LINE)
 
 all: printtoken printsentence printexpunsenv expandvar t_env test_export \
-		hdoc pwd execve echo
+		hdoc pwd execve echo test_sentence
 
 printtoken: $(LIBFT) $(OBJS_P_TOKEN)
 	$(CC) $(OBJS_P_TOKEN) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printtoken
@@ -158,7 +176,7 @@ echo:	$(LIBFT) $(OBJS_ECHO)
 
 execve: $(LIBFT) $(OBJS_EXECVE)
 	cc hello_world.c -o hello_world
-	$(CC) $(OBJS_EXECVE) $(LIBFT) -o $@
+	$(CC) $(OBJS_EXECVE) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o $@
 
 printexpunsenv: $(LIBFT) $(OBJS_P_EXP_UNSET_ENV)
 	$(CC) $(OBJS_P_EXP_UNSET_ENV) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o printexpunsenv
@@ -178,14 +196,20 @@ test_export: $(LIBFT) $(OBJS_EXPORT)
 hdoc:	$(LIBFT) $(OBJS_HDOC)
 	$(CC) $(OBJS_HDOC) $(LIBFT) $(RLFLAGS) $(RLFLAG) -o hdoc
 
+test_sentence:	$(LIBFT) $(OBJS_SENT)
+	$(CC) $(OBJS_SENT) $(LIBFT) -o test_sentence
+
+tkn_to_sentence:	$(LIBFT) $(OBJS_TKN_SENT)
+	$(CC) $(OBJS_TKN_SENT) $(LIBFT) -o tkn_to_sentence
+
 clean:
 		$(RM) $(OBJS_P_TOKEN) $(OBJS_P_SENTENCE) $(OBJS_P_EXP_UNSET_ENV) $(OBJS_EXPANDVAR)
 		$(RM) $(OBJS_EXECVE) $(OBJS_ECHO) $(OBJS_PWD) $(OBJS_T_ENV) $(OBJS_REDIRECTS)
-		$(RM) $(OBJS_HDOC) $(OBJS_EXPORT)
+		$(RM) $(OBJS_HDOC) $(OBJS_EXPORT) $(OBJS_SENT) $(OBJS_TKN_SENT)
 
 fclean: clean
 		$(RM) printtoken printsentence printexpunsenv expandvar execve echo pwd t_env hello_world \
-		$(RM) hdoc test_export
+		$(RM) hdoc test_export test_sentence tkn_to_sentence
 
 re:			fclean all
 

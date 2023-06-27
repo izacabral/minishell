@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_shell.c                                       :+:      :+:    :+:   */
+/*   get_global.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/30 16:52:17 by daolivei         ###   ########.fr       */
+/*   Created: 2023/06/23 15:25:38 by izsoares          #+#    #+#             */
+/*   Updated: 2023/06/23 15:25:44 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_shell(t_shell *data)
+char	*get_global(char *var, int size)
 {
-	data->line = NULL;
-	data->lst_token = NULL;
-	data->lst_sentence = NULL;
-	data->sentence_count = 0;
-	data->pipe_count = 0;
-	data->redirect_count = 0;
-	data->pipes = NULL;
-	data->reds = NULL;
+	char	*value;
+	char	*rest;
+
+	value = ft_itoa(g_global);
+	if (size == 0)
+		return (value);
+	else
+	{
+		rest = ft_substr(var, 1, size);
+		value = ft_strjoin_free(value, rest);
+		free(rest);
+		return (value);
+	}
 }

@@ -17,6 +17,11 @@ static void	set_oldpwd(char *old, t_shell *data)
 	t_env	*oldpwd;
 
 	oldpwd = compare_key(data->lst_env, "OLDPWD");
+	if (!oldpwd)
+	{
+		data->lst_env = addfront_env(data->lst_env, ft_strdup("OLDPWD"), old);
+		return ;
+	}
 	free(oldpwd->value);
 	oldpwd->value = NULL;
 	oldpwd->value = old;
@@ -25,8 +30,15 @@ static void	set_oldpwd(char *old, t_shell *data)
 static void	set_pwd(t_shell *data)
 {
 	t_env	*pwd;
+	char	*path;
 
 	pwd = compare_key(data->lst_env, "PWD");
+	if (!pwd)
+	{
+		path = getcwd(NULL, 0);
+		data->lst_env = addfront_env(data->lst_env, ft_strdup("PWD"), path);
+		return ;
+	}
 	free(pwd->value);
 	pwd->value = NULL;
 	pwd->value = getcwd(NULL, 0);

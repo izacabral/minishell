@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+int	g_global = 0;
+
 /*
  * Teste para a função de expansão de variáveis
  * Compilar com a libft e os arquivos:
@@ -47,7 +49,7 @@ int	main(void)
 	str9 = ft_strdup("Test \"$\" in double quotes");
 	str10 = ft_strdup("Test two variables $a $a");
 	str11 = ft_strdup("Test two nested variables \"$a $a\"");
-	str12 = ft_strdup("\"Test -- non-existent in double quotes\"");
+	str12 = ft_strdup("Test -$c- non-existent");
 	str13 = ft_strdup("Test to-$a-expand");
 	str14 = ft_strdup("Test I will be$a_var1 gone");
 	tab[0] = str1;

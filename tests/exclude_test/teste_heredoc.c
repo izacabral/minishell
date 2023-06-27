@@ -36,8 +36,8 @@ int    main(int argc, char **argv, char **envp)
 
 	cmd->args = arg;
 	lst_env = get_env(envp);
-	//file = ft_strdup("\"$USER\""); //não expande
-	file = ft_strdup("$USER"); //expande
+	file = ft_strdup("\"$USER\""); //não expande
+	//file = ft_strdup("$USER"); //expande
 
 
 	if ((heredoc(cmd, file, lst_env)) == -1)

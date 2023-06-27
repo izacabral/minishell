@@ -33,9 +33,13 @@ void	setup_signals(void)
 	sigemptyset(&int_action.sa_mask);
 	sigemptyset(&quit_action.sa_mask);
 	int_action.sa_handler = int_handler;
-	quit_action.sa_handler = SIG_IGN;
 	int_action.sa_flags = 0;
 	quit_action.sa_flags = 0;
 	sigaction(SIGINT, &int_action, NULL);
-	sigaction(SIGQUIT, &quit_action, NULL);
+	sigaction(SIGQUIT, NULL, &quit_action);
+	if (quit_action.sa_handler != SIG_IGN)
+	{
+		quit_action.sa_handler = SIG_IGN;
+		sigaction(SIGQUIT, &quit_action, NULL);
+	}
 }

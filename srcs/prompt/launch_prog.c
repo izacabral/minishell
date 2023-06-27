@@ -12,31 +12,7 @@
 
 #include "minishell.h"
 
-//apenas para uso didático - remover depois
-void	print_sentence_teste(t_sentence **lst_sentence)
-{
-	t_sentence	*tmp;
-	char		**args;
-	int			i;
-
-	tmp = *lst_sentence;
-	if (!tmp)
-		return ;
-	while (tmp)
-	{
-		args = tmp->args;
-		i = 0;
-		while (args[i])
-		{
-			ft_printf("print sentence args[%d]: %s\n", i, args[i]);
-			i++;
-		}
-		args = NULL;
-		ft_printf("sentence fd_i: %d\n", tmp->fd_i);
-		ft_printf("sentence fd_o: %d\n", tmp->fd_o);
-		tmp = tmp->next;
-	}
-}
+static void	trim_line(t_shell *data);
 
 /*
  * Fn		: launch_prog(t_shell *data)
@@ -48,6 +24,7 @@ void	print_sentence_teste(t_sentence **lst_sentence)
  */
 void	launch_prog(t_shell *data)
 {
+	trim_line(data);
 	if (scan_line(&data->lst_token, data->line) == 0
 		&& lexer(data->lst_token) == 0)
 	{
@@ -61,4 +38,15 @@ void	launch_prog(t_shell *data)
 		executor(data);
 	}
 	free_shell(data);
+}
+
+static void	trim_line(t_shell *data)
+{
+	char	*tmp;
+
+	tmp = data->line;
+	if (!tmp)
+		return ;
+	data->line = ft_strtrim(tmp, " ");
+	free(tmp);
 }

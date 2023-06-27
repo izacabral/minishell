@@ -6,13 +6,13 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:52:16 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/20 00:08:08 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/22 03:34:19 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_executor_error(void)
+void	print_executor_error(void)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
@@ -27,6 +27,7 @@ void	exec_sentence(t_sentence *sentence, t_shell *data)
 		dup2(sentence->fd_o, 1);
 	close_fds(data);
 	exec_command(sentence->args[0], sentence->args, data);
+	exit(1);
 }
 
 void	wait_sentences(t_shell *data)
@@ -36,40 +37,57 @@ void	wait_sentences(t_shell *data)
 
 	tmp = data->lst_sentence;
 	g_global = 0;
+	status = 0;
+	ignore_sigint();
 	while (tmp)
 	{
 		waitpid(tmp->pid, &status, 0);
 		if (WIFEXITED(status))
 			g_global = WEXITSTATUS(status);
 		if (WIFSIGNALED(status))
+		{
 			g_global = 128 + WTERMSIG(status);
+			write(1, "\n", 1);
+		}
 		if (tmp->args == NULL)
 			g_global = 127;
 		tmp = tmp->next;
 	}
+	setup_signals();
+}
+
+void	exec_one(t_sentence *tmp, t_shell *data, t_builtin builtin)
+{
+	if (tmp->fd_i == -1 || tmp->fd_o == -1)
+		return ;
+	if (builtin)
+		call_builtin(tmp->args, data, builtin);
+	setup_signals();
 }
 
 void	executor(t_shell *data)
 {
 	t_sentence	*tmp;
-	int			count;
-	int			pid;
+	t_builtin	builtin;
 
 	tmp = data->lst_sentence;
-	count = 0;
-	while (count < data->sentence_count)
+	builtin = isbuiltin(tmp->args[0]);
+	if (data->sentence_count == 1 && builtin > ENV)
+		exec_one(tmp, data, builtin);
+	else
 	{
-		if (tmp->fd_i != -1 && tmp->fd_o != -1)
+		while (tmp)
 		{
-			pid = fork();
-			if (pid == -1)
-				print_executor_error();
-			if (pid == 0)
-				exec_sentence(tmp, data);
-			tmp->pid = pid;
+			if (tmp->fd_i != -1 && tmp->fd_o != -1 && tmp->args[0])
+			{
+				tmp->pid = fork();
+				if (tmp->pid == -1)
+					print_executor_error();
+				if (tmp->pid == 0)
+					exec_sentence(tmp, data);
+			}
+			tmp = tmp->next;
 		}
-		count++;
-		tmp = tmp->next;
 	}
 	close_fds(data);
 	wait_sentences(data);

@@ -115,7 +115,8 @@ int main(int argc, char *argv[], char *envp[]) {
     printf(ANSI_COLOR_BLUE"ou ./printexpunsenv export\nou ./printexpunsenv export key=value\n"ANSI_COLOR_RESET);
     printf(ANSI_COLOR_BLUE"ou ./printexpunsenv unset key\nou ./printexpunsenv env\n"ANSI_COLOR_RESET);
     printf("\n");
-    init_shell(&info, envp);
+    init_shell(&info);
+	info.lst_env = get_env(envp);
     print_exp_unset_env(argc, argv, &info);
     clear_env(&info.lst_env);
     return (0);

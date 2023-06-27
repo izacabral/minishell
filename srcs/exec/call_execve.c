@@ -6,12 +6,11 @@
 /*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:41:43 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/27 00:27:58 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/22 03:31:05 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "types.h"
 
 static int	get_comm(char **comm, t_string *path_lst);
 static int	ispath(char *s);
@@ -55,11 +54,13 @@ int	call_execve(char **args, char *path)
 		return (1);
 	}
 	ft_strclear(&p, free);
+	default_signals();
 	if ((execve(*args, args, NULL)) == -1)
 	{
 		ft_putendl_fd("Error with execve\n", 2);
 		g_global = errno;
 	}
+	setup_signals();
 	return (0);
 }
 

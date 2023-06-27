@@ -6,7 +6,7 @@
 /*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/19 23:18:22 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/24 18:38:56 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 extern int	g_global;
 
 // srcs/prompt/
-void		init_shell(t_shell *data, char *envp[]);
+void		init_shell(t_shell *data);
 void		launch_prog(t_shell *data);
 void		int_handler(int signum);
 char		*readline_gets(char *line);
@@ -45,6 +45,7 @@ int			open_pipe_reds(t_shell *data);
 void		close_fds(t_shell *data);
 void		free_shell(t_shell *data);
 void		executor(t_shell *data);
+void		ignore_sigint(void);
 
 // srcs/parser/
 int			isquotes(char c);
@@ -60,11 +61,14 @@ t_string	*path_to_lst(char *path);
 int			check_varname(char *key);
 int			iscrule(int c, int first);
 void		expand_hdoc_var(char **sentence, t_env *env);
+void		swap_ptr(char **a, char **b);
+char		*get_global(char *var, int size);
 
 // srcs/exec/
 int			exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
 void		default_signals(void);
+int			args_size(char **args);
 
 // srcs/sentence/
 void		create_sentences(t_env *env, t_token **lst_token, \
@@ -92,6 +96,8 @@ int			echo(char **arg, int fd);
 void		ft_exit(char **args, t_shell *data, int size);
 int			pwd(int fd);
 int			cd(int argc, char **argv, t_shell *data);
+t_builtin	isbuiltin(char *comm);
+int			call_builtin(char **args, t_shell *data, t_builtin builtin);
 
 // srcs/pipes/
 int			counting_pipes(t_token **lst_token);
