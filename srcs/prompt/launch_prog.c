@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "types.h"
 
 static void	trim_line(t_shell *data);
 
