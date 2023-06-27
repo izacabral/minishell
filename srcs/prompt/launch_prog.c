@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+static void	trim_line(t_shell *data);
+
 /*
  * Fn		: launch_prog(t_shell *data)
  * Scope	: Run the REPL loop
@@ -22,6 +24,7 @@
  */
 void	launch_prog(t_shell *data)
 {
+	trim_line(data);
 	if (scan_line(&data->lst_token, data->line) == 0
 		&& lexer(data->lst_token) == 0)
 	{
@@ -35,4 +38,15 @@ void	launch_prog(t_shell *data)
 		executor(data);
 	}
 	free_shell(data);
+}
+
+static void	trim_line(t_shell *data)
+{
+	char	*tmp;
+
+	tmp = data->line;
+	if (!tmp)
+		return ;
+	data->line = ft_strtrim(tmp, " ");
+	free(tmp);
 }
