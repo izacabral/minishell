@@ -66,7 +66,7 @@ void	executor(t_shell *data)
 
 	tmp = data->lst_sentence;
 	builtin = isbuiltin(tmp->args[0]);
-	if (data->sentence_count == 1 && builtin)
+	if (data->sentence_count == 1 && builtin > ENV)
 		exec_one(tmp, data, builtin);
 	else
 	{

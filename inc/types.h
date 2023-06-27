@@ -68,11 +68,11 @@ typedef enum e_buitin
 {
 	ENOBLTN,
 	ECHO,
-	CD,
 	PWD,
+	ENV,
 	EXPORT,
 	UNSET,
-	ENV,
+	CD,
 	EXIT,
 }	t_builtin;
 
