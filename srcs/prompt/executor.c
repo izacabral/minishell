@@ -39,20 +39,15 @@ void	wait_sentences(t_shell *data)
 	tmp = data->lst_sentence;
 	g_global = 0;
 	status = 0;
-	//ignore_sigint();
 	while (tmp)
 	{
 		waitpid(tmp->pid, &status, 0);
 		if (WIFEXITED(status))
 			g_global = WEXITSTATUS(status);
-		if (WIFSIGNALED(status))
-		{
+		else if (WIFSIGNALED(status))
 			g_global = 128 + WTERMSIG(status);
-			write(1, "\n", 1);
-		}
 		tmp = tmp->next;
 	}
-	//setup_signals();
 }
 
 void	exec_one(t_sentence *tmp, t_shell *data, t_builtin builtin)
@@ -62,7 +57,6 @@ void	exec_one(t_sentence *tmp, t_shell *data, t_builtin builtin)
 		return ;
 	if (builtin)
 		call_builtin(tmp->args, data, builtin);
-	//setup_signals();
 }
 
 void	executor(t_shell *data)

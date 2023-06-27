@@ -30,16 +30,13 @@ static int	hdoc_routine(char *file, int expand, int fd, t_env *env)
 
 	size = ft_strlen(file) + 1;
 	line_read = NULL;
-	//default_signals();
-	//setup_signals();
-	setup_hdoc_sig();
 	g_global = 0;
 	while (1)
 	{
 		line_read = readline("> ");
-		if (!line_read || g_global != 0)
+		if (g_global != 0)
 			return (-1);
-		if (ft_strncmp(line_read, file, size) == 0)
+		if (!line_read || ft_strncmp(line_read, file, size) == 0)
 		{
 			free(line_read);
 			break ;
@@ -72,6 +69,5 @@ int	heredoc(t_sentence *cmd, char *file, t_env *env)
 	cmd->fd_i = pipe_fd[0];
 	close (pipe_fd[1]);
 	free(cpy_file);
-	setup_signals();
 	return (pipe_fd[0]);
 }

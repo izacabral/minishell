@@ -26,7 +26,6 @@ int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 {
 	const int	size = args_size(args);
 
-	//default_signals();
 	if (builtin == ECHO)
 		return (echo(args, 1));
 	if (builtin == CD)

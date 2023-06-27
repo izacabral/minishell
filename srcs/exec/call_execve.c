@@ -54,13 +54,13 @@ int	call_execve(char **args, char *path)
 		return (1);
 	}
 	ft_strclear(&p, free);
-	//default_signals();
+	default_signals();
 	if ((execve(*args, args, NULL)) == -1)
 	{
 		ft_putendl_fd("Error with execve\n", 2);
 		g_global = errno;
 	}
-	//setup_signals();
+	setup_signals();
 	return (0);
 }
 

@@ -19,6 +19,6 @@ void	default_signals(void)
 	sigemptyset(&dfl.sa_mask);
 	dfl.sa_flags = 0;
 	dfl.sa_handler = SIG_DFL;
-	sigaction(SIGINT, &dfl, NULL);
+	//sigaction(SIGINT, &dfl, NULL);
 	sigaction(SIGQUIT, &dfl, NULL);
 }
