@@ -28,7 +28,6 @@ void	exec_sentence(t_sentence *sentence, t_shell *data)
 		dup2(sentence->fd_o, 1);
 	close_fds(data);
 	exec_command(sentence->args[0], sentence->args, data);
-	exit(1);
 }
 
 void	wait_sentences(t_shell *data)
@@ -44,8 +43,13 @@ void	wait_sentences(t_shell *data)
 		waitpid(tmp->pid, &status, 0);
 		if (WIFEXITED(status))
 			g_global = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			g_global = 128 + WTERMSIG(status);
+		if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == 11)
+				g_global = 130;
+			else
+				g_global = 128 + WTERMSIG(status);
+		}
 		tmp = tmp->next;
 	}
 }
@@ -72,7 +76,7 @@ void	executor(t_shell *data)
 	{
 		while (tmp)
 		{
-			if (tmp->fd_i != -1 && tmp->fd_o != -1 && tmp->args[0])
+			if (tmp->fd_i != -1 && tmp->fd_o != -1)
 			{
 				tmp->pid = fork();
 				if (tmp->pid == -1)
