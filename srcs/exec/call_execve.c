@@ -27,15 +27,24 @@ static int	test_access(char *pathname);
  * Errors	: n.a.
  * Uses		: exec_command()
  */
-void	call_execve(char **args, char *path, char **envs)
+int	call_execve(char **args, char *path, char **envs)
 {
 	t_string	*p;
 
 	p = path_to_lst(path);
-	get_comm(&args[0], p);
-	ft_strclear(&p, free);
+	if (!get_comm(&args[0], p))
+	{
+		ft_putstr_fd(*args, 2);
+		ft_putendl_fd(": command not found", 2);
+		ft_strclear(&p, free);
+		return (-1);
+	}
 	if ((execve(*args, args, envs)) == -1)
+	{
 		print_executor_error(*args);
+		return (-1);
+	}
+	return (0);
 }
 
 static int	get_comm(char **comm, t_string *path_lst)

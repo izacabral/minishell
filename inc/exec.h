@@ -14,7 +14,7 @@
 # define EXEC_H
 # include "types.h"
 
-void		call_execve(char **args, char *path, char **envs);
-int			launch_command(char **args);
+int		call_execve(char **args, char *path, char **envs);
+int		launch_command(char **args);
 
 #endif

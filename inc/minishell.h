@@ -63,7 +63,7 @@ void		swap_ptr(char **a, char **b);
 char		*get_global(char *var, int size);
 
 // srcs/exec/
-void			exec_command(char *comm, char **args, t_shell *data);
+void		exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
 int			args_size(char **args);
 

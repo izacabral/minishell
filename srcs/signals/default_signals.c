@@ -14,10 +14,15 @@
 
 void	default_signals(void)
 {
-	struct sigaction	dfl;
+	struct sigaction	dfl_int;
+	struct sigaction	dfl_quit;
 
-	sigemptyset(&dfl.sa_mask);
-	dfl.sa_flags = 0;
-	dfl.sa_handler = SIG_DFL;
-	sigaction(SIGINT, &dfl, NULL);
+	sigemptyset(&dfl_int.sa_mask);
+	sigemptyset(&dfl_quit.sa_mask);
+	dfl_int.sa_flags = 0;
+	dfl_int.sa_handler = SIG_DFL;
+	dfl_quit.sa_flags = 0;
+	dfl_quit.sa_handler = SIG_DFL;
+	sigaction(SIGINT, &dfl_int, NULL);
+	sigaction(SIGQUIT, &dfl_quit, NULL);
 }
