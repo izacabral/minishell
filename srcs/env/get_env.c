@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:37:16 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/12 21:35:09 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/28 14:37:19 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
  *				:remembering that environment variables have key=value format
  * Output		:a node with the data from env
  */
+
 t_env	*get_env(char *environ[])
 {
 	int		index;

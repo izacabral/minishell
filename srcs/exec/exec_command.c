@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:09:25 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/20 00:09:27 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:40:38 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ int	exec_command(char *comm, char **args, t_shell *data)
 	else
 	{
 		path = compare_key(data->lst_env, "PATH");
-		return (call_execve(args, path->value));
+		return (call_execve(args, path->value, data));
 	}
 }

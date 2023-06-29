@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_execve.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:41:43 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/22 03:31:05 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:01:46 by dmatavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static int	test_acess(char *pathname);
  * Scope	: testa executável em args[0] e chama execve()
  * Input	: char ** - comando e argumentos a serem executados
  *			: char * - variável PATH
+ *			: t_shell *data - struct contendo *env_dup[] (clone de cahr *envp[])
  *			: conversão facilita leitura e manipulação
  *			: alternativa possível à lista seria char **
  * Output	: int - 0 (sucesso)
@@ -43,7 +44,7 @@ static int	test_acess(char *pathname);
 // 	return (0);
 // }
 
-int	call_execve(char **args, char *path)
+int	call_execve(char **args, char *path, t_shell *data)
 {
 	t_string	*p;
 
@@ -55,7 +56,7 @@ int	call_execve(char **args, char *path)
 	}
 	ft_strclear(&p, free);
 	default_signals();
-	if ((execve(*args, args, NULL)) == -1)
+	if ((execve(*args, args, data->env_dup)) == -1)
 	{
 		ft_putendl_fd("Error with execve\n", 2);
 		g_global = errno;
