@@ -114,5 +114,5 @@ void	executor(t_shell *data)
 	close_fds(data);
 	wait_sentences(data);
 	ft_printf("after wait sentences, global=%i\n", g_global);
-	//setup_signals();
+	setup_signals();
 }
