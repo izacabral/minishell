@@ -43,6 +43,7 @@ void	exec_command(char *comm, char **args, t_shell *data)
 		envs = env_to_array(data->lst_env);
 		path = compare_key(data->lst_env, "PATH");
 		call_execve(args, path->value, envs);
+		free_array(envs);
 	}
 }
 

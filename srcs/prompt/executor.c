@@ -18,7 +18,7 @@ void	print_executor_error(char *str)
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putendl_fd(strerror(errno), 2);
-	//g_global = 127;
+	g_global = 127;
 }
 
 void	exec_sentence(t_sentence *sentence, t_shell *data)
