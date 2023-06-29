@@ -43,6 +43,7 @@ int			open_pipe_reds(t_shell *data);
 void		close_fds(t_shell *data);
 void		free_shell(t_shell *data);
 void		executor(t_shell *data);
+void		print_executor_error(char *str);
 
 // srcs/parser/
 int			isquotes(char c);
@@ -62,7 +63,7 @@ void		swap_ptr(char **a, char **b);
 char		*get_global(char *var, int size);
 
 // srcs/exec/
-int			exec_command(char *comm, char **args, t_shell *data);
+void			exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
 int			args_size(char **args);
 

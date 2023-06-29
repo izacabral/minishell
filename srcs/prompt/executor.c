@@ -12,11 +12,13 @@
 
 #include "minishell.h"
 
-void	print_executor_error(void)
+void	print_executor_error(char *str)
 {
 	ft_putstr_fd("minishell: ", 2);
-	ft_putendl_fd(strerror(errno), STDERR_FILENO);
-	g_global = errno;
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(strerror(errno), 2);
+	//g_global = 127;
 }
 
 void	exec_sentence(t_sentence *sentence, t_shell *data)
@@ -80,7 +82,7 @@ void	executor(t_shell *data)
 			{
 				tmp->pid = fork();
 				if (tmp->pid == -1)
-					print_executor_error();
+					print_executor_error(strerror(errno));
 				if (tmp->pid == 0)
 					exec_sentence(tmp, data);
 			}

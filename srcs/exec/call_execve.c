@@ -15,68 +15,42 @@
 static int	get_comm(char **comm, t_string *path_lst);
 static int	ispath(char *s);
 static int	test_command(char **comm, t_string *path_lst);
-static int	test_acess(char *pathname);
+static int	test_access(char *pathname);
 
 /*
  * Fn		: call_execve(char **argsm char *path)
- * Scope	: testa executável em args[0] e chama execve()
- * Input	: char ** - comando e argumentos a serem executados
- *			: char * - variável PATH
- *			: conversão facilita leitura e manipulação
- *			: alternativa possível à lista seria char **
- * Output	: int - 0 (sucesso)
- * Errors	: int - 1: não é um comando executável ou arquivo não existe
- * Uses		: [WIP] a ser integrado.
+ * Scope	: turns args[0] into absolute if it is an exexutable command
+ *				and executes execve
+ * Input	: char ** - sentence args
+ *			: char * - env path value
+ * Output	: void
+ * Errors	: n.a.
+ * Uses		: exec_command()
  */
-// int	call_execve(char **args, char *path)
-// {
-// 	t_string	*p;
-
-// 	p = path_to_lst(path);
-// 	if (get_comm(&args[0], p))
-// 	{
-// 		ft_strclear(&p, free);
-// 		return (1);
-// 	}
-// 	ft_strclear(&p, free);
-// 	launch_command(args);
-// 	return (0);
-// }
-
-int	call_execve(char **args, char *path)
+void	call_execve(char **args, char *path, char **envs)
 {
 	t_string	*p;
 
 	p = path_to_lst(path);
-	if (get_comm(&args[0], p))
-	{
-		ft_strclear(&p, free);
-		return (1);
-	}
+	get_comm(&args[0], p);
 	ft_strclear(&p, free);
-	//default_signals();
-	if ((execve(*args, args, NULL)) == -1)
-	{
-		ft_putendl_fd("Error with execve\n", 2);
-		g_global = errno;
-	}
-	//setup_signals();
-	return (0);
+	if ((execve(*args, args, envs)) == -1)
+		print_executor_error(*args);
 }
 
-// testa args[0]
-// se argumento já contiver caminho, testa como foi passado,
-// caso contrário, testa segundo PATH
 static int	get_comm(char **comm, t_string *path_lst)
 {
 	if (ispath(*comm))
 	{
-		if (!test_acess(*comm))
-			return (0);
+		if(test_access(*comm))
+			return (1);
 	}
-	if (!test_command(comm, path_lst))
-		return (0);
-	return (1);
+	else
+	{
+		if (test_command(comm, path_lst))
+			return (1);
+	}
+	return (0);
 }
 
 static int	ispath(char *s)
@@ -100,27 +74,25 @@ static int	test_command(char **comm, t_string *path_lst)
 	while (path_lst)
 	{
 		path = ft_strjoin(path_lst->content, aux);
-		if (!test_acess(path))
+		if (test_access(path))
 		{
 			free(aux);
 			free(*comm);
 			*comm = NULL;
 			*comm = path;
-			return (0);
+			return (1);
 		}
 		free(path);
 		path = NULL;
 		path_lst = path_lst->next;
 	}
 	free(aux);
-	return (1);
+	return (0);
 }
 
-// Testa se arquivo existe e se é executável
-// Pode integrar essa função depois com as mensagens de erro
-static int	test_acess(char *pathname)
+static int	test_access(char *pathname)
 {
-	if (access(pathname, X_OK))
+	if (!access(pathname, X_OK))
 		return (1);
 	return (0);
 }

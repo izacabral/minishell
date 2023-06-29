@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+static char	**env_to_array(t_env *lst);
+
 /*
  * Fn		: exec_command(char *comm, char **args, t_shell *data)
  * Scope	: interface para executar comandos builtins ou por execve
@@ -22,10 +24,11 @@
  * Errors	: dependente dos comandos
  * Uses		: [WIP] a ser integrado.
  */
-int	exec_command(char *comm, char **args, t_shell *data)
+void	exec_command(char *comm, char **args, t_shell *data)
 {
 	t_builtin	builtin;
 	t_env		*path;
+	char		**envs;
 
 	builtin = isbuiltin(comm);
 	if (builtin)
@@ -33,11 +36,35 @@ int	exec_command(char *comm, char **args, t_shell *data)
 		call_builtin(args, data, builtin);
 		free_shell(data);
 		clear_env(&data->lst_env);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{
+		envs = env_to_array(data->lst_env);
 		path = compare_key(data->lst_env, "PATH");
-		return (call_execve(args, path->value));
+		call_execve(args, path->value, envs);
 	}
 }
+
+static char	**env_to_array(t_env *lst)
+{
+	t_env	*tmp;
+	char	*env_str;
+	char	**env_array;
+
+	tmp = lst;
+	env_str = NULL;
+	while(tmp)
+	{
+		env_str = ft_strjoin_free(env_str, tmp->key);
+		env_str = ft_strjoin_free(env_str, "=");
+		env_str = ft_strjoin_free(env_str, tmp->value);
+		env_str = ft_strjoin_free(env_str, "?");
+		tmp = tmp->next;
+	}
+	env_array = ft_split(env_str, '?');
+	free(env_str);
+	return (env_array);
+}
+
+
