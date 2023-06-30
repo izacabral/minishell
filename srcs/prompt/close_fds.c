@@ -18,7 +18,7 @@
  * Input	: t_shell data
  * Output	: void
  * Errors	: n.a.
- * Uses		: WIP - its used in test, but i think must be used after execution
+ * Uses		: executor
  */
 void	close_fds(t_shell *data)
 {
