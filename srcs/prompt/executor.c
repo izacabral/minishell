@@ -60,6 +60,7 @@ void	exec_one(t_sentence *tmp, t_shell *data, t_builtin builtin)
 		return ;
 	if (builtin)
 		call_builtin(tmp->args, data, builtin);
+	close_fds(data);
 }
 
 void	executor(t_shell *data)
@@ -85,8 +86,8 @@ void	executor(t_shell *data)
 			}
 			tmp = tmp->next;
 		}
+		close_fds(data);
+		wait_sentences(data);
 	}
-	close_fds(data);
-	wait_sentences(data);
 	setup_signals();
 }
