@@ -16,13 +16,13 @@ static char	**env_to_array(t_env *lst);
 
 /*
  * Fn		: exec_command(char *comm, char **args, t_shell *data)
- * Scope	: interface para executar comandos builtins ou por execve
- * Input	: char * - string com o nome do comando
- *			: char ** - argumentos a serem passados
- *			: t_shell * - ponteiro para estrutura global
- * Output	: int - mesmo retornos dos comandos
- * Errors	: dependente dos comandos
- * Uses		: [WIP] a ser integrado.
+ * Scope	: executes commands, either builtin or through execve
+ * Input	: char * - command name
+ *			: char ** - command arguments
+ *			: t_shell * - pointer to global struct
+ * Output	: int - same as commands
+ * Errors	: same as commands
+ * Uses		: exec_sentence [executor.c]
  */
 void	exec_command(char *comm, char **args, t_shell *data)
 {
