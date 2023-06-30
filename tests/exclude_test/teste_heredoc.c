@@ -82,7 +82,7 @@ int    main(int argc, char **argv, char **envp)
 		if (cmd->fd_o != 1)
 			dup2(cmd->fd_o, 1);
 		close (cmd->fd_i);
-		int err = execv("/bin/cat", &cmd->args[0]);
+		int err = execve("/bin/cat", &cmd->args[0]);
 		if (err == -1)
 		{
 			ft_printf("Could not find to execute!\n");

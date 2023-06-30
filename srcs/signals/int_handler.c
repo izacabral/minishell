@@ -22,9 +22,12 @@
  */
 void	int_handler(int signum)
 {
-	write(1, "\n", 1);
+	if (RL_ISSTATE(RL_STATE_READCMD))
+		ioctl(1, TIOCSTI, "\n");
+	else
+		write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
-	rl_redisplay();
+	g_global = 130;
 	(void)signum;
 }

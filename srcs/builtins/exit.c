@@ -18,7 +18,7 @@ static int	calc_return(long int n)
 
 	if (n > 0)
 		ret = n % 256;
-	if (n < 0)
+	else if (n < 0)
 	{
 		ret = n % 256;
 		if (ret < 0)
