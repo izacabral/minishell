@@ -13,6 +13,7 @@
 #include "minishell.h"
 
 static char	**env_to_array(t_env *lst);
+static char	*get_path(t_shell *data);
 
 /*
  * Fn		: exec_command(char *comm, char **args, t_shell *data)
@@ -27,7 +28,7 @@ static char	**env_to_array(t_env *lst);
 void	exec_command(char *comm, char **args, t_shell *data)
 {
 	t_builtin	builtin;
-	t_env		*path;
+	char		*path;
 	char		**envs;
 
 	builtin = isbuiltin(comm);
@@ -41,8 +42,8 @@ void	exec_command(char *comm, char **args, t_shell *data)
 	else
 	{
 		envs = env_to_array(data->lst_env);
-		path = compare_key(data->lst_env, "PATH");
-		if (call_execve(args, path->value, envs) == -1)
+		path = get_path(data);
+		if (call_execve(args, path, envs) == -1)
 		{
 			free_array(envs);
 			exit(127);
@@ -69,4 +70,17 @@ static char	**env_to_array(t_env *lst)
 	env_array = ft_split(env_str, '\n');
 	free(env_str);
 	return (env_array);
+}
+
+static char	*get_path(t_shell *data)
+{
+	t_env	*path;
+	char	*p;
+
+	path = compare_key(data->lst_env, "PATH");
+	if (!path)
+		p = NULL;
+	else
+		p = path->value;
+	return (p);
 }

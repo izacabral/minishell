@@ -46,7 +46,11 @@ void	wait_sentences(t_shell *data)
 			g_global = 0;
 			waitpid(tmp->pid, &status, 0);
 			if (WIFSIGNALED(status))
+			{
 				g_global = 128 + WTERMSIG(status);
+				if (g_global == 131)
+					ft_putendl_fd("Quit (core dumped)", 2);
+			}
 			else if (WIFEXITED(status))
 				g_global = WEXITSTATUS(status);
 		}
