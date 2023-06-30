@@ -25,10 +25,9 @@ static int	isquoted(char *str)
 
 static void	hdoc_routine(char *file, int expand, int fd, t_env *env)
 {
-	char	*line_read;
-	int		size;
+	char			*line_read;
+	const int		size = ft_strlen(file) + 1;
 
-	size = ft_strlen(file) + 1;
 	line_read = NULL;
 	g_global = 0;
 	while (1)

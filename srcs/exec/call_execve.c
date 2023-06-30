@@ -51,7 +51,7 @@ static int	get_comm(char **comm, t_string *path_lst)
 {
 	if (ispath(*comm))
 	{
-		if(test_access(*comm))
+		if (test_access(*comm))
 			return (1);
 	}
 	else

@@ -58,7 +58,7 @@ static char	**env_to_array(t_env *lst)
 
 	tmp = lst;
 	env_str = NULL;
-	while(tmp)
+	while (tmp)
 	{
 		env_str = ft_strjoin_free(env_str, tmp->key);
 		env_str = ft_strjoin_free(env_str, "=");
@@ -70,5 +70,3 @@ static char	**env_to_array(t_env *lst)
 	free(env_str);
 	return (env_array);
 }
-
-
