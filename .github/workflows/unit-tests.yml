@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     name: Unit Testing
     steps:
     - uses: actions/checkout@v3
