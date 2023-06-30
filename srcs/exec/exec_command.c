@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:09:25 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/20 00:09:27 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/30 18:41:26 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	exec_command(char *comm, char **args, t_shell *data)
 		if (call_execve(args, path, envs) == -1)
 		{
 			free_array(envs);
-			exit(127);
+			exit(g_global);
 		}
 	}
 }

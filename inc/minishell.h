@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/24 18:38:56 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/30 18:36:40 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "defines.h"
 # include "types.h"
 # include "env.h"
-# include "exec.h"
 # include <errno.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -66,6 +65,8 @@ char		*get_global(char *var, int size);
 void		exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
 int			args_size(char **args);
+int			call_execve(char **args, char *path, char **envs);
+void		print_execve_error(char *str, int error);
 
 // srcs/sentence/
 void		create_sentences(t_env *env, t_token **lst_token, \

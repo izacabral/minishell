@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_execve.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:41:43 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/22 03:31:05 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/30 18:58:14 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int	call_execve(char **args, char *path, char **envs)
 	p = path_to_lst(path);
 	if (!get_comm(&args[0], p))
 	{
-		ft_putstr_fd(aux, 2);
-		ft_putendl_fd(": command not found", 2);
+		print_execve_error(aux, errno);
 		ft_strclear(&p, free);
 		free(aux);
 		return (-1);
@@ -45,7 +44,7 @@ int	call_execve(char **args, char *path, char **envs)
 	swap_ptr(&aux, &args[0]);
 	if ((execve(aux, args, envs)) == -1)
 	{
-		print_executor_error(aux);
+		print_executor_error(args[0]);
 		free(aux);
 		return (-1);
 	}
@@ -84,6 +83,8 @@ static int	test_command(char **comm, t_string *path_lst)
 	char	*path;
 	char	*aux;
 
+	if (!*comm[0])
+		return (0);
 	aux = ft_strdup(*comm);
 	prefix_slash(&aux);
 	while (path_lst)
@@ -107,7 +108,7 @@ static int	test_command(char **comm, t_string *path_lst)
 
 static int	test_access(char *pathname)
 {
-	if (!access(pathname, X_OK))
+	if (!access(pathname, F_OK | X_OK))
 		return (1);
 	return (0);
 }
