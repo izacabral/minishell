@@ -26,9 +26,9 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argv;
 	init_shell(&data);
 	data.lst_env = get_env(envp);
-	setup_signals();
 	while (1)
 	{
+		setup_signals();
 		data.line = readline_gets(data.line);
 		if (!data.line)
 			break ;

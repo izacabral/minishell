@@ -44,13 +44,13 @@ void	wait_sentences(t_shell *data)
 	{
 		if (tmp->args[0])
 		{
+			setup_signals();
 			ft_printf("enter first if wait sentences, g_global=%i\n", g_global);
 			g_global = 0;
 			ft_printf("STATUS=%i\n", status);
 			int ret = 0;
 			ret = waitpid(tmp->pid, &status, 0);
 			ft_printf("ret %d\n", ret);
-			ft_printf("Father read childs pid=%i\n", tmp->pid);
 			ft_printf("STATUS=%i\n", status);
 			if (WIFSIGNALED(status))
 			{
@@ -62,17 +62,18 @@ void	wait_sentences(t_shell *data)
 				//else
 				{
 					g_global = 128 + WTERMSIG(status);
-					ft_printf("enter third if-else wait sentences, g_global=%i\n", g_global);
+					ft_printf("enter second if wait sentences, g_global=%i\n", g_global);
 				}
 			}
 			else if (WIFEXITED(status))
 			{
 				g_global = WEXITSTATUS(status);
-				ft_printf("enter second if wait sentences, g_global=%i\n", g_global);
+				ft_printf("enter third if-else wait sentences, g_global=%i\n", g_global);
 			}
 		}
 		tmp = tmp->next;
 	}
+	setup_signals();
 }
 
 void	exec_one(t_sentence *tmp, t_shell *data, t_builtin builtin)
@@ -104,7 +105,6 @@ void	executor(t_shell *data)
 					print_executor_error(strerror(errno));
 				if (tmp->pid == 0)
 				{
-					ft_printf("child pid=%i\n", getpid());
 					exec_sentence(tmp, data);
 				}
 			}
