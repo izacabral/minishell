@@ -41,6 +41,22 @@ static void	modify_env(t_env *env, char *value)
 }
 
 /*
+ * Check key entry
+ * valid key is <name=>
+ * invalid key is <name>
+ */
+static int	check_entry(char *entry)
+{
+	while (*entry)
+	{
+		if (*entry == '=')
+			return (0);
+		entry++;
+	}
+	return (1);
+}
+
+/*
  * Input			:t_env *env - envp list(head)
  *					:char *str - argument (enviroment variable)
  * Scope			:checks if the first character is in the correct format
@@ -58,6 +74,8 @@ static void	add_export(t_env *env, char *str)
 
 	key = NULL;
 	value = NULL;
+	if (check_entry(str))
+		return ;
 	get_entry(&key, &value, str, ft_strlen(str));
 	if (!check_varname(key))
 	{
