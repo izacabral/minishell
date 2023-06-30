@@ -37,48 +37,25 @@ void	wait_sentences(t_shell *data)
 	t_sentence	*tmp;
 	int			status;
 
-	ft_printf("begin wait sentences, g_global=%i\n", g_global);
 	tmp = data->lst_sentence;
 	status = 0;
 	while (tmp)
 	{
 		if (tmp->args[0])
 		{
-			setup_signals();
-			ft_printf("enter first if wait sentences, g_global=%i\n", g_global);
 			g_global = 0;
-			ft_printf("STATUS=%i\n", status);
-			int ret = 0;
-			ret = waitpid(tmp->pid, &status, 0);
-			ft_printf("ret %d\n", ret);
-			ft_printf("STATUS=%i\n", status);
+			waitpid(tmp->pid, &status, 0);
 			if (WIFSIGNALED(status))
-			{
-				//if (WTERMSIG(status) == 11)
-				//{
-				//	g_global = 130;
-				//	ft_printf("enter third if-if wait sentences, g_global=%i\n", g_global);
-				//}
-				//else
-				{
-					g_global = 128 + WTERMSIG(status);
-					ft_printf("enter second if wait sentences, g_global=%i\n", g_global);
-				}
-			}
+				g_global = 128 + WTERMSIG(status);
 			else if (WIFEXITED(status))
-			{
 				g_global = WEXITSTATUS(status);
-				ft_printf("enter third if-else wait sentences, g_global=%i\n", g_global);
-			}
 		}
 		tmp = tmp->next;
 	}
-	setup_signals();
 }
 
 void	exec_one(t_sentence *tmp, t_shell *data, t_builtin builtin)
 {
-	default_signals();
 	if (tmp->fd_i == -1 || tmp->fd_o == -1)
 		return ;
 	if (builtin)
@@ -104,15 +81,12 @@ void	executor(t_shell *data)
 				if (tmp->pid == -1)
 					print_executor_error(strerror(errno));
 				if (tmp->pid == 0)
-				{
 					exec_sentence(tmp, data);
-				}
 			}
 			tmp = tmp->next;
 		}
 	}
 	close_fds(data);
 	wait_sentences(data);
-	ft_printf("after wait sentences, global=%i\n", g_global);
 	setup_signals();
 }

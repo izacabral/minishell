@@ -63,10 +63,10 @@ static char	**env_to_array(t_env *lst)
 		env_str = ft_strjoin_free(env_str, tmp->key);
 		env_str = ft_strjoin_free(env_str, "=");
 		env_str = ft_strjoin_free(env_str, tmp->value);
-		env_str = ft_strjoin_free(env_str, "?");
+		env_str = ft_strjoin_free(env_str, "\n");
 		tmp = tmp->next;
 	}
-	env_array = ft_split(env_str, '?');
+	env_array = ft_split(env_str, '\n');
 	free(env_str);
 	return (env_array);
 }
