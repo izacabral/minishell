@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:09:25 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/30 18:41:26 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/06/30 20:42:17 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	exec_command(char *comm, char **args, t_shell *data)
 		path = get_path(data);
 		if (call_execve(args, path, envs) == -1)
 		{
-			free_array(envs);
+			if (envs)
+				free_array(envs);
 			exit(g_global);
 		}
 	}
@@ -57,8 +58,10 @@ static char	**env_to_array(t_env *lst)
 	char	*env_str;
 	char	**env_array;
 
-	tmp = lst;
 	env_str = NULL;
+	if (!lst)
+		return (NULL);
+	tmp = lst;
 	while (tmp)
 	{
 		env_str = ft_strjoin_free(env_str, tmp->key);
