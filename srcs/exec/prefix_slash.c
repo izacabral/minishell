@@ -14,10 +14,10 @@
 
 /*
  * Fn		: prefix_slash(char **str)
- * Scope	: modifica *str, prefixando '/'
- * Input	: char ** - endereço de uma string
- * Output	: char * - a string modificada
- * Errors	: NULL - erro na alocação, ou *str é NULL
+ * Scope	: add '/' to string
+ * Input	: char ** - adrres of string
+ * Output	: char * - the string
+ * Errors	: NULL - string is NULL, or malloc error
  * Uses		: test_command (call_execve.c)
  */
 char	*prefix_slash(char **str)
