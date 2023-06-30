@@ -30,20 +30,26 @@ static int	test_access(char *pathname);
 int	call_execve(char **args, char *path, char **envs)
 {
 	t_string	*p;
+	char		*aux;
 
+	aux = ft_strdup(*args);
 	p = path_to_lst(path);
 	if (!get_comm(&args[0], p))
 	{
-		ft_putstr_fd(*args, 2);
+		ft_putstr_fd(aux, 2);
 		ft_putendl_fd(": command not found", 2);
 		ft_strclear(&p, free);
+		free(aux);
 		return (-1);
 	}
-	if ((execve(*args, args, envs)) == -1)
+	swap_ptr(&aux, &args[0]);
+	if ((execve(aux, args, envs)) == -1)
 	{
-		print_executor_error(*args);
+		print_executor_error(aux);
+		free(aux);
 		return (-1);
 	}
+	free(aux);
 	return (0);
 }
 
