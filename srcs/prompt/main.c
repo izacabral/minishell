@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/30 19:30:57 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/01 13:32:53 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argv;
 	init_shell(&data);
 	data.lst_env = NULL;
-	if (*envp)
-		data.lst_env = get_env(envp);
+	data.lst_env = get_env(envp);
 	while (1)
 	{
 		setup_signals();

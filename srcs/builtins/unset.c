@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:50:05 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/13 19:25:28 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/01 13:51:06 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,18 @@
 static void	delete_var(t_env **env, char *key)
 {
 	t_env	*node;
+	int		size;
+	t_env	*tmp;
 
+	size = 0;
+	tmp = *env;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		size++;
+	}
+	if (size == 1)
+		return ;
 	node = compare_key(*env, key);
 	if (*env == NULL || node == NULL)
 		return ;
