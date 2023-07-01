@@ -12,9 +12,6 @@
 
 #include "minishell.h"
 
-//After a call to execve() the signals action are reset to default.
-//SIGQUIT is set to be ignored here, but this might need to be changed,
-// as CTRL+D can be used to quit a command in execution.
 /*
  * Fn		: setup_signals(void)
  * Scope	: setup the signals for interactive mode
@@ -32,14 +29,10 @@ void	setup_signals(void)
 
 	sigemptyset(&int_action.sa_mask);
 	sigemptyset(&quit_action.sa_mask);
-	int_action.sa_handler = int_handler;
-	int_action.sa_flags = 0;
-	quit_action.sa_flags = 0;
+	int_action.sa_handler = &int_handler;
+	int_action.sa_flags = SA_RESTART;
+	quit_action.sa_handler = SIG_IGN;
+	quit_action.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &int_action, NULL);
-	sigaction(SIGQUIT, NULL, &quit_action);
-	if (quit_action.sa_handler != SIG_IGN)
-	{
-		quit_action.sa_handler = SIG_IGN;
-		sigaction(SIGQUIT, &quit_action, NULL);
-	}
+	sigaction(SIGQUIT, &quit_action, NULL);
 }

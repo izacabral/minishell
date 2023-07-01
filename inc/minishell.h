@@ -29,23 +29,21 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <string.h>
+# include <sys/ioctl.h>
 
 extern int	g_global;
 
 // srcs/prompt/
 void		init_shell(t_shell *data);
 void		launch_prog(t_shell *data);
-void		int_handler(int signum);
 char		*readline_gets(char *line);
-void		setup_signals(void);
 int			only_spaces(char *line);
 void		fill_shell(t_shell *data);
 int			open_pipe_reds(t_shell *data);
 void		close_fds(t_shell *data);
 void		free_shell(t_shell *data);
 void		executor(t_shell *data);
-void		ignore_sigint(void);
+void		print_executor_error(char *str);
 
 // srcs/parser/
 int			isquotes(char c);
@@ -65,9 +63,8 @@ void		swap_ptr(char **a, char **b);
 char		*get_global(char *var, int size);
 
 // srcs/exec/
-int			exec_command(char *comm, char **args, t_shell *data);
+void		exec_command(char *comm, char **args, t_shell *data);
 char		*prefix_slash(char **str);
-void		default_signals(void);
 int			args_size(char **args);
 
 // srcs/sentence/
@@ -109,5 +106,10 @@ int			counting_redirects(t_token **lst_token);
 int			open_reds(int token, t_sentence *cmd, char *file_name, t_env *env);
 int			heredoc(t_sentence *cmd, char *file, t_env *env);
 void		error_redir(char *filename);
+
+// srcs/signals
+void		default_signals(void);
+void		int_handler(int signum);
+void		setup_signals(void);
 
 #endif

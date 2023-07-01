@@ -72,7 +72,7 @@ static char	**clean_arr(char **array)
  * Input	: t_shell *data
  * Output	: void
  * Errors	: not applicable
- * Uses		: wip
+ * Uses		: launch_prog() [launch_prog.c]
  */
 void	clean_reds_sentences(t_sentence *lst_sentence)
 {

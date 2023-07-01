@@ -14,19 +14,18 @@
 
 /*
  * Fn		: call_builtin(char **args, t_shell *data, t_builtin builtin)
- * Scope	: prepara argumentos e chama o builtin
- * Input	: char ** - argumentos a serem passados
- *			: t_shell * - ponteiro para estrutura global
- *			: t_builtin - o builtin a ser chamado
- * Output	: int - mesmo retornos do builtin
- * Errors	: dependente dos comandos
- * Uses		: [WIP] a ser integrado.
+ * Scope	: set arguments and call builtin
+ * Input	: char ** - command arguments
+ *			: t_shell * - pointer to global struct
+ *			: t_builtin - builtin to call
+ * Output	: int - same return as builtin
+ * Errors	: same as builtin
+ * Uses		: exec_command(); exec_one [executor.c];
  */
 int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 {
 	const int	size = args_size(args);
 
-	default_signals();
 	if (builtin == ECHO)
 		return (echo(args, 1));
 	if (builtin == CD)

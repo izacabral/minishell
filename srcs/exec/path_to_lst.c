@@ -16,13 +16,11 @@ static void		copy_path(t_string **lst, char *path, size_t size);
 
 /*
  * Fn		: path_to_lst(char *path)
- * Scope	: transforma a string da variável PATH em uma lista encadeada
- * Input	: char * - variável PATH
+ * Scope	: convert PATH from string to list
+ * Input	: char * - PATH var
  * Output	: t_string *
- * Errors	: NULL - erro durante a criação da lista, ou path é NULL
- * Uses		: call_execve (call_execve.c) [possibilidade de guardar
- *			  a lista já na t_shell, para não ser necessário criá-la
- *			  a cada chamada do execve]
+ * Errors	: NULL - PATH is NULL, or could not convert
+ * Uses		: call_execve (call_execve.c)
  */
 t_string	*path_to_lst(char *path)
 {

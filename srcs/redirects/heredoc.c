@@ -23,19 +23,23 @@ static int	isquoted(char *str)
 	return (0);
 }
 
-static int	hdoc_routine(char *file, int expand, int fd, t_env *env)
+static void	hdoc_routine(char *file, int expand, int fd, t_env *env)
 {
-	char	*line_read;
-	int		size;
+	char			*line_read;
+	const int		size = ft_strlen(file) + 1;
 
-	size = ft_strlen(file) + 1;
 	line_read = NULL;
+	g_global = 0;
 	while (1)
 	{
 		line_read = readline("> ");
-		if (!line_read)
-			return (-1);
-		if (ft_strncmp(line_read, file, size) == 0)
+		if (g_global == 130)
+		{
+			if (line_read)
+				free(line_read);
+			return ;
+		}
+		if (!line_read || ft_strncmp(line_read, file, size) == 0)
 		{
 			free(line_read);
 			break ;
@@ -45,7 +49,7 @@ static int	hdoc_routine(char *file, int expand, int fd, t_env *env)
 		ft_putendl_fd(line_read, fd);
 		free(line_read);
 	}
-	return (0);
+	return ;
 }
 
 int	heredoc(t_sentence *cmd, char *file, t_env *env)
@@ -63,8 +67,7 @@ int	heredoc(t_sentence *cmd, char *file, t_env *env)
 		error_redir(cpy_file);
 		return (-1);
 	}
-	if ((hdoc_routine(cpy_file, expand, pipe_fd[1], env)) == -1)
-		return (-1);
+	hdoc_routine(cpy_file, expand, pipe_fd[1], env);
 	cmd->fd_i = pipe_fd[0];
 	close (pipe_fd[1]);
 	free(cpy_file);

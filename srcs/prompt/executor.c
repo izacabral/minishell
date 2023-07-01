@@ -12,22 +12,24 @@
 
 #include "minishell.h"
 
-void	print_executor_error(void)
+void	print_executor_error(char *str)
 {
 	ft_putstr_fd("minishell: ", 2);
-	ft_putendl_fd(strerror(errno), STDERR_FILENO);
-	g_global = errno;
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(strerror(errno), 2);
+	g_global = 127;
 }
 
 void	exec_sentence(t_sentence *sentence, t_shell *data)
 {
+	default_signals();
 	if (sentence->fd_i != 0)
 		dup2(sentence->fd_i, 0);
 	if (sentence->fd_o != 1)
 		dup2(sentence->fd_o, 1);
 	close_fds(data);
 	exec_command(sentence->args[0], sentence->args, data);
-	exit(1);
 }
 
 void	wait_sentences(t_shell *data)
@@ -36,24 +38,20 @@ void	wait_sentences(t_shell *data)
 	int			status;
 
 	tmp = data->lst_sentence;
-	g_global = 0;
 	status = 0;
-	ignore_sigint();
 	while (tmp)
 	{
-		waitpid(tmp->pid, &status, 0);
-		if (WIFEXITED(status))
-			g_global = WEXITSTATUS(status);
-		if (WIFSIGNALED(status))
+		if (tmp->args[0])
 		{
-			g_global = 128 + WTERMSIG(status);
-			write(1, "\n", 1);
+			g_global = 0;
+			waitpid(tmp->pid, &status, 0);
+			if (WIFSIGNALED(status))
+				g_global = 128 + WTERMSIG(status);
+			else if (WIFEXITED(status))
+				g_global = WEXITSTATUS(status);
 		}
-		if (tmp->args == NULL)
-			g_global = 127;
 		tmp = tmp->next;
 	}
-	setup_signals();
 }
 
 void	exec_one(t_sentence *tmp, t_shell *data, t_builtin builtin)
@@ -62,7 +60,6 @@ void	exec_one(t_sentence *tmp, t_shell *data, t_builtin builtin)
 		return ;
 	if (builtin)
 		call_builtin(tmp->args, data, builtin);
-	setup_signals();
 }
 
 void	executor(t_shell *data)
@@ -82,7 +79,7 @@ void	executor(t_shell *data)
 			{
 				tmp->pid = fork();
 				if (tmp->pid == -1)
-					print_executor_error();
+					print_executor_error(strerror(errno));
 				if (tmp->pid == 0)
 					exec_sentence(tmp, data);
 			}
@@ -91,4 +88,5 @@ void	executor(t_shell *data)
 	}
 	close_fds(data);
 	wait_sentences(data);
+	setup_signals();
 }
