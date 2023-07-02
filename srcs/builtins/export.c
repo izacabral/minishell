@@ -24,6 +24,8 @@
  */
 static void	append_env(t_env *env, char *key, char *value)
 {
+	if (!env->size)
+		set_envsize(env);
 	while (env->next)
 		env = env->next;
 	env->next = new_env(key, value);
