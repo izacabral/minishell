@@ -27,12 +27,10 @@
 static char	*rem_str_quotes(char *str)
 {
 	int			i;
-	int			j;
 	char		*new_str;
 	const int	size = ft_strlen(str);
 
 	i = 0;
-	j = 0;
 	new_str = ft_strdup("\0");
 	while (str[i])
 	{
