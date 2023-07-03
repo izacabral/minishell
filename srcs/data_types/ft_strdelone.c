@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 00:25:44 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/14 15:56:39 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:24:16 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h"
 
 void	ft_strdelone(t_string *lst, void (*del)(void *))
 {

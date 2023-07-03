@@ -6,14 +6,11 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:49:52 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/30 20:49:30 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:21:43 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "libft.h"
 #include "minishell.h"
-#include "types.h"
 
 /*
  * Input			:t_env *env - envp list(head)
@@ -24,13 +21,9 @@
  */
 static void	append_env(t_env *env, char *key, char *value)
 {
-	if (!env->size)
-		set_envsize(env);
 	while (env->next)
 		env = env->next;
 	env->next = new_env(key, value);
-	env->next->size = env->size;
-	*env->size += 1;
 }
 
 /*

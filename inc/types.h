@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/07/03 15:21:41 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:19:03 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	int				*size;
 	struct s_env	*next;
 }						t_env;
 
