@@ -85,7 +85,7 @@ void		clean_reds_sentences(t_sentence *lst_sentence);
 int			check_export(char *key, char *str);
 int			check_unset(char *key);
 t_env		*compare_key(t_env *env, char *key);
-int			export(int size, char *str[], t_env *env);
+int			export(int size, char *str[], t_env **env);
 void		export_error(char *str);
 void		env(t_env *env);
 void		print_export(t_env *env);

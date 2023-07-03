@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
+#include "libft.h"
 #include "minishell.h"
+#include "types.h"
 
 /*
  * Input			:t_env *env - envp list(head)
@@ -21,6 +24,8 @@
  */
 static void	append_env(t_env *env, char *key, char *value)
 {
+	if (!env->size)
+		set_envsize(env);
 	while (env->next)
 		env = env->next;
 	env->next = new_env(key, value);
@@ -66,7 +71,7 @@ static int	check_entry(char *entry)
  * 					:calls functions that will manipulate and check the format of the string
  * 					that was split
  */
-static void	add_export(t_env *env, char *str)
+static void	add_export(t_env **env, char *str)
 {
 	t_env	*new;
 	char	*key;
@@ -84,11 +89,13 @@ static void	add_export(t_env *env, char *str)
 		export_error(str);
 		return ;
 	}
-	new = compare_key(env, key);
-	if (new == NULL)
-		append_env(env, key, value);
-	else
+	new = compare_key(*env, key);
+	if (new)
 		modify_env(new, value);
+	else if (*env)
+		append_env(*env, key, value);
+	else
+		*env = new_env(key, value);
 	free(key);
 	free(value);
 }
@@ -104,14 +111,14 @@ static void	add_export(t_env *env, char *str)
  * 					:or
  * 					:add a new environment variable (if true)
  */
-int	export(int size, char *str[], t_env *env)
+int	export(int size, char *str[], t_env **env)
 {
 	int		i;
 
 	i = 0;
 	if (size == 1)
 	{
-		print_export(env);
+		print_export(*env);
 		return (0);
 	}
 	while (++i < size)
