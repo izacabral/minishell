@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:22:57 by izsoares          #+#    #+#             */
-/*   Updated: 2023/07/03 13:23:22 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/03 19:43:38 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	has_hdoc(t_token *lst)
 		if (tmp->tkn == HDOC)
 			break ;
 	}
-	if (tmp && tmp->tkn == HDOC)
+	if (tmp && tmp->tkn == HDOC && tmp->next && tmp->next->tkn == WORD)
 	{
 		file = ft_strdup(tmp->next->word);
 		init_cmd(&cmd);

@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:45:24 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/06 12:29:16 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 20:23:49 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ int	main(void)
 	buffer[4] = "cat teste2 < teste3 |ls | teste4 > clear";
 	buffer[5] = "cat teste2 | < teste3";
 	buffer[6] = "cat teste2 |< teste3";
-	buffer[7] = "cat teste2 |";
 	buffer[8] = "cat main.c |> teste";
-	buffer[9] = "<< EOF";
-	buffer[10] = "cat > teste main.c";
-	buffer[11] = "> teste cat main.c";
+	buffer[9] = "cat > teste main.c";
+	buffer[10] = "> teste cat main.c";
 
 	// percorrer as strings acima criando a lista de tokens e verificando se o retorno de lexer é 0
 	// se lexer não for 0, retorna -1
@@ -59,6 +57,7 @@ int	main(void)
 		if (lst)
 		{
 			clear_token(&lst);
+			lst = NULL;
 		}
 		if (ret == 0)
 		{
@@ -107,6 +106,7 @@ int	main(void)
 	buffer[23] = "cat teste | | wc -l";
 	buffer[24] = "cat teste | || wc -l";
 	buffer[25] = "cat teste || | wc -l";
+	buffer[26] = "cat teste2 |";
 
 
 	// percorrer as strings acima criando a lista de tokens e verificando se o retorno de lexer é -2
