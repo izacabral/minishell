@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 20:08:15 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/14 22:23:49 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/02 01:53:29 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@
  */
 static char	*rem_str_quotes(char *str)
 {
-	int		i;
-	int		j;
-	char	*new_str;
+	int			i;
+	char		*new_str;
+	const int	size = ft_strlen(str);
 
 	i = 0;
-	j = 0;
-	new_str = NULL;
+	new_str = ft_strdup("\0");
 	while (str[i])
 	{
 		if (str[i] == '\'' || str[i] == '\"')
@@ -42,10 +41,11 @@ static char	*rem_str_quotes(char *str)
 		}
 		else
 		{
-			j = no_quote_size(&str[i]);
 			new_str = while_no_quotes(str, i, new_str);
-			i = i + j;
+			i = i + no_quote_size(&str[i]);
 		}
+		if (i > size)
+			break ;
 	}
 	free(str);
 	return (new_str);

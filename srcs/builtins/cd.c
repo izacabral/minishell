@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmatavel <dmatavel@student.42.rio>         +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:18:32 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/06/19 23:17:19 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:03:26 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static char	*get_home(t_shell *data)
 	t_env	*home;
 
 	home = compare_key(data->lst_env, "HOME");
+	if (!home)
+		return (NULL);
 	return (home->value);
 }
 
@@ -69,7 +71,9 @@ static int	change_dir(char *path, t_shell *data)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(path, 2);
-		ft_putendl_fd(": No such file or directory", 2);
+		ft_putstr_fd(": ", 2);
+		ft_putendl_fd(strerror(errno), 2);
+		g_global = 1;
 		return (1);
 	}
 	return (0);
@@ -82,6 +86,7 @@ int	cd(int argc, char **argv, t_shell *data)
 	if (argc > 2)
 	{
 		ft_putendl_fd("minishell: cd: too many arguments", 2);
+		g_global = 1;
 		return (1);
 	}
 	cwd = getcwd(NULL, 0);
