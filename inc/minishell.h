@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/07/03 13:23:44 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:04:29 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void		close_fds(t_shell *data);
 void		free_shell(t_shell *data);
 void		executor(t_shell *data);
 void		print_executor_error(char *str);
+int			ft_strlen_buf(const char *s);
+void		check_buf(char **str);
 
 // srcs/parser/
 int			isquotes(char c);

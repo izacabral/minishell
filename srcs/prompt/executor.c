@@ -6,20 +6,11 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:52:16 by izsoares          #+#    #+#             */
-/*   Updated: 2023/07/03 15:26:11 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:37:49 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_executor_error(char *str)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putendl_fd(strerror(errno), 2);
-	g_global = 127;
-}
 
 void	exec_sentence(t_sentence *sentence, t_shell *data)
 {
@@ -67,6 +58,19 @@ void	exec_one(t_sentence *tmp, t_shell *data, t_builtin builtin)
 	close_fds(data);
 }
 
+static void	check_exec(t_sentence *tmp, t_shell *data)
+{
+	if (tmp->fd_i != -1 && tmp->fd_o != -1 && tmp->args[0] \
+		&& tmp->hdocsign != 130)
+	{
+		tmp->pid = fork();
+		if (tmp->pid == -1)
+			print_executor_error(strerror(errno));
+		if (tmp->pid == 0)
+			exec_sentence(tmp, data);
+	}
+}
+
 void	executor(t_shell *data)
 {
 	t_sentence	*tmp;
@@ -80,14 +84,7 @@ void	executor(t_shell *data)
 	{
 		while (tmp)
 		{
-			if (tmp->fd_i != -1 && tmp->fd_o != -1 && tmp->args[0] && tmp->hdocsign != 130)
-			{
-				tmp->pid = fork();
-				if (tmp->pid == -1)
-					print_executor_error(strerror(errno));
-				if (tmp->pid == 0)
-					exec_sentence(tmp, data);
-			}
+			check_exec(tmp, data);
 			tmp = tmp->next;
 		}
 		close_fds(data);

@@ -1,20 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   ft_strlen_buf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 20:41:43 by izsoares          #+#    #+#             */
-/*   Updated: 2023/07/03 16:48:21 by izsoares         ###   ########.fr       */
+/*   Created: 2023/07/03 16:18:53 by izsoares          #+#    #+#             */
+/*   Updated: 2023/07/03 17:27:55 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#include "minishell.h"
 
-# define ERROR_BUILTINS -1
-# define SUCESS_BUILTINS 1
-# define BUFLIM 4000
+int	ft_strlen_buf(const char *s)
+{
+	int	length;
 
-#endif
+	length = 0;
+	while (s[length])
+	{
+		length++;
+		if (length > BUFLIM)
+			return (1);
+	}
+	return (0);
+}
+
+void	check_buf(char **str)
+{
+	if (ft_strlen_buf(*str))
+	{
+		free(*str);
+		*str = NULL;
+	}
+}

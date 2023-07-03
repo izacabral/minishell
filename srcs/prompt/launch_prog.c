@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/03 13:04:13 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:31:37 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	trim_line(t_shell *data);
  */
 void	launch_prog(t_shell *data)
 {
+	if (data->line == NULL)
+		return ;
 	trim_line(data);
 	if (scan_line(&data->lst_token, data->line) == 0
 		&& lexer(data->lst_token) == 0)
@@ -37,7 +39,6 @@ void	launch_prog(t_shell *data)
 		}
 		executor(data);
 	}
-	free_shell(data);
 }
 
 static void	trim_line(t_shell *data)

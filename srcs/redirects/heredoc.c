@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 00:01:33 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/07/03 15:26:40 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:21:00 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ static int	isquoted(char *str)
 		str++;
 	}
 	return (0);
+}
+
+static void	fill_fd(char **line, int expand, int fd, t_env *env)
+{
+	if (expand)
+		expand_hdoc_var(line, env);
+	ft_putendl_fd(*line, fd);
+	free(*line);
+	*line = NULL;
 }
 
 static void	hdoc_routine(char *file, int expand, int fd, t_env *env)
@@ -39,15 +48,13 @@ static void	hdoc_routine(char *file, int expand, int fd, t_env *env)
 				free(line_read);
 			return ;
 		}
+		check_buf(&line_read);
 		if (!line_read || ft_strncmp(line_read, file, size) == 0)
 		{
 			free(line_read);
 			break ;
 		}
-		if (expand)
-			expand_hdoc_var(&line_read, env);
-		ft_putendl_fd(line_read, fd);
-		free(line_read);
+		fill_fd(&line_read, expand, fd, env);
 	}
 	return ;
 }
