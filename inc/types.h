@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/20 10:57:25 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:04:15 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_token
 	int					tkn;
 	char				*word;
 	struct s_token		*next;
+	struct s_token		*previous;
 }						t_token;
 
 typedef struct s_sentence
