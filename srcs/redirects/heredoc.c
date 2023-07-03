@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fpeixoto <fpeixoto@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 00:01:33 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/06/14 22:50:22 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:26:40 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	heredoc(t_sentence *cmd, char *file, t_env *env)
 		return (-1);
 	}
 	hdoc_routine(cpy_file, expand, pipe_fd[1], env);
+	if (g_global == 130)
+		cmd->hdocsign = 130;
 	cmd->fd_i = pipe_fd[0];
 	close (pipe_fd[1]);
 	free(cpy_file);

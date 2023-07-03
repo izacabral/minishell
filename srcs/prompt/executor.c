@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:52:16 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/22 03:34:19 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:26:11 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	wait_sentences(t_shell *data)
 	status = 0;
 	while (tmp)
 	{
-		if (tmp->args[0])
+		if (tmp->args[0] && tmp->hdocsign != 130)
 		{
 			g_global = 0;
 			waitpid(tmp->pid, &status, 0);
@@ -80,7 +80,7 @@ void	executor(t_shell *data)
 	{
 		while (tmp)
 		{
-			if (tmp->fd_i != -1 && tmp->fd_o != -1 && tmp->args[0])
+			if (tmp->fd_i != -1 && tmp->fd_o != -1 && tmp->args[0] && tmp->hdocsign != 130)
 			{
 				tmp->pid = fork();
 				if (tmp->pid == -1)

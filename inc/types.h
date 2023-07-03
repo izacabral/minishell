@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:42:22 by izsoares          #+#    #+#             */
-/*   Updated: 2023/07/03 12:04:15 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:21:41 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_sentence
 	int					fd_o;
 	int					reds_inside;
 	int					pid;
+	int					hdocsign;
 	struct s_sentence	*previous;
 	struct s_sentence	*next;
 }						t_sentence;
