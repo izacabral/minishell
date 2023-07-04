@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 00:01:33 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/07/03 17:21:00 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:28:46 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	heredoc(t_sentence *cmd, char *file, t_env *env)
 	cpy_file = ft_strdup(file);
 	expand = !isquoted(cpy_file);
 	if (!expand)
-		cpy_file = ft_strdup((remove_hdoc_quotes(cpy_file)));
+		cpy_file = remove_hdoc_quotes(cpy_file);
 	if (pipe(pipe_fd) == -1)
 	{
 		error_redir(cpy_file);
