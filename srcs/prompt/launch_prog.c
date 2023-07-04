@@ -6,11 +6,12 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/03 16:31:37 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:02:51 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "ft_printf.h"
 #include "minishell.h"
 
 static void	trim_line(t_shell *data);
@@ -29,6 +30,8 @@ void	launch_prog(t_shell *data)
 		return ;
 	data->line = expand_sentence(&data->line, data->lst_env, 0);
 	trim_line(data);
+	if (!data->line)
+		return ;
 	if (scan_line(&data->lst_token, data->line) == 0
 		&& lexer(data->lst_token) == 0)
 	{
