@@ -6,11 +6,12 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/22 21:55:00 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:40:35 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "types.h"
 
 static int	sentence_lenght(char *sentence, t_quotes quote);
 static void	split_sentence(t_string **lst, t_repl *repl, t_env *env);
@@ -72,7 +73,8 @@ static int	sentence_lenght(char *sentence, t_quotes quote)
 	len = 0;
 	if (!quote)
 	{
-		while (sentence[len] && which_quotes(sentence[len]) == NONE)
+		while (sentence[len] && which_quotes(sentence[len]) == NONE \
+				/*&& which_delim(sentence) == HDOC*/)
 			len++;
 		return (len);
 	}
@@ -80,7 +82,11 @@ static int	sentence_lenght(char *sentence, t_quotes quote)
 	{
 		len = 1;
 		while (which_quotes(sentence[len]) != quote)
+		{
+			if (!sentence[len])
+				return (len);
 			len++;
+		}
 		return (len + 1);
 	}
 }
