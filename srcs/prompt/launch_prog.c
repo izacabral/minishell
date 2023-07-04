@@ -6,12 +6,10 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/04 14:02:51 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:18:51 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-#include "ft_printf.h"
 #include "minishell.h"
 
 static void	trim_line(t_shell *data);
@@ -66,5 +64,10 @@ static void	trim_line(t_shell *data)
 	}
 	tmp = data->line;
 	data->line = ft_strtrim(tmp, " ");
+	if (data->line && !*data->line)
+	{
+		free(data->line);
+		data->line = NULL;
+	}
 	free(tmp);
 }
