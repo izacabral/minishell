@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:45:24 by izsoares          #+#    #+#             */
-/*   Updated: 2023/07/04 18:13:34 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:44:26 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(void)
 	scan_line(&lst, buffer);
 
 	/* CRIAÇÃO DA LISTA DE SENTENÇAS*/
-	create_sentences(var1, &lst, &lst_sen);
+	create_sentences(&lst, &lst_sen);
 
 	/* REMOÇÃO DOS REDIRECTS E FILE NAMES DA LISTA DE SENTENÇAS*/
 	clean_reds_sentences(lst_sen);

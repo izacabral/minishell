@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 07:06:41 by izsoares          #+#    #+#             */
-/*   Updated: 2023/07/04 18:18:24 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:45:43 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int main(void)
 	}
 
 	/* CRIAÇÃO DA LISTA DE SENTENÇAS */
-	create_sentences(data.lst_env, &data.lst_token, &data.lst_sentence);
+	create_sentences(&data.lst_token, &data.lst_sentence);
 
 	/* CRIA UMA STRING A PARTIR DA LISTA DE SENTENÇAS*/
 	char *check;

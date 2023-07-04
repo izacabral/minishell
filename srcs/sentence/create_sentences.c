@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 22:26:46 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/11 17:15:28 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:37:20 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ static t_token	*get_next_sentence(t_token **lst_token)
  *
  * Uses		: launch_prog();
  */
-void	create_sentences(t_env *env, t_token **lst_token, \
-			t_sentence **lst_sentence)
+void	create_sentences(t_token **lst_token, t_sentence **lst_sentence)
 {
 	char		**args;
 	t_token		*tmp_tkn;
@@ -98,7 +97,6 @@ void	create_sentences(t_env *env, t_token **lst_token, \
 	{
 		args = NULL;
 		args = tkn_to_sentence(&tmp_tkn);
-		//expandvars(args, env);
 		remove_quotes(args);
 		tmp_sen = NULL;
 		tmp_sen = new_sentence(args);

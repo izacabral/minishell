@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:45:24 by izsoares          #+#    #+#             */
-/*   Updated: 2023/07/04 17:06:19 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:43:48 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(void)
 
 
 	/* CRIAÇÃO DA LISTA DE SENTENÇAS*/
-	create_sentences(var1, &lst, &lst_sen);
+	create_sentences(&lst, &lst_sen);
 
 	/* CRIA UMA STRING A PARTIR DA LISTA DE SENTENÇAS*/
 	char *check;

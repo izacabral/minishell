@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/04 15:18:51 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:37:50 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	launch_prog(t_shell *data)
 	if (scan_line(&data->lst_token, data->line) == 0
 		&& lexer(data->lst_token) == 0)
 	{
-		create_sentences(data->lst_env, &data->lst_token, &data->lst_sentence);
+		create_sentences(&data->lst_token, &data->lst_sentence);
 		fill_shell (data);
 		if (data->pipe_count > 0 || data->redirect_count > 0)
 		{

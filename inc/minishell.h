@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/07/04 17:39:21 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:34:27 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ int			call_execve(char **args, char *path, char **envs);
 void		print_execve_error(char *str, int error);
 
 // srcs/sentence/
-void		create_sentences(t_env *env, t_token **lst_token, \
-				t_sentence **lst_sentence);
+void		create_sentences(t_token **lst_token, t_sentence **lst_sentence);
 int			new_index(char *str, int i);
 int			no_quote_size(char *str);
 int			quote_size(char *str, char quote);
