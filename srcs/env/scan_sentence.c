@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/04 15:40:35 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:12:38 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ t_string	*scan_sentence(char *sentence, t_env *env, int hdoc)
 	while (sentence[i])
 	{
 		repl.new = NULL;
+		if (which_delim(&sentence[i]) == HDOC)
+			i += walk_hdoc(&sentence[i]);
 		repl.quote = which_quotes(sentence[i]);
 		if (hdoc)
 			repl.quote = NONE;
@@ -74,7 +76,7 @@ static int	sentence_lenght(char *sentence, t_quotes quote)
 	if (!quote)
 	{
 		while (sentence[len] && which_quotes(sentence[len]) == NONE \
-				/*&& which_delim(sentence) == HDOC*/)
+				&& which_delim(sentence) == HDOC)
 			len++;
 		return (len);
 	}
