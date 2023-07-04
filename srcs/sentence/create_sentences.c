@@ -98,7 +98,7 @@ void	create_sentences(t_env *env, t_token **lst_token, \
 	{
 		args = NULL;
 		args = tkn_to_sentence(&tmp_tkn);
-		expandvars(args, env);
+		//expandvars(args, env);
 		remove_quotes(args);
 		tmp_sen = NULL;
 		tmp_sen = new_sentence(args);
@@ -106,4 +106,5 @@ void	create_sentences(t_env *env, t_token **lst_token, \
 		addback_sentence(&(*lst_sentence), tmp_sen);
 		tmp_tkn = get_next_sentence(&tmp_tkn);
 	}
+	(void)env;
 }

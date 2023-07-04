@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "env.h"
 #include "minishell.h"
 
 static void	trim_line(t_shell *data);
@@ -26,6 +27,7 @@ void	launch_prog(t_shell *data)
 {
 	if (data->line == NULL)
 		return ;
+	data->line = expand_sentence(&data->line, data->lst_env, 0);
 	trim_line(data);
 	if (scan_line(&data->lst_token, data->line) == 0
 		&& lexer(data->lst_token) == 0)
@@ -43,11 +45,23 @@ void	launch_prog(t_shell *data)
 
 static void	trim_line(t_shell *data)
 {
-	char	*tmp;
+	char		*tmp;
+	t_quotes	q;
 
 	tmp = data->line;
 	if (!tmp)
 		return ;
+	while (*tmp)
+	{
+		q = which_quotes(*tmp);
+		if (q && which_quotes(*(tmp + 1)) == q)
+		{
+			*tmp = ' ';
+			*(tmp + 1) = ' ';
+		}
+		tmp++;
+	}
+	tmp = data->line;
 	data->line = ft_strtrim(tmp, " ");
 	free(tmp);
 }
