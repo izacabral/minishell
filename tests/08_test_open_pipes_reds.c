@@ -6,10 +6,11 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 07:06:41 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/14 07:06:44 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:18:24 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "env.h"
 #include "minishell.h"
 
 int	g_global = 0;
@@ -68,6 +69,9 @@ int main(void)
 	data.lst_env = get_env(fake_envs);
 
 	data.line = ft_strdup("echo \"hey hey\" > input.txt | Test > $MINISHELL for expansion < \"\'$MINISHELL\'\" no created | echo < project | teste >> aqui teste > aqui teste > aqui teste > aqui ls");
+
+	/* EXPANSÃO DE VARIÁVEIS */
+	data.line = expand_sentence(&data.line, data.lst_env, 0);
 
 	/* CRIAÇÃO DA LISTA DE TOKENS */
 	if (scan_line(&data.lst_token, data.line) != 0)
