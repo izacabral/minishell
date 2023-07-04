@@ -6,10 +6,12 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:45:24 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/11 21:15:47 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:13:34 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "env.h"
+#include "libft.h"
 #include "minishell.h"
 
 int g_global = 0;
@@ -25,11 +27,7 @@ int	main(void)
 	lst = NULL;
 	lst_sen = NULL;
 
-	buffer = " Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear teste > aqui teste > aqui teste > aqui ls | cat << $USER | cat << \"$USER\"";
-
-
-	/* CRIAÇÃO DA LISTA DE TOKENS */
-	scan_line(&lst, buffer);
+	buffer = ft_strdup(" Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear teste > aqui teste > aqui teste > aqui ls | cat << $USER | cat << \"$USER\"");
 
 	/* CRIAÇÃO DA T_ENV PARA TESTE */
 	t_env	*var1;
@@ -44,6 +42,12 @@ int	main(void)
 	var2->value = NULL;
 	var1->next = var2;
 	var2->next = NULL;
+
+	/* EXPANSÃO DAS VARIÁVEIS */
+	buffer = expand_sentence(&buffer, var1, 0);
+
+	/* CRIAÇÃO DA LISTA DE TOKENS */
+	scan_line(&lst, buffer);
 
 	/* CRIAÇÃO DA LISTA DE SENTENÇAS*/
 	create_sentences(var1, &lst, &lst_sen);
