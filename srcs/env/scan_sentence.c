@@ -6,16 +6,14 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/04 16:12:38 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:40:08 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "types.h"
 
 static int	sentence_lenght(char *sentence, t_quotes quote);
 static void	split_sentence(t_string **lst, t_repl *repl, t_env *env);
-static void	stash_string(t_string **lst, char *sentence, int size);
 static int	expvar(t_string **lst, char *var, t_env *env);
 
 /*
@@ -40,7 +38,7 @@ t_string	*scan_sentence(char *sentence, t_env *env, int hdoc)
 	{
 		repl.new = NULL;
 		if (which_delim(&sentence[i]) == HDOC)
-			i += walk_hdoc(&sentence[i]);
+			i += walk_hdoc(sentence, &output, i);
 		repl.quote = which_quotes(sentence[i]);
 		if (hdoc)
 			repl.quote = NONE;
@@ -49,6 +47,7 @@ t_string	*scan_sentence(char *sentence, t_env *env, int hdoc)
 			repl.old_sz = ft_strlen(sentence);
 		else
 			repl.old_sz = sentence_lenght(repl.old, repl.quote);
+		printf("i: %d  %s\n", repl.old_sz, &sentence[i]);
 		split_sentence(&output, &repl, env);
 		if (!output)
 			return (NULL);
@@ -76,7 +75,7 @@ static int	sentence_lenght(char *sentence, t_quotes quote)
 	if (!quote)
 	{
 		while (sentence[len] && which_quotes(sentence[len]) == NONE \
-				&& which_delim(sentence) == HDOC)
+				&& which_delim(&sentence[len]) != HDOC)
 			len++;
 		return (len);
 	}
@@ -120,25 +119,18 @@ static void	split_sentence(t_string **lst, t_repl *repl, t_env *env)
 		}
 		j++;
 	}
+	//ft_printf("antes do if:%s\n", tmp);
 	if ((!*lst && !tmp[j + i]) || !tmp[i])
+	{
+		//ft_printf("depois do if:%s\n", tmp);
+		//ft_printf("depois do if i :%d\n", i);
+		//ft_printf("depois do if j :%d\n", j);
 		return ;
+
+	}
 	repl->new = ft_substr(&tmp[i], 0, j);
 	if (repl->new && *repl->new)
 		ft_stradd_back(lst, ft_strnew(repl->new, j));
-}
-
-/*
- * Fn		: stash_string(t_string **lst, char *sentence, int size)
- * Scope	: stores the string up to the character before $
- * Uses		: split_sentence()
- */
-static void	stash_string(t_string **lst, char *sentence, int size)
-{
-	char	*to_stash;
-
-	to_stash = ft_substr(sentence, 0, size);
-	if (to_stash && *to_stash)
-		ft_stradd_back(lst, ft_strnew(to_stash, size));
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/07/04 16:05:17 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:39:21 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int			iscrule(int c, int first);
 void		expand_hdoc_var(char **sentence, t_env *env);
 void		swap_ptr(char **a, char **b);
 char		*get_global(char *var, int size);
-int			walk_hdoc(char *str);
+void		stash_string(t_string **lst, char *sentence, int size);
+int			walk_hdoc(char *str, t_string **output, int index);
 
 // srcs/exec/
 void		exec_command(char *comm, char **args, t_shell *data);

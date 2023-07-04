@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   walk_hdoc.c                                        :+:      :+:    :+:   */
+/*   stash_string.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 15:56:57 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/04 17:44:12 by izsoares         ###   ########.fr       */
+/*   Created: 2023/07/04 17:28:21 by izsoares          #+#    #+#             */
+/*   Updated: 2023/07/04 17:30:09 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	walk_hdoc(char *str, t_string **output, int index)
+/*
+ * Fn		: stash_string(t_string **lst, char *sentence, int size)
+ * Scope	: stores the string up to the character before $
+ * Uses		: split_sentence()
+ */
+void	stash_string(t_string **lst, char *sentence, int size)
 {
-	int	i;
+	char	*to_stash;
 
-	i = 2;
-	if (!str[i + index])
-	{
-		stash_string(output, str, i + index);
-		return (i);
-	}
-	while (ft_isspace(str[i + index]))
-		i++;
-	while (str[i + index] && !ft_isspace(str[i + index]))
-		i++;
-	if (!output)
-		stash_string(output, str, i + index);
-	else
-		stash_string(output, &str[index], i);
-	return (i);
+	to_stash = ft_substr(sentence, 0, size);
+	if (to_stash && *to_stash)
+		ft_stradd_back(lst, ft_strnew(to_stash, size));
 }

@@ -76,12 +76,18 @@ int	main(void)
 	tab[16] = NULL;
 
 	/* EXPANSÃO DAS VARIÁVEIS */
-	expandvars(tab, var1);
-
+	int i = 0;
+	while (tab[i])
+	{
+		tab[i] = expand_sentence(&tab[i], var1, 0);
+		ft_printf("%d: %s\n", i, tab[i]);
+		i++;
+	}
+	
 	/* CRIAÇÃO DO ARRAY DE STRINGS COMO DEVERIAM FICAR */
 	char *check[size];
 
-	int i = 0;
+	i = 0;
 	while (i < size)
 	{
 		check[i] = NULL;
