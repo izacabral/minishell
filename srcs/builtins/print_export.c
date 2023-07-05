@@ -40,7 +40,7 @@ static t_env	*sort_env(t_env *env)
 	t_env	*new_node;
 
 	new_node = env;
-	while (new_node->next)
+	while (new_node && new_node->next)
 	{
 		if (ft_strcmp(new_node->key, new_node->next->key) > 0)
 		{
@@ -62,6 +62,8 @@ static t_env	*copy_env_list(t_env *env)
 	t_env	*new_node;
 	t_env	*tmp_node;
 
+	if (!env)
+		return (NULL);
 	new_node = new_env(env->key, env->value);
 	tmp_node = new_node;
 	env = env->next;

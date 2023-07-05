@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/01 13:32:53 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:27:33 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,22 @@
 
 int	g_global = 0;
 
-int	main(int argc, char *argv[], char *envp[])
+static int	check_argc(int argc)
 {
-	t_shell	data;
-
 	if (argc != 1)
 	{
 		ft_putendl_fd("\e[31m---Too many arguments---\e[0m", 2);
 		return (0);
 	}
+	return (1);
+}
+
+int	main(int argc, char *argv[], char *envp[])
+{
+	t_shell	data;
+
+	if (!check_argc(argc))
+		return (0);
 	(void) argv;
 	init_shell(&data);
 	data.lst_env = NULL;
@@ -33,9 +40,11 @@ int	main(int argc, char *argv[], char *envp[])
 		data.line = readline_gets(data.line);
 		if (!data.line)
 			break ;
-		if (*data.line && !only_spaces(data.line))
+		check_buf(&data.line);
+		if (data.line && *data.line && !only_spaces(data.line))
 			add_history(data.line);
 		launch_prog(&data);
+		free_shell(&data);
 	}
 	free_shell(&data);
 	clear_env(&data.lst_env);

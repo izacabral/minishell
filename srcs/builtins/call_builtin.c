@@ -33,7 +33,7 @@ int	call_builtin(char **args, t_shell *data, t_builtin builtin)
 	if (builtin == PWD)
 		return (pwd(1));
 	if (builtin == EXPORT)
-		return (export(size, args, data->lst_env));
+		return (export(size, args, &data->lst_env));
 	if (builtin == UNSET)
 		return (unset(size, args, &data->lst_env));
 	if (builtin == ENV)

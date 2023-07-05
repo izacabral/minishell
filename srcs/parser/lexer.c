@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 15:26:25 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/06 12:26:39 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 20:13:06 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@
  *
  * OBS		: assign error 258 to global variable representing ?
  */
-static void	print_syntax_error(char *word)
+static void	print_syntax_error(char *word, t_token *lst)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(word, 2);
 	ft_putendl_fd("'", 2);
-	g_global = 258;
+	has_hdoc(lst);
+	if (g_global != 130)
+		g_global = 2;
 }
 
 /*
@@ -46,12 +48,12 @@ static int	next_token(t_token *tmp)
 {
 	if (!tmp->next)
 	{
-		print_syntax_error("newline");
+		print_syntax_error("newline", tmp);
 		return (-1);
 	}
 	if (tmp->next && tmp->next->tkn != WORD)
 	{
-		print_syntax_error(tmp->next->word);
+		print_syntax_error(tmp->next->word, tmp);
 		return (-1);
 	}
 	else
@@ -77,14 +79,13 @@ static int	lexer_iterate(t_token *tmp)
 		{
 			if (tmp->next->tkn == PIPE)
 			{
-				print_syntax_error(tmp->next->word);
+				print_syntax_error(tmp->next->word, tmp);
 				return (-2);
 			}
 			else
 				tmp = tmp->next;
 		}
-		if ((tmp->tkn == IN || tmp->tkn == OUT
-				|| tmp->tkn == HDOC || tmp->tkn == APPEND))
+		if ((tmp->tkn >= PIPE))
 		{
 			if (next_token(tmp) == -1)
 				return (-2);
@@ -114,13 +115,12 @@ int	lexer(t_token *lst)
 		return (-1);
 	if (tmp->tkn == PIPE)
 	{
-		print_syntax_error(tmp->word);
+		print_syntax_error(tmp->word, tmp);
 		return (-2);
 	}
-	if (!tmp->next && (tmp->tkn == IN || tmp->tkn == OUT
-			|| tmp->tkn == HDOC || tmp->tkn == APPEND))
+	if (!tmp->next && (tmp->tkn >= IN))
 	{
-		print_syntax_error("newline");
+		print_syntax_error("newline", tmp);
 		return (-2);
 	}
 	if (lexer_iterate(tmp) == -2)

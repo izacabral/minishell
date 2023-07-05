@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdelone.c                                     :+:      :+:    :+:   */
+/*   print_executor_error.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 00:25:44 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/03 18:24:16 by izsoares         ###   ########.fr       */
+/*   Created: 2023/07/03 17:37:18 by izsoares          #+#    #+#             */
+/*   Updated: 2023/07/03 17:37:32 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_strdelone(t_string *lst, void (*del)(void *))
+void	print_executor_error(char *str)
 {
-	(*del)(lst->content);
-	free(lst);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(strerror(errno), 2);
+	g_global = 127;
 }

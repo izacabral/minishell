@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.rio>         +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:31:08 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/14 15:56:57 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:24:19 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h"
 
 t_string	*ft_strnew(char *str, size_t length)
 {

@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/11 17:14:03 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/04 23:05:27 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,16 @@ static void	trim_line(t_shell *data);
  */
 void	launch_prog(t_shell *data)
 {
+	if (data->line == NULL)
+		return ;
+	data->line = expand_sentence(&data->line, data->lst_env, 0);
 	trim_line(data);
+	if (!data->line)
+		return ;
 	if (scan_line(&data->lst_token, data->line) == 0
 		&& lexer(data->lst_token) == 0)
 	{
-		create_sentences(data->lst_env, &data->lst_token, &data->lst_sentence);
+		create_sentences(&data->lst_token, &data->lst_sentence);
 		fill_shell (data);
 		if (data->pipe_count > 0 || data->redirect_count > 0)
 		{
@@ -37,16 +42,20 @@ void	launch_prog(t_shell *data)
 		}
 		executor(data);
 	}
-	free_shell(data);
 }
 
 static void	trim_line(t_shell *data)
 {
-	char	*tmp;
+	char		*tmp;
 
 	tmp = data->line;
 	if (!tmp)
 		return ;
 	data->line = ft_strtrim(tmp, " ");
+	if (data->line && !*data->line)
+	{
+		free(data->line);
+		data->line = NULL;
+	}
 	free(tmp);
 }

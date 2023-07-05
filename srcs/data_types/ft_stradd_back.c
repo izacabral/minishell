@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_stradd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 00:24:22 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/14 15:54:35 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:24:02 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h"
 
 void	ft_stradd_back(t_string **lst, t_string *new)
 {

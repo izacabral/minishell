@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_lexer.c                                       :+:      :+:    :+:   */
+/*   05_test_create_sentence.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:45:24 by izsoares          #+#    #+#             */
-/*   Updated: 2023/05/17 15:56:24 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:43:48 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ int	main(void)
 	lst = NULL;
 	lst_sen = NULL;
 
-	buffer = " Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear | cat << $USER | cat << \"$USER\"";
-
-	/* CRIAÇÃO DA LISTA DE TOKENS */
-	scan_line(&lst, buffer);
-
 	/* CRIAÇÃO DA T_ENV PARA TESTE */
 	t_env	*var1;
 	t_env	*var2;
@@ -44,8 +39,15 @@ int	main(void)
 	var1->next = var2;
 	var2->next = NULL;
 
+	buffer = ft_strdup(" Test variable $a for expansion < \"\" < Test \'$a\' no expansion | \"\"ls\"\" | \"\'teste4\'\" > clear | cat << $USER | cat << \"$USER\"");
+	buffer = expand_sentence(&buffer, var1, 0);
+
+	/* CRIAÇÃO DA LISTA DE TOKENS */
+	scan_line(&lst, buffer);
+
+
 	/* CRIAÇÃO DA LISTA DE SENTENÇAS*/
-    create_sentences(var1, &lst, &lst_sen);
+	create_sentences(&lst, &lst_sen);
 
 	/* CRIA UMA STRING A PARTIR DA LISTA DE SENTENÇAS*/
 	char *check;
@@ -70,6 +72,8 @@ int	main(void)
 	/* COMPARA CHECK COM O RESULTADO ESPERADO*/
 	char *correct = "Test variable var1 for expansion <  < Test $a no expansion ls \'teste4\' > clear cat << $USER cat << \"$USER\" ";
 	ver = ft_strncmp(check, correct, (ft_strlen(correct) + 1));
+
+	ft_printf("1 %s\n2 %s\n", correct, check);
 
 	/* LIBERAÇÃO DA T_ENV */
 	free(var1->key);

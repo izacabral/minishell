@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsetlast.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 21:51:56 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/14 15:57:21 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:24:22 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h"
 
 void	ft_strsetlast(t_string *lst, t_string *laststr)
 {

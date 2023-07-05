@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_varname.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.rio>         +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 13:29:37 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/13 12:21:06 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:27:40 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "libft.h"
 #include "minishell.h"
-#include <stdio.h>
 
 /*
  * Fn		: check_varname(char *key)

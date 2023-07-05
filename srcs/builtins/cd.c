@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:18:32 by dmatavel          #+#    #+#             */
-/*   Updated: 2023/06/30 19:03:26 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:44:26 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	change_dir(char *path, t_shell *data)
 		if (!path)
 		{
 			ft_putendl_fd("minishell: cd: HOME not set", 2);
+			g_global = 1;
 			return (1);
 		}
 		chdir(path);

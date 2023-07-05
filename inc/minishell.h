@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:41:13 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/30 18:36:40 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:34:27 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void		close_fds(t_shell *data);
 void		free_shell(t_shell *data);
 void		executor(t_shell *data);
 void		print_executor_error(char *str);
+int			ft_strlen_buf(const char *s);
+void		check_buf(char **str);
 
 // srcs/parser/
 int			isquotes(char c);
@@ -50,6 +52,7 @@ int			isdelim(char c);
 t_tkn		which_delim(char *delim);
 int			scan_line(t_token **lst, char *line);
 int			lexer(t_token *lst);
+void		has_hdoc(t_token *lst);
 
 // srcs/env/
 t_env		*get_env(char *environ[]);
@@ -60,6 +63,8 @@ int			iscrule(int c, int first);
 void		expand_hdoc_var(char **sentence, t_env *env);
 void		swap_ptr(char **a, char **b);
 char		*get_global(char *var, int size);
+void		stash_string(t_string **lst, char *sentence, int size);
+int			walk_hdoc(char *str, t_string **output, int index);
 
 // srcs/exec/
 void		exec_command(char *comm, char **args, t_shell *data);
@@ -69,8 +74,7 @@ int			call_execve(char **args, char *path, char **envs);
 void		print_execve_error(char *str, int error);
 
 // srcs/sentence/
-void		create_sentences(t_env *env, t_token **lst_token, \
-				t_sentence **lst_sentence);
+void		create_sentences(t_token **lst_token, t_sentence **lst_sentence);
 int			new_index(char *str, int i);
 int			no_quote_size(char *str);
 int			quote_size(char *str, char quote);
@@ -85,7 +89,7 @@ void		clean_reds_sentences(t_sentence *lst_sentence);
 int			check_export(char *key, char *str);
 int			check_unset(char *key);
 t_env		*compare_key(t_env *env, char *key);
-int			export(int size, char *str[], t_env *env);
+int			export(int size, char *str[], t_env **env);
 void		export_error(char *str);
 void		env(t_env *env);
 void		print_export(t_env *env);

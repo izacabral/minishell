@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:49:57 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/07/02 02:49:52 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:22:33 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ static int	check_n(char *str)
 	int	i;
 
 	i = 2;
-	if (!str)
-		return (0);
-	while (str[i] == 'n' && str[i])
+	while (str[i] && str[i] == 'n')
 		i++;
-	if (str[i] != 'n' && str[i])
+	if (str[i] && str[i] != 'n')
 		return (0);
 	return (1);
 }
@@ -33,12 +31,12 @@ int	echo(char **arg, int fd)
 
 	i = 1;
 	control = 0;
-	while (arg[i] && (ft_strncmp(arg[i], "-n", 2) == 0))
+	if (arg[i] && (ft_strncmp(arg[i], "-n", 2) == 0))
+		control = check_n(arg[i]);
+	while (control && arg[++i])
 	{
-		control = 1;
-		if (!check_n(arg[i]))
+		if (ft_strncmp(arg[i], "-n", 2) || !check_n(arg[i]))
 			break ;
-		i++;
 	}
 	while (arg[i])
 	{

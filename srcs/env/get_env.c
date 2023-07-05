@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:37:16 by vchastin          #+#    #+#             */
-/*   Updated: 2023/07/01 13:36:42 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:20:46 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_env	*get_env(char *environ[])
 		free(value);
 		index++;
 	}
-	set_envsize(env);
 	return (env);
 }
 

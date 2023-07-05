@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:09:25 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/30 20:42:17 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:32:59 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	exec_command(char *comm, char **args, t_shell *data)
 		{
 			if (envs)
 				free_array(envs);
+			free_shell(data);
+			clear_env(&data->lst_env);
 			exit(g_global);
 		}
 	}
