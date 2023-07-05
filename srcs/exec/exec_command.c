@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:09:25 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/03 11:32:59 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:15:53 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 static char	**env_to_array(t_env *lst);
 static char	*get_path(t_shell *data);
+
+static void	exec_builtin(char **args, t_shell *data, t_builtin builtin)
+{
+	call_builtin(args, data, builtin);
+	free_shell(data);
+	clear_env(&data->lst_env);
+	rl_clear_history();
+	exit(EXIT_SUCCESS);
+}
 
 /*
  * Fn		: exec_command(char *comm, char **args, t_shell *data)
@@ -34,10 +43,7 @@ void	exec_command(char *comm, char **args, t_shell *data)
 	builtin = isbuiltin(comm);
 	if (builtin)
 	{
-		call_builtin(args, data, builtin);
-		free_shell(data);
-		clear_env(&data->lst_env);
-		exit(EXIT_SUCCESS);
+		exec_builtin(args, data, builtin);
 	}
 	else
 	{
@@ -49,6 +55,7 @@ void	exec_command(char *comm, char **args, t_shell *data)
 				free_array(envs);
 			free_shell(data);
 			clear_env(&data->lst_env);
+			rl_clear_history();
 			exit(g_global);
 		}
 	}
