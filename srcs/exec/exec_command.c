@@ -3,16 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 00:09:25 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/20 00:09:27 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:15:53 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static char	**env_to_array(t_env *lst);
+static char	*get_path(t_shell *data);
+
+static void	exec_builtin(char **args, t_shell *data, t_builtin builtin)
+{
+	call_builtin(args, data, builtin);
+	free_shell(data);
+	clear_env(&data->lst_env);
+	rl_clear_history();
+	exit(EXIT_SUCCESS);
+}
 
 /*
  * Fn		: exec_command(char *comm, char **args, t_shell *data)
@@ -27,25 +37,26 @@ static char	**env_to_array(t_env *lst);
 void	exec_command(char *comm, char **args, t_shell *data)
 {
 	t_builtin	builtin;
-	t_env		*path;
+	char		*path;
 	char		**envs;
 
 	builtin = isbuiltin(comm);
 	if (builtin)
 	{
-		call_builtin(args, data, builtin);
-		free_shell(data);
-		clear_env(&data->lst_env);
-		exit(EXIT_SUCCESS);
+		exec_builtin(args, data, builtin);
 	}
 	else
 	{
 		envs = env_to_array(data->lst_env);
-		path = compare_key(data->lst_env, "PATH");
-		if (call_execve(args, path->value, envs) == -1)
+		path = get_path(data);
+		if (call_execve(args, path, envs) == -1)
 		{
-			free_array(envs);
-			exit(127);
+			if (envs)
+				free_array(envs);
+			free_shell(data);
+			clear_env(&data->lst_env);
+			rl_clear_history();
+			exit(g_global);
 		}
 	}
 }
@@ -56,8 +67,10 @@ static char	**env_to_array(t_env *lst)
 	char	*env_str;
 	char	**env_array;
 
-	tmp = lst;
 	env_str = NULL;
+	if (!lst)
+		return (NULL);
+	tmp = lst;
 	while (tmp)
 	{
 		env_str = ft_strjoin_free(env_str, tmp->key);
@@ -69,4 +82,17 @@ static char	**env_to_array(t_env *lst)
 	env_array = ft_split(env_str, '\n');
 	free(env_str);
 	return (env_array);
+}
+
+static char	*get_path(t_shell *data)
+{
+	t_env	*path;
+	char	*p;
+
+	path = compare_key(data->lst_env, "PATH");
+	if (!path)
+		p = NULL;
+	else
+		p = path->value;
+	return (p);
 }

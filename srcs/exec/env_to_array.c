@@ -1,19 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdelone.c                                     :+:      :+:    :+:   */
+/*   env_to_array.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 00:25:44 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/03 18:24:16 by izsoares         ###   ########.fr       */
+/*   Created: 2023/06/29 22:54:09 by izsoares          #+#    #+#             */
+/*   Updated: 2023/07/01 22:54:20 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_strdelone(t_string *lst, void (*del)(void *))
+char	**env_to_array(t_env *lst)
 {
-	(*del)(lst->content);
-	free(lst);
+	t_env	*tmp;
+	char	*env_str;
+	char	**env_array;
+
+	tmp = lst;
+	env_str = NULL;
+	while (tmp)
+	{
+		env_str = ft_strjoin_free(env_str, tmp->key);
+		env_str = ft_strjoin_free(env_str, "=");
+		env_str = ft_strjoin_free(env_str, tmp->value);
+		env_str = ft_strjoin_free(env_str, "?");
+		tmp = tmp->next;
+	}
+	env_array = ft_split(env_str, '?');
+	free(env_str);
+	return (env_array);
 }

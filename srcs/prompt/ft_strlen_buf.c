@@ -1,19 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdelone.c                                     :+:      :+:    :+:   */
+/*   ft_strlen_buf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 00:25:44 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/03 18:24:16 by izsoares         ###   ########.fr       */
+/*   Created: 2023/07/03 16:18:53 by izsoares          #+#    #+#             */
+/*   Updated: 2023/07/04 12:50:03 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_strdelone(t_string *lst, void (*del)(void *))
+int	ft_strlen_buf(const char *s)
 {
-	(*del)(lst->content);
-	free(lst);
+	int	length;
+
+	length = 0;
+	while (s[length])
+	{
+		length++;
+		if (length > BUFLIM)
+			return (1);
+	}
+	return (0);
+}
+
+void	check_buf(char **str)
+{
+	if (!*str)
+		return ;
+	if (ft_strlen_buf(*str))
+	{
+		free(*str);
+		*str = NULL;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_token.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 09:12:47 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/05/19 09:12:54 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:53:20 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_token	*new_token(char *ptr, t_tkn t)
 	new->tkn = t;
 	new->word = ptr;
 	new->next = NULL;
+	new->previous = NULL;
 	return (new);
 }
 
@@ -42,6 +43,7 @@ void	addback_token(t_token **lst, t_token *new)
 	{
 		tmp = find_last_token(*lst);
 		tmp->next = new;
+		new->previous = tmp;
 	}
 }
 

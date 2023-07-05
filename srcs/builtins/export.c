@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:49:52 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/12 22:37:55 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:21:43 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static void	append_env(t_env *env, char *key, char *value)
 	while (env->next)
 		env = env->next;
 	env->next = new_env(key, value);
-	env->next->size = env->size;
-	*env->size += 1;
 }
 
 /*
@@ -66,7 +64,7 @@ static int	check_entry(char *entry)
  * 					:calls functions that will manipulate and check the format of the string
  * 					that was split
  */
-static void	add_export(t_env *env, char *str)
+static void	add_export(t_env **env, char *str)
 {
 	t_env	*new;
 	char	*key;
@@ -84,11 +82,13 @@ static void	add_export(t_env *env, char *str)
 		export_error(str);
 		return ;
 	}
-	new = compare_key(env, key);
-	if (new == NULL)
-		append_env(env, key, value);
-	else
+	new = compare_key(*env, key);
+	if (new)
 		modify_env(new, value);
+	else if (*env)
+		append_env(*env, key, value);
+	else
+		*env = new_env(key, value);
 	free(key);
 	free(value);
 }
@@ -104,14 +104,14 @@ static void	add_export(t_env *env, char *str)
  * 					:or
  * 					:add a new environment variable (if true)
  */
-int	export(int size, char *str[], t_env *env)
+int	export(int size, char *str[], t_env **env)
 {
 	int		i;
 
 	i = 0;
 	if (size == 1)
 	{
-		print_export(env);
+		print_export(*env);
 		return (0);
 	}
 	while (++i < size)

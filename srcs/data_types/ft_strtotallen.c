@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtotallen.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:30:07 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/14 16:30:09 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:24:28 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h"
 
 size_t	ft_strtotallen(t_string *lst)
 {

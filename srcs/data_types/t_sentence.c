@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:12:12 by izsoares          #+#    #+#             */
-/*   Updated: 2023/06/20 21:31:56 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:21:14 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_sentence	*new_sentence(char **args)
 	new_node->fd_o = 1;
 	new_node->reds_inside = 0;
 	new_node->pid = -1;
+	new_node->hdocsign = 0;
 	new_node->previous = NULL;
 	new_node->next = NULL;
 	return (new_node);

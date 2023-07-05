@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/22 21:55:00 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:50:34 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	sentence_lenght(char *sentence, t_quotes quote);
 static void	split_sentence(t_string **lst, t_repl *repl, t_env *env);
-static void	stash_string(t_string **lst, char *sentence, int size);
 static int	expvar(t_string **lst, char *var, t_env *env);
 
 /*
@@ -38,6 +37,8 @@ t_string	*scan_sentence(char *sentence, t_env *env, int hdoc)
 	while (sentence[i])
 	{
 		repl.new = NULL;
+		if (which_delim(&sentence[i]) == HDOC)
+			i += walk_hdoc(sentence, &output, i);
 		repl.quote = which_quotes(sentence[i]);
 		if (hdoc)
 			repl.quote = NONE;
@@ -72,7 +73,8 @@ static int	sentence_lenght(char *sentence, t_quotes quote)
 	len = 0;
 	if (!quote)
 	{
-		while (sentence[len] && which_quotes(sentence[len]) == NONE)
+		while (sentence[len] && which_quotes(sentence[len]) == NONE \
+				&& which_delim(&sentence[len]) != HDOC)
 			len++;
 		return (len);
 	}
@@ -80,7 +82,11 @@ static int	sentence_lenght(char *sentence, t_quotes quote)
 	{
 		len = 1;
 		while (which_quotes(sentence[len]) != quote)
+		{
+			if (!sentence[len])
+				return (len);
 			len++;
+		}
 		return (len + 1);
 	}
 }
@@ -112,25 +118,11 @@ static void	split_sentence(t_string **lst, t_repl *repl, t_env *env)
 		}
 		j++;
 	}
-	if ((!*lst && !tmp[j + i]) || !tmp[i])
+	if ((!*lst && !tmp[j + i]) || !tmp[i] || j == 0)
 		return ;
 	repl->new = ft_substr(&tmp[i], 0, j);
 	if (repl->new && *repl->new)
 		ft_stradd_back(lst, ft_strnew(repl->new, j));
-}
-
-/*
- * Fn		: stash_string(t_string **lst, char *sentence, int size)
- * Scope	: stores the string up to the character before $
- * Uses		: split_sentence()
- */
-static void	stash_string(t_string **lst, char *sentence, int size)
-{
-	char	*to_stash;
-
-	to_stash = ft_substr(sentence, 0, size);
-	if (to_stash && *to_stash)
-		ft_stradd_back(lst, ft_strnew(to_stash, size));
 }
 
 /*

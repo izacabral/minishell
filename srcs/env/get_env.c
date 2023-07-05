@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vchastin <vchastin@student.42.rio>         +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:37:16 by vchastin          #+#    #+#             */
-/*   Updated: 2023/06/12 21:35:09 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:20:46 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static t_env	*get_pwd(t_env *env);
 
 /*
  * Input		:char *environ[] - environment variable
@@ -27,6 +29,10 @@ t_env	*get_env(char *environ[])
 
 	index = 0;
 	env = NULL;
+	if (!*environ)
+	{
+		env = get_pwd(env);
+	}
 	while (environ[index])
 	{
 		key = NULL;
@@ -37,6 +43,15 @@ t_env	*get_env(char *environ[])
 		free(value);
 		index++;
 	}
-	set_envsize(env);
+	return (env);
+}
+
+static t_env	*get_pwd(t_env *env)
+{
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	env = addfront_env(env, "PWD", path);
+	free(path);
 	return (env);
 }

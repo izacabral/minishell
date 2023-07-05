@@ -22,4 +22,5 @@ void	export_error(char *str)
 	ft_putstr_fd("'", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
+	g_global = 1;
 }

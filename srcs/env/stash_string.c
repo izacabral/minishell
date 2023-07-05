@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdelone.c                                     :+:      :+:    :+:   */
+/*   stash_string.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 00:25:44 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/03 18:24:16 by izsoares         ###   ########.fr       */
+/*   Created: 2023/07/04 17:28:21 by izsoares          #+#    #+#             */
+/*   Updated: 2023/07/04 17:30:09 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_strdelone(t_string *lst, void (*del)(void *))
+/*
+ * Fn		: stash_string(t_string **lst, char *sentence, int size)
+ * Scope	: stores the string up to the character before $
+ * Uses		: split_sentence()
+ */
+void	stash_string(t_string **lst, char *sentence, int size)
 {
-	(*del)(lst->content);
-	free(lst);
+	char	*to_stash;
+
+	to_stash = ft_substr(sentence, 0, size);
+	if (to_stash && *to_stash)
+		ft_stradd_back(lst, ft_strnew(to_stash, size));
 }

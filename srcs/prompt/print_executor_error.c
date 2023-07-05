@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   print_executor_error.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 14:39:49 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/27 00:38:59 by daolivei         ###   ########.fr       */
+/*   Created: 2023/07/03 17:37:18 by izsoares          #+#    #+#             */
+/*   Updated: 2023/07/03 17:37:32 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
-# include "types.h"
+#include "minishell.h"
 
-int		call_execve(char **args, char *path, char **envs);
-int		launch_command(char **args);
-
-#endif
+void	print_executor_error(char *str)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(strerror(errno), 2);
+	g_global = 127;
+}

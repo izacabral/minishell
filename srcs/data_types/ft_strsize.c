@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.rio>         +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:30:46 by daolivei          #+#    #+#             */
-/*   Updated: 2023/05/14 15:57:42 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:24:25 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h"
 
 int	ft_strsize(t_string *lst)
 {

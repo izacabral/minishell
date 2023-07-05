@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fpeixoto <fpeixoto@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 19:47:56 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/06/21 14:37:35 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:58:57 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ static void	exit_case2(char **args, t_shell *data)
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(args[1], 2);
 		ft_putendl_fd(": numeric argument required", 2);
-		g_global = 255;
+		g_global = 2;
 	}
 	free(arg);
 	free_shell(data);
 	clear_env(&data->lst_env);
+	rl_clear_history();
 	exit(g_global);
 }
 
@@ -66,6 +67,7 @@ void	ft_exit(char **args, t_shell *data, int size)
 		g_global = 0;
 		free_shell(data);
 		clear_env(&data->lst_env);
+		rl_clear_history();
 		exit(0);
 	}
 	if (size == 2)

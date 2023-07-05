@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fpeixoto <fpeixoto@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:49:57 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/06/19 23:15:56 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:22:33 by daolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static int	check_n(char *str)
 	int	i;
 
 	i = 2;
-	while (str[i] == 'n' && str[i])
+	while (str[i] && str[i] == 'n')
 		i++;
-	if (str[i] != 'n' && str[i])
+	if (str[i] && str[i] != 'n')
 		return (0);
 	return (1);
 }
@@ -33,8 +33,11 @@ int	echo(char **arg, int fd)
 	control = 0;
 	if (arg[i] && (ft_strncmp(arg[i], "-n", 2) == 0))
 		control = check_n(arg[i]);
-	if (control)
-		i++;
+	while (control && arg[++i])
+	{
+		if (ft_strncmp(arg[i], "-n", 2) || !check_n(arg[i]))
+			break ;
+	}
 	while (arg[i])
 	{
 		ft_putstr_fd(arg[i], fd);

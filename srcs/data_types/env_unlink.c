@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_unlink.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daolivei <daolivei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 02:54:03 by daolivei          #+#    #+#             */
-/*   Updated: 2023/06/03 12:19:25 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:19:49 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_env	*env_unlink(t_env **lst, t_env *to_remove)
 		remove_first(lst, to_remove);
 	else
 		remove_later(lst, to_remove);
-	*(*lst)->size -= 1;
 	return (to_remove);
 }
 
@@ -45,7 +44,6 @@ static void	remove_first(t_env **lst, t_env *to_remove)
 {
 	*lst = (*lst)->next;
 	to_remove->next = NULL;
-	to_remove->size = NULL;
 }
 
 static void	remove_later(t_env **lst, t_env *to_remove)
@@ -57,5 +55,4 @@ static void	remove_later(t_env **lst, t_env *to_remove)
 		previous = previous->next;
 	previous->next = to_remove->next;
 	to_remove->next = NULL;
-	to_remove->size = NULL;
 }
