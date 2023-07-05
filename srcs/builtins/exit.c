@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 19:47:56 by fpeixoto          #+#    #+#             */
-/*   Updated: 2023/07/04 19:04:03 by izsoares         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:58:57 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	exit_case2(char **args, t_shell *data)
 	free(arg);
 	free_shell(data);
 	clear_env(&data->lst_env);
+	rl_clear_history();
 	exit(g_global);
 }
 
@@ -66,6 +67,7 @@ void	ft_exit(char **args, t_shell *data, int size)
 		g_global = 0;
 		free_shell(data);
 		clear_env(&data->lst_env);
+		rl_clear_history();
 		exit(0);
 	}
 	if (size == 2)
