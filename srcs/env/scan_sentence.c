@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 16:27:14 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/04 18:03:56 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:50:34 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ static void	split_sentence(t_string **lst, t_repl *repl, t_env *env)
 		}
 		j++;
 	}
-	if ((!*lst && !tmp[j + i]) || !tmp[i])
+	if ((!*lst && !tmp[j + i]) || !tmp[i] || j == 0)
 		return ;
 	repl->new = ft_substr(&tmp[i], 0, j);
 	if (repl->new && *repl->new)
