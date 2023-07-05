@@ -6,7 +6,7 @@
 /*   By: izsoares <izsoares@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:25:51 by daolivei          #+#    #+#             */
-/*   Updated: 2023/07/04 18:37:50 by daolivei         ###   ########.fr       */
+/*   Updated: 2023/07/04 23:05:27 by izsoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,10 @@ void	launch_prog(t_shell *data)
 static void	trim_line(t_shell *data)
 {
 	char		*tmp;
-	t_quotes	q;
 
 	tmp = data->line;
 	if (!tmp)
 		return ;
-	while (*tmp)
-	{
-		q = which_quotes(*tmp);
-		if (q && which_quotes(*(tmp + 1)) == q)
-		{
-			*tmp = ' ';
-			*(tmp + 1) = ' ';
-		}
-		tmp++;
-	}
-	tmp = data->line;
 	data->line = ft_strtrim(tmp, " ");
 	if (data->line && !*data->line)
 	{
